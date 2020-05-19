@@ -5,6 +5,9 @@ Formerly hosted at the IAC in Manchester, UK, we have published this previously 
 
 AVS/Express Visualization, Developer, Multipipe, or Parallel Edition
 
+## Community Module API
+https://github.com/avs/express-community/blob/master/xp_comm_proj/index.html
+
 ## Installation
 
 1. Sync this repository to your local machine.
