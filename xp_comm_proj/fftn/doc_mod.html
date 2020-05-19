@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>FFTn_raw</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V4.0 alpha) [Netscape]">
+   <META NAME="Author" CONTENT="Chris Pudney">
+</HEAD>
+<BODY BGCOLOR="#92BFBF">
+
+<H1>FFTn_raw</H1>
+
+<H3>Synopsis</H3>
+
+<BLOCKQUOTE>
+<P>Perform R. C. Singleton's split-radix, n-dimensional, fast Fourier transform
+on the data in a uniform field.</P>
+
+<HR>
+
+<PRE>  module FFTn_raw &lt;c_src_files=&quot;cp_utils/avs_err.c
+    cp_utils/data_field.c&quot;,
+    hdr_dirs=&quot;cp_utils fftn/fftn&quot;,
+    src_file=&quot;fftn/FFTn_vxp.c&quot;&gt;
+    {
+      Mesh_Unif+Node_Data &amp;in_field&lt;export=2,NEportLevels={2,0}&gt;;
+      Mesh_Unif+Node_Data out_field&lt;export=2,NEportLevels={0,2}&gt;;
+      FFTn_params &amp;FFTn_params;
+      boolean direction =&gt; FFTn_params.direction;
+      int rescale =&gt; FFTn_params.rescale;
+      omethod+notify_inst+req FFTupdate
+        (direction+read+notify+req,
+         in_field+read+notify+req,
+         rescale+read+notify+req,
+         out_field+write ) = &quot;FFTn_vxp&quot;;
+    };
+</PRE>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+<HR>
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+
+<BLOCKQUOTE>
+<P>FFTn_raw performs R. C. Singleton's (Stanford Research Institute, Sept.
+1968) split-radix, n-dimensional, fast Fourier transform on the data in
+a uniform field. The module works on Node_Data of any type or dimension.
+The dimensions do not have to be powers of two. The output field is a real
+(float), complex (vector length = 2) uniform field with the same dimensions
+as the input field.</P>
+</BLOCKQUOTE>
+
+<H3>Inputs</H3>
+
+<BLOCKQUOTE>
+<P><B><I>&amp;in_field</I></B></P>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+<P>A reference to a uniform field with Node_Data of any type.</P>
+
+<P><B><I>&amp;FFTn_params</I></B></P>
+
+<P>A reference to the parameter group that contains real instances of the
+direction and rescale values.</P>
+
+<P><B><I>direction</I></B></P>
+
+<P>A reference to the direction value of type boolean, via the parameter
+group that is referenced by the &amp;FFTn_params input.</P>
+
+<P><B><I>rescale</I></B></P>
+
+<P>A reference to the rescale value of type integer, via the parameter
+group that is referenced by the &amp;FFTn_params input.</P>
+</BLOCKQUOTE>
+
+<H3>Outputs</H3>
+
+<BLOCKQUOTE>
+<P><B><I>out_field</I></B></P>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+<P>A real (float), complex (vector length = 2) uniform field with the same
+dimensions as the input field.</P>
+</BLOCKQUOTE>
+
+<H3>Utility Macros</H3>
+
+<BLOCKQUOTE>
+<P>The low-level FFTn_raw module is used in the Functional Macro FFT and
+the User Macro FFTn. Additionally, these macros also use the parameter group
+FFTn_params, as does the UI Macro FFTn_UI.</P>
+</BLOCKQUOTE>
+
+<H3>Example</H3>
+
+<BLOCKQUOTE>
+<P>An example application FFTnEg is provided that uses the AVS/Express
+sample data file hydrogen.fld and performs a forward and inverse FFT and
+displays the result.</P>
+</BLOCKQUOTE>
+
+<H3>Files</H3>
+
+<BLOCKQUOTE>
+<P><I>xp_comm_proj/fftn/FFTn_mods.v</I> contains the FFTn_params group and
+the FFTn_raw module V definitions.</P>
+
+<P><I>xp_comm_proj/cp_utils</I> contains source code for functions called by
+ntats_raw.</P>
+</BLOCKQUOTE>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project relies on the successful installation of
+the following components. Without them it will not function
+correctly.
+</blockquote>
+
+<ul>
+<li>John Beale's <a href="http://www.best.com/~beale/gforge/fft-n.tar.gz">fft-n</a> library</li>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#cp_utils">cp_utils</a> project</li>
+</ul>
+
+
+<H3>Other Notes</H3>
+
+<BLOCKQUOTE>
+<P>By default the low-level library FFTnMods, which needs to be compiled,
+has the process set to express.</P>
+
+<P>This module uses functions in the cp_utils library (available from IAC).
+It must be installed before compiling this project.</P>
+
+<P>Also, before compiling this project you must build John Beale's fft-n
+library (available from <A HREF="http://www.best.com/~beale/gforge/fft-n.tar.gz">http://www.best.com/~beale/gforge/fft-n.tar.gz</A>).
+Some earlier versions of fft-n require the following patch:</P>
+<PRE>fftn.c:
+330c330
+&lt;       for (i = 0; i &lt; nTotal; i += iSign)
+---
+&gt;       for (i = 0; i &lt; iSign * nTotal; i += iSign)</PRE>
+
+<P>Once fft-n is built it will create an object file called fftn.o. This
+object file is needed to build the FFTn project. Create a link called fftn
+in the project directory xp_comm_proj/fftn/. The link should point to the fft-n
+directory containing the fftn.o object file. Once the link is created you
+can compile the FFTn project using the VCP command given above.</P>
+</BLOCKQUOTE>
+
+<H3>Author</H3>
+
+<BLOCKQUOTE>
+<P><A HREF="http://www.cs.uwa.edu.au/~chrisp">Chris Pudney</A></P>
+
+<P>Biomedical Confocal Microscopy Research Centre<BR>
+<A HREF="http://www.pharm.uwa.edu.au">Department of Pharmacology<BR>
+</A><A HREF="http://www.uwa.edu.au">The University of Western Australia<BR>
+</A>Nedlands, W.A. 6907<BR>
+AUSTRALIA</P>
+
+<P>E-mail: <A HREF="mailto:cpudney@alphapharm.pharm.uwa.edu.au">cpudney@alphapharm.pharm.uwa.edu.au<BR>
+</A>Phone, Fax: (+61 8) 9346 4571, (+618) 9346 3469</P>
+</BLOCKQUOTE>
+
+<H3>See Also</H3>
+
+<BLOCKQUOTE>
+<P>FFTn_params, FFT, FFTn, FFTn_UI, and FFTnEg</P>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+<P>FFTw, FFTw_raw</P>
+
+<P>IPfft, IPifft, IPfft_display</P>
+</BLOCKQUOTE>
+
+</BODY>
+</HTML>

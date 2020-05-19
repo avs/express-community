@@ -1,0 +1,112 @@
+# Microsoft Developer Studio Generated Dependency File, included by dicomdir.mak
+
+.\DicomDirDataSetRead.c : \
+	"..\PapyEalloc3.h"\
+	"..\PapyEnumGroups3.h"\
+	"..\PapyEnumImageGroups3.h"\
+	"..\PapyEnumImagesModules3.h"\
+	"..\PapyEnumModules3.h"\
+	"..\PapyError3.h"\
+	"..\PapyFileSystem3.h"\
+	"..\PapyGlobalVar3.h"\
+	"..\PapyPrivFunctionDef3.h"\
+	"..\PapyPubFunctionDef3.h"\
+	"..\PAPYRUS3.h"\
+	"..\PapyTypeDef3.h"\
+	"..\PapyWild3.h"\
+	".\DicomDir.h"\
+	".\DicomDirEnumRecords.h"\
+	".\DicomdirGlobalVar3.h"\
+	".\DicomdirPrivFunctionDef3.h"\
+	".\DicomdirPubFunctionDef3.h"\
+	".\DicomdirTypeDef3.h"\
+	
+
+.\DicomDirDataSetWrite.c : \
+	"..\PapyEalloc3.h"\
+	"..\PapyEnumGroups3.h"\
+	"..\PapyEnumImageGroups3.h"\
+	"..\PapyEnumImagesModules3.h"\
+	"..\PapyEnumModules3.h"\
+	"..\PapyError3.h"\
+	"..\PapyFileSystem3.h"\
+	"..\PapyGlobalVar3.h"\
+	"..\PapyPrivFunctionDef3.h"\
+	"..\PapyPubFunctionDef3.h"\
+	"..\PAPYRUS3.h"\
+	"..\PapyTypeDef3.h"\
+	"..\PapyWild3.h"\
+	".\DicomDir.h"\
+	".\DicomDirEnumRecords.h"\
+	".\DicomdirGlobalVar3.h"\
+	".\DicomdirPrivFunctionDef3.h"\
+	".\DicomdirPubFunctionDef3.h"\
+	".\DicomdirTypeDef3.h"\
+	
+
+.\DicomDirFiles.c : \
+	"..\PapyEalloc3.h"\
+	"..\PapyEnumGroups3.h"\
+	"..\PapyEnumImageGroups3.h"\
+	"..\PapyEnumImagesModules3.h"\
+	"..\PapyEnumModules3.h"\
+	"..\PapyError3.h"\
+	"..\PapyFileSystem3.h"\
+	"..\PapyGlobalVar3.h"\
+	"..\PapyPrivFunctionDef3.h"\
+	"..\PapyPubFunctionDef3.h"\
+	"..\PAPYRUS3.h"\
+	"..\PapyTypeDef3.h"\
+	"..\PapyWild3.h"\
+	".\DicomDir.h"\
+	".\DicomDirEnumRecords.h"\
+	".\DicomdirGlobalVar3.h"\
+	".\DicomdirPrivFunctionDef3.h"\
+	".\DicomdirPubFunctionDef3.h"\
+	".\DicomdirTypeDef3.h"\
+	
+
+.\DicomDirInit.c : \
+	"..\PapyEalloc3.h"\
+	"..\PapyEnumGroups3.h"\
+	"..\PapyEnumImageGroups3.h"\
+	"..\PapyEnumImagesModules3.h"\
+	"..\PapyEnumModules3.h"\
+	"..\PapyError3.h"\
+	"..\PapyFileSystem3.h"\
+	"..\PapyGlobalVar3.h"\
+	"..\PapyPrivFunctionDef3.h"\
+	"..\PapyPubFunctionDef3.h"\
+	"..\PAPYRUS3.h"\
+	"..\PapyTypeDef3.h"\
+	"..\PapyWild3.h"\
+	".\DicomDir.h"\
+	".\DicomDirEnumRecords.h"\
+	".\DicomdirGlobalVar3.h"\
+	".\DicomDirInitRecords.h"\
+	".\DicomdirPrivFunctionDef3.h"\
+	".\DicomdirPubFunctionDef3.h"\
+	".\DicomdirTypeDef3.h"\
+	
+
+.\DicomDirInitRecords.c : \
+	"..\PapyEalloc3.h"\
+	"..\PapyEnumGroups3.h"\
+	"..\PapyEnumImageGroups3.h"\
+	"..\PapyEnumImagesModules3.h"\
+	"..\PapyEnumModules3.h"\
+	"..\PapyError3.h"\
+	"..\PapyFileSystem3.h"\
+	"..\PapyGlobalVar3.h"\
+	"..\PapyPrivFunctionDef3.h"\
+	"..\PapyPubFunctionDef3.h"\
+	"..\PAPYRUS3.h"\
+	"..\PapyTypeDef3.h"\
+	"..\PapyWild3.h"\
+	".\DicomDir.h"\
+	".\DicomDirEnumRecords.h"\
+	".\DicomdirGlobalVar3.h"\
+	".\DicomdirPrivFunctionDef3.h"\
+	".\DicomdirPubFunctionDef3.h"\
+	".\DicomdirTypeDef3.h"\
+	

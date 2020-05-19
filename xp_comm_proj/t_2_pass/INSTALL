@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/t_2_pass/t_2_pass.v" Transparency2Pass;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Transparency2Pass.Transparency2PassMacs.Transparency1Pass Transparency1Pass;
+  XP_COMM_PROJ.Transparency2Pass.Transparency2PassMacs.Transparency2Pass Transparency2Pass;
+  XP_COMM_PROJ.Transparency2Pass.Transparency2PassMacs.ReverseTransparency2Pass ReverseTransparency2Pass;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Transparency2Pass.Transparency2PassApps.TransparencyEg TransparencyEg;
+  XP_COMM_PROJ.Transparency2Pass.Transparency2PassApps.TransparencyOrderingEg TransparencyOrderingEg;
+

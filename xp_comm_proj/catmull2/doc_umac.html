@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>catmull_spline &amp; catmull_spline_fld</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>catmull_spline &amp; catmull_spline_fld</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+<p>catmull_spline generates a Catmull-Rom spline from a series of 2D or 3D coordinates.</p>
+
+<p>catmull_spline_fld generates a Catmull-Rom spline from a 2D or 3D input field.</p>
+
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+catmull_spline
+
+<table summary="Input Ports for catmull_spline macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">float array</td>
+<td width="425">coordinates of nodes to be used to generate the spline</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+catmull_spline_fld
+
+<table summary="Input Ports for catmull_spline_fld macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="75">mesh+data</td>
+<td width="425">input_field to be used to generate the spline</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block CatmullParams, which are accessed by the modules CatmullSplineCore and CatmullSplineFldCore, and the UI Macros CatmullUI and CatmullFldUI.
+</p>
+
+<table summary="Parameters used by catmull_spline and catmull_spline_fld macros">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>line_type</i></td>
+<td width="75">enum</td>
+<td width="300">specifies if the spline is closed or open.</td>
+<td width="125">Radio Buttons</td>
+</tr>
+
+<tr>
+<td width="100"><i>spline_type</i></td>
+<td width="75">enum</td>
+<td width="300">specifies which spline to use.</td>
+<td width="125">none</td>
+</tr>
+
+<tr>
+<td width="100"><i>points_added</i></td>
+<td width="75">int</td>
+<td width="300">numbers of points added between two original points.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>smoothness</i></td>
+<td width="75">float</td>
+<td width="300">'Smoothness' of generated spline.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports for catmull_spline and catmull_spline_fld macros">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_data</i></td>
+<td width="75">float array</td>
+<td width="425">coordinates of spline nodes</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="75">mesh</td>
+<td width="425">spline represented as a polyline mesh</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Default Renderable Object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+catmull_spline is a user module that takes a series of either 2D or 3D floating point coordinates and generates a spline that passes through all the points with C1 (continuous first parametric derivative) and G1 (slopes equal at joints) continuity. The spline is then output as a similar series of coordinates, a polyline mesh and a directly renderable DataObject. Parameters are provided so that the number of points output and the smoothness of the spline can be altered.  A user interface is provided so that these parameters can be easily altered.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&amp;in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to an array of floating point coordinates which are to be used as the nodes that the spline curve connects. Coordinates can be either 2 or 3 dimensional and should be represented by arrays of the form <tt>[n][2]</tt> and <tt>[n][3]</tt> respectively, where <tt>n</tt> is the number of nodes. A spline curve is then generated that connects the nodes together in the order given.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>line_type</b></i>
+</blockquote>
+
+<blockquote>
+A member of the CatmullParams parameter block group, this enumeration is used to specify whether the spline curve should be a complete closed curve or whether the curve should be left open. The enumeration is of the form shown below:
+</blockquote>
+
+<pre>
+   enum line_type { choices => {"closed","open"}; } = "closed";
+</pre>
+
+<blockquote>
+<i><b>spline_type</b></i>
+</blockquote>
+
+<blockquote>
+A member of the CatmullParams parameter block group, this enumeration is used to specify which type of spline algorithm should be used to generate the spline curve. Currently the module only supports the use of the Catmull-Rom spline.  However in future the module maybe enhanced to support other splines. The enumeration is of the form shown below:
+</blockquote>
+
+<pre>
+   enum spline_type { choices => {"CatmullRom"}; };
+</pre>
+
+
+<blockquote>
+<i><b>points_added</b></i>
+</blockquote>
+
+<blockquote>
+A member of the CatmullParams parameter block group, this int value is used to specify the number of points that should be added between each pair of original points to create the spline curve.  Increasing this value will result in a more accurate representation of the generated spline.
+</blockquote>
+
+<blockquote>
+<i><b>smoothness</b></i>
+</blockquote>
+
+<blockquote>
+A member of the CatmullParams parameter block group, this float value is used to specify the 'smoothness' of the generated spline curve.  In this case the smoothness of a spline curve is defined as now closely it matches the original data.  Normally this parameter should have a value between 0 and 1.  As the smoothness approaches 0 the generated spline matches the original line more closely.  If smoothness is given a value outside of the range 0 to 1, the resulting line will tend to be baroque.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_data</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the catmull_spline macro. This output contains the generated spline represented as a floating point array of coordinates. The resultant array is of the same form as the input array. Therefore for a 3D spline the resultant array would have the following dimensions <tt>[out_size][3]</tt> where <tt>out_size</tt> is the number of coordinate points generated by the spline calculation.
+</blockquote>
+
+<blockquote>
+<i><b>out_mesh</b></i>
+</blockquote>
+
+<blockquote>
+The spline curve represented as a polyline mesh.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the catmull macro. This contains a DataObject object that can be rendered by the standard data viewers. The Data Object is generated within the same module as the polyline mesh output.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level CatmullSplineCore module is used in this Functional Macro CatmullSplineFunc.  This macro is used by the catmull_spline user macro.  The user macro also uses the User Interface macro CatmullUI.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Four example applications are provided. The CatmullSpline2DEg application takes an array of 8 2D coordinates and smoothes the polyline between them by calculating a Catmull-Rom spline curve. Similarly the CatmullSpline3DEg application takes 8 3D coordinates the smoothes the line between them. CatmullSplineFldEg takes a 3D field (Mesh+Node_Data) and smoothes the line between the field coordinates interpolating the node data values.</p>
+
+<p>The PathSmoothingEg application reads the hydrogen data-set, generates a surface and then allows the user to setup a 3D path through that data-set.  The camera can then by moved along the path, hence allowing the user to 'fly' through the data.  To improve the sense of movement the camera path is smoothed by the CatmullSplineFunc macro.</p>
+
+<p>The PathSmoothingEg application should be used by first resetting, normalizing and centering the Top object.  After doing this the user should see a surface with a path marked along it.  Pressing the <tt>'Play Frames'</tt> button will start the camera moving along the path.  It will stop after one circuit.  To return to a overview the camera and object views both have to be reset.  The user interface allows the smoothness, number of points added and visibility of both the path and the key points to be altered.  The application also allows the a new path to created.  First the user should press the <tt>'Reset All'</tt> button to clear all existing key points.  Next adding control points should be enabled by setting the <tt>Collect Points</tt> toggle.  Once this is done control points can be added by CTRL-clicking on the surface.  The CatmullSplineFunc macro will add extra points in between control points to smooth the new path.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/catmull/ctmlmods.v</i> contains the CatmullParams group and the CatmullSplineCore module V definitions.</p>
+
+<p><i>xp_comm_proj/catmull/ctmlmacs.v</i> contains the V definitions of the catmull_spline User Macro, the CatmullSplineFunc Functional Macro and the CatmullUI UI Macro.</p>
+
+<p><i>xp_comm_proj/catmull/ctmlapps.v</i> contains the V definitions of the example applications CatmullSpline2DEg, CatmullSpline3DEg and PathSmoothingEg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The CatmullMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level CatmullSplineCore module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Mario Valle
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+Paul G. Lever
+Dr Federico Gamba
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CatmullParams, CatmullUI, CatmullSplineFunc and <a href="doc_mod.html" name="CatmullSplineCore &amp; CatmullSplineFldCore">CatmullSplineCore &amp; CatmullSplineFldCore</a>.
+</blockquote>
+
+</body>
+</html>
+

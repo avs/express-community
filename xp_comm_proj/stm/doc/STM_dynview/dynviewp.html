@@ -1,0 +1,306 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:10pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META  HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		Visualization of Thermodynamic Properties of Gases
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="../bg1x.jpg">
+<HR SIZE=10><HR>
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+	Visualization of Thermodynamic Properties of Gases</SPAN>
+</H1>
+<HR>
+<TABLE ALIGN="center" BORDER=0>
+<TR>
+	<TD>Mark Reed</TD>
+	<TD>&nbsp;&nbsp;</TD>
+	<TD ALIGN="left">and &nbsp;&nbsp;</TD>
+	<TD>&nbsp;Ken Flurchick <SUP>+</SUP></TD>
+</TR><TR>
+  	<TD>Dept. of Physics and Astronomy,</TD>
+	<TD>&nbsp;&nbsp;</TD>
+	<TD>&nbsp;&nbsp;</TD>
+	<TD>
+		<SUP>+</SUP>MCNC - North Carolina Supercomputing Center
+	</TD>
+</TR><TR>
+  	<TD>
+		University of North Carolina at Chapel Hill,
+	</TD>
+	<TD>&nbsp;&nbsp;</TD>
+	<TD>&nbsp;&nbsp;</TD>
+	<TD>&nbsp; 3021 Cornwallis Road,</TD>
+</TR><TR>
+  	<TD>CB# 3255 Phillips Hall</TD>
+</TR><TR>
+  	<TD>Chapel Hill, NC 27599</TD>
+	<TD>&nbsp;&nbsp;</TD>
+	<TD>&nbsp;&nbsp;</TD>
+	<TD>&nbsp; Research Triangle Park, NC 27709</TD>
+</TR>
+</TABLE>
+<HR>
+<P ALIGN="left">
+<B>User Track - General Science</B>
+</P>
+<H1 CLASS="abstract">Abstract:</H1>
+<P CLASS="abstract">
+Scientific visualization is a method to display the results of computer 
+simulations and/or experimental measurements.  In this paper, we present 
+the visualization of results of a simulation of transport properties of 
+a moderately dense gas.  
+</P>
+<P>
+In this work we display the results of the simulation showing the positions 
+of the particles in the simulation, including the effects of periodic boundary 
+conditions using the <I>dynamics_view</I> module.  The distribution of energy, 
+force and density, through the system as the system evolves is also displayed 
+using a color map.  An input menu allows for the selection of parameters to 
+be displayed such as velocities, forces and potential energy.
+</P>
+<P>
+Keywords: Scientific Visualization, Thermodynamics, Statistical Mechanics, AVS
+</P>
+<H1 ALIGN="center">Introduction</H1>
+<P>
+The method of molecular dynamics (MD) has been applied to a wide variety of 
+problems and is well established as a very useful tool for studying the 
+microscopic and macroscopic properties of atoms and molecules. While this 
+extremely useful technique has been extensively applied in the investigation 
+of liquid properties[1], only infrequently has it been used to investigate 
+properties in the gas phase and then primarily at elevated densities[2,3,4].  
+The decrease in collision frequency with density is the primary reason for 
+the dearth of simulations at low densities, as it gives rise to two (related) 
+problems.  The evolution of particle dynamics is driven by collisional 
+interactions which implies that macroscopic quantities of interest will 
+evolve more slowly at reduced densities where collisions are less frequent, 
+and, the reduced collision frequency  implies that particle correlations 
+will persist for longer time periods thereby decreasing the sampling 
+efficiency of phase space.
+</P>
+<H1 ALIGN="center">Gas Phase Dynamics</H1>
+<P>
+Computing the evolution of particles in a potential field is a common 
+technique covering atomic and molecular systems in the gas or liquid phases.   
+Numerical determination of the atomic positions and velocities for use in 
+determining the statistical thermodynamics and related dynamic properties 
+of an atomic or molecular assembly is accomplished by solving;
+</P>
+<DIV ALIGN="center">
+	<IMG ALT="Newton's Equation of Motion" SRC="dyn_eqn1.gif">
+</DIV>
+where
+<UL TYPE="circle">
+	<LI><IMG WIDTH=31 HEIGHT=49 ALIGN=MIDDLE ALT="Force on ij" SRC="img5.gif">  
+		is the force on particle <I>i</I> due to all other particles <I>j</I>.
+	<LI><IMG WIDTH=16 HEIGHT=37 ALIGN=MIDDLE ALT="position" SRC="img6.gif">  
+		is the position vector of particle <I>i</I>
+	<LI><I>m<SUB>i</SUB></I> is the mass of particle <I>i</I>
+</UL>
+<P>
+This produces configurations in phase space, as a function of time.  
+Thermodynamic properties such as the virial, or the transport coefficients 
+can be constructed from the position and velocity information for each 
+particle.   For most systems, the forces acting on the particles can be 
+determined from the gradient of a scalar potential function.  For the 
+simulations done in this work, the interaction potential is the Lennard-Jones 
+potential.
+</P>
+<DIV ALIGN="center">
+	<IMG ALT="Lennard-Jones Potential" SRC="dyn_eqn2.gif">
+</DIV>
+where  
+<UL TYPE="circle">
+	<LI><IMG WIDTH=10 HEIGHT=10 ALIGN=BOTTOM ALT="sigma" SRC="img9.gif">  
+		is the first zero of the potential and
+	<LI><IMG WIDTH=6 HEIGHT=10 ALIGN=BOTTOM ALT="epsilon" SRC="img10.gif">  
+	is the well depth. 
+</UL>
+<P>
+These two parameters allow one to define reduced units (denoted by 
+<SUP>*</SUP> ) in terms of  
+<IMG WIDTH=10 HEIGHT=10 ALIGN=BOTTOM ALT="sigma" SRC="img9.gif"> 
+and 
+<IMG WIDTH=6 HEIGHT=10 ALIGN=BOTTOM ALT="epsilon" SRC="img10.gif">, 
+see [1] for details.
+</P>
+<H1 ALIGN="center">Visualization Overview</H1>
+<P>
+The focus of this research has been on gas dynamics and transport properties.  
+The approach has been to use a computer simulation to describe the evolution 
+of the particles through phase space. This is but a specific case of a more 
+general problem, that of visualizing particle simulations. The <B>AVS</B> 
+module developed is a general purpose dynamics viewer called 
+<I>dynamics_view</I>, which is suitable for visualizing a wide variety of 
+particle simulations. The module takes as input, the number of particles in 
+the simulation and their positions and velocities. The module outputs both a 
+field and a geometry, thus the module can display  both space filling and 
+localized properties.   In addition, numerous widgits provide a great deal 
+of flexibility in visualizing the system.  The module is designed to display 
+identical particles interacting via a Lennard-Jones potential but the modular 
+design should allow easy adaptation of other force fields or varying particle 
+sizes. This is an exploratory visualization project. By focusing on the 
+microscopic building blocks, particle positions and velocities, it is hoped 
+that more complex, multiparticle properties can be built up and visualized.
+</P.
+<H2>Functionality of <I>dynamics_view</I> Module</H2>
+<P>
+There are four basic tasks performed by this module: computation of a grid 
+spanning the unit cell, computation of field values on this grid, display of 
+the particle geometry, and display of particle velocity streamers.
+</P>
+<P>
+The grid is an isotropic 3-dimensional rectilinear field with uniformly spaced 
+data points. The number of grid points is specified by the user through a type 
+in widget with a fixed cell length of 1. Currently the grid completely spans 
+the unit cell, this is accomplished by adding an additional ``dummy'' grid 
+point and invoking periodic boundary conditions to set it's value. The 
+quantity to be computed and displayed at these mesh points is selected by a 
+widget.  The current choices are the potential energy, force magnitude and 
+the number density.  Since many simulations employ a cutoff for the potential, 
+the module provides a widget to input this value (in reduced units). The force 
+calculated is the magnitude of the force experienced by a LJ test particle 
+situated on the grid point, taking into account the cutoff. The particle 
+density is computed by binning the particles into bins centered on the grid 
+points.
+</P>
+<P>
+Spheres, with radius specified through a type in widget, are used to display 
+the particle positions. In addition,  the spheres are colored by velocity from 
+blue, the coldest (slowest), to red, the hottest (fastest).  The minimum and 
+maximum speeds used to color code the particles are computed and displayed on 
+a widget thus allowing the user to change the color range as desired. Finally 
+a streamer, displayed by a series of disjoint lines, indicating previous 
+positions is attached to each particle. This line is also color coded by 
+velocity, which can vary over the length of the tail. The tail length, in 
+time steps,  is once again under user control through a type in widget.
+</P>
+<H2 ALIGN="center">Discussion of the Figures</H2>
+<P>
+Three views of the potential energy field in the unit cube are displayed in 
+Fig1. For the upper cubes, <I>orthogonal slicer</I> modules are used to make 
+two slices through the field, the colors range from blue for the most negative 
+potential regions to red for the regions of highest potential, the zero of 
+the potential appears yellow-green. The cell in the upper left hand corner 
+shows just the field values, while the upper right hand picture shows the 
+particles superimposed on the field. Note that the <I>volume bounds</I> 
+module, with the bottom grid turned on has been included as an aide to the 
+eye.  The bottom cell in fig1 uses the <I>isosurface2</I>[5] module to show 
+the zero equipotential surface, this surface was then color coded with the 
+magnitude of the force, from blue (lowest) to red (highest).
+</P>
+<P>
+Fig2 shows the velocity tails or streamers, attached to the spheres for data 
+from a simulation of 32 particles with  
+<IMG HEIGHT=28 ALIGN=MIDDLE ALT="rho-star" SRC="img12.gif"> <I>= 0.005 </I> 
+and <I> 0.1 </I> at  <I>T<SUP>*</SUP> = 0.8</I>   The module <I>tube</I> has 
+been used to make the tails more visible. This visualization displays a 
+velocity field and a convenient way to trace trajectories. Fig2 is one 
+snapshot, however, in practice a series of time slices would be read in and
+driven (e.g. with animate integer) to give a dynamic view of particle 
+evolution. Note, as expected, the lower density shows particle tails that 
+are, for the most part,  straight lines and a solid color (indicating no 
+change in velocity), although in the foreground you can see a three body 
+collision has just taken place. The streamers give both the history of the 
+trajectory and the history of the velocity changes. The higher density cell 
+on the right shows streamers that are qualitatively different, the 
+trajectories are more erratic and show much more color variation. Note that 
+the particles displayed in this cell are drawn with a radius of  0.25
+<IMG WIDTH=10 HEIGHT=10 ALIGN=BOTTOM ALT="sigma" SRC="img9.gif">
+as opposed  to those in the lower density which are represented by spheres 
+of radius of 0.5
+<IMG WIDTH=10 HEIGHT=10 ALIGN=BOTTOM ALT="sigma" SRC="img9.gif">
+</P>
+<P>
+The final figure, Fig3, shows the variation in the potential energy field as 
+one goes from a lower,  
+<IMG HEIGHT=28 ALIGN=MIDDLE ALT="rho-star" SRC="img12.gif"> <I>= 0.01</I>
+to a higher density,  
+<IMG HEIGHT=28 ALIGN=MIDDLE ALT="rho-star" SRC="img12.gif"><I> = 0.10</I>,
+gas. The same color map is usd for both pictures but the figure on the left 
+is drawn with a sphere radius of 
+0.5<IMG WIDTH=10 HEIGHT=10 ALIGN=BOTTOM ALT="sigma" SRC="img9.gif"> 
+while the spheres on the right have been reduced to 
+0.35<IMG WIDTH=10 HEIGHT=10 ALIGN=BOTTOM ALT="sigma" SRC="img9.gif"> 
+to make the grid more visible.
+</P>
+<P>
+Fig1 This figure shows three views of the unit cube.
+</P>
+<HR>
+<DIV ALIGN="center">
+	<IMG ALT="Figure 1" SRC="dynview1.jpg">
+</DIV>
+<HR>
+<P>
+This figure shows three views of the unit cube with the potential energy field 
+displayed. The cell in the upper left hand corner shows just the  field values, 
+while the upper right hand picture includes the particles superimposed on the 
+field.  The final cell shows the zero equipotential surface color coded by the 
+magnitude of the force.
+</P>
+<HR>
+<DIV ALIGN="center">
+	<IMG ALT="Figure 2" SRC="dynview2.jpg">
+</DIV>
+<HR>
+<P>
+Fig2 This visualization gives you a velocity field and an easy way to trace 
+trajectories using velocity tails or streamers, attached to the spheres.
+</P>
+<HR>
+<DIV ALIGN="center">
+	<IMG ALT="Figure 3" SRC="dynview3.jpg">
+</DIV>
+<HR>
+<P>
+Fig3
+This figure shows the variation in the potential energy field as one goes from 
+a lower,  
+<IMG HEIGHT=28 ALIGN=MIDDLE ALT="rho-star" SRC="img12.gif"> <I>= 0.01</I>
+to a higher density,
+<IMG HEIGHT=28 ALIGN=MIDDLE ALT="rho-star" SRC="img12.gif"><I> = 0.10</I>,
+gas.
+</P>
+<HR>
+<HR>
+<H1 ALIGN="center">References</H1>
+<OL>
+	<LI>M.P. Allen and D.J. Tildesley, <I><U>Computer Simulation of Liquids</U></I>  
+		(Clarenden Press, Oxford, 1987)
+	<LI>J.P.J. Michels and N.J. Trappeniers,  Chem. Phys. Lett.;<B>33</B>,
+		195(1975)
+	<LI>J.P.J. Michels and N.J. Trappeniers,  Physica;<B>90A</B>,179-95(1978)
+	<LI>G.E. Garland and J.W. Dufty,  Int. J. Quantum Chem. Symp.;<B>16</B>,
+		91-100(1982)
+	<LI>Modified isosurface module, courtesy of AVS, Inc.
+</OL>
+</BODY>
+</HTML>

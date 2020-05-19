@@ -1,0 +1,247 @@
+<html>
+<head>
+<title>Excavate_Brick</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Excavate_Brick</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Excavate a quadrant in a 3D volume by setting all voxels to 0.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Input_Field</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">input field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>X</i></td>
+<td width="75">int</td>
+<td width="300">x-coordinate of the slice plane</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Y</i></td>
+<td width="75">int</td>
+<td width="300">y-coordinate of the slice plane</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Z</i></td>
+<td width="75">int</td>
+<td width="300">z-coordinate of the slice plane</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>belowX</i></td>
+<td width="75">boolean</td>
+<td width="300">set the slice plane to positive or negative value along X axis.
+</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>belowY</i></td>
+<td width="75">boolean</td>
+<td width="300">set the slice plane to positive or negative value along Y axis.
+</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>belowZ</i></td>
+<td width="75">boolean</td>
+<td width="300">set the slice plane to positive or negative value along Z axis.
+</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field of 3D volume.</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+Excavate_Brick is a technique for visualizing 3D field data. This module removes a retangular subvolume from a 3D field. The subvolume is defined by an X,Y and slice plane.
+The internal structure of a 3D field can be revealed using this module.
+</blockquote>
+
+<blockquote>
+The macro includes a user interface.  The X,Y,Z and belowX, belowY, belowZ can be controlled from the user interface panel to define the position of the subvolume. 
+</blockquote>
+
+<blockquote>
+Note: This module only works for 3D field data.
+</blockquote>
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>Input_field</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the 3D input field.
+</blockquote>
+
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>X;Y;Z</b></i>
+</blockquote>
+
+<blockquote>
+the X, Y and Z position of the slice plane to define the location of 3D subvolume.
+</blockquote>
+
+<blockquote>
+<i><b>belowX; belowY; belowZ</b></i>
+</blockquote>
+
+<blockquote>
+set the slice plane to positive or negative value along X,Y and Z axis.
+</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field of the Excavate_Brick macro is a new 3D field data with parts of the data set to zero.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro ExcavateBrick makes use of the Functional Macro ExcavateBrickFunc and the UI Macro ExcavateBrickUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ExcavateBrickEg is provided, which uses the AVS/Express sample data file hydrogen.fld, to display a 3D volume.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/exbrk/exb_mods.v</i> contains the V definitions of the ExcavateBrickParams parameter block and the ExcavateBrick module.</p>
+
+<p><i>xp_comm_proj/exbrk/exb_macs.v</i> contains the V definitions of the ExcavateBrickFunc Functional Macro, the ExcavateBrickUI User Interface Macro, and the Excavate_Brick User Macro. </p>
+
+<p><i>xp_comm_proj/exbrk/exb_apps.v</i> contains the V definition of the example application ExcavateBrickEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Dave Goughnour
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:may@man.ac.uk">MA YingLiang</a>
+Manchester Visualization Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+excavate_brick3D
+</blockquote>
+
+</body>
+</html>

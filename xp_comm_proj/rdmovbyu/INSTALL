@@ -1,0 +1,25 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/rdmovbyu/rdmovbyu.v" ReadMovieBYU;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadMovieBYU.ReadMovieBYUMacs.read_movie_byu read_movie_byu;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadMovieBYU.ReadMovieBYUMacs.read_movie_offset read_movie_offset;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadMovieBYU.ReadMovieBYUMacs.read_movie_apply_offset read_movie_apply_offset;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadMovieBYU.ReadMovieBYUMacs.read_movie_animate read_movie_animate;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ReadMovieBYU.ReadMovieBYUMacs.ReadMovieBYUEg ReadMovieBYUEg;
+

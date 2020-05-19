@@ -1,0 +1,14 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+    "../xp_comm_proj/ext_objs/ext_objs.v" ExtractObjects;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+    XP_COMM_PROJ.ExtractObjects.ExtractObjectsMacs.extract_objects extract_objects;
+    XP_COMM_PROJ.ExtractObjects.ExtractObjectsMacs.extract_single_object extract_single_object;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+    XP_COMM_PROJ.ExtractObjects.ExtractObjectsApps.ExtractObjectsEg ExtractObjectsEg;
+

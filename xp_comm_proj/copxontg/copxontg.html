@@ -1,0 +1,165 @@
+<html>
+<head>
+<title>CopyXXXOnTrigger</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CopyXXXOnTrigger</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+These modules are an extension to the GMOD.copy_on_change module which is used
+to copy different data types when a trigger is set.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+
+  module modCopyOnTrigger &lt;compile_subs = 0,
+                           need_objs = "GMOD.copy_on_change"&gt; {
+    prim trigger&lt;NEportLevels={2,0}&gt;;
+    prim input&lt;NEportLevels={2,0}&gt;;
+    prim output&lt;NEportLevels={0,2}&gt;;
+    boolean on_inst = 1;
+    omethod+notify_inst+req Update(
+      .trigger+req+notify,
+      .input+req+read,
+      .output+write
+    ) = "GMODcopy_on_change";
+  };
+
+  module modCopyArrayOnTrigger &lt;compile_subs = 0,
+                                need_objs = "GMOD.copy_on_change"&gt; {
+    prim trigger&lt;NEportLevels={2,0}&gt;;
+    prim input&lt;NEportLevels={2,0}&gt; [];
+    prim output&lt;NEportLevels={2,0}&gt; [];
+    boolean on_inst = 1;
+    omethod+notify_inst+req Update(
+      .trigger+req+notify,
+      .input+read,
+      .output+write
+    ) = "GMODcopy_on_change";
+  };
+
+  module modCopyGroupOnTrigger &lt;compile_subs = 0,
+                                need_objs = "GMOD.copy_on_change"&gt; {
+    prim trigger&lt;NEportLevels={2,0}&gt;;
+    group &input&lt;NEportLevels={2,0}&gt;;
+    group &output&lt;NEportLevels={2,0}&gt;;
+    boolean on_inst = 1;
+    omethod+notify_inst+req Update(
+      .trigger+req+notify,
+      .input+req+read,
+      .output+req+write
+    ) = "GMODcopy_on_change";
+  };
+
+  module modCopyGroupArrayOnTrigger &lt;compile_subs = 0,
+                                     need_objs = "GMOD.copy_on_change"&gt; {
+    prim trigger&lt;NEportLevels={2,0}&gt;;
+    group &input&lt;NEportLevels={2,0}&gt; [];
+    group &output&lt;NEportLevels={2,0}&gt; [];
+    boolean on_inst = 1;
+    omethod+notify_inst+req Update(
+      .trigger+req+notify,
+      .input+req+read,
+      .output+write
+    ) = "GMODcopy_on_change";
+  };
+
+  module modCopyOnPtrTrigger &lt;compile_subs = 0,
+                              need_objs = "GMOD.copy_on_change"&gt; {
+    group *trigger&lt;NEportLevels={2,0}&gt;;
+    prim input&lt;NEportLevels={2,0}&gt;;
+    prim output&lt;NEportLevels={0,2}&gt;;
+    boolean on_inst = 1;
+    omethod+notify_inst+req Update(
+      .trigger+req+notify,
+      .input+req+read,
+      .output+write
+    ) = "GMODcopy_on_change";
+  };
+
+
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+These modules copy the input to the output if the trigger is activated. They are
+extensions of the GMOD.copy_on_change for different data types.
+<p>
+
+Use:
+<ul>
+<li><b>modCopyOnTrigger</b> for primitive types such as integer, float, 
+	char, string
+<li><b>modCopyArrayOnTrigger</b> for arrays of primitive types such as integer, float, 
+	char, string
+<li><b>modCopyGroupOnTrigger</b> for groups (group references) (this includes
+Mesh, Mesh+NodeData)
+<li><b>modCopyGroupArrayOnTrigger</b> for arrays of groups (group references) (this includes
+Mesh, Mesh+NodeData)
+<li><b>modCopyOnPtrTrigger</b> to trigger if a more complex object changes
+</ul>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+executes the module to copy the input to the output.
+</blockquote>
+
+<blockquote>
+<i><b>input</b></i>
+</blockquote>
+
+<blockquote>
+contains the data to be copied when the trigger changes.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>output</b></i>
+</blockquote>
+
+<blockquote>
+contains a copy of the input if the trigger has been activated.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/copontrg/cxtgmods.v</I> Creates the CopyXXXOnTriggerMods library containing the
+		low-level modules modCopyOnTrigger, modCopyArrayOnTrigger, 
+		modCopyGroupOnTrigger, modCopyGroupArrayOnTrigger and
+		modCopyOnPtrTrigger.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Advanced Visual Systems Inc.
+Documentation - Ian Curington, Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+</body>
+</html>

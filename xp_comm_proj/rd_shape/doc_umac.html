@@ -1,0 +1,251 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>read_shape</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>read_shape</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A user macro (including User Interface) to read ESRI Arc/Info generated Shape Files, including points, lines, and coverages.
+</blockquote>
+
+<blockquote>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by the read_shape macro">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="80">string</td>
+<td width="425">Name of the ShapeFile to be read.</td>
+</tr>
+
+<tr>
+<td width="100"><i>ShapeSelection</i></td>
+<td width="80">int</td>
+<td width="425">Type of ShapeFile to be read.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by the read_shape macro">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="80">Mesh</td>
+<td width="425">Geometry mesh output.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The read_shape user macro enables the user to select both which Shape file should be read and how that data should be read into AVS/Express. Shape files are a binary file format that is exported by Arc/Info, and other GIS products from ESRI. The files contain point, line and polygon geometric information, generally representing vector-style map data, such as roads, cities, rivers, and area boundaries. When the user selects a ShapeFile the user macro selects whichever geometry type is most appropriate for the file.  If this selection is not correct the user can choose an alternative.  The user macro assumes that all features in the Shape file should be extracted.</p>
+
+<p>More information on shape files can be obtained from:</p>
+
+<blockquote>
+Environmental Systems Research Institute, Inc.(<i><a href="http://www.esri.com/">http://www.esri.com/</a></i>)
+</blockquote>
+
+<p>Generally GIS data is exported in three related files:</p>
+
+<blockquote>
+Shapefiles (.shp), Index files (.shx), and dBASE attribute
+files (.dbf).
+</blockquote>
+
+<p>ESRI provides a service whereby Shape data of a region can be easily obtained from the <a href="http://www.esri.com/data/online/index.html">ArcData Online</a> web-site.  By selecting a region of interest and specifying the details of your own map, the appropriate Shapefiles and dBase attribute files can then be downloaded.  The web-site is located at:</p>
+
+<blockquote>
+<a href="http://www.esri.com/data/online/index.html">http://www.esri.com/data/online/index.html</a>
+</blockquote>
+
+<p>The read_shape macro reads all or parts of the geometric information in the ShapeFile format. Optionally, the <a href="http://www.iavsc.org/repository/express/data_io.html#rd_dbase">ReadDbase</a> project can also be used to read the attribute information contained in the dBASE files and combine all the data into one map display.</p>
+
+<p>The current version of the ReadShape project adds support for 64 bit platforms.  This support has currently only been tested on a SGI Origin 2000.</p>
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<b><i>filename</i></b>
+</blockquote>
+
+<blockquote>
+A member of the ReadShapeParams parameter block group, this string value specifies the name of the Shape file that should be read from. The filename should specify the full path name of the file.  If no file extension is provided then the appropriate file extension is added.
+</blockquote>
+
+
+<blockquote>
+<b><i>ShapeSelection</i></b>
+</blockquote>
+
+<blockquote>
+<p>A member of the ReadShapeParams parameter block group, this integer value specifies the type of the Shape file that is being read.  The read_shape macro initially sets the value of this parameter.  However if the automatically selected type is not correct the user can change the value so that a different type is assumed when read the shape file. If the user attempts to select an invalid Shape file type an error message will be given. The table below illustrates which values this parameter can have:</p>
+
+<table cols=3 summary="Shape Type Table">
+
+<tr>
+<td><b>Number</b></td>
+<td><b>Reading Macro</b></td>
+<td><b>Geometry types read</b></td>
+</tr>
+
+<tr>
+<td>0</td>
+<td>PointShape</td>
+<td>Point or Multipoint features</td>
+</tr>
+
+<tr>
+<td>1</td>
+<td>ArcShape</td>
+<td>Arc (Polyline) features</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>PolygonShape</td>
+<td>Coverage (Polygon) features</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>PolygonAsLineShape</td>
+<td>Coverage (Polygon) features</td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out_mesh</b></i>
+</blockquote>
+
+<blockquote>
+Geometry mesh containing the data read from the ShapeFile.  This mesh should be used for any further visualisations.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output of the read_shape user macro. This output contains a DataObject object directly generated from the mesh data output. This DataObject output is intended to provide a simple way to quickly view the geometry. Most applications will require the data to be further processed before it is displayed.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The <a href="http://www.iavsc.org/repository/express/data_io.html#rd_dbase">ReadDbase</a> suite of modules can be combined with the read_shape modules to combine attribute information with geometry information.  The ReadShape.Program functional macros are used by the read_shape user macro to perform the actual reading of data.  The read_shape macro also makes use of the common parameter block, ReadShapeParams, and two switch modules, Mesh_switch and DefaultObject_switch.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Two example applications are provided that use a set of example data to 
+illustrate how the ReadShape suite of modules and macros can be used.</p>
+ 
+<p>The ReadShapeProgramEg application illustrates how the <a href="doc_fmac.html">Program</a> macros and <a href="http://www.iavsc.org/repository/express/data_io.html#rd_dbase">ReadDbase</a> modules can be used in a V script programming situation.  If you are creating a complete application that is to be used by others then this application structure will probably work best.</p>
+
+<p>The ReadShapeUserEg application illustrates how the three <a href="doc_umac.html">read_shape</a> User macros can be used to read three series of data.  The read_shape macro is intended to be used to quickly read and view ShapeFile data.  Due to this the macro has a user interface and automatically determines the type of the ShapeFile being read.  When this application is started it is likely that a number of error messages will be displayed.  This is a transient condition caused by the order of network execution and can be safely ignored.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rd_shape/rshpmacs.v</i> contains the V definitions of the read_shape user macro and its associated macros. It also contains the V definitions of the suite of Program macros.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>Not all possible shape file entities will be mapped.  In particular, problems will be caused if the model contains holes or nested structures.  If the attributes associated with ShapeFile entities are required the <a href="http://www.iavsc.org/repository/express/data_io.html#rd_dbase">ReadDbase</a> module system can be used.  However if only the geometry is required then this is not necessary.</p>
+
+<p>The low-level ReadShapeMods library containing the low-level module suite does not specify a process. By default the <tt>express</tt> process will be used.</p>
+</blockquote>
+
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Steve Walker
+Advanced Visual Systems, Inc.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_mod.html">ReadShapeMods</a> low-level modules.</li>
+<li><a href="doc_fmac.html">ReadShapeProgram</a> higher-level macros.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#rd_dbase">ReadDbase</a> IAC project.</li>
+<li>AVS/Express GIS Kit</li>
+<li>AVS/Express Mesh Mapper Modules</li>
+<li><a href="http://www.esri.com">Environmental Systems Research Institute</a></li>
+</ul>
+
+</body>
+</html>
+

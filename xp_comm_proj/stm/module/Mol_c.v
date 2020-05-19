@@ -1,0 +1,23 @@
+      module Mol_c<NEx=231.,NEy=0.,NEwidth=253.,NEheight=305.,process="express",src_file="mol_c.c",build_dir="xp_comm_proj/stm/src",NEdisplayMode="closed"> {
+         omethod+notify_inst+notify+req update = "MolCoords";
+         float+read+notify+req Scale<NEportLevels={2,0}> = 1.;
+         int+read+req Units<NEportLevels={2,0}> = 0;
+         int+write+nonotify num_atoms<NEportLevels={0,0},export=2>;
+         float+write+nonotify a_lst<NEportLevels={0,2},export=2>[.num_atoms][3];
+         float+write+nonotify rgb_lst<NEportLevels={0,2},export=2>[.num_atoms][3];
+         float+write+nonotify r_lst<NEportLevels={0,2},export=2>[.num_atoms];
+         float+write+nonotify charge<NEportLevels={0,2},export=2>[.num_atoms];
+         int+write+nonotify num_bonds<NEportLevels={0,0},export=2>;
+         string+write+nonotify atom_name<NEportLevels={0,2},export=2>[.num_atoms];
+         string+write+nonotify residue_name<NEportLevels={0,1},export=2>[.num_atoms];
+         int+read+notify+req Show_Hydrogens<NEportLevels={2,0}> = 0;
+         string+read+req File_Name<NEportLevels={2,0}> = "data/dwb.0001";
+         int+write+nonotify connect_lst<NEportLevels={0,2},export=1>[(.num_bonds * 2)];
+         int+read+notify+req Show_Atom_Names<NEportLevels={2,0}> = 0;
+         int+read+notify+req Show_Residue_Names<NEportLevels={2,0}> = 1;
+         int+read+req FType<NEportLevels={2,0}> = 13;
+         int+read+req Rep<NEportLevels={2,0}> = 0;
+         float+read HScale<NEportLevels={2,0}> = 1.;
+         float+read BScale<NEportLevels={2,0}> = 1.;
+         int+read+notify+req trigger<NEportLevels={2,0},export=2> = 0;
+      };

@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>cluster_probe(_edit)</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>cluster_probe</h1>
+<h1>cluster_probe_edit</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+The cluster_probe and cluster_probe_edit macros input two glyphs and replicate the second glyph at each of the coordinates in the first grid, using that point as the origin of each instance of the second glyph. The cluster_probe_edit user macro also contains a user interface allowing the glyph transformation to be edited with the standard xform editor.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>&in_base</i></td>
+<td width="75">Grid+Xform</td>
+<td width="425">Input glyph containing base coordinates</td>
+</tr>
+<tr>
+<td width="100"><i>&in_glyph</i></td>
+<td width="75">Grid+Xform</td>
+<td width="425">Input glyph containing glyph to be replicated</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh (Cell_Set+Point)</td>
+<td width="425">Output mesh containing replicated coordinates and a Point cell set</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>Inputs two Grids and Xforms (glyphs) and replicates the second glyph at each coordinate of the first glyph. This allows clustered probes (glyphs) to be generated and used as a single input to modules such as streamlines and advect.</p>
+<p>The xform of the second glyph is applied to each coordinate of the second glyph, so that it can be transformed (usually scaled) relative to the base (first) glyph. For example this allows a box glyph to replicated at each point on a plane object, producing an array of boxes, or a sphere glyph  could be repeated along a multi-segment line object. Such clustered glyphs can be used as probes for use with modules such as streamlines and advect. The module also generates a Point mesh, so that each point may be rendered.</p>
+<p>The cluster_probe_edit user macro also contains a user interface allowing the glyph transformation to be edited with the standard xform editor.</p>
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&in_base</b></i>
+</blockquote>
+
+<blockquote>
+Input Grid (coordinates) and a corresponding Xform. Each coordinate is used as the origin for each instance of the replicated glyph.
+</blockquote>
+
+<blockquote>
+<i><b>&in_glyph</b></i>
+</blockquote>
+
+<blockquote>
+Input Grid (coordinates) and a corresponding Xform. Each coordinate is transformed by its local xform and then replicated at each origin point in the in_base input grid.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Output field containing all the coordinates and a Point Mesh.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level <a href="doc_mod.html">ClusterProbeCreate</a> module is used in this User Macros cluster_probe and cluster_probe_edit.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ClusterProbeEg is provided, which shows a Plane and a Box glyph combined to form a single probe. The Box glyph is replicated at each point within Plane. The example uses the cluster_probe_edit user macro which includes the Transformation Editor UI, and the scale of the Box has been set to 0.05.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/cprobe/cprbmacs.v</i> contains the cluster_probe and cluster_probe_edit User Macros and the example application ClusterProbeEg V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ClusterProbeMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level <a href="doc_mod.html">ClusterProbeCreate</a> module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="doc_mod.html">ClusterProbeCreate</a> and ClusterProbeUI.
+</blockquote>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module CutSurface documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Cut Surface</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Cut Surface</h1>
+
+<h2>Description</h2>
+<p>This is the standard AVS/Express <a href="http://help.avs.com/Express/doc/help_62/reference/dvmac/cut_plan.htm">cut_plane</a> module. Respect to the original one has the following modifications:</p>
+<ul>
+	<li>Use the STM3 cache dimension settings.</li>
+	<li>Removed unused input port.</li>
+	<li>Fixed menu naming.</li>
+</ul>
+<p>Cut a surface (eg. a Solvent Excluded Surface) with a plane.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">in_field</td>
+	<td class="c2">Field</td>
+	<td class="c3">The field object that must be cut.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="cspan">The standard one for AVS/Express cut_plane module.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">out_fld</td>
+	<td class="c2">Mesh+Node_Data</td>
+	<td class="c3">The resulting surface.</td>
+</tr>
+<tr>
+	<td class="c1">out_plane</td>
+	<td class="c2">Mesh_Unif</td>
+	<td class="c3">The cut plane.</td>
+</tr>
+<tr>
+	<td class="c1">out_obj_cut</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of out_fld.</td>
+</tr>
+<tr>
+	<td class="c1">out_obj_plane</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of out_plane.</td>
+</tr>
+</table>
+
+</body></html>

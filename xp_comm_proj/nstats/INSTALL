@@ -1,0 +1,12 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/nstats/nstats.v" NodeStats;
+# In the following xp_comm_lib file
+data.v
+# insert the following line
+  XP_COMM_PROJ.NodeStats.NStatsMacs.node_statistics node_statistics;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.NodeStats.NStatsMacs.Node_Stats_Eg Node_Stats_Eg;

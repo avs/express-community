@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML VERSION="2.0">
+<HEAD>
+<!-- WEBMAGIC VERSION NUMBER="2.0.2" -->
+<!-- WEBMAGIC TRANSLATION NAME="ServerRoot" SRC="/var/www/htdocs/" DST="/" -->
+<!-- WEBMAGIC TRANSLATION NAME="ProjectRoot" SRC="./" DST="" -->
+<TITLE> DrawCrop</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>DrawCrop</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>Allows the user to draw a box around the area of interest on each of the
+three orthoslices so the region can be cropped scaled and used in further
+networks. </BLOCKQUOTE>
+<H4>Input Ports</H4>
+<P><table>
+<tr><td width="125"><I>field</I></td> <td width="125">fieldin</td> <td width="300">Uniform Scalar 3D Field</td> </tr>
+ <tr><td width="125"><I>link</I></td> <td width="125">DefaultView</td> <td width="300">DefaultView</td> </tr>
+ </table> </P>
+<H4>Output Ports</H4>
+<P><table>
+<tr><td width="125"><I>out_obj</I></td> <td width="125">Principal</td><td width="300">output 2D renderable object</td> </tr>
+ <tr> <td width="125"><I>out_obj</I></td> <td width="125">Secondary</td><td width="300">output 2D renderable object</td> </tr>
+ <tr> <td width="125"><I>out_obj</I></td> <td width="125">Tertiary</td> <td width="300">output 2D renderable object</td> </tr>
+ <tr><td width="125"><I>field</I></td><td width="125">_3DFld</td> <td width="300">Uniform Scalar Field this is a 3D field</td> </tr>
+ <tr> <td width="125"><I>out_obj</I></td><td width="125">_3DDataObject</td> <td width="300">output renderable object</td> </tr>
+ </table> </P>
+<H3>Description</H3>
+<BLOCKQUOTE>Allows the user to draw a box around the area of interest on each of the
+three orthoslices so the region can be cropped scaled and used in further
+networks. The module is high level and complex it was originally designed
+for a stand-alone application used to examine uniform medical scan data
+which has a different resolution along the z axis to the other two axes.</BLOCKQUOTE>
+<H3>Input Ports</H3>
+<BLOCKQUOTE><B><I>fieldin</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to all the major components of the macro DrawCrop.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>DefaultView</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the curr_view of the Uviewer2D, this is nescessary
+for the ContinuousSketch subcomponent.</BLOCKQUOTE>
+<H3>Output Ports</H3>
+<BLOCKQUOTE><B><I>Principal</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>The output field (2D uniform scalar field) as a renderable object. </BLOCKQUOTE>
+<BLOCKQUOTE><B><I>Secondary</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>The output field (2D uniform scalar field) as a renderable object. </BLOCKQUOTE>
+<BLOCKQUOTE><B><I>Tertiary</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>The output field (2D uniform scalar field) as a renderable object. </BLOCKQUOTE>
+<BLOCKQUOTE><B><I>_3DFld</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>The output field is a 3D uniform scalar field, it may be scaled along the
+z-axis. </BLOCKQUOTE>
+<BLOCKQUOTE><B><I>_3DDataObject</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>The output field (3D uniform scalar field, it may be scaled along the z-axis)
+as a renderable object. </BLOCKQUOTE>
+<H3>Utility Macros</H3>
+<P>The User Macro DrawCrop combines the Functional Modules crop_controls, crop_data
+and crop_coordinate with a number of other macros. The macroUI defines the
+user interface while the macros box, ContinuousSketch, macroAXIS and macroAXIS2
+are all small components of the functional macro macroDrawCrop which is
+combined with the UI, parameters and some other template macros to give
+the fully functional macro.</P>
+<H3>Example</H3>
+<BLOCKQUOTE>An example application DrawCrop_Eg is provided, which reads in the lobster
+data set a uniform medical scan which can be scaled only in the z axis through
+this module. </BLOCKQUOTE>
+<BLOCKQUOTE>The application produces three Views one for each axis of the orthoslice
+which are displayed in a 2D Viewer, the planes displayed can be altered
+through the UI. The box that shows the extents of the cropping are also
+displayed on these 2D Views. </BLOCKQUOTE>
+<BLOCKQUOTE>The output from the module is a 3D cropped field which can be used as the
+input to another network, in this case one that produces an isosurface.</BLOCKQUOTE>
+<H3>Files</H3>
+<BLOCKQUOTE><I>xp_comm_proj/drawcrop/cropmacs.v</I> contains several of the smaller components of the module box, ContinuousSketch,
+macroAXIS, macroAXIS2, parameters, macroUI, macroDrawCrop, DrawCrop and
+the example application DrawCrop_Eg. </BLOCKQUOTE>
+<BLOCKQUOTE>Only the larger macros, DrawCrop and DrawCrop_Eg, are available through
+the IAC library the other smaller ones can be accessed through the templates
+library. This is because alteration of these components will only be of
+interest to developers who wish to build a stand alone application.</BLOCKQUOTE>
+<H3>Other Notes</H3>
+<P>Compile with:</P>
+<PRE>
+$base -comp_proc express -exit
+</PRE>
+<H3>Author</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+        Joanna Leng
+        Manchester Visualization Centre
+        Manchester Computing
+        University of Manchester
+        Oxford Road
+        Manchester
+        UK
+        M13 9PL
+
+        Phone  +44 161  275 6252   Fax +44 161 275 6800  
+        email  j.leng@mcc.ac.uk
+        www    http://www.man.ac.uk/MVC/staff/leng
+</PRE>
+<H3>Date</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+J. Leng August 1998
+</PRE>
+<H3>Contact</H3>
+<P></P>
+<PRE>
+
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE>
+<H3>See Also</H3>
+<BLOCKQUOTE>All other DrawCrop modules and macros.</BLOCKQUOTE>
+</BODY>
+</HTML>

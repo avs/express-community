@@ -1,0 +1,82 @@
+Axes3D module
+https://github.com/avs/express-community
+-------------
+
+This directory ( xp_comm_proj/axes3d/ ) contains all the V code, source code,
+HTML documentation, and installation information for the
+project Axes3D.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Axes3D project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level modules of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+	base -comp_proc express -exit
+or
+	make -f express.mk
+
+	Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+	If you modify this project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.Axes3D.Axes3DMods
+
+	Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/volint/ directory.
+
+README         This file.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/misc.v and examples.v files. This file should
+               not be edited as the future installation script will use this
+               file.
+
+axes3d.v       Creates the XP_COMM_PROJ.Axes3D library.
+
+ax3dmods.v     Creates the Axes3DMods library containing the low-level module 
+               Axes3DCore and the parameter blocks axes_mod_params,
+               axes_geom_params, axis_data and TextVals.
+
+ax3dmacs.v     Creates the Axes3DMacs library containing the high-level 
+               functional macro Axes3DFunc, user interface macro Axes3DUI and
+               the user macro Axes3D.
+
+ax3dapps.v     Creates the Axes3DApps library containing the example 
+               application Axes3DEg and Axes3DEg2.
+
+axes.c         The C source code for the Axes3DCore module.
+
+axes3d.html    HTML documentation for the Axes3D module.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h	       AVS/Express generated header file.
+
+axes.o(bj)     Intermediate object file.

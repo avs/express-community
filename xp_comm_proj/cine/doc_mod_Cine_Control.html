@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>Cine_Control</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>Cine_Control</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The Cine_Control module in conjunktion with the Image_Cache module controls and records the displays the objects in data viewer.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module Cine_Control<src_file="cinecntl.c"> {
+    omethod+notify_inst create() = "CreateControl";
+    omethod+req update(.mode+read+notify+req,
+                       .rate+read+notify+req,
+                       .start+read+notify+req,
+                       .end+read+notify+req,
+                       .run+read+notify+req,
+                       .shell_visible+read+notify,
+                       .value+write,
+                       .true_rate+write
+                       ) = "UpdateControl";
+    omethod+notify_deinst destroy() = "DeleteControl";
+    int mode<NEportLevels={2,0}>;
+    float rate<NEportLevels={2,0}>;
+    int start<NEportLevels={2,0}>;
+    int end<NEportLevels={2,0}>;
+    Boolean run<NEportLevels={2,0}>;
+    int value<NEportLevels={0,2}>;
+    Boolean shell_visible;
+    float true_rate;
+    ptr hidden<NEvisible=0> = 0;
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Cine_Control module records all the movements of the objects displayed in the data viewer. In playback mode the movements are played with a set frame rate. Recorded is everything covering the data window, except the mouse pointer.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>mode</b></i>
+</blockquote>
+
+<blockquote>
+Parameter for playing the loop forward (mode=0) or backward (mode=1)
+</blockquote>
+
+<blockquote>
+<i><b>rate</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the frame rate value, via the parameter block, which is referenced by the &CineParams input.
+</blockquote>
+
+<blockquote>
+<i><b>start</b></i>
+</blockquote>
+
+<blockquote>
+Defines the start frame (usually set to 0)
+</blockquote>
+
+<blockquote>
+<i><b>end</b></i>
+</blockquote>
+
+<blockquote>
+Defines the end frame. Used with CineInteract the end frame is set automatically. With CineLoop the end frame has to be set.
+</blockquote>
+
+<blockquote>
+<i><b>run</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the capture value, via the parameter block, which is referenced by the &CineParams input.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>value</b></i>
+</blockquote>
+
+<blockquote>
+Value of the currently shown frame.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The Cine_Control module is used in the Functional Macro CineFunc and is cooperating with the Image_cache module.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application CineInteractEg and CineLoopEg is provided, which uses the AVS/Express sample data file mri.fld, to show the functionality of the macro.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cine/cine_mods.v</I> contains the CineParams group, the Image_Cache module and the Cine_Control module V definitions.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+unknown
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Gorden Tausch
+Manchester Visualization Centre
+
+Tobias Schiebeck
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+Image_Cache, CineInteract and CineLoop.
+</blockquote>
+
+</body>
+</html>

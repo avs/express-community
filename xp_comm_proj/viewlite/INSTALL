@@ -1,0 +1,50 @@
+#Express Community Project Installation Information - DO NOT EDIT!
+#
+#Insert the following line into the xp_comm_proj/xp_comm_proj.v  file
+  "../xp_comm_proj/viewlite/viewlite.v" ViewersLite;
+# In the following xp_comm_lib file
+misc.v
+# insert the following lines
+  flibrary  DataObjects_apps{
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_GreyScale  DO_GreyScale;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_VolumeRender   DO_VolumeRender;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_HotMetal   DO_HotMetal;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_CyanYellowRed   DO_CyanYellowRed;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_DefaultStep   DO_DefaultStep;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_FilterDatamap   DO_FilterDatamap;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_NT_GreyScale   DO_NT_GreyScale;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_NT_VolumeRender   DO_NT_VolumeRender;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_NT_HotMetal   DO_NT_HotMetal;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_NT_CyanYellowRed   DO_NT_CyanYellowRed;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_NT_DefaultStep   DO_NT_DefaultStep;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_NT_FilterDatamap   DO_NT_FilterDatamap;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_LITE_GreyScale   DO_LITE_GreyScale;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_LITE_VolumeRender   DO_LITE_VolumeRender;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_LITE_HotMetal   DO_LITE_HotMetal;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_LITE_CyanYellowRed   DO_LITE_CyanYellowRed;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_LITE_DefaultStep  DO_LITE_DefaultStep;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_LITE_FilterDatamap   DO_LITE_FilterDatamap;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.Datamap_Switch   Datamap_Switch;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_Dmap_Switch   DO_Dmap_Switch;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_NT_Dmap_Switch   DO_NT_Dmap_Switch;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.DO_LITE_Dmap_Switch   DO_LITE_Dmap_Switch;
+  };
+  flibrary  Views3DLite{
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.View3DMinimal   View3DMinimal;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.View3D_TrackObj   View3D_TrackObj;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.View3D_TrackAll3   View3D_TrackAll3;
+  };
+  flibrary  Views2DLite{
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.View2DMinimal   View2DMinimal;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.View2D_TrackObj   View2D_TrackObj;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.View2D_TrackAll3   View2D_TrackAll3;
+  };
+  flibrary  UViewsLite{
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.ViewMinimal   ViewMinimal;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.View_TrackObj   View_TrackObj;
+    XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.View_TrackAll3   View_TrackAll3;
+  };
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ViewersLite.ViewersLiteMacs.EgViewLite EgViewLite;

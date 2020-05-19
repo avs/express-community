@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/catmull2/catmull2.v" Catmull_2;
+# In the following xp_comm_lib file
+mappers.v
+# insert the following line
+  XP_COMM_PROJ.Catmull_2.Catmull_2Macs.catmull_spline_2 catmull_spline_2;
+  XP_COMM_PROJ.Catmull_2.Catmull_2Macs.catmull_spline_fld_2 catmull_spline_fld_2;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Catmull_2.Catmull_2Apps.CatmullSpline_2_2DEg CatmullSpline_2_2DEg;
+  XP_COMM_PROJ.Catmull_2.Catmull_2Apps.CatmullSpline_2_3DEg CatmullSpline_2_3DEg;
+  XP_COMM_PROJ.Catmull_2.Catmull_2Apps.PathSmoothing_2_Eg PathSmoothing_2_Eg;
+  XP_COMM_PROJ.Catmull_2.Catmull_2Apps.CatmullSplineFld_2_Eg CatmullSplineFld_2_Eg;

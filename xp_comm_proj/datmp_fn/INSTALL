@@ -1,0 +1,15 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+   "../xp_comm_proj/datmp_fn/datmp_fn.v" DatamapFunction;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+   XP_COMM_PROJ.DatamapFunction.DatamapFunctionMacs.datamap_function datamap_function;
+   XP_COMM_PROJ.DatamapFunction.DatamapFunctionMacs.user_defined_datamap user_defined_datamap;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+   XP_COMM_PROJ.DatamapFunction.DatamapFunctionApps.DatamapFunctionEg DatamapFunctionEg;
+   XP_COMM_PROJ.DatamapFunction.DatamapFunctionApps.InterpolateDataEg InterpolateDataEg;
+

@@ -1,0 +1,4 @@
+-----
+Apr 23 1998	FFTbuild_array()
+
+Use unsigned char rather than (signed) char for byte/char fields.

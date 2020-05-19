@@ -1,0 +1,144 @@
+<html>
+<head>
+<title>GlyphLibrary</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>GlyphLibrary</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+Library of assorted glyph modules constructed using V code.
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+GlyphLibrary contains a large number of glyph modules which represent
+both 2D and 3D geometries. These modules complement and extend the
+existing <TT>Main.Geometries</TT> library. They provide simplified or
+extended versions of the geometries present in the standard library, and
+they provide additional geometries which are not present in the standard
+library.
+</blockquote>
+
+<blockquote>
+All of the glyphs in the GlyphLibrary are defined entirely by V code and
+many of the glyphs contain in-line comments which describe the glyphs
+and the techniques used to generate the glyphs.  If you are interested
+in creating your own geometries then you may find it useful to read the v
+files included with this project.
+</blockquote>
+
+<blockquote>
+The Glyph Library has been further subdivided into 4 separate libraries;
+Simple2D, Simple3D, Params2D and Params3D.  The first two of these libraries
+contain simple 2D and 3D glyphs which do not have parameters and are
+therefore not configurable.  The second two libraries contain
+parameterized 2D and 3D glyphs.  These glyphs all have a variety of
+variables which can be changed to affect the shape or colour of the
+resulting geometry.  The contents of the sub-libraries are listed
+below:-
+</blockquote>
+
+<h2>GlyphLibrary.Simple2D</h2>
+
+<ul>
+    <li>mk_arrow : Arrow 2D </li>
+    <li>mk_diamond : Diamond 2D</li>
+    <li>mk_square : Square 2D</li>
+    <li>mk_crossx : CrossX 2D</li>
+    <li>mk_hexagon : Hexagon 2D</li>
+    <li>mk_triangle : Triangle 2D</li>
+    <li>mk_tank : Tank 2D</li>
+    <li>mk_radar : Radar 2D</li>
+    <li>mk_plane : Plane 2D, very simple flat shape with 5
+        triangles</li>
+    <li>mk_tri_rgb : Triangle with coloured verts</li>
+    <li>mk_needle : Needle and center dot with coloured verts</li>
+    <li>mk_smdot : 12-sided circle, with shading</li>
+    <li>mk_radtics : Radial Tic Lines with coloured verts 12-tris</li>
+    <li>mk_dashtic : Dash Tic Blocks, RGB node data</li>
+    <li>mk_dashtext : Labels on dashboard object</li>
+    <li>mk_house House shape, using mesh mappers</li>
+    <li>mk_bigsquare Simple large 2D square</li>
+    <li>mk_wirebox2D Simple wire frame box, made from disjoint
+        lines</li>
+    <li>mk_eiffel2D Wire frame Eifel Tower</li>
+    <li>mk_rocket2D Wire frame rocket shape</li>
+</ul>
+
+<h2>GlyphLibrary.Simple3D</h2>
+
+<ul>
+    <li>mk_plane3D : Plane 3D, 7 triangle 3D airplane glyph</li>
+    <li>mk_ship3d : Ship 3D simple icon to look like a small battle
+        ship</li>
+    <li>mk_cone3d_rgb : 3D Cone with coloured verts 12-tris, with
+        shading</li>
+    <li>mk_cone3d_mesh : 3D Cone mesh geometry only</li>
+    <li>mk_cylinder : 3D Cylinder geometry only, no node data
+        12-quads</li>
+    <li>mk_solid_arrow : 3D Solid Arrow geometry only, (cone +
+        cylinder)</li>
+    <li>mk_avslogo : AVS pyramid logo shape</li>
+    <li>mk_crystal : Crystal glyph object</li>
+    <li>mk_cucumber : Cucumber ribbed object</li>
+    <li>mk_cylinder2 : Partial cylinder object, with closed ends</li>
+    <li>mk_pipe : Pipe, with open ends</li>
+    <li>mk_simple_hexprism : Low polygon Hexagonal Stacked Prism</li>
+    <li>mk_hexprism : Hexagonal Stacked Prism</li>
+    <li>mk_apple : Apple shape</li>
+    <li>mk_octahedron : Octahedron 3D (made with tri faces)</li>
+    <li>mk_hypercube Hyper-Cube 3D (two nested squares)</li>
+    <li>mk_CubeOctahedron - cube-octahedron dual 3D shape</li>
+    <li>mk_Tet : Tetrahedon 3D shape made from 4 triangles</li>
+    <li>mk_TetDual : two intersecting tetrahedrons</li>
+    <li>mk_TetMulti : several intersecting Tetrahedrons</li>
+    <li>mk_dodecahedron : Dodecahedron, in 3D</li>
+    <li>mk_dodec_stellated : Spiky (Stellated) Dodecahedron, in 3D</li>
+    <li>mk_icosahedron : Icosahedron in 3D</li>
+    <li>mk_icosa_stellated : Stellated Icosahedron in 3D</li>
+    <li>mk_torus : 3D Torus (8 segments)</li>
+    <li>mk_axis_col : Coloured version of axis glyph</li>
+    <li>mk_arrow3d_simple : solid 3D arrow with minimal geometry</li>
+</ul>
+
+<h2>GlyphLibrary.Params2D</h2>
+
+<ul>
+    <li>mk_arc2d : arc using polar coord unif mesh</li>
+</ul>
+
+<h2>GlyphLibrary.Params3D</h2>
+
+<ul>
+    <li>mk_cube : Cube with quad sides with parametric size
+        controls</li>
+    <li>mk_cylinder : Cylinder with various controls and UI</li>
+    <li>mk_wirebox3D : 3D wireframe cube</li>
+    <li>mk_hyper_cone : 3D Cone Macro - with scalable controls</li>
+    <li>mk_surf_rev : Surface of revolution</li>
+    <li>mk_col_surf_rev : Colour coded surface of revolution</li>
+    <li>mk_snake : irregular deviated surface of revolution</li>
+    <li>mk_col_snake : coloured irregular deviated surface of
+        revolution</li>
+</ul>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington
+Various (Please see V code for details)
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+</body>
+</html>
+

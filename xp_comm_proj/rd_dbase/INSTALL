@@ -1,0 +1,13 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+        "../xp_comm_proj/rd_dbase/rd_dbase.v" ReadDbase;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  NElink ReadDbaseMods => Templates.XP_COMM_PROJ.ReadDbase.ReadDbaseMods;
+# In the following xp_comm_lib file
+examples.v
+# In the following xp_comm_lib file
+  XP_COMM_PROJ.ReadDbase.ReadDbaseMacs.ReadDbaseEg ReadDbaseEg;
+

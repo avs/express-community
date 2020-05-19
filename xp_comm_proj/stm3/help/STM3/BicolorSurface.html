@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module BicolorSurface documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Bicolor Surface</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Bicolor Surface</h1>
+
+<h2>Description</h2>
+<p>Color a surface on one side only.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">in</td>
+	<td class="c2">Mesh+Node_Data</td>
+	<td class="c3">A surface with node data.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Back Surface Color</td>
+	<td class="c2">color chooser</td>
+	<td class="c3">Select the surface color.</td>
+</tr>
+<tr>
+	<td class="c1">Reverse side</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Reverse the side that has to be colored.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of <i>in</i>. One of its surfaces is colored according to the parameter.</td>
+</tr>
+</table>
+
+</body></html>

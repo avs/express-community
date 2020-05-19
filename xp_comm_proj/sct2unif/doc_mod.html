@@ -1,0 +1,183 @@
+<html>
+<head>
+<title>sct2unif</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>sct2unif</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Convert a scatter field into a uniform field without interpolation
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module  sct2unif &lt;build_dir="xp_comm_proj/sct2unif",
+                     src_file="sct2unif.cxx",
+                     out_hdr_file="gen.hxx",
+                     out_src_file="gen.cxx",
+          	     cxx_hdr_files="fld/Xfld.h"&gt;
+   {
+      Grid_Struct+Node_Data+read+req+notify	&in_fld<NEportLevels={2,0}>;
+      prim+read+req+notify			&fill_value<NEportLevels={2,0}>;
+      float+read+nres				min_coord[]=>in_fld.coordinates.min_vec - 1;
+      float+read+nres				max_coord[]=>in_fld.coordinates.max_vec + 1;
+      float+read+nres				coords[]=>in_fld.coordinates.values;
+
+      Mesh_Unif+Node_Data+write out_fld<NEportLevels={0,2}>
+      {
+	  ndim=>in_fld.nspace;
+	  nspace=>in_fld.nspace;
+	  nnode_data=>in_fld.nnode_data;
+      };						
+
+      cxxmethod+req+notify_inst		sct2unif_meth;
+
+   };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The sct2unif module converts a structured field with a number of
+scattered nodes into a uniform field. The resultant uniform field can
+then be visualised using simple techniques, such as orthoslice. This generation
+is done by creating a uniform mesh and mapping each scattered node to the
+nearest node in the uniform mesh. If a uniform node has no corresponding
+scattered node then all node-data components are given the value
+<TT>fill_value</TT>. If multiple scattered nodes map to a single uniform
+node then the resultant node-data values are the average of the
+scattered node-data values.
+</blockquote>
+
+<blockquote>
+The uniform mesh used to generate the output field has nodes spaced at
+unit intervals along each at its dimensions. The mesh has as many
+computational dimensions (<TT>ndim</TT>) as the input field has
+coordinate dimensions (<TT>nspace</TT>) and the same number of
+coordinate dimensions as the input field. Each coordinate dimension of
+the output field extends from the (minimum value -1) to the (maximum
+value +1) of that dimension in the input field.
+</blockquote>
+
+<blockquote>
+The sct2unif module performs a similar function to that of the standard
+AVS scat_to_unif macro. The scat_to_unif macro also performs
+interpolation between the nodes in the resultant uniform field.
+Therefore the sct2unif module is significantly less complex and hence
+will be of most use in situations where only a simple conversion is
+required. In some situations interpolation between nodes reduces the
+clarity of the visualisation and is not desirable. Therefore this module
+can also be used in those situations to provide better results.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;in_fld</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the structured field that contains the scattered nodes
+that are to be converted into a uniform field.  The structered field must
+have a 1 dimensional array of nodes (<TT>ndim=1</TT>).  If this is not the
+case then the module will stop with an error.
+</blockquote>
+
+<blockquote>
+<i><b>&amp;fill_value</b></i>
+</blockquote>
+
+<blockquote>
+Reference to a primitive value that specifies which value should be used to fill
+in blank nodes.  If no scattered node maps to a node in the uniform field then 
+the node-data components for that node will be set equal to this value.
+</blockquote>
+
+
+<h3>Output</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The generated uniform field. The uniform field has dimensions that are a
+unit larger in all dimensions than the extents of the scattered nodes.
+The field also has the same number of node-data components as the
+scattered nodes.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The macro field2scat takes Field objects, removes any connectivity
+information present and rearranges the resultant data into a format that
+can be used by the sct2unif module. The primary application of this
+macro is to allow UCD data to be mapped to a uniform mesh using
+the sct2unif module.  This is demonstrated in the example application Sct2UnifEg3.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Three example applications are provided; Sct2UnifEg1, Sct2UnifEg2,
+Sct2UnifEg3. Please note that an object of one color in the "Before"
+view does not neccessarily correspond to the same color object in the
+"After" view. This is because the fill_value used changes the range of
+data values, and hence changes the way values are mapped to colours. 
+</blockquote>
+
+<ul>
+	<li>Sct2UnifEg1: Demonstrates mapping of 3D scattered data to a 3D uniform mesh. Also demonstrates mapping of multiple node-data components.</li>
+	<li>Sct2UnifEg2: Demonstrates mapping of 2D scattered data to a 2D uniform mesh. Also demonstrates how nodes are mapped to the nearest uniform node.</li>
+	<li>Sct2UnifEg3: Demonstrates a situation were interpolation by scat_to_unif macro obscures the data being visualised.</li>
+</ul>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/sct2unif/s2ufmods.v</I> contains the sct2unif module
+and the field2scat utility macro V definitions.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level Sct2UnifMods library containing the module
+sct2unif does not specify a process. By default the express
+process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+James Schumm
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+scat_to_unif, field2scat, Sct2UnifEg1, Sct2UnifEg2, Sct2UnifEg3
+</blockquote>
+
+</body>
+</html>
+

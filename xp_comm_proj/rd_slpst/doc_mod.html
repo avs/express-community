@@ -1,0 +1,154 @@
+<html>
+<head>
+<title>ReadSLPSTLFile</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ReadSLPSTLFile</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads in either a Pro/Engineer RENDER format file (.SLP) or a Stereo-Lithography (.STL) file and creates field data from it.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module ReadSLPSTLFile < build_dir="xp_comm_proj/rd_slpst",
+                          src_file="rd_slp.cxx",
+                          out_src_file="gen.cxx",
+                          out_hdr_file="gen.hxx",
+                   		  libdeps="FLD",
+		                  cxx_hdr_files="fld/Xfld.h"> {
+
+      ReadSLPSTLParams &amp;ReadSLPSTLParams <NEportLevels={2,0}>;
+
+      cxxmethod+req upd<status=1> (
+         filename+read+notify+req,
+         out+write,
+         .err+write,
+         .err_str+write
+      );
+
+
+      string filename => ReadSLPSTLParams.filename;
+      int err => ReadSLPSTLParams.err;
+      string err_str => ReadSLPSTLParams.err_str;
+
+      Field out <export=2,NEportLevels={0,2}>;
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+This module parses two kinds of files, Pro/Engineer RENDER format files (.SLP) and Stereo-Lithography (.STL) files.  Data from these files is read in by the module and put into a Field with one cell_set, a trianglular one. It is assumed that the RENDER format has only two data components - NORMAL and COLOR. These are both read and put into the node_data, since the data is based on the triangle vertices. It is also assumed that there is only one solid in the RENDER file.
+</blockquote>
+
+<blockquote>
+The module is capable of reading in both ASCII and binary forms of the STL file format, and converting the patches present into AVS/Express triangle lists. When reading in binary data the module also detects bigendian/littlendian conversion switching.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;ReadSLPSTLParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the parameters for the ReadSLPSTLFile function.
+</blockquote>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+Name of the SLP or STL file to be loaded. The parameter is of type string. This is the only input parameter to the ReadSLPSTLFile function, the other parameters are used to generate error information and are set by the ReadSLPSTLFile function. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;ReadSLPSTLParams input.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field containing field data constructed from the data present in the SLP/STL file.
+</blockquote>
+
+<blockquote>
+<i><b>err</b></i>
+</blockquote>
+
+<blockquote>
+A trigger parameter that is used to display and hide the UI error message as necessary. A value of 0 implies no error message and 1 implies that there is an error message that should be displayed. The parameter is of type int, and is set by the ReadSLPSTLFile module. Setting this value has no affect upon the ReadSLPSTLFile module. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;ReadSLPSTLParams input.
+</blockquote>
+
+<blockquote>
+<i><b>err_str</b></i>
+</blockquote>
+
+<blockquote>
+Description of error that has occured in the ReadSLPSTLFile function. The parameter is of type string, and is set by the ReadSLPSTLFile module. Setting this value has no affect upon the ReadSLPSTLFile module. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;ReadSLPSTLParams input.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadSLPSTLFile module is used in the User Macro readSLPSTL. Additionally, this macro also uses the ReadSLPSTLParams parameter block group object, as does the ReadSLPSTLUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadSLPSTLEg is provided, which loads either a SLP or a STL file, generates a set of field data from it and then displays it using the standard 3d viewer.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/rd_slpst/rdslmods.v</I> contains the ReadSLPSTLParams group and the ReadSLPSTLFile module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ReadSLPSTLMods library containing the module ReadSLPSTLFile does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Jeremy Maccelari
+Ian Curington
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+Andrew Dodd
+Tobias Schiebeck
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadSLPSTLParams, ReadSLPSTLUI, <a href="doc_umac.html" name="readSLPSTL">readSLPSTL</a>
+</blockquote>
+
+<blockquote>
+
+</blockquote>
+
+</body>
+</html>

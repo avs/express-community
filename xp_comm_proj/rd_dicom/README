@@ -1,0 +1,176 @@
+Read DICOM 2 Project
+https://github.com/avs/express-community
+------------------
+
+The Read DICOM 2 project allows DICOM V3 files to be read into
+AVS/Express.  It is a direct replacement for the previous Read DICOM
+module. Once install your applications will use the new module.
+
+It is based on the DCMTK toolkit developed by OFFIS,
+http://www.dcmtk.org/index.php. OFFIS needs to be downloaded, compiled
+and installed separately before compling this module. Please follow the
+addtional steps below very carefully.
+
+Installation Instructions
+-------------------------
+
+o Installing DCMTK
+
+It is necessary to compile DCMTK as the libraries required by this
+module are not included in the binary packages. DCMTK requires the
+installation of CMake for it's compilation.
+
+1. Download and install CMake from http://www.cmake.org/
+
+2. From the http://dicom.offis.de/dcmtk.php.en webpage download the
+   source code appropriate to your system, .zip for Windows and .tar.gz
+   for UNIX/Linux. Unpack the files and open a console in the dcmtk
+   directory.
+
+3. On Windows systems:
+
+   a. You must re-confgure how DCMTK is compiled to be compatible with
+      Express. See DCMTK #26
+      http://forum.dcmtk.org/viewtopic.php?t=35. Edit
+      dcmtk/CMakeLists.txt and replace "/MT" with "/MD" and "/MTd"
+      with "/MDd"
+
+   b. To compile on Windows first generate the Visual Studio files:
+      e.g. cmake -G "Visual Studio 8 2005"
+
+      Then consult the DCMTK FAQ #40
+      http://forum.dcmtk.org/viewtopic.php?t=652 to build DCMTK using
+      Visual Studio.
+
+   c. Due to a header file conflict you must edit:
+      
+      <dcmtk_dir>/include/dcmtk/config/cfwin32.h
+
+      and comment out the line 368 so it looks like
+      
+     /*typedef unsigned char uchar; */       
+
+   d. Set the environment variable DCMDICTPATH to the location of the
+      installed files.
+
+      e.g. set DCMDICTPATH=c:\dcmtk-3.5.4-win32-i386\
+
+   e. Set the variable DCMTK_ROOTso that Express can locate the DCMTK 
+      header files and libraries.
+
+      e.g. set DCMTK_PATH=c:\dcmtk-3.5.4-win32-i386\
+
+4. On Linux/UNIX systems:
+
+   a. Build DCMTK libraries using CMake following the DCMTK instructions
+
+   b. Set the environment variable DCMDICTPATH to the location of the
+      installed files.
+
+      e.g. export DCMDICTPATH=/usr/local/dcmtk-3.5.4
+
+   c. Set the variable DCMTK_ROOTso that Express can locate the DCMTK 
+      header files and libraries.
+
+      e.g. export DCMTK_PATH=/usr/local/dcmtk-3.5.4
+
+
+o Installing Read DICOM 2
+
+This directory ( xp_comm_proj/rd_dicom/ ) contains all the V code, HTML
+documentation, and installation information for the Read DICOM project
+"ReadDicom".
+
+The directory should be placed into your existing project directory,
+which should already contain the Community Project File structure, i.e., the
+xp_comm_proj/, xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add
+the new project, and two single line additions to two of the xp_comm_lib/
+files (in this instance data_io.v and examples.v) to add a link to the
+User Macro and the Example Application from the top-level Community library
+page.
+
+Once the files have been correctly installed, the low-level module of
+the new project must be compiled. If you opt to leave the process
+unspecified, it will by default use the "express" process. Doing so
+means the module may be compiled by using one of the following
+commands in the top-level directory of your project (whilst
+AVS/Express is not running):
+
+	base -comp_proc express -exit
+or
+	base -gen_proc express -exit
+	make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly. Under windows use 'nmake'
+instead.
+
+Users of the Developer's Edition may select the module in the relevant
+Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/thresh/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ data_io.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+read_DCMLIST.cxx	Contains all the C++ code for this module.
+read_dicom_files.cxx	Contains all the C++ code for this module.
+
+
+rd_dicom.v      Creates the XP_COMM_PROJ.ReadDICOM library.
+
+rddidata.v 	Creates the ReadDICOMData library containing the definitions 
+		of the groups Patient, General_Study, General_Series, Image_Series, 
+		General_Equipment, DICOM_Header and DICOM_Volume.
+		
+rddilib.v 	Creates the ReadDICOMLib library that integrates the Papyrus 3.71
+		toolkit.
+		
+rddimods.v 	Creates the ReadDICOMMods library containing the low-level
+		module read_DCMLIST  and read_dicom_files.
+
+rddimacs.v	Creates the ReadDicomMacs library containing the user
+		macro ReadDICOM and the UI macros ReadDICOMPatientUI, 
+		ReadDICOMStudyUI, ReadDICOMSeriesUI, ReadDICOMEquipmentUI and 
+		ReadDCMLISTUI.
+ 
+rddimacs.v	Creates the ReadDicomApps library containing the example
+		applications ImageDicomEg, TileDicomEg and IsosurfaceDicomEg.
+
+doc_mod.html	HTML documentation for the read_DCMLIST and 
+		read_dicom_files module.
+
+doc_umac.html	HTML documentation for the ReadDICOM User Macro.
+
+changes.html	HTML documentation for the changes to previous ReadDICOM 
+		versions.
+
+COPYRIGHT	Copyright notice.
+
+README		This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be
+generated. Once completed, you may safely remove these files; any
+future recompilations will regenerate these files.
+
+gen.h		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+read_DCMLIST.obj
+read_dicom_files.obj
+gen.obj		Intermediate object files.
+

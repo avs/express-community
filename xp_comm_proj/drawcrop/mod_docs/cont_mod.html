@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML VERSION="2.0">
+<HEAD>
+<!-- WEBMAGIC VERSION NUMBER="2.0.2" -->
+<!-- WEBMAGIC TRANSLATION NAME="ServerRoot" SRC="/var/www/htdocs/" DST="/" -->
+<!-- WEBMAGIC TRANSLATION NAME="ProjectRoot" SRC="./" DST="" -->
+<TITLE>crop_controls</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>crop_controls</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>Coordinates the User Interface controls with that of the mouse and the cropping
+modules. </BLOCKQUOTE>
+<HR>
+<PRE>
+
+     module crop_controls&lt;build_dir=&quot;xp_comm_proj/drawcrop/cropcont&quot;, out_hdr_file=&quot;gen.h&quot;, out_src_file=&quot;gen.cxx&quot;&gt;{
+//        string filename&lt;NEportLevels={2,1}&gt;;
+         int dims_fld&lt;NEportLevels={2,1}&gt;[];
+         int restart&lt;NEportLevels={2,1}&gt;;
+         int OK_axis2&lt;NEportLevels={2,1}&gt;;
+         int OK_axis1&lt;NEportLevels={2,1}&gt;;
+         int OK_axis0&lt;NEportLevels={2,1}&gt;;
+         int all_OK&lt;NEportLevels={2,1}&gt;;
+         int set_coord&lt;NEportLevels={0,2}&gt;;
+         omethod+notify_inst+req update&lt;src_file=&quot;cropcont.c&quot;,weight=0&gt;(
+            dims_fld+read+notify+req,
+            restart+read+notify+req,
+            OK_axis2+read+notify+req,
+            OK_axis1+read+notify+req,
+            OK_axis0+read+notify+req,
+            all_OK+read+notify+req,
+            set_coord+write
+         ) = &quot;crop_control&quot;;
+      };
+
+
+</PRE>
+<HR>
+<H3>Description</H3>
+<BLOCKQUOTE>The crop_control module takes in a number of User Interface actions and
+passes on an integer value named &quot;set_coord&quot; to the module cropdata (or
+cropmous if you are making a stand alone application) so that the cropping
+action coordinates with that of the mouse, User Interface and the selection
+of a new data file. </BLOCKQUOTE>
+<H3>Inputs</H3>
+<BLOCKQUOTE><B><I>dims_fld</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>Contains the dimensions of the input data field this is read so the module
+can be reset when a new file is read. This is done by setting the output
+set_coord to 5. </BLOCKQUOTE>
+<P><B><I>restart</I></B> </P>
+<BLOCKQUOTE>Connects to a UI toggle so the DrawCrop module can be reset when the user
+presses this toggle. This is done by setting the output set_coord to 5.
+This option also resets all toggle values to 0 (i.e., restart, OK_axis2,
+OK_axis1, OK_axis0, all_OK). </BLOCKQUOTE>
+<P><B><I>OK_axis2</I></B> </P>
+<BLOCKQUOTE>Connects to a UI toggle so the DrawCrop module reads in the mouse actions
+of ContiniousSketch on the viewer containing the orthoslice which contains
+the axis value of 2. This is done by setting the output set_coord to 1. </BLOCKQUOTE>
+<P><B><I>OK_axis1</I></B> </P>
+<BLOCKQUOTE>Connects to a UI toggle so the DrawCrop module reads in the mouse actions
+of ContiniousSketch on the viewer containing the orthoslice which has the
+axis value of 1. This is done by setting the output set_coord to 2. </BLOCKQUOTE>
+<P><B><I>OK_axis0</I></B> </P>
+<BLOCKQUOTE>Connects to a UI toggle so the DrawCrop module reads in the mouse actions
+of ContiniousSketch on the viewer containing the orthoslice which has the
+axis value of 0. This is done by setting the output set_coord to 3. This
+option can not be selected if OK_axis1 is already set to a toggle value
+of 1, this toggle value (OK_axis0) will be reset to 0. </BLOCKQUOTE>
+<P><B><I>all_OK</I></B> </P>
+<BLOCKQUOTE>Connects to a UI toggle so the user can accepted their selected crop values
+and the crop action can now happen. This is done by setting the output set_coord
+to 4. </BLOCKQUOTE>
+<H3>Outputs</H3>
+<BLOCKQUOTE><B><I>set_coord</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>The output value coordinates the action of the other modules (cropdata,
+cordcrop and cropmous). </BLOCKQUOTE>
+<H3>Utility Macros</H3>
+<BLOCKQUOTE>The macroUI holds the user Interface for the DrawCrop module and the DrawCrop
+macro holds the full macro with the user interface connected to the macroDrawCrop
+macro. The DrawCrop macro must be used in conjunction with the Uviewer2D
+and the first three ports must be 2D with connections to the output ports
+of DrawCrop to be to principal, secondary and tertiary respectively. </BLOCKQUOTE>
+<H3>Example</H3>
+<BLOCKQUOTE>An example application DrawCrop_Eg is provided, this shows how the module
+must be connected into an application. </BLOCKQUOTE>
+<H3>Files</H3>
+<BLOCKQUOTE><I>xp_comm_proj/drawcrop/cropmod.v</I> contains the module V definitions for cropcont, cropdata, cropmous and
+cordcrop. </BLOCKQUOTE>
+<H3>Other Notes</H3>
+<P>Compile with:</P>
+<PRE>
+$base -comp_proc express -exit
+</PRE>
+<H3>Author</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+        Joanna Leng
+        Manchester Visualization Centre
+        Manchester Computing
+        University of Manchester
+        Oxford Road
+        Manchester
+        UK
+        M13 9PL
+
+        Phone  +44 161  275 6252   Fax +44 161 275 6800  
+        email  j.leng@mcc.ac.uk
+        www    http://www.man.ac.uk/MVC/staff/leng
+</PRE>
+<H3>Date</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+J. Leng August 1998
+</PRE>
+<H3>Contact</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE>
+<H3>See Also</H3>
+<BLOCKQUOTE>All other DrawCrop modules and macros</BLOCKQUOTE>
+</BODY>
+</HTML>

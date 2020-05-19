@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>build3D</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>build3D</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The build3D user macro takes a series of 2D image files that represent layers of a 3D volume and builds them into 3D field data that can be visualized using the normal tools.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+<p>The following lists all of the parameters found in the parameter block Build3DImageParams, which are accessed by the low-level macro Build3DAssemble, the functional macro Build3D and the UI Macro Build3D.</p>
+
+<table summary="Parameters used by the build3D project">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>start_layer</i></td>
+<td width="75">int</td>
+<td width="300">first layer to be built into volume</td>
+<td width="125">First layer text box</td>
+</tr>
+
+<tr>
+<td width="100"><i>end_layer</i></td>
+<td width="75">int</td>
+<td width="300">last layer to be built into volume</td>
+<td width="125">Last layer text box</td>
+</tr>
+
+<tr>
+<td width="100"><i>component</i></td>
+<td width="75">int</td>
+<td width="300">colour component to be extracted</td>
+<td width="125">Radio control panel</td>
+</tr>
+
+<tr>
+<td width="100"><i>start</i></td>
+<td width="75">int</td>
+<td width="300">triggers the building of the volume</td>
+<td width="125">Build button</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<p>This macro also makes use of the common parameter block IndexedFileParams and the associated macro CreateIndexedFilename. This macro creates a filename from a number of sub-strings and an index. Documentation can be found in the <a
+href="../common/doc_io.html#CreateIndexedFilename" title="IOWidgets">IOWidgets</a> library. The important details of the parameters used are shown below.
+</p>
+
+<table summary="Parameters used by build3D project from Common project">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>dir</i></td>
+<td width="75">string</td>
+<td width="300">file directory (e.g. <tt>xp_comm_proj/build3d/</tt>)</td>
+<td width="125">Directory Text Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>filename_stub</i></td>
+<td width="75">string</td>
+<td width="300">filename without index (e.g. <tt>cube</tt>)</td>
+<td width="125">Filename Stub Text Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>extension</i></td>
+<td width="75">string</td>
+<td width="300">file extension without leading "." (e.g. <tt>tif</tt>)</td>
+<td width="125">Extension Text Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>index_width</i></td>
+<td width="75">int</td>
+<td width="300">width of index number in characters</td>
+<td width="125">Index Width Edit Box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output ports used by build3D project">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">uniform scalar field</td>
+<td width="425">generated 3D volume</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The Build3D project consists of a set of macros that build up a 3D model from a set of 2D slices or layers. The 2D layers can be represented by any of the image file formats that AVS/Express supports. The build3D User Macro is a high-level macro that performs this task. It also helps the user by determining the resolution of the supplied files and by providing a user interface.
+</p>
+
+<p>The 3D volume that is built is represented as uniform scalar field data. Scalar values are extracted from the image data by selecting a certain colour component and removing the others. The extracted scalar values are then stored as node data within the uniform field. It should be noted that due to the use of a uniform mesh, best results will be obtained when all slices are evenly spaced. This is a limitation of the current macro. In the future it maybe possible to use a rectlinear mesh and thereby allow unevenly spaced layers. It is currently possible to workaround this problem by using the <tt>scale</tt> module to stretch the output data.
+</p>
+
+<p>Typically the module will be used to visualise all slices of data at once. This can be done by setting start_layer to 0 and end_layer to the last layer present. However when dealing with large data sets it maybe useful to only visual certain sections of the data. This can be done by specifying start and end layers appropriately.</p>
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>start_layer</b></i>
+</blockquote>
+
+<blockquote>
+A member of the Build3DImageParams parameter block group, this int value is used to specify the index number of the first slice that should be used to build the 3D block. The start_layer should be less than the end_layer. However if this error is made the user interface will correct this by swapping the two values so they are in the correct order.
+</blockquote>
+
+<blockquote>
+<i><b>end_layer</b></i>
+</blockquote>
+
+<blockquote>
+A member of the Build3DImageParams parameter block group, this int value is used to specify the index number of the last slice that should be used to build the 3D block. The end_layer should be greater than the start_layer. However if this error is made the user interface will correct this by swapping the two values so they are in the correct order.
+</blockquote>
+
+<blockquote>
+<i><b>component</b></i>
+</blockquote>
+
+<blockquote>
+A member of the Build3DImageParams parameter block group, this int value is used to specify the colour component that should be extracted from the image file. This parameter can have values in the range 0 to 3, these values relate to the alpha, red, green and blue components respectively.
+</blockquote>
+
+<blockquote>
+<i><b>start</b></i>
+</blockquote>
+
+<blockquote>
+A member of the Build3DImageParams parameter block group, this int value is used to trigger the start of the internal loop that reads the image files into the uniform field. When the trigger value switches from 0 to 1 the macro disconnects the field data from the macro output and begins to read in the image files. Once this is finished the the network is reconnected. The field data is disconnected while image files are read to avoid unnecessary updates rippling through the network and thereby avoiding unnecessary visualization calculations.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The generated 3D block in the form of a uniform scalar field with the dimensions specified in the Build3DImageParams parameter block. The data present in the images is stored as single byte node data within the field. The data can be visualized using any of the standard visualization components. This can be seen in the example application where isosurface and bounds modules are used.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro build3D uses the Functional Macro Build3DFunc which in turn uses the low-level macro Build3DAssemble.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application Build3DEg is provided, which loads four BMP files that are each 4x4 pixels in size, builds a 3D volume from these and displays the volume using an isosurface and a bounding box. The resulting model should resemble a cube.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/build3d/bl3dmods.v</i> contains the Build3DImageParams group and the Build3DMakeDims, Build3DExtractScalar and Build3DAssemble module V definitions.</p>
+
+<p><i>xp_comm_proj/build3d/bl3dmacs.v</i> contains the build3D User Macro, the Build3DFunc Functional Macro and the Build3DUI UI Macro.</p>
+
+<p><i>xp_comm_proj/build3d/bl3dapps.v</i> contains the Build3DEg and CreateImageSlicesEg example application V definitions.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project requires the following components to be installed correctly. Without these components the project will not work.
+</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#common">Common</a> project</li> 
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The Build3DMacs library inherits its process. As this library contains no procedural code, the process is not important.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Steve Larkin
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Jimmy Schumm
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_mod.html">Build3DAssemble</a> IAC functional macro.</li>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#common">Common</a> IAC project.</li>
+<li>DVset_slice_data AVS/Express module.</li>
+</ul>
+
+</body>
+</html>
+

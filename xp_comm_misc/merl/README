@@ -1,0 +1,70 @@
+Express Community "VolumePro" Project
+https://github.com/avs/express-community
+-----------------------
+
+This special Community project contains an interface from AVS/Express to the
+VolumePro range of volume rendering hardware.  The Community does not have
+access to any of this hardware and hence we have not been able to test
+this project.  The project is provided so that users with VolumePro
+hardware can make use of it.  Unfortunately the Community will not be able to
+provide any support in the use of this project as we will not be able
+to investigate or solve any problems.
+
+The supplied distribution contains a complete project directory structure.
+It should be extracted into a new directory and AVS/Express should be used
+to compile the supplied C++ source files.
+
+The core Volume Rendering code is contained within the 'vliren.cxx' file.
+Two versions of this code have been provided.  The first version is that
+contained within the original 'vliren.cxx' file and the 'vliren.cxx.ORIG'
+file.
+
+The second version has been provided by KGT Inc.  It alters the original
+version so that it renders directly to OpenGL.  Various improvements to
+the lighting model have also been made.  Unfortunately in the process
+some values have been hardwired.  The altered version is contained in
+the file 'vliren.cxx.KGT'.  #ifdef statements have been used to identify
+the alterations from the original version.
+
+Further instructions can be found in the 'ReadMeBuildWindowsNT' file.
+
+
+Files
+-----
+
+The following files can be found in the distribution.
+
+avsenv
+DISCLAIMER
+README
+ReadMeBuildWindowsNT
+clean_project.bat
+apps\LookupTable.v
+apps\read_volume_crop.v
+apps\read_volume_crop_slice.v
+apps\read_volume_cursor.v
+apps\read_volume.v
+apps\VIZread_volume_crop_slice.v
+apps\VIZread_volume_cursor.v
+apps\VIZread_volume_crop.v
+apps\VIZread_volume.v
+src\hist.hxx
+src\hist.cxx
+src\MakeDefaultLUT.cxx
+src\MakeLUT_stuff.cxx
+src\vliren.hxx
+src\vliren.cxx
+src\vliren.cxx.KGT
+src\vliren.cxx.ORIG
+src\vlixpgen.hxx
+v\merlren.v
+v\proc.v
+v\templ.v
+v\utility_macros\MakeDefaultLUT.v
+v\utility_macros\MakeLUT.v
+v\utility_macros\Merl_util_lib.v
+v\utility_macros\VLIvolume_renderUI.v
+v\utility_macros\VLIvolume_scrollUI.v
+v\utility_macros\VLIvolume_render.v
+v\utility_macros\XYZ_UIfields.v
+

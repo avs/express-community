@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="Generator" content="Microsoft Word 97">
+<title>ReadAiffData</title>
+</head>
+
+<body link="#0000ff" vlink="#800080" bgcolor="#92bfbf">
+
+<h1>ReadAiffData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Reads in an AIFF file and outputs the data as a short 
+array.</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+  module ReadAiffData &lt;src_file="readaiff.cxx",
+                       cxx_src_files="libaiff.cxx"&gt; {
+
+    ReadAiffParams+IPort2 &amp;parameters;
+
+    cxxmethod+notify_inst+req update;
+
+    string+read+notify+req file_name    =&gt; parameters.file_name;
+    int+write              Num_channels =&gt; parameters.Num_channels;
+    int+write              Sample_size  =&gt; parameters.Sample_size;
+    int+write              Num_samples  =&gt; parameters.Num_samples;
+    double+write           Sample_rate  =&gt; parameters.Sample_rate;
+
+    short+write+OPort2     out_data[Num_samples];
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>ReadAiffData reads in an uncompressed AIFF file and outputs an 
+array of short values representing the samples that make up the waveform. The 
+amplitude of the samples is represented by a single short value, where 0 is 
+silence, and 32767 and -32768 represent the extensions of the speaker toward 
+and away from the listener. It also sets a number of parameters within the 
+parameter block it references. These describe the format of the sample that it 
+has loaded.  This module is not able to read compressed AIFF audio files and 
+will give an error message if this is tried.</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>&amp;ReadAiffParams</i></b></blockquote>
+
+<blockquote>Reference to the parameter block, which contains real
+instances of the parameters for the ReadAiffData
+function.</blockquote>
+
+<blockquote><b><i>file_name</i></b></blockquote>
+
+<blockquote>Name of the AIFF file to be loaded. The parameter is
+of type string. This is the only input parameter to the
+ReadAiffData function, all the other parameter are set by the
+ReadAiffData function. Normally the value of this parameter is
+found by referring to the parameter block, which is referenced by
+the &amp;ReadAiffParams input.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_data</i></b></blockquote>
+
+<blockquote>The output array containing the waveform contained in the AIFF 
+file. The array is of type short and uses two bytes to store the amplitude of 
+each sample, where 0 is quiet, and 32767 and -32768 represent the extensions of 
+the speaker toward and away from the listener.  If the input audio has a sample 
+size of 8 bits then each byte is expanded so that it fills the full range of 
+values.</blockquote>
+
+<blockquote><b><i>Num_Channels</i></b></blockquote>
+
+<blockquote>Number of Channels present in AIFF file. The
+parameter is of type int, and is set by the ReadAiffData module.
+Setting this value has no affect upon the ReadAiffData module.
+Normally the value of this parameter is found by referring to the
+parameter block, which is referenced by the &amp;ReadAiffParams
+input.</blockquote>
+
+<blockquote><b><i>Sample_Size</i></b></blockquote>
+
+<blockquote>Size of each individual sample in bits. The
+ReadAiffData module can only cope with sample sizes of either 8
+or 16 bits. The parameter is of type int, and is set by the
+ReadAiffData module. Setting this value has no affect upon the
+ReadAiffData module. Normally the value of this parameter is
+found by referring to the parameter block, which is referenced by
+the &amp;ReadAiffParams input.</blockquote>
+
+<blockquote><b><i>Num_Samples</i></b></blockquote>
+
+<blockquote>Number of individual samples in the AIFF file. The
+parameter is of type int, and is set by the ReadAiffData module.
+Setting this value has no affect upon the ReadAiffData module.
+Normally the value of this parameter is found by referring to the
+parameter block, which is referenced by the &amp;ReadAiffParams
+input.</blockquote>
+
+<blockquote><b><i>Sample_Rate</i></b></blockquote>
+
+<blockquote>Number of samples per second. The parameter is of
+type double, and is set by the ReadAiffData module. Setting this
+value has no affect upon the ReadAiffData module. Normally the
+value of this parameter is found by referring to the parameter
+block, which is referenced by the &amp;ReadAiffParams
+input.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The low-level ReadAiffData module is used in the
+Functional Macro ReadAiff and the User Macro readAiff.
+Additionally, this macro also uses the ReadAiffParams parameter
+block group object, as does the ReadAiffUI UI Macro.</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>An example application ReadAiffEg is provided, which
+displays AIFF files on screen using the AGGraph set of graphing
+components.</blockquote>
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/rd_aiff/aiffmods.v</i> contains the
+ReadAiffParams group and the ReadAiffData module V
+definitions.</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadAiffMods library containing the
+module ReadAiffData does not specify a process. By default the
+<tt>express</tt> process will be used.</blockquote>
+
+<h3>Authors</h3>
+
+<pre>
+Paul G. Lever
+Andrew Dodd
+</pre>
+
+<h3>See Also</h3>
+
+<blockquote>ReadAiffParams, ReadAiffUI, ReadAiff, readAiff</blockquote>
+</body>
+</html>
+

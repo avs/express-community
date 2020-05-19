@@ -1,0 +1,4 @@
+QvNode.h:    virtual void	traverse(QvState *state, geom_objects *geometries) = 0;
+QvSubNode.h:    virtual void	traverse(QvState *state);			      \
+QvSwitch.h:#define QV_SWITCH_NONE		(-1)	/* Don't traverse any children	*/
+QvSwitch.h:    QvSFLong		whichChild;	// Child to traverse

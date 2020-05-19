@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta name="Author" content="Ian Curington">
+   <title>texture_wave - generates a moving wave function in the alpha channel of an existing image</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>texture_wave</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The texture_wave macro generates a moving wave-pulse function in the alpha channel of an existing ARGB image field.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by texture_wave">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_image</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">Original image to add a texture pulse to.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by texture_wave">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>freq_value</i></td>
+<td width="75">float</td>
+<td width="300">Frequency of pulse function</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>phase_value</i></td>
+<td width="75">float</td>
+<td width="300">Phase of pulse function</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>wave_mode</i></td>
+<td width="75">int</td>
+<td width="300">Type of pulse function to be generated</td>
+<td width="125">Radiobox</td>
+</tr>
+
+<tr>
+<td width="100"><i>min_amp</i></td>
+<td width="75">float</td>
+<td width="300">Minimum amplitude of pulse function</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>max_amp</i></td>
+<td width="75">float</td>
+<td width="300">Maximum amplitude of pulse function</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>contrast</i></td>
+<td width="75">float</td>
+<td width="300">Colour contrast control</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>animate</i></td>
+<td width="75">int</td>
+<td width="300">Trigger start of phase animation</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>numsteps</i></td>
+<td width="75">int</td>
+<td width="300">Number of step to be used in phase animation</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>cycle</i></td>
+<td width="75">int</td>
+<td width="300">Specifies if phase animation should cycle</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by texture_wave">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_image</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">Image with generated pulse function</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The texture_wave macro generates a pulse-wave function in the alpha channel of an existing ARGB image field.  Any image source that outputs ARGB data (such as <tt>read_image</tt> can be used.  The macro replaces any existing alpha channel data with a 1 dimensional wave function that varies vertically across the image.  The macro allows the frequency, phase and amplitude of the wave function to be controlled.  It is also able to generate a variety of wave functions.  Currently these are:</p>
+
+<ul>
+<li><p><b>Full Sine Wave</b></p></li>
+<li><p><b>Cosine Squared</b></p></li>
+<li><p><b>Cosine Medium Pulse</b><br>
+8th power of cosine function</p></li>
+<li><p><b>Cosine Short Pulse</b><br>
+20th power of cosine function</p></li>
+<li><p><b>50% Square Wave</b></p></li>
+</ul>
+
+<p>Finally the macro allows the contrast of the RGB components in the generated image to be controlled.  As well as allowing manual control of phase the macro also provides an animation facility.  This automatically increments the phase of the wave function hence moving the pulse-wave through the alpha channel of the image.</p>
+
+<p>Although the generated images could be used for other purpose they are intended to be used to texture complex geometric objects.  If the generated image is applied to an object that has alpha blending enabled, then the pulse-wave function will control the visibility of the UV texture space.  The animation facility can also be used.  This technique can lead to some very interesting visualizations that cannot be easily achieved by other means.  The <a href="twavefld.html">texture_wave_field</a> macro uses the <a href="../scl2tex/doc_umac.html">Scalar2Texture</a> macro to texture fields with generated pulse-wave images.  It should be noted that animating textures on complex fields is a graphically intensive task and for decent results good hardware texture-mapping support is essential.</p>
+
+<p>A conference paper fully describing this technique can be obtained by contacting <a href="mailto:ianc@avs.com">Ian Curington</a>; the original author of this project.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_image</i></b> : Image_ARGB</blockquote>
+
+<blockquote>Original image data that is to be used as the basis of the pulse-wave image.  The field data should contain a 2D structured mesh with a 4 byte vector of node data containing the Alpha, Red, Green and Blue components of the image.  This is the field format output by modules such as read_image.  Any data present in the alpha channel is completely replaced by the generated wave function.</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>freq_value</i></b></blockquote>
+
+<blockquote>Floating point parameter that specifies the frequency of the wave function.  This is defined as the number of complete cycles generated in the output image.</blockquote>
+
+<blockquote><b><i>phase_value</i></b></blockquote>
+
+<blockquote>Floating point parameter that specifies the phase of the wave function.  This parameter should be in the range 0 to 1, and is automatically altered when animation is enabled.</blockquote>
+
+<blockquote><b><i>min_amp max_amp</i></b></blockquote>
+
+<blockquote>Floating point parameters that specify the minimum and maximum amplitudes of the wave function.  These parameters should be in the range 0 to 1.  If they are outside of this range the integer portion of the parameter is ignored.</blockquote>
+
+<blockquote><b><i>wave_mode</i></b></blockquote>
+
+<blockquote><p>Integer parameter that specifies which type of wave function should be used to generate the output.  Currently 5 functions are supported.  The numbers for each of these functions are:</p>
+
+<ol start=0>
+<li>Full Sine Wave</li>
+<li>Cosine Squared</li>
+<li>Cosine Medium Pulse</li>
+<li>Cosine Short Pulse</li>
+<li>50% Square Wave</li>
+</ol>
+
+</blockquote>
+
+<blockquote><b><i>contrast</i></b></blockquote>
+
+<blockquote>Floating point parameter that specifies how the contrast of the RGB components of the original image should be altered in the output image.  A contrast of 1 indicates that no change should be made to the colour of the original image.</blockquote>
+
+<blockquote><b><i>animate cycle</i></b></blockquote>
+
+<blockquote>Integer parameters that control the phase animation facility of the macro.  When the animate parameter is set to 1 the macro repeatedly increments the phase of the wave function.  This continues until one entire cycle has been completed.  If the cycle parameter is set to 0 then the animate parameter is reset to 0 and the animate stops.  If the cycle parameter is set to 1 then the phase is reset to 0 and the animate continues indefinitely.</blockquote>
+
+<blockquote><b><i>numsteps</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies the number of steps that are to be used whilst animating the phase of the wave function.  For each entire cycle the phase will be incremented <tt>numsteps</tt> times.  Therefore if the number of steps is increased the animation will become smoother but will require more powerful graphical support.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_image</i></b> : Image_ARGB</blockquote>
+
+<blockquote>Output image containing the texture image with the generated pulse-wave stored in the alpha channel.  The image is output as a field with a 2D structured mesh and a 4 byte vector of node data containing the ARGB components of the image.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to the viewer.  A 2D viewer is recommended.  Since the alpha channel is
+normally invisible, only variations in image contrast should be visible after processing.  To see the wave function directly, the <tt>extract_scalar</tt> module can be used to extract the alpha channel from the image data.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The TextureWaveFunc functional macro uses the low-level TextureWaveCore module.  This functional macro and the TextureWaveUI user interface macro are used by the texture_wave user macro.  All of these macros use the TextureWaveParams parameter block to communicate data.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>The project includes two example applications that demonstrates the use of the texture_wave macro.  The TextureWaveEg1 application uses the texture_wave macro to generate a wave and then extract the alpha channel so that it can be displayed directly.  The TextureWaveEg2 application extends this by using a graphing module to visualization the wave function.  This allows the actual form of the wave to be seen much more easily.</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/twave/tw_mods.v</i> contains the V definitions of the TextureWaveCore module and the TextureWaveParams parameter block.</p>
+
+<p><i>xp_comm_proj/twave/tw_macs.v</i> contains the V definitions of the TextureWaveUI UI macro, the TextureWaveFunc functional macro and the texture_wave and texture_wave_field user macros.</p>
+
+<p><i>xp_comm_proj/twave/tw_apps.v</i> contains the V definitions of the TextureWaveEg1, TextureWaveEg2, TextureWaveEg3 and TextureWaveEg4 example applications.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level TextureWaveMods library containing the low-level TextureWaveCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>Ian Curington &lt;<a href="mailto:ianc@avs.com">ianc@avs.com</a>&gt;,
+Advanced Visual Systems, Inc.</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>Andrew Dodd,
+International AVS Centre</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="twavefld.html">texture_wave_field</a> IAC module</li>
+<li><a href="../scl2tex/doc_umac.html">Scalar2Texture</a> IAC project</li>
+<li>Contact the author for a full conference paper describing
+this technique.</li>
+</ul>
+ 
+</body>
+</html>
+

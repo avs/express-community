@@ -1,0 +1,13 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/resample/resample.v" DownSample;
+# In the following xp_comm_lib file
+filters.v
+# insert the following line
+  XP_COMM_PROJ.DownSample.DownSampleMacs.DownSample DownSample;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.DownSample.DownSampleApps.DownSampleEg1 DownSampleEg1;
+  XP_COMM_PROJ.DownSample.DownSampleApps.DownSampleEg2 DownSampleEg2;

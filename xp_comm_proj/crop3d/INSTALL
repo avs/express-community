@@ -1,0 +1,12 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/crop3d/crop3d.v" Crop3D;
+# In the following xp_comm_lib file
+filters.v
+# insert the following line
+  XP_COMM_PROJ.Crop3D.Crop3DMacs.Crop3D Crop3D;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Crop3D.Crop3DApps.Crop3DEg Crop3DEg;

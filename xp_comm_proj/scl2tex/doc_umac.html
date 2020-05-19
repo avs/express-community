@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Scalar2Texture</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>Scalar2Texture</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Generates UV texture coordinate node data and uses that data to apply a texture map image.
+</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by Scalar2Texture">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="80">Mesh+Node_Data</td>
+<td width="425">field data containing scalar input data.</td>
+</tr>
+<tr>
+<td width="100"><i>in_image</i></td>
+<td width="80">Image Data</td>
+<td width="425">texture map image.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Scalar2Texture">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="80">Mesh+Node_Data</td>
+<td width="425">field data including UV texture coordinate data.</td>
+</tr>
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable offset output object.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The standard AVS colormap allows scalar data at node points to be represented as colors.  It also allows colors at points in between nodes to be calculated by interpolation.  This takes the RGB triplet values at adjacent and blends the colors between the two nodes.  Normally this works acceptable well.  However if the colors at two nodes are at extreme ends of the colormap then the blended colors are unlikely to be correct. It is possible to avoid these problems by using a texture map in the place of a colormap.
+</blockquote>
+
+<blockquote>
+Instead of explictly calculating a colormap and using that to generate colors at node points, UV texture coordinate values can be calculated at each node point. Values of points in between node points can be calculated by simple interpolation. These values can then be used to sample the color of points on a separate texture image.  This avoids the problems caused by blending between RGB triplets.  It also allows the potential for finer control of the coloring of data.  
+</blockquote>
+
+<blockquote>
+The Scalar2Texture macro takes any scalar node data, and replaces it with a mesh with UV texture coordinate node data. The whole range of the input data range is mapped so that all the calculated texture coordinates lie on the primary diagonal of the texture map source. By doing this the the texture map source is effectively being used as a single dimensional color table source, with values being sampled along the bottom left-top right diagonal(ie. the primary diagonal)  If two scalar inputs were present it would be possible to sample points over the whole texture map.  However this was not done in this project.
+</blockquote>
+
+<blockquote>
+Once the UV texture coordinates have been calculated they are merged with the original mesh and replace the original scalar data.  This field data is output so that further operations can be performed upon it.  A renderable DataObject is also generated that combines the field data with a texture image.  The rendering system of AVS/Express supports the use of texture maps and this is used to sample points from the texture map using the UV coordinate data.
+</blockquote>
+
+<blockquote>
+More details on the reasons for the creation of this macro and how the macro works and is used, can be found in the original <a href="scl2tex.html">documentation</a> of this macro.
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in_fld</b></i>
+</blockquote>
+
+<blockquote>
+The field data that UV texture coordinates are calculated for.  The field should contain a single set of scalar node data.  The texture coordinates are calculated by using the following equation:
+</blockquote>
+
+<blockquote>
+<pre>
+texture coordinate = (data array - min(data array)) / (max(data array) - min(data array))
+</pre>
+</blockquote>
+		
+<blockquote>
+The U an V coordinates are both set to be equal and hence the all texture coordinate values are present on the primary diagonal of the texture image.
+</blockquote>
+
+<blockquote>
+<i><b>in_image</b></i>
+</blockquote>
+
+<blockquote>
+The texture image that is to be mapped onto the field data.  The whole of the texture image is not used as would normally be the case.  Instead only values on the primary diagonal (bottom-left to top-right) are used.  The desired colors should be placed along this diagonal.  This can be seen in the <a href="rainbow.jpg"><tt>rainbow.jpg</tt></a> file.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+The field output of the Scalar2Texture macro. This
+contains the mesh input to the macro combined with the UV coordinate data
+calculated from the input scalar data.  This output data does not depend
+upon the texture image data.  Normally this output will not be used.
+If it is used then a texture image will have to be combined with the
+UV coordinate data separately.  A method of doing this can be seen in the
+<a href="s2txmacs.v">s2txmacs.v</a> file.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the Scalar2Texture macro. This
+contains a DataObject object that can be rendered by the
+standard data viewers. The Data Object is generated by combining the
+field data with the texture image and using the underlying graphics system
+to map the texture image onto the model.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+This user macro does not make use of any other macros.  It also does not depend upon any components only found in the Development Edition of AVS/Express.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications, Scalar2TextureEg and s2tComparisonEg, are provided. The Scalar2TextureEg application provides a simple demonstration of now the Scalar2Texture macro can be used.  The s2tComparisonEg application allows the effects of texture mapping to be compared to these produced by a standard colormap.
+</blockquote>
+
+<blockquote>
+The s2tComparisonEg application requires the Common project to be installed. It should also be noted that both texture mapped and color mapped models are initially shown.  This is a known limitation of a Common project component.  Toggling between texture and colormap once will clear this problem and the application will then only display one version.  A future version of the Common project should correct this problem.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/scl2tex/s2txmacs.v</i> contains the Scalar2Texture User Macro V definition.
+</blockquote>
+
+<blockquote>
+<i>xp_comm_proj/scl2tex/s2txapps.v</i> contains the example applications Scalar2TextureEg and s2tComparisonEg V definitions.
+</blockquote>
+
+<h3>Prerequisites</h3>
+
+<blockquote>The example application, s2tComparisonEg relies on the successful
+installation of the following components. Without them it will not function
+correctly. All other macros will function correctly.</blockquote>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#common">Common</a> Project</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The Scl2TexMacs library inherits its process. As this library
+contains no procedural code, the process is not important.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Ian Curington
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+Scalar2TextureEg, s2tComparisonEg and the original <a href="scl2tex.html">documentation</a>
+</blockquote>
+
+</body>
+</html>
+

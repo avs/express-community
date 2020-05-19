@@ -1,0 +1,233 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>isoline2polyline</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>isoline2polyline</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Converts Line cell sets output by Isoline module into a Polyline cell set.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by isoline2polyline">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="400"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="125">Mesh+Node_Data</td>
+<td width="400">Field containing Line cell_set.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by isoline2polyline">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="100"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Active</i></td>
+<td width="125">int</td>
+<td width="300">Specifies whether module updates.</td>
+<td width="100">-</td>
+</tr>
+
+<tr>
+<td width="100"><i>Downsize</i></td>
+<td width="125">int</td>
+<td width="300">Number of nodes to skip.</td>
+<td width="100">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>UseNodeData</i></td>
+<td width="125">int</td>
+<td width="300">Specifies whether node data should be output.</td>
+<td width="100">UItoggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>AutoClose</i></td>
+<td width="125">int</td>
+<td width="300">Specifies if Line loops should be closed.</td>
+<td width="100">UItoggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by isoline2polyline">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="400"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Mesh+Node_Data</td>
+<td width="350">Field with converted Polyline cell set.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="350">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The isoline2polyline macro converts Line cell sets into Polyline cell sets.  In particular this macro is intended to convert the Line cell sets output by the isoline module into Polyline cell sets.  This allows isoline data to be used in situations where it previously could not.</p>  
+
+<p>A cell set describes how individual nodes are connected together to form a mesh that can be visualized.  The Line cell set describes a mesh that consists of one or more lines.  It does this by specifying the nodes that should be connected to each other.  Every connection has to be explicitly stated.  The Polyline cell set also describes a mesh that consists of one or more lines.  However it does this by specifying only the starting and ending nodes of each line segment.  It is implicitly assumed that all the nodes in between the starting and ending nodes are connected.  This means that significantly less information is needed to describe a Polyline cell set.  The fact that line segments are clearly identified also means that in some situations Polyline data can be processed more easily.</p>
+
+<p>One of the most important modules that outputs lines is the isoline module.  This module generates contour lines and outputs them as a Line cell set.  The isoline2polyline module grow out of a need to further process the isoline output with a module that only accepted data with a Polyline cell set.  The internal Isoline2PolylineCore module and its associated C++ code is based upon the <a href="../isolbl2/doc_mod.html">Isolabel2Core</a> module.  The Isoline2PolylineCore module uses the same method to identify line segments.  However instead of creating labels these line segments are converted into a Polyline cell set that is output.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_fld</i></b></blockquote>
+
+<blockquote>The input field that should be converted.  The field should contain at least one Line cell set.  All other cell sets are ignored and will not be output.  If you wish the output to contain node data the input should contain a single set of scalar float node data.  No other formats of node data are supported.</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote><i><b>Active</b></i></blockquote>
+
+<blockquote>Integer parameter that specifies whether the module should update.  If the parameter is set to zero no updates take place.  Conversely if the parameter is not set to zero updates take place as normal.</blockquote>
+
+<blockquote><b><i>Downsize</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies how frequently nodes should be included in the output polyline. The parameter specifies the stride that should be taken between each node that is included.  Therefore a Downsize factor of 1 implies that every node in the input Line is included in the output Polyline.</blockquote>
+
+<blockquote><b><i>UseNodeData</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies whether node data should be taken from the input field and output along with the generated Polyline.  Currently the isoline2polyline macro only supports the output of a single component of node data.  That node data has to consist of a single scalar value of type float.</blockquote>
+
+<blockquote><b><i>AutoClose</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies whether nodes should be added so that loops can be automatically closed.  Due to the way that a Line cell set is specified the starting node of a loop can be the same as the ending node.  However a polyline that starts and ends at the same node cannot be valid.  To solve this problem the module can duplicate the starting node so two distinct nodes are present.  In some situations adding nodes is indesirable so this option is available so that this feature can be disabled.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>Field data that contains the converted Polyline cell set.  If multiple Line cell sets are present at the input they are combined together so that only one Polyline cell set is output.  If required node data is also present in this output field.</blockquote>
+
+<blockquote><i><b>out_obj</b></i></blockquote>
+
+<blockquote>The directly renderable output of the isoline2polyline macro. This output contains a DataObject object that can be rendered by the standard data viewers.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The Isoline2Polyline functional macro uses the Isoline2PolylineCore low-level module.  The isoline2polyline user macro uses this functional macro and the Isoline2PolylineUI user interface macro.  The Isoline2PolylineParams parameter block is used to transfer data between these components.</p>
+
+<p>The expand_polyline_coords macro is used to explicitly apply the xform present in a Polyline field to the coordinates the field contains.  This macro is used by BlendyIsolineEg example application to convert the transformed 2D coordinates generated by the orthoslice module into absolute 3D coordinates.  This is necessary because the blendy_tubes module is not designed to deal with 2D coordinates.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Two example applications are provided with this project.  The Isoline2PolylineEg example application takes the output of an isoline module and converts that data in a Polyline cell set.  The results are then displayed.</p>
+
+<p>The BlendyIsolineEg example application expands upon the Isoline2PolylineEg application by using the blendy_tubes macro to generate variable radius tubes around each isoline.  This visualization would not possible without the isoline2polyline macro because the blendy_tubes macro only accepts Polyline data.  The BlendyTubes project must be installed and compiled correctly before this application can be used.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/iso2poly/i2p_mods.v</i> contains the V definitions of the Isoline2PolylineCore low-level module and the Isoline2PolylineParams parameter block.</p>
+
+<p><i>xp_comm_proj/iso2poly/i2p_macs.v</i> contains the V definitions of the Isoline2PolylineUI user interface macro, the Isoline2PolylineFunc functional macro, the isoline2polyline user macro and the expand_polyline_coords utility macro.</p>
+
+<p><i>xp_comm_proj/iso2poly/i2p_apps.v</i> contains the V definitions of the Isoline2PolylineEg and BlendyIsolineEg example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level Isoline2Polyline library containing the module Isoline2PolylineCore does not specify a process. By default the express process will be used.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Dr Federico Gamba
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="..\isolbl2\doc_umac.html">Isolabel2</a> IAC project.</li>
+<li>isoline AVS/Express module.</li>
+</ul>
+
+</body>
+</html>
+

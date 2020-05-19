@@ -1,0 +1,12 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/dh_dial/dhdial.v" DashDial;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.DashDial.DashDialMacs.DashDial DashDial;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.DashDial.DashDialApps.DashDialArrayEg DashDialArrayEg;

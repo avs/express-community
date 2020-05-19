@@ -1,0 +1,112 @@
+Express Community ReadFidap Project - Pre-release Version
+https://github.com/avs/express-community
+-------------------------------------------
+
+IMPORTANT NOTE:
+---------------
+
+It should be noted that this release of the ReadFidap project should not be
+considered to be of production quality.  It has been released so that it can
+be used.  However the project does have certain known problems.  The most major
+of these is that the project is unable to load certain kinds of Fidap Neutral
+files.  Furthermore when this occurs the module does not exit cleanly and hence
+causes AVS/Express to crash.  This problem is currently being investigated.  As
+solving this problem is likely to take a significant amount of time the module is
+being released as is.
+
+
+Installation Instructions
+-------------------------
+
+This directory ( xp_comm_proj/rd_fidap/ ) contains all the V code, source code,
+documentation, and installation information for the Community Project "ReadFidap".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new project, and two additions to the xp_comm_lib/ files (in this instance
+data_io.v and examples.v) to add links to the User Macros and example
+applications from the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+If you modify the project, and elect to specify the process as "user" or
+another user-defined process, then the module may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the module:
+
+        $compile XP_COMM_PROJ.ReadFidap.ReadFidapMods
+
+Users of the Developer's Edition may select the module in the relevant 
+Templates library, and choose 'compile' from the Project menu.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/rd_fidap/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v,
+               xp_comm_lib/data_io.v and xp_comm_lib/examples.v files. This file should
+               not be edited as the future installation script will use this file.
+
+rd_fidap.v     Creates the XP_COMM_PROJ.ReadFidap library.
+
+rdfdmods.v     Creates the library containing the low-level module
+               IVrdFidapResult and the parameter blocks IVrdFidapInputParams and
+               IVrdFidapOutputParams.
+
+rdfdmacs.v     Creates the library containing the high-level user macros
+               rdFidap_base, Read_Fidap_Dialog and Read_Fidap_Module, the 
+               functional macro rdFidapFunc, the UI marcos rdTemplDialog and 
+               rdFidapDialog and the example application ReadFidapEg.
+
+rdFidap.c      The main C source code for the module.
+
+fid2FLD.h      Associated C source and header files.
+fid_util.c
+file_io.c
+header.c
+rd_info.c
+rd_mesh.c
+rd_ndat.c
+
+rd_fidap.txt   ReadFidap Documentation. 
+
+2d_test.fnu    Fidap Neutral test file.
+
+README         This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h          AVS/Express generated header file.
+
+gen.cxx        AVS/Express generated source code.
+
+rdFidap.o/obj  Intermediate object file.
+fid_util.o/obj
+file_io.o/obj
+header.o/obj
+rd_info.o/obj
+rd_mesh.o/obj
+rd_ndat.o/obj
+

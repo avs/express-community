@@ -1,0 +1,40 @@
+
+Changes included in Version 1.1 - February 21, 2001
+---------------------------------------------------
+
+Note
+----
+
+The previous version 1.0 was not released publicly.
+
+
+Bug fixes
+---------
+
+- mixed zone type (structured and unstructured) with only some having data and others not,
+  caused incorrect assignment of data variables (Solutions) to Fields [solved]
+- not supported data variable types caused general abort of reading, instead of skipping that
+  data [solved]
+- one second order cell had wrong CGNS-to-AVS vertex reordering [solved]
+- reading a new CGNS file left Base selection at previous value [solved for PC]
+
+Enhancements
+------------
+
+- status/interrupt
+- full NGON_n support (up to 20 vertices)
+- more UI information
+- removed unused UI elements
+- minor code cleaning
+- test cases for all supported cell types
+
+Known problems
+--------------
+
+- UNIX only: reading a new CGNS file leaves the Base selection at previous value while
+  internal structures are set for the first Base. Solution for PC does not
+  work with the Motif widget
+- mixed two dimentional (XY,XZ,YZ) grids will all be converted to XY space
+  (example: two 2D Zones, one with grid of XY and the other defined as YZ - both Zones
+  will appear to be defined in the XY space)
+

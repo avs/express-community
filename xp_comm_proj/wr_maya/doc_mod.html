@@ -1,0 +1,220 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>WriteMayaCore</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>WriteMayaCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Writes the contents of a field or array of fields to a Alias/Wavefront MAYA 
+"OBJ" file.
+</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+   module WriteMayaCore  &lt;src_file="wr_maya.cxx",
+                          cxx_hdr_files="fld/Xfld.h"&gt; {
+
+      cxxmethod+req update &lt;status=1&gt;(
+         filename+read+notify+req,
+         in+read,
+         top_name+read,
+         nobjs+read,
+         .err+write,
+         .err_str+write
+      );
+
+      string filename&lt;export=2,NEportLevels={2,0}&gt;;
+      Mesh+Node_Data &amp;in&lt;export=2,NEportLevels={2,0}&gt;[];
+      string top_name&lt;export=2,NEportLevels={2,0}&gt; = "default_avs_field";
+      int nobjs&lt;export=2,NEportLevels={2,0}&gt;;
+
+      int err&lt;export=2,NEportLevels={0,2}&gt; = 0;
+      string err_str&lt;export=2,NEportLevels={0,2}&gt; = "";
+   };
+</pre>
+
+<hr></blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+This module parses the arrays of meshes <tt>in</tt> and then creates an ASCII 
+Maya OBJ output file containing the Cell_Sets of certain 3D elements. The 
+current implementation outputs triangle, quad, line, polyline and polytristrip 
+cell sets. The module takes cell mesh topology from the input field structure 
+and writes this data out to the Maya file.
+</blockquote>
+
+<blockquote>
+The format output is the original Wavefront OBJ file format.  This format can 
+store 3D geometric objects in the scene.  The module is able to pass
+normals through if they exist on the input mesh.  Colors and scalar numerical
+values at nodes can also be passed through using UV texture coordinates.
+</blockquote>
+
+<blockquote>
+The cell-set hierarchy is preserved in the file format, delimited by
+comments in the output file. As the module takes an array of meshes as its input 
+it is able to output an array of objects.  This is used by the user macros 
+write_maya_multi and write_maya_ARR to output either an array of fields or a 
+GroupObject containing a number of Graphic Display objects.  This can, for 
+example, be used to output bounds, isosurface and a slice plane objects to a 
+single Maya file.
+</blockquote>
+
+<center><a href="http://www.aw.sgi.com">
+<img SRC="maya.gif" ALT="Alias/Wavefront Maya logo"></a></center>
+
+<blockquote>
+The MAYA system is an advanced animation and visualization system developed by 
+Alias/Wavefront. Other packages, such as SoftImage and Lightwave3D can also read 
+the Maya OBJ format.  More information about the Maya system can be found on the 
+<a href="http://www.aw.sgi.com">Alias/Wavefront</a> web-site. A full description 
+of the file format structure with examples, can be found at:
+</blockquote>
+
+<blockquote>
+<a href="http://cica.cica.indiana.edu/graphics/object_specs/OBJ.format.txt">
+http://cica.cica.indiana.edu/graphics/object_specs/OBJ.format.txt</a>
+</blockquote>
+
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<b><i>&amp;in[]</i></b>
+</blockquote>
+
+<blockquote>
+Reference to an array of Fields which are to be written to the Maya file. Each
+Field should consist of a Mesh containing a Cell_Set, and Node data.
+</blockquote>
+
+<blockquote>
+<b><i>filename</i></b>
+</blockquote>
+
+<blockquote>
+The name of the file that should be written to. The parameter is of type string.
+The filename should specify the full path name of the file.
+</blockquote>
+
+<blockquote>
+<b><i>top_name</i></b>
+</blockquote>
+
+<blockquote>
+The name of the object being written to the file. The parameter is of type
+string. The Maya file format stores the names of the objects in the file.  This 
+parameter allows these names to be specified.  The supplied user macros use the 
+standard AVS object names.
+</blockquote>
+
+<blockquote>
+<b><i>nobjs</i></b>
+</blockquote>
+
+<blockquote>
+The number of objects to be written to the file. The parameter is of type int. 
+The user macro write_maya_ARR uses the GroupObject parameters to set this 
+parameter.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<b><i>err</i></b>
+</blockquote>
+
+<blockquote>
+This flag is used to indicate whether an error has occurred. The parameter is of 
+type int. If this parameter is set to 1 then an error has occurred within the 
+module and the user should be informed. This can be done by using the parameter 
+to control the visibility of an <tt>err_str</tt> label.
+</blockquote>
+
+<blockquote>
+<b><i>err_str</i></b>
+</blockquote>
+
+<blockquote>
+The description of the current error condition. The parameter is of type string. 
+This parameter is used to store a user readable description of the current 
+error. If no error has occurred the parameter has a value of "". 
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The low-level WriteMayaCore module is used in the User Macros
+write_maya, write_maya_multi, write_maya_GD and write_maya_ARR.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Three example applications are provided. WriteMayaEg demonstrates the use of the 
+write_maya user macro by generating an isosurface and writing that isosurface to 
+a file.  WriteMayaMultiEg demonstrates the use of the write_maya_multi user 
+macro by generating several sets of Field data and writing them all to a single 
+file.  WriteMayaArrEg demonstrates the use of the write_maya_ARR macro by 
+loading a multiblock set of data and generating a series of visualizations. The 
+isosurface can then be written to a file. If the resultant file is examined then 
+it is apparent that the isosurface is written out in several chunks, one per 
+block of data.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/wr_maya/wrmymods.v</i> contains the WriteMayaCore module V definition.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level WriteMayaMods library containing the module WriteMayaCore does not 
+specify a process. By default the <TT>express</TT> process will be used. 
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ian Curington
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+
+<a HREF="mailto:ianc@avs.com">ianc@avs.com</a>
+</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="doc_umac.html">write_maya</a>,
+<a href="doc_umac.html">write_maya_multi</a>,
+<a href="doc_umac.html">write_maya_GD</a>, 
+<a href="doc_umac.html">write_maya_ARR</a>, WriteMayaUI, WriteMayaEg, 
+WriteMayaMultiEg, WriteMayaArrEg, Write STL, Write VGF, Write POV
+</blockquote>
+
+</body>
+</html>
+

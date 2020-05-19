@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>string_array_subset</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>string_array_subset</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Provides prim[start:end] functionality for string arrays.
+</blockquote>
+
+<blockquote>
+<h4>Inputs</h4>
+
+<table  width="100%" summary="Inputs used by string_array_subset">
+<tr>
+<td width="30%"><b><font size="-1">Name</font></b></td>
+<td width="20%"><b><font size="-1">Type</font></b></td>
+<td width="50%"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+<tr>
+<td width="30%"><i>in</i></td>
+<td width="20%">string []</td>
+<td width="50%">array of strings </td>
+</tr>
+
+<tr>
+<td width="30%"><i>start</i></td>
+<td width="20%">int</td>
+<td width="50%">start of string range</td>
+</tr>
+
+<tr>
+<td width="30%"><i>end</i></td>
+<td width="20%">int</td>
+<td width="50%">end of string range</td>
+</tr>
+
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table width="100%" summary="Outputs used by string_array_subset">
+<tr>
+<td width="30%"><b><font size="-1">Name</font></b></td>
+<td width="20%"><b><font size="-1">Type</font></b></td>
+<td width="50%"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+<tr>
+<td width="30%"><i>out</i></td>
+<td width="20%">string []</td>
+<td width="50%">subset of array <i>in</i></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The useful subset syntax <tt>[start:end]</tt> is only implimented for prims, in fact Express tells you that it's "not currently" implimented for strings. This module does exactly that.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>in</i></b></blockquote>
+<blockquote>An array of strings.</blockquote>
+
+<blockquote><b><i>start</i></b></blockquote>
+<blockquote>Using 0 indexing the start of the subset you want to extract.</blockquote>
+
+<blockquote><b><i>end</i></b></blockquote>
+<blockquote>Using 0 indexing the end of the subset you want to extract.</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>out</i></b></blockquote>
+<blockquote>The string array equivalent to <tt>in[start:end].</tt></blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+The Macro returns a subset of the input array of strings:
+
+	<blockquote>
+	<h4> Input: </h4>
+	<pre>
+	in[6] = {"text0","text1","text2","text3","text4","text5"}
+	start = 2
+	end = 4
+	</pre>
+	
+	<h4> Output: </h4>
+	<pre>
+	out[3] = {"text2","text3","text4"}
+	</pre>
+	
+	</blockquote>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/strarsub/strarsub.v</i> defines the library</p> 
+<p><i>xp_comm_proj/strarsub/sas_mods.v</i> module definition</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+James S. Perrin : <A HREF="mailto:james.perrin@man.ac.uk">james.perrin@man.ac.uk</A>,
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+AVS/Express documentation for prim arrays.
+<ul>
+</ul>
+</body>
+</html>

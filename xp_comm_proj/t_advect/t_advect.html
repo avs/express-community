@@ -1,0 +1,361 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>tailed_advector</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>tailed_advector</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The tailed_advector module generates AVS5 style advectors with dynamic tails.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by tailed_advector">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_field</i></td>
+<td width="75">Field</td>
+<td width="425">Input data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>in_probe</i></td>
+<td width="75">Mesh</td>
+<td width="425">Start positions of advectors.</td>
+</tr>
+
+<tr>
+<td width="100"><i>in_glyph</i></td>
+<td width="75">Field</td>
+<td width="425">Geometry to use for glyph output.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<p>Please see the AVS/Express <tt>advector</tt> documentation for information on inherited parameters.</p>
+
+<table summary="Parameters used by tailed_advector">
+
+<tr>
+<td width="150"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i>tracer_len</i></td>
+<td width="50">int</td>
+<td width="300">Length of generated tracer line.</td>
+<td width="100">Slider</td>
+</tr>
+
+<tr>
+<td width="150"><i>tracer_style</i></td>
+<td width="50">int</td>
+<td width="300">Style of tracer to generate.</td>
+<td width="100">Radiobox.</td>
+</tr>
+
+<tr>
+<td width="150"><i>time_step_interval</i></td>
+<td width="50">float</td>
+<td width="300">Interval between time step increments.</td>
+<td width="100">UIslider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by tailed_advector">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Field</td>
+<td width="425">Generated glyph visualization data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_stream</i></td>
+<td width="75">Field</td>
+<td width="425">Generated stream visualization data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_tracer</i></td>
+<td width="75">Field</td>
+<td width="425">Generated advector tail visualization data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Renderable glyph visualization.</td>
+</tr>
+
+<tr>
+<td width="100"><i>stream_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Renderable stream visualization.</td>
+</tr>
+
+<tr>
+<td width="100"><i>tracer_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Renderable advector tail visualization.</td>
+</tr>
+
+<tr>
+<td width="100"><i>time_step_number</i></td>
+<td width="75">int</td>
+<td width="425">Current time step number.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>Generating advectors is a well known method of visualisation and both AVS5 and AVS/Express are supplied with modules that perform this sort of visualization.  However the AVS/Express version has significant limitations with compared to the AVS5 version.  This project aims to correct these limitations by presenting an improved version of the AVS/Express advector module.</p>
+
+<p>The advector technique is intended to help visualize flow through a set of data.  It does this by releasing a sample of zero mass particles and showing how they move with time.  The actual simulation of this process is done by generating a series of streamlines and moving the particles along these lines.  As well as seeing where the particles are at an instance in time it can also be useful to show where they have been.  The AVS5 module allowed this to be done by showing a trace behind each particle.  Unfortunately the AVS/Express version of the module is not able to do this.  The tailed_advector module in this project adapts the standard module so that it is able to generate advector traces.</p>
+
+<p>As the advector technique models the movement of particles over time it would also be useful if the module could support time dependent data.  The standard AVS/Express module does not support this.  The tailed_advector module adds the functionality necessary to support time dependent data.  More information on how this functionality can be used is given in the descriptions of the <a href="t_dep_av.html">TimeDependentAdvector</a> and <a href="t_dep_av.html">AltTimeDependentAdvector</a> user macros.</p>
+</blockquote>
+
+<h3>Limitations</h3>
+
+<blockquote>
+<p>The tailed_advector module has a number of limitations that are not present in the standard AVS/Express advector module.  Most of these limitations are practical problems caused by the added complexity introduced into the module.</p>
+
+<ul>
+
+<li>
+<p><b>Movement of particles is not interpolated</b></p>
+
+<p>As a particle moves along the calculated streamline it is unlikely that it will coincide exactly with a streamline node.  Hence the normal advector module interpolates between streamline nodes to calculate the position of a particle.  To ensure that the particle matches up with the advector tail the interpolated nodes would have to be added into the streamline mesh.  Currently the tailed_advector module does not do this.  Instead it does not interpolate the position of particles.  Hence particle movement will be noticeably less smooth if there are few nodes.</p>
+</li>
+
+<li>
+<p><b>Only one set of particles can be released per run.</b></p>
+
+<p>The standard advector module allows particles to be released repeatedly during the course of a single run.  This significantly complicates support for time dependent data.  Therefore multiple release of particles and the release_time parameter are not currently supported.</p>
+</li>
+
+<li>
+<p><b>Tracer length refers to number of streamline nodes.</b></p>
+
+<p>The length of each advector trace is specified as a number of streamline nodes.  It is not specified as a spatial length.  Hence the actual length of the advector trace will depend upon the number of nodes present on the streamline.</p>
+</li>
+
+<li>
+<p><b>Time must be reset before a new probe is specified.</b></p>
+
+<p>The tailed_advector module internally stores an altered version of the input probe mesh.  This is necessary so that the module can cope with time dependent data.  If the time is not reset before specifying a new probe then this adapted probe will still be in use.</p>
+</li>
+</ul>
+
+</blockquote>
+
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_field</i></b></blockquote>
+
+<blockquote>Input field structure containing the data that is to be analysed.  The field should contain a mesh with associated node data.  The first node data component should contain the velocity vector data.  The velocity vector should have either 2 or 3 components.  All other node data components are ignored.</blockquote>
+
+<blockquote><b><i>in_probe</i></b></blockquote>
+
+<blockquote>Mesh structure containing the initial positions of each particle that is to be released during the advection process.  Normally a FPlane geometry can be used as the input to this port.</blockquote>
+
+<blockquote><b><i>in_glyph</i></b></blockquote>
+
+<blockquote>Geometry that should be used to represent the particles.  Any mesh can be used, however for convenience the Geometries library provides many suitable objects.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+Only the parameters added to the standard advector module are described here.  For a full description of the parameters of the advector module please see the AVS/Express documentation. 
+</blockquote>
+
+
+<blockquote>
+<b><i>tracer_len</i></b><br>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies the maximum number of streamline nodes that should be included in the generated advector tracer.  This parameter is ignored if a <tt>tracer_style</tt> of ADD is specified.  To simplify the implementation of this module no attempt is made to ensure that the tracer is of a constant spatial length.
+</blockquote>
+
+<blockquote>
+<b><i>tracer_style</i></b><br>
+</blockquote>
+
+<blockquote>
+<p>Integer parameter that specifies the how the advector tracer should be generated.  Currently there are three possible options.</p>
+
+<ol start=0>
+<li>
+<p><b>CAP</b><br>
+Generates a tracer that begins at the initial particle position and continues until either <tt>tracer_len</tt> steps have been completed or the current particle position has been reached.</p>
+</li>
+<li>
+<p><b>CYCLE</b><br>
+Generates a tracer that begins at the current particle position and continues until either <tt>tracer_len</tt> steps have been completed or the initial particle position has been reached.</p>
+</li>
+<li>
+<p><b>ADD</b><br>
+Generates a tracer that begins at the initial particle position and continues until the current particle position is reached.</p>
+</li>
+</ol>
+
+</blockquote>
+
+<blockquote><b><i>time_step_interval</i></b></blockquote>
+
+<blockquote>
+This float parameter specifies the time that should elapse between each increment of the <tt>time_step_number</tt> output.  For the <tt>time_step_number</tt> output to be incremented regularly the <tt>time_step_interval</tt> should be several times longer than the standard advector <tt>step</tt> period.  If this parameter has a value of 0 the <tt>time_step_number</tt> output will not be incremented.
+</blockquote>
+
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>Output field containing the current particle positions.  Each particle position is represented by a glyph geometry.  The glyphs are orientated along the current velocity vector.  They are scaled and coloured by the magnitude of the velocity vector.</blockquote>
+
+<blockquote><b><i>out_stream</i></b></blockquote>
+
+<blockquote>Output field containing the streamlines that were used to perform the advection.  The field contains a Polyline mesh with the velocity vector stored as a node data component.</blockquote>
+
+<blockquote><b><i>out_tracer</i></b></blockquote>
+
+<blockquote>Output field containing the generated advector tracers.  The field contains a Polyline mesh with the velocity vector stored as a node data component.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the <tt>out_fld</tt> output, suitable for direct connection to a viewer.</blockquote>
+
+<blockquote><b><i>stream_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the <tt>out_stream</tt> output, suitable for direct connection to a viewer.</blockquote>
+
+<blockquote><b><i>tracer_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the <tt>out_tracer</tt> output, suitable for direct connection to a viewer.</blockquote>
+
+<blockquote><b><i>time_step_number</i></b></blockquote>
+
+<blockquote>Integer output that is incremented whenever the time specified by the <tt>time_step_interval</tt> parameter has passed.  This output is used by the <a href="t_dep_av.html">TimeDependentAdvector</a> module to choose which data set should be used as the input to the tailed_advector module.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote><p>The functional macro TailedAdvectorFunc uses the low-level module TailedAdvectorCore.  The user macro tailed_advector uses this functional macro and the user interface macro TailedAdvectorUI.  The TailedAdvectorParams parameter block is used to connect these components together.</p>
+
+<p>The Synchronize utility module is provided so that two tailed_advector module can be started and reset simultaneously.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided.  The SingleTailedAdvectorEg application reads the 'bluntfin.inp' dataset and allows the user to investigate the air flow by using a single tailed_advector module.  The DualTailedAdvectorEg application similarly reads the 'bluntfin.inp' dataset.  However it allows the user to investigate the air flow by using two tailed_advector modules simultaneously.  The Synchronize module can be used to start both modules.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/t_advect/tadvmods.v</i> contains the V definitions of the TailedAdvectorCore module, the Synchronize utility module and the TailedAdvectorParams parameter block.</p>
+
+<p><i>xp_comm_proj/t_advect/tadvmacs.v</i> contains the V definitions of the TailedAdvectorUI UI macro, the TailedAdvectorFunc functional macro and the tailed_advector, TimeDependentAdvector and AltTimeDependentAdvector user macros.</p>
+
+<p><i>xp_comm_proj/t_advect/tadvapps.v</i> contains the V definitions of the SingleTailedAdvectorEg, DualTailedAdvectorEg and TimeDependentAdvectorEg example applications.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>This project relies on the successful installation of the following components. Without them it will not function correctly.</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level TailedAdvectorMods library containing the TailedAdvectorCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Fernand Alcatrao, Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd, International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>AVS/Express advector module, from which this one is derived.</li>
+<li>AVS5 advector module.</li>
+<li><a href="t_dep_av.html">TimeDependentAdvector</a> IAC module.</li>
+<li><a href="t_dep_av.html">AltTimeDependentAdvector</a> IAC module.</li>
+</ul>
+
+</body>
+</html>
+

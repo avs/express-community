@@ -1,0 +1,135 @@
+<html>
+<head>
+<title> Read_acr_nema </title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1> Read_acr_nema </h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads ACR NEMA file format, type SPI into AVS field type. The resulting field is a uniform scalar 2D field. 
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>ui_parent</i></td>
+<td width="125">filename</td>
+<td width="300">The port is connected to the user interface object by default when it is instanced.</td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>field</i></td>
+<td width="300">Unifrom Scalar Field this is a 2D field</td>
+</tr>
+<tr>
+<td width="125"><i>out_obj</i></td>
+<td width="300">output renderable object</td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The read ACR-NEMA module reads ACR-NEMA SPI data files and converts them into AVS field format. SPI is a standard based on the old ACR/NEMA standard used by Siemens and Philips. SPI make use of ACR/NEMA data elements and groups. SPI store the integer in little endian format (Least Significant before Most Significant). 
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+This is connected to the user interface object. The user interface passes a filename and path as a string to the read_acr_nema module This module can then read the file so it can be mapped into an AVS/Express field.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>field</b></i>
+</blockquote>
+
+<blockquote>
+The output field is a 2D uniform scalar field.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The output field (2D uniform scalar field) as a renderable object.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro Read_acr_nema combines the Functional Module read_acr_nema with the UI Macro  UI_acr_nema, via the use of the uniform scalar field object that maps the output of read_acr_nema into a 2D uniform scalar field. The result is  a usable macro in the visualization library.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application Read_ACR_NEMA_Eg is provided, which reads in the provided acr nema file. Details of this file are given below. 
+</blockquote>
+<blockquote>
+image.acr-nema:- this is a test image in ACR-NEAM SPI from Philips MR 
+</blockquote>
+<blockquote>
+This image displays a section of a Pig's Heart 
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/read_acr/acr_macs.v</I> contains the UI Macro UI_acr_nema, the functional Macro Read_acr_nema and the Example Application Read_ACR_NEMA Eg.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ACR_NEMA_Macs library inherits its process. As this library contains no procedural code, the process is not important.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+        Andrea Marchetti
+        Istituto di Elaborazione dell'Informazione del CNR
+        Via S. Maria, 46 - 56100 Pisa
+        Ph. +39 50 593420  Fax +39 50 593503  
+        e-mail andrea@www-sei.iei.pi.cnr.it
+        www    http://www-sei.iei.pi.cnr.it/~andrea/home.html
+</pre></blockquote>
+
+
+<h3>Date</h3>
+<blockquote><pre>
+May. 12, 1995
+</pre></blockquote>
+
+<h3>Modifications</h3>
+<blockquote><pre>
+J. Leng April 1998
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+read_acr_nema
+</blockquote>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>SuperDraw</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>SuperDraw</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The SuperDraw user macro is an enhanced polyline editor. It is possible to add new points at the end of the polyline or between two existing points in the polyline.  It is also possible to move or delete individual points in he polyline. The whole polyline can be translated or deleted.  The created polyline can be made either open or closed.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by SuperDraw">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>parent</i></td>
+<td width="75">UIconnection</td>
+<td width="425">Connection to the User Interface.</td>
+</tr>
+<tr>
+<td width="100"><i>obj_in</i></td>
+<td width="75">GDobject_templ</td>
+<td width="425">Object that defines canvas dimensions.</td>
+</tr>
+<tr>
+<td width="100"><i>view_in</i></td>
+<td width="75">GDview_templ</td>
+<td width="425">Output of the viewer; connection to the current object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by SuperDraw">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>command</i></td>
+<td width="75">int</td>
+<td width="300">Current drawing type.</td>
+<td width="125">Radio Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>type</i></td>
+<td width="75">int</td>
+<td width="300">Defines if polyline should be closing.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by SuperDraw">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_points</i></td>
+<td width="75">float[][2]</td>
+<td width="425">Coordinates of the created polyline points.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="75">Polyline Mesh</td>
+<td width="425">Points and connectivity which represent the data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DefaultObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h4>Description</h4>
+
+<blockquote>
+<p>The SuperDraw macro allows the user to generate and edit a polyline in 2D space.  As such it is similar to the Click_Sketch AVS/Express macro.  However the SuperDraw macro is a much more comprehensive macro.  It allows the user to construct a polyline by sequentially adding points at the end of the polyline.  However it also allows the user to add points in between two existing points.  It allows the user to move or delete existing points and translate the whole polyline.  Finally the polyline can be opened or closed at any point.  The SuperDraw macro could be used for many different purposes.  For instance it could be used to segment an image by hand.  The other macros in this project(<a href="lnresamp.html">LineResampler</a> and <a href="rgresamp.html">RegionResampler</a>) are intended to build on this macro and extend its functionality.  They provide ways of generating more points from the a polyline hence allowing it to be used as, for example, a probe.</p>
+
+<p>The SuperDraw macro is actually used by first selected a drawing operation and then holding down <code>Ctrl</code> and right clicking in the main viewer.  It is possible to either click twice at the start and end of a segment or click and drag.  If you click and drag a 'rubber-band' will appear to indicate where the current segment will be created.  However with both of these methods it is essential that you always hold down <code>Ctrl</code> and use the right mouse button.  If you do not do this then nothing will happen.</p>
+
+<p>If you are moving or deleting points then the point nearest to the mouse click will be either moved or deleted.  The user inteface also provides an option for deleting all points of the polyline and translating the line in the 2D space.  Translating the line is also achieved by <code>Ctrl</code> right dragging.  Finally an option is available to close the curve.  This simply connects the  first point of the polyline to the last point.</p>
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>parent</i></b> : UIconnection</blockquote>
+
+<blockquote>This is the port that automatically connects the user interface of the module to the user interface of AVS/express.</blockquote>
+
+<blockquote><b><i>obj_in</i></b> : GDobject_templ</blockquote>
+
+<blockquote>DataObject input that is used to get a coordinate space to draw on.  If, for example, a picture is being segmented this input will be the image.</blockquote>
+
+<blockquote><b><i>view_in</i></b> : GDview_templ</blockquote>
+
+<blockquote>Output of the 2D viewer that is being used for drawing input. This input is used to received the inputs that the user makes by clicking the mouse in the viewer window.</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote><b><i>command</i></b></blockquote>
+
+<blockquote>
+<p>Integer parameter that is used to specify which drawing operation should be performed.  This parameter can have the following values:</p>
+
+<ol start=0>
+<li><b>Inactive</b> : Disables the SuperDraw macro.</li>
+<li><b>Append point</b> : Adds a point at the end of the polyline.</li>
+<li><b>Add point between</b> : Adds a point between two existing polyline points.</li>
+<li><b>Move point</b> : Moves an existing point.</li>
+<li><b>Delete point</b> : Deletes an existing point.</li>
+<li><b>Delete all points</b> : Deletes entire polyline, and automatically sets SuperDraw macro to be inactive.</li>
+<li><b>Translate line</b> : Moves entire polyline.</li>
+</ol>
+</blockquote>
+
+<blockquote><b><i>type</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies if the polyline should be closed.  If set the last point in the polyline will be connected to the first point and a closed loop will be formed.</blockquote>
+
+
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>out_points</i></b> : float[][2]</blockquote>
+
+<blockquote>This output represents all points of the polyline. Its values are saved in 2D coordinate space and it can be used for further processing of the polyline.  The other macros in this project accept this output.</blockquote>
+
+<blockquote><b><i>out_obj</i></b> : DefaultObject</blockquote>
+
+<blockquote>This port is suitable for direct connection to a viewer.  A 2D viewer is recommended since the generated polyline only has 2D coordinates.</blockquote>
+
+<blockquote><b><i>out_mesh</i></b> : Polyline Mesh</blockquote>
+
+<blockquote>This mesh output represents the polyline.  It is a combination of the points output and the connectivity between the points.  It can be input into other AVS/Express modules for further processing of the polyline.</blockquote>
+
+
+<h4>Example</h4>
+
+<blockquote>The SuperDrawEg example application illustrates how the SuperDraw macro can be used.  It reads an image and then allows the user to draw on the image.</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/draw/drawmods.v</i> Creates the DrawMods library containing the low-level modules RegionResamplerCore, LineResamplerCore, SuperDrawCore and the parameter blocks DrawLineParams and LineResamplerParams.</p>
+
+<p><i>xp_comm_proj/draw/drawmacs.v</i> Creates the DrawMacs library containing the user interface macros SuperDrawUI and LineResamplerUI, the functional macros SuperDrawFunc and LineResampleFunc, and the user macros SuperDraw, LineResampler and RegionResampler.</p>
+
+<p><i>xp_comm_proj/draw/drawapps.v</i> Creates the DrawApps library containing the example applications SuperDrawEg, LineResamplerEg, and RegionResamplerEg.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level DrawMods library containing the low-level modules does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Mario Valle,
+AVS Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Anja Bindrich, Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>AVS/Express Click_Sketch macro.</li>
+</ul>
+
+</body>
+</html>
+

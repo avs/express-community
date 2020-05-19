@@ -1,0 +1,140 @@
+<html>
+<head>
+<title>ReadHDFImageField</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ReadHDFImageField</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads an HDF (Hierarchical Data Format) Image file, and outputs a uniform field containing the image data in ARGB format. Other HDF sub-formats cannot be loaded by this module.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module ReadHDFImageField
+      &lt;hdr_dirs="/usr/local/include",
+       c_hdr_files="im.h",
+       link_files="-L/usr/local/lib -lim -lsdsc -ltiff -ljpeg",
+       src_file="r_hdfimg.c"&gt; {
+    omethod+notify_inst+req update(
+      .filename+notify+read+req,
+      .out+write )
+      = "read_hdf_image";
+
+    ReadHDFImageParams &ReadHDFImageParams &lt;NEportLevels={2,1}&gt;;
+    string filename =&gt; ReadHDFImageParams.filename;
+    Mesh_Unif+Node_Data out &lt;NEcolor0=255,NEcolor1=65280,
+                             NEnumColors=4, NEportLevels={0,2}&gt; {
+      ndim = 2;
+      points =&gt; { {0,0}, {(dims[0] - 1),(dims[1] - 1)} };
+      nspace = 2;
+      nnode_data = 1;
+      node_data {
+        id = 669; // RGB Special Data ID
+      };
+    };
+
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+ReadHDFImageField will read in the specified HDF Image file, via filename, and output a uniform field containing the image data. The HDF Image format supports images with an alpha channel, and the output field contains node data of vector length 4, containg the Alpha, Red, Green and Blue channels.
+</blockquote>
+<blockquote>
+The HDF format supports other forms of datasets, but only images are supported by this module. The module uses the SDSC Image Tools library to read the HDF Image file, and this and other associated libraries must be present on the system, before this module can be compiled and used.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&ReadHDFImageParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains a reference to the filename of the HDF Image file. Typically the file will have the extension .hdf.
+</blockquote>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the filename of the HDF Image file, via the parameter block.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field of type Mesh_Unif+Node_Data, containing the (2D) image in ARGB format. Each scanline of the HDF image is read in reverse, so that the image appears in the correct orientation for the default 2D image viewers.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadHDFImageField module is used in the Functional Macro ReadHDFImage, and the User Macro read_hdf_image. Additionally these macros also use the ReadHDFImageParams, as does the ReadHDFImageUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+The example application ReadHDFImageEg is provided, and is a basic application containing a Uviewer2D and an instance of the read_hdf_image user macro. The file &quot;image.hdf&quot; is required for the example to work, and may be downloaded from the same directory as the project archive.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/r_hdfimg/rhi_mods.v</i> contains the ReadHDFImageParams parameter block group and the ReadHDFImageField module.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The project uses the SDSC image tool libraries, which are linked to when the project is compiled. The SDSC image tool library can be downloaded from <a href="ftp://ftp.sdsc.edu/pub/sdsc/graphics/imtools/">ftp.sdsc.edu/pub/sdsc/graphics/imtools</a>. In there you will find the source code archive, along with information about other required libraries, such as the TIFF and JPEG libraries.
+</blockquote>
+<blockquote>
+The TIFF library is obtainable from <a href="ftp://ftp.sgi.com/graphics/tiff/">ftp.sgi.com/graphics/tiff</a>, and the JPEG library is obtainable from <a href ="ftp://ftp.uu.net/graphics/jpeg">ftp.uu.net/graphics/jpeg</a>, if you do not already have these installed on your system.
+</blockquote>
+<blockquote>
+Note: By default, the V code for the module, assumes that it will find the "im.h" include file in /usr/local/include (the default installation area for the above libraries; PC users will have a different default), and similarly that it will find the libraries libim, libsdsc, libtiff and libjpeg in /usr/local/lib. Change the module properties <tt>hdr_dirs</tt> and <tt>link_files</tt> to point to the appropriate place. Additionally, on some systems, the SDSC library may already contain the TIFF and JPEG libraries, so the -ltiff and -ljpeg parts of the <tt>link_files</tt> property may not be required.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever
+
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadHDFImageParams, ReadHDFImage, ReadHDFImageUI and read_hdf_image.
+</blockquote>
+
+<blockquote>
+Read_Image, ReadHDFSDS.
+</blockquote>
+
+</body>
+</html>

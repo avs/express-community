@@ -1,0 +1,296 @@
+<html>
+<head>
+<title>CFDValsNodeData</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CFDValsNodeData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The module CFDValsNodeData computes derived CFD field quantities from base values in the PLOT3D format (density, momentum, and stagnation).
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module CFDValsNodeData &lt;src_file="cfdvals.c"&gt; {
+  Node_Data+read+notify+req &in &lt;NEportLevels={2,0}&gt; [];
+  CFDValsParams &CFDValsParams &lt;NEportLevels={2,0}&gt;;
+
+  double+read+notify+req gamma =&gt; CFDValsParams.gamma;
+  double+read+notify+req gas_constant =&gt; CFDValsParams.gas_constant;
+  int+read+notify+req do_energy =&gt; CFDValsParams.do_energy;
+  int+read+notify+req do_pres =&gt; CFDValsParams.do_pres;
+  int+read+notify+req do_enthalpy =&gt; CFDValsParams.do_enthalpy;
+  int+read+notify+req do_mach =&gt; CFDValsParams.do_mach;
+  int+read+notify+req do_temp =&gt; CFDValsParams.do_temp;
+  int+read+notify+req do_totpres =&gt; CFDValsParams.do_totpres;
+  int+read+notify+req do_tottemp =&gt; CFDValsParams.do_tottemp;
+
+  int nblocks =&gt; array_size(in);
+  Node_Data+write+nonotify out[nblocks];
+
+  CFDVals_comb_mesh_and_data CFDVals_comb_mesh_and_data[nblocks] {
+    int index =&gt; index_of(CFDVals_comb_mesh_and_data);
+    in_mesh =&gt; &lt;-.in[index];
+    in_nd =&gt; &lt;-.out[index];
+  };
+
+  mlink+OPort2 fields =&gt; CFDVals_comb_mesh_and_data.out;
+
+  omethod+notify_val+notify_inst update&lt;status=1&gt; = "cfd_values_update";
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The module CFDValsNodeData computes derived CFD field quantities from base values in the PLOT3D format. It inputs an array of Structured Fields (5-vector data at nodes)
+<ul>
+<li>density
+<li>x-momentum
+<li>y-momentum
+<li>z-momentum
+<li>stagnation
+</ul>
+<p>
+This module takes input in the form produced by the Read PLOT3D
+module, with an array of fields (multiblock) with 5 scalar
+components. Based on the toggle parameters, this module
+computes numerically derived quantities, usefull for
+flow visualization.
+</p>
+<p>
+Two scalar parameters, Gamma and Gas Constant may be set
+in the user interface.
+</p>
+<p>
+The field that cfd	values receives	from read plot3D has the following
+5 values: density,	X momentum, Y momentum,	Z momentum, and	stagnation.
+</p>
+<p>
+From these 5 values cfd values computes 7 new values:
+<ul>
+<li>energy
+<li>pressure
+<li>enthalpy
+<li>mach number
+<li>temperature
+<li>total pressure
+<li>total temp
+</ul>
+<p>
+The gamma constant and the gas constant are user controllable parameters, and the following variables are defined:
+</p>
+<pre>
+       d = density
+
+       xm = x momentum
+
+       ym = y momentum
+
+       zm = z momentum
+
+       st = stagnation
+</pre>
+<p>
+The equations used to derive the <i>new</i> values are as follows:
+</p>
+<pre>
+       energy = stag / d
+
+       pressure = (gamma - 1)(stag - ((0.5/d)(xm^2+ym^2+zm^2))
+
+       enthalpy = (gamma/(gamma - 1))pressure/d
+
+       mach number (M) = square_root(xm^2+ym^2+zm^2)
+                         ---------------------------------------
+                         (d * square_root(gamma * pressure /d ))
+
+       temperature(T) = pressure / (d * gas constant)
+
+       total pressure = pressure * exp(log(x) * gamma/(gamma - 1)
+              where x = 1 - 0.5(gamma - 1) M * M
+
+       total temperature = T(1 + (0.5*(gamma - 1) M * M
+</pre>
+<p>
+Note that, in calculating the 7 derived quantities, cfd values uses
+the same assumptions about the non-dimensionality, or normalization,
+of data that the National Aeronautics and Space Administration's
+PLOT3D, and the read plot3D module themselves use.
+</p>
+<p>
+The min/max range of data is set on all blocks for consistancy.
+The module will compile and run in the user or express process.
+</p>
+<p>
+The reader is written in an &quot;omethod&quot; style in C, with
+a multi-block (arrays of fields) output data structure.
+The DVswitch module can be used to select just one of the blocks
+for visualization with Main-Page modules, otherwise use the
+ARR modules for multiblock processing.
+</p>
+<p>
+The low level code module takes a parameter block
+with default values as input. It only operates on Node_Data,
+and ignores the mesh. The user interface is in a separate
+macro and can be removed or replaced.
+</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+The input Node_Data array.
+</blockquote>
+
+<blockquote>
+<i><b>&CFDValsParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of:
+</blockquote>
+
+<blockquote>
+<i><b>gamma</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the gamma value to be used in the equations. 	  
+A floating point value between 1 and 5, which	determines the
+value of the constant. The formulas assume an ideal gas with
+a constant ratio of specific heats. The default value is 1.4.
+</blockquote>
+
+<blockquote>
+<i><b>gas_constant</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the gas constant value to be used in the equations.
+A floating point value between 0 and 5, which	determines the
+value of the gas constant. The default value is 1.
+</blockquote>
+
+<blockquote>
+<i><b>do_energy</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the calculation of the energy.
+</blockquote>
+
+<blockquote>
+<i><b>do_pres</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the calculation of the pressure.
+</blockquote>
+
+<blockquote>
+<i><b>do_enthalpy</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the calculation of the enthalpy.
+</blockquote>
+
+<blockquote>
+<i><b>do_mach</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the calculation of mach number.
+</blockquote>
+
+<blockquote>
+<i><b>do_temp</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the calculation of the temperature.
+</blockquote>
+
+<blockquote>
+<i><b>do_totpres</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the calculation of the total pressure.
+</blockquote>
+
+<blockquote>
+<i><b>do_tottemp</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the calculation of the total temperature.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>fields</b></i>
+</blockquote>
+
+<blockquote>
+Output field array with modified Node_Data.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The CFDValsNodeData module is used in conjunction with the CFDVals Functional Macro and the CFDValsUI UI Macro to form the User Macro <a href="doc_umac.html">cfd_values</a>.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application CFDValsEg is provided.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cfdvals/cfdvmods.v</I> contains the CFDValsParams group and the CFDValsNodeData module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level CFDValsMods library containing the module CFDValsNodeData does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington, AVS Inc. (March 97)
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CFDValsParams, CFDValsUI, <a href="doc_umac.html">cfd_values</a>.
+</blockquote>
+
+</body>
+</html>

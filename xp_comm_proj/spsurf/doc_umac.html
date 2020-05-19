@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>sphere_surface, sphere_surface_data, sphere_surface_lite</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>sphere_surface, sphere_surface_data, sphere_surface_lite</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The macros sphere_surface, sphere_surface_data, and sphere_surface_lite, respectively allow the generation of 2D surface sphere mesh, 2D surface sphere mesh with mapped Node_Data and a simple sphere geometry for use as a glyph.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input ports used by sphere_surface_data">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>&amp;in</i></td>
+<td width="75">Grid_Struct+ Node_Data+ Dim2</td>
+<td width="425">Input Node_Data for surface mapping<br> (<b>sphere_surface_data</b> only)</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block SphereSurfaceParams, which are accessed by the module <a href="doc_mod.html">SphereSurfaceGen</a> and the UI Macro SphereSurfaceUI.
+</p>
+<table summary="Parameters used by sphere_surface, sphere_surface_data &amp; sphere_surface_lite">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>longdim</i></td>
+<td width="75">int</td>
+<td width="300">Resolution of grid along longitude</td>
+<td width="125">Longitude/Subdivision</td>
+</tr>
+
+<tr>
+<td width="100"><i>latdim</i></td>
+<td width="75">int</td>
+<td width="300">Resolution of grid along latitude</td>
+<td width="125">Latitude/Subdivision</td>
+</tr>
+
+<tr>
+<td width="100"><i>start_long</i></td>
+<td width="75">double</td>
+<td width="300">Start angle for longitude</td>
+<td width="125">Longitude/Start</td>
+</tr>
+
+<tr>
+<td width="100"><i>end_long</i></td>
+<td width="75">double</td>
+<td width="300">End angle for longitude</td>
+<td width="125">Longitude/End</td>
+</tr>
+
+<tr>
+<td width="100"><i>start_lat</i></td>
+<td width="75">double</td>
+<td width="300">Start angle for latitude</td>
+<td width="125">Latitude/Start</td>
+</tr>
+
+<tr>
+<td width="100"><i>end_lat</i></td>
+<td width="75">double</td>
+<td width="300">End angle for latitude</td>
+<td width="125">Latitude/End</td>
+</tr>
+
+<tr>
+<td width="100"><i>radius</i></td>
+<td width="75">double</td>
+<td width="300">Sphere radius</td>
+<td width="125">Radius</td>
+</tr>
+
+<tr>
+<td width="100"><i>closedlong</i></td>
+<td width="75">boolean</td>
+<td width="300">Toggle closed surface along longitude</td>
+<td width="125">Longitude/Closed</td>
+</tr>
+
+<tr>
+<td width="100"><i>closedlat</i></td>
+<td width="75">boolean</td>
+<td width="300">Toggle closed surface along latitude</td>
+<td width="125">Latitude/Closed</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output ports used by sphere_surface, sphere_surface_data &amp; sphere_surface_lite">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="75">Mesh</td>
+<td width="425">Output structured Mesh data<br>
+(<b>sphere_surface &amp; sphere_surface_lite</b>)</td>
+</tr>
+<tr>
+<td width="100"><i>out_field</i></td>
+<td width="75">Mesh+Node_Data</td>
+<td width="425">Output structured Mesh data with mapped Node data<br>
+(<b>sphere_surface_data</b> only)</td>
+</tr>
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable output object<br>
+(<b>sphere_surface &amp; sphere_surface_data</b>)</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p><b>sphere_surface</b></p>
+<p>
+The macro sphere_surface generates a 2D spherical surface grid and mesh, based on the input parameters.  These parameters control the resolution of the resultant grid, specify the start and end angles for the longitude and latitude of the surface, and the sphere radius.
+</p>
+<p>
+Additional options allow the two edges of the 2D surface to be closed: as the sphere wraps around the two edges will be connected in the mesh information, thus producing a continuous surface, as opposed to the standard Express sphere which simply aligns the two edges - producing a visible shading artefact.
+</p>
+<p>
+Node data may also be mapped onto the grid, and the closed surface will keep the two edges of the mesh apart.
+</p>
+<p>
+Typically the longitude will range between -180 and +180 degrees, and if the closed parameter is not selected, the two edges will not coincide. The resolution controls the angle between each grid line and the distance between the two edges will equal to this interval (for -180 to +180 longitude), thus producing a continuous surface.
+</p>
+<p><b>sphere_surface_data</b></p>
+<p>
+The macro sphere_surface_data extends the functionality by allowing a 2D structured grid and node data field to be connected to the input. The resolution of the grid is extracted from the input field, and used to generate the appropriate resolution sphere. The node data is then mapped onto the sphere mesh and output as both a field and a data object.
+</p>
+<p>
+The parameters remain as before, except the Longitude and Latitude Subdivision parameters are set by the macro.
+</p>
+<p><b>sphere_surface_lite</b></p>
+<p>
+The macro sphere_surface_lite uses a minimum number of objects to generate a simple sphere geometry object, suitable for use as a glyph. The macro does not contain a user interface, or any functional macros. It contains an integer object for both the subdivision parameters, which may be exported or set internally. The remaining parameters will default to producing a simple sphere, but they may be set explicitly be opening and modifying the appropriate objects.</p>
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&amp;in</b></i>
+</blockquote>
+
+<blockquote>
+The input 2D Grid and Node_Data to be mapped onto the surface of the sphere. The resolution of the sphere surface is based on the resolution of the input field.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>longdim</b></i>
+</blockquote>
+
+<blockquote>
+Resolution of the sphere surface grid along the longitude axis.
+</blockquote>
+
+<blockquote>
+<i><b>latdim</b></i>
+</blockquote>
+
+<blockquote>
+Resolution of the sphere surface grid along the latitude axis.
+</blockquote>
+
+<blockquote>
+<i><b>start_long</b></i>
+</blockquote>
+
+<blockquote>
+Start angle in degrees for longitude (default is -180 degrees).
+</blockquote>
+
+<blockquote>
+<i><b>end_long</b></i>
+</blockquote>
+
+<blockquote>
+End angle in degrees for longitude (default is +180 degrees).
+</blockquote>
+
+<blockquote>
+<i><b>start_lat</b></i>
+</blockquote>
+
+<blockquote>
+Start angle in degrees for latitude (default is +90 degrees).
+</blockquote>
+
+<blockquote>
+<i><b>end_lat</b></i>
+</blockquote>
+
+<blockquote>
+Start angle in degrees for latitude (default is -90 degrees).
+</blockquote>
+
+<blockquote>
+<i><b>radius</b></i>
+</blockquote>
+
+<blockquote>
+Specify radius of the sphere surface (default is 1.0).
+</blockquote>
+
+<blockquote>
+<i><b>closedlong</b></i>
+</blockquote>
+
+<blockquote>
+Connect the two edges of the grid to make longitude continuous (by default this is ON).
+</blockquote>
+
+<blockquote>
+<i><b>closedlat</b></i>
+</blockquote>
+
+<blockquote>
+Connect the two edges of the grid to make latitude continuous (by default this is OFF).
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_mesh</b></i>
+</blockquote>
+
+<blockquote>
+Output structured mesh of the sphere surface.<br>
+<b>(sphere_surface and sphere_surface_lite only)</b>.
+</blockquote>
+
+<blockquote>
+<i><b>out_field</b></i>
+</blockquote>
+
+<blockquote>
+Output structured mesh of the sphere surface with node data.<br>
+<b>(sphere_surface_data only)</b>.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+Output renderable data object of the sphere surface (with/without node data).
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level <a href="doc_mod.html">SphereSurfaceGen</a> module is used in these User Macros.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications, SphereSurfaceEg1 and SphereSurfaceEg2, are provided which demonstrate the sphere_surface and sphere_surface_data macros respectively.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/spsurf/spsfmods.v</i> contains the SphereSurfaceParams group and the SphereSurfaceGen module V definitions.</p>
+
+<p><i>xp_comm_proj/spsurf/spsfmacs.v</i> contains the sphere_surface, sphere_surface_data and sphere_surface_lite User Macros, the SphereSurface and SphereSurfaceData Functional Macros and the SphereSurfaceUI UI Macro V definitions.</p>
+
+<p><i>xp_comm_proj/spsurf/spsfapps.v</i> contains the SphereSurfaceEg1 and SphereSurfaceEg2 example application module V definitions.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The SphereSurfaceMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level <a href="doc_mod.html">SphereSurfaceGen</a> module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever,
+International AVS Centre
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+SphereSurfaceParams, <a href="doc_mod.html">SphereSurfaceGen</a>, SphereSurface and SphereSurfaceData.
+</blockquote>
+
+<blockquote>
+Sphere, Field_Spher
+</blockquote>
+
+</body>
+</html>
+

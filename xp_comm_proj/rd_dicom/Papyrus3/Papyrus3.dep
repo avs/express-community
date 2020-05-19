@@ -1,0 +1,329 @@
+# Microsoft Developer Studio Generated Dependency File, included by Papyrus3.mak
+
+.\PapyConvertFile3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\JpegDir\JpgLless\JPEG.H"\
+	".\JpegDir\JpgLless\JPEGLESS.H"\
+	".\JpegDir\JpgLossy\jconfig.h"\
+	".\JpegDir\JpgLossy\jerror.h"\
+	".\JpegDir\JpgLossy\jmorecfg.h"\
+	".\JpegDir\JpgLossy\jpegint.h"\
+	".\JpegDir\JpgLossy\jpeglib.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyDataSetRead3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyDataSetWrite3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyEallocPC3.cpp : \
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyError3.c : \
+	".\PapyError3.h"\
+	".\PapyTypeDef3.h"\
+	
+
+.\PapyFiles3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyFileSystemPC3.c : \
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyTypeDef3.h"\
+	
+
+.\PapyGetGlobalVar3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyInit3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyInitModules3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyInitGroups3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyInitModules3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyList3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyRead3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\JpegDir\JpgLless\JPEG.H"\
+	".\JpegDir\JpgLless\JPEGLESS.H"\
+	".\JpegDir\JpgLossy\jconfig.h"\
+	".\JpegDir\JpgLossy\jerror.h"\
+	".\JpegDir\JpgLossy\jmorecfg.h"\
+	".\JpegDir\JpgLossy\jpegint.h"\
+	".\JpegDir\JpgLossy\jpeglib.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyUtils3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyVars3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	
+
+.\PapyWildexit3.c : \
+	".\PapyWild3.h"\
+	
+
+.\PapyWrite3.c : \
+	".\dicomdir\DicomDir.h"\
+	".\dicomdir\DicomDirEnumRecords.h"\
+	".\dicomdir\DicomdirGlobalVar3.h"\
+	".\dicomdir\DicomdirPrivFunctionDef3.h"\
+	".\dicomdir\DicomdirPubFunctionDef3.h"\
+	".\dicomdir\DicomdirTypeDef3.h"\
+	".\JpegDir\JpgLless\JPEG.H"\
+	".\JpegDir\JpgLless\JPEGLESS.H"\
+	".\JpegDir\JpgLossy\jconfig.h"\
+	".\JpegDir\JpgLossy\jerror.h"\
+	".\JpegDir\JpgLossy\jmorecfg.h"\
+	".\JpegDir\JpgLossy\jpegint.h"\
+	".\JpegDir\JpgLossy\jpeglib.h"\
+	".\PapyEalloc3.h"\
+	".\PapyEnumGroups3.h"\
+	".\PapyEnumImageGroups3.h"\
+	".\PapyEnumImagesModules3.h"\
+	".\PapyEnumModules3.h"\
+	".\PapyError3.h"\
+	".\PapyFileSystem3.h"\
+	".\PapyGlobalVar3.h"\
+	".\PapyPrivFunctionDef3.h"\
+	".\PapyPubFunctionDef3.h"\
+	".\PAPYRUS3.h"\
+	".\PapyTypeDef3.h"\
+	".\PapyWild3.h"\
+	

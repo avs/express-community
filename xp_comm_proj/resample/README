@@ -1,0 +1,84 @@
+Express Community DownSample Project
+https://github.com/avs/express-community
+----------------------
+
+This directory ( xp_comm_proj/resample/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"DownSample".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Background project, and additions to two files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+	base -comp_proc express -exit
+or
+	make -f express.mk
+
+	Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+	If you modify the Downsample project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.DownSample.DownSampleMods
+
+	Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/resample/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+resample.v	Creates the XP_COMM_PROJ.DownSample template library.
+
+samplmod.v	Creates the DownSample library containing the low-level
+		module downsample and the parameter blocks DownSampleParams.
+
+samplmac.v	Creates the DownSampleMacs library containing the user interface
+		macro DownSampleUI, the functional macro
+		DownSampleFunc and the user macro downsample_mean.
+
+samplapp.v       Creates the example applications DownSampleEg1 and 
+		DownSampleEg2.
+
+downsample.cxx	The C++ source code for the low-level module.
+
+downsample.html	HTML documentation for the DownSample user marco,
+		and associated modules.
+
+README		This file.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.hxx		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+downsample.o/obj	Intermediate object file.
+

@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>read_movie_animate</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>read_movie_animate</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads in a numbers of offset files and animates the display by iterating through them.
+</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by read_movie_animate">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in</i></td>
+<td width="80">Mesh+Node_Data</td>
+<td width="425">field data representing the input BYU model.</td>
+</tr>
+<tr>
+<td width="100"><i>scale</i></td>
+<td width="80">float</td>
+<td width="425">scale factor for the offset vectors.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Parameters</h4>
+<p>
+This macro does not use any specialised parameter blocks, instead it
+uses the common parameters blocks <a
+href="../common/doc_io.html#CreateIndexedFilename">IndexedFileParams</a>
+and <a href="../common/doc_ui.html#video">VideoLoopParams</a>, and their
+associated macros CreateIndexedFilename and AnimFilename.
+</p>
+<p>
+The CreateIndexedFilename macro creates a filename from a number of
+sub-strings and an index. Documentation can be found in the <a
+href="../common/doc_io.html#CreateIndexedFilename">IOWidgets</a>
+library. The important details of the parameters used are shown below.
+</p>
+
+<table summary="Parameters used by read_movie_animate from IndexedFileParams">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="150"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>dir</i></td>
+<td width="75">string</td>
+<td width="300">file directory (e.g. <tt>xp_comm_proj/rdmovbyu/</tt>)</td>
+<td width="125">Directory Text Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>filename_stub</i></td>
+<td width="75">string</td>
+<td width="300">filename without index (e.g. <tt>cube</tt>)</td>
+<td width="125">Filename Stub Text Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>extension</i></td>
+<td width="75">string</td>
+<td width="300">file extension without leading "." (e.g. <tt>off</tt>)</td>
+<td width="125">Extension Text Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>index_width</i></td>
+<td width="75">int</td>
+<td width="300">width of index number in characters</td>
+<td width="125">Index Width Edit Box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<p>
+The AnimFilename macro uses the CreateIndexedFilename macro to generate
+a sequence of numbered filenames. Documentation can be found in the <a
+href="../common/doc_io.html#AnimFilename">IOWidgets</a> library. The
+important details of the parameters used are shown below.
+</p>
+
+<table summary="Parameters used by read_movie_animate from VideoLoopParams">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="150"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>reset</i></td>
+<td width="75">int</td>
+<td width="300">resets loop to start value</td>
+<td width="125">VideoControl</td>
+</tr>
+
+<tr>
+<td width="100"><i>reset_back</i></td>
+<td width="75">int</td>
+<td width="300">resets loop to end value</td>
+<td width="125">VideoControl</td>
+</tr>
+
+<tr>
+<td width="100"><i>run</i></td>
+<td width="75">int</td>
+<td width="300">runs the animation loop from start</td>
+<td width="125">VideoControl</td>
+</tr>
+
+<tr>
+<td width="100"><i>run_back</i></td>
+<td width="75">int</td>
+<td width="300">runs the animation loop from end</td>
+<td width="125">VideoControl</td>
+</tr>
+
+<tr>
+<td width="100"><i>step</i></td>
+<td width="75">int</td>
+<td width="300">steps the animation forward 1 frame</td>
+<td width="125">VideoControl</td>
+</tr>
+
+<tr>
+<td width="100"><i>step_back</i></td>
+<td width="75">int</td>
+<td width="300">steps the animation backward 1 frame</td>
+<td width="125">VideoControl</td>
+</tr>
+
+<tr>
+<td width="100"><i>cycle</i></td>
+<td width="75">int</td>
+<td width="300">when set the animation loops continously</td>
+<td width="125">Cycle toggle box</td>
+</tr>
+
+<tr>
+<td width="100"><i>start_value</i></td>
+<td width="75">double</td>
+<td width="300">initial value of loop</td>
+<td width="125">Start Value edit box</td>
+</tr>
+
+<tr>
+<td width="100"><i>end_value</i></td>
+<td width="75">double</td>
+<td width="300">final value of loop</td>
+<td width="125">End Value edit box</td>
+</tr>
+
+<tr>
+<td width="100"><i>incr</i></td>
+<td width="75">double</td>
+<td width="300">loop increment</td>
+<td width="125">Increment edit box</td>
+</tr>
+
+<tr>
+<td width="100"><i>count</i></td>
+<td width="75">double</td>
+<td width="300">current value of loop</td>
+<td width="125">Frame number slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_movie_animate">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="80">Mesh+Node_Data</td>
+<td width="425">field data representing the offset BYU model.</td>
+</tr>
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable offset output object.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+When instructed the read_movie_animate repeatadly reads in offset files
+and applies the offset data to the input file data, thereby performing
+animation of the BYU model data. The base filename and the number of
+offset files can be specified through the user interface. The animation
+is also started through the user interface. The offset filenames should
+typically be of the form 'nameXXX' where XXX is the index number of the
+offset file. The index numbering begins with 001, therefore the first
+example file is cube001.
+</blockquote>
+
+<blockquote>
+More details on the offset file format can be found in the <a
+href="rdoffmac.html">read_movie_apply_offset</a> and <a
+href="rdoffbyu.html">ReadMovieOffsetFile</a>
+documentation.
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+The field data that the offset is to be applied to. The type of this field is Mesh+Node_Data
+</blockquote>
+
+<blockquote>
+<i><b>scale</b></i>
+</blockquote>
+
+<blockquote>
+The factor by which the offsets from the offset file are scaled by. The type of this field is float. It should be noted that only the offset vectors are scaled, the original data is not scaled by this parameter.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the read_movie_animate macro. This
+contains the model read from the BYU file represented as field data,
+offset by the amount specified in the current offset file.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the read_movie_byu macro. This
+contains a DataObject object that can be rendered by the
+standard data viewers. The Data Object is generated from the input field
+data, after being offset by the amount specified in the current offset
+file.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+This user macro uses the general user macro, read_movie_offsets and adds
+the functionality required for the macro to act as a section in the
+visualization pipeline. The read_movie_offsets macro in turn makes use
+of the functional macro ReadMovieOffset and the UI macros
+CreateIndexedFilenameUI and AnimFilenameUI. The ReadMovieOffsets macro
+uses the specialised low level modules <a href="rdoffbyu.html">ReadMovieOffsetFile</a> and
+ReadMovieBYUApplyOffset, and the common module AnimFilename.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadMovieBYUEg is provided, which uses the <a
+href="rdbyumac.html">read_movie_byu</a> macro to load a BYU file that is
+then animated by the read_movie_animate macro.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rdmovbyu/rdmbmacs.v</i> contains the read_movie_animate and
+read_movie_offsets User Macros, the ReadMovieOffsets Functional Macro
+and the example application ReadMovieBYUEg V definitions. The file also
+contains several other macro definitions.
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>This project relies on the successful installation of
+the following components. Without them it will not function
+correctly.</blockquote>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#common">Common</a> Project</li>
+</ul>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ReadMovieBYUMacs library inherits its process. As this library
+contains no procedural code, the process is not important. The low-level
+ReadMovieOffsetFile module, executes under the process specified in its
+library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadMovieOffsets, ReadMovieBYUApplyOffset,
+<a href="rdoffbyu.html">ReadMovieOffsetFile</a>,
+<a href="..\common\doc_io.html#CreateIndexedFilename">CreateIndexedFilename</a>,
+<a href="..\common\doc_ui.html#video">VideoLoop</a> and
+<a href="..\common\doc_io.html#AnimFilename">AnimFilename</a>.
+</blockquote>
+
+</body>
+</html>
+

@@ -1,0 +1,10 @@
+# AVS field file
+# MRI scan of a brain
+ndim=2
+dim1=512
+dim2=512
+nspace=2
+veclen=1
+data=byte
+field=uniform
+variable 1 file=mri.dat filetype=binary skip=0 stride=1

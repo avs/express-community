@@ -1,0 +1,17 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+   "../xp_comm_proj/en_cont/en_cont.v" EnhanceContrast;
+# In the following xp_comm_lib file
+filters.v
+# insert the following line
+   XP_COMM_PROJ.EnhanceContrast.EnhanceContrastMacs.IPEnhanceContrast IPEnhanceContrast;
+# In the following xp_comm_lib file
+filters.v
+# insert the following line
+   XP_COMM_PROJ.EnhanceContrast.EnhanceContrastMacs.ip_enhance_contrast ip_enhance_contrast;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+   XP_COMM_PROJ.EnhanceContrast.EnhanceContrastApps.EnhanceContrastEg EnhanceContrastEg;
+

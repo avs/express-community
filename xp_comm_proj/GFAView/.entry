@@ -1,0 +1,13 @@
+PNUM	P0074
+PNAME	GFAView
+DATE	1st February 2000
+DESC	Provides a specialised viewer for GFA animations.
+AUTHOR	Alfredo Vanelli, ENI - Agip Division
+VERSION	1.0
+DIR	GFAView
+TYPE	Miscellaneous
+DOC	User Macro;GFAView;GFAView.html
+!IMAGE	
+!MOVIE	
+!PREREQ	
+!NOTE	

@@ -1,0 +1,254 @@
+<html>
+<head>
+<title>SemiSphere</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>modSemiSphere</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+SemiSphere rotates a semi-spherical &quot;solid&quot; body of revolution.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module modSemiSphere &lt;src_file = &quot;semisphr.cxx&quot;,
+                      cxx_hdr_files = &quot;fld/Xfld.h&quot;&gt; {
+
+  // Inputs
+
+  int+IPort2 active = 1;
+  int+IPort2 num_thetas = 10;
+  float+IPort2 r_outside;
+  float+IPort2 r_inside;
+  float+IPort2 z_offset;
+  float+IPort2 half_angle;
+  float+IPort2 density = 1;
+  
+  // Outputs
+
+  float+OPort2 mass;
+  float+OPort2 zcg;
+  float+OPort2 izz;
+  
+  Field+Space3+OPort2 out {
+     
+    ncell_sets = 2;
+
+    // Polytri definition
+    !cell_set[0] {	
+      cell_corner_nnodes =&gt; cell_nnodes;
+      cell_nnodes = 3;
+      cell_ndim = 2;
+      cell_order = 1;
+      poly_flag = 1;
+      poly_type-opt = 2;   /* to distinguish from Polyhedron */
+      poly_nnodes =&gt;cache(init_array(npolys,2,2));
+      poly_connect_list[npolys*2];  /* node connectivity array */
+      ncells =&gt; cache(get_ncells_polytri(npolys, poly_connect_list));
+      node_connect_list =&gt; cache(get_connect_polytri(npolys, 
+      poly_connect_list));
+      int+virtual cell_type = 10;
+      string+virtual cell_name = &quot;Polytri&quot;;
+      float+virtual node_uvw[3][3] = {{1.0,0.0,0.0}, 
+      {0.0,1.0,0.0}, 
+      {0.0,0.0,0.0}};
+    };
+  
+    // Polyline definition
+    !cell_set[1] {
+      cell_corner_nnodes =&gt; cell_nnodes;
+      cell_nnodes = 2;
+      cell_ndim = 1;
+      cell_order = 1;
+      poly_flag = 1;
+      poly_nnodes =&gt;cache(init_array(npolys,2,2));
+      poly_connect_list[npolys*2];  /* node connectivity array */
+      ncells =&gt; cache(get_ncells_polyline(npolys, poly_connect_list));
+      node_connect_list =&gt; cache(get_connect_polyline(npolys, 
+      poly_connect_list));
+      int+virtual cell_type = 3;
+      string+virtual cell_name = &quot;Polyline&quot;;
+      float+virtual node_uvw[2][3] = {{-1.0,0.0,0.0}, {1.0,0.0,0.0}};
+    };
+      
+    // Normals node data
+    nnode_data = 1;
+    !node_data[0] {
+      veclen = 3;
+      id = 666;
+    };
+      
+  };
+  
+  cxxmethod+notify_inst+req update(
+    .active+read+notify+req,
+    .num_thetas+read+notify+req,
+    .r_outside+read+notify+req,
+    .r_inside+read+notify,
+    .z_offset+read+notify+req,
+    .half_angle+read+notify+req,
+    .density+read+notify+req,
+    .volume+write,
+    .mass+write,
+    .cg+write,
+    .izz+write,
+    .out+write
+  );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+SemiSphere rotates a semi-spherical &quot;solid&quot; body of revolution.  The
+routine creates surfaces and the appropriate normals for the inside,
+outside, and end cap (if required).  The outside polyline line is
+required. The routine also calculates the mass properties for the
+body. The body is generated fo 360 degrees of revolution only.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>active</b></i>
+</blockquote>
+
+<blockquote>
+Input to enable or disable the execution of this module.
+</blockquote>
+
+<blockquote>
+<i><b>num_thetas</b></i>
+</blockquote>
+
+<blockquote>
+Controls the resolution of the mesh/grid that makes up the semisphere surface.
+</blockquote>
+
+<blockquote>
+<i><b>r_outside</b></i>
+</blockquote>
+
+<blockquote>
+Set the radius of the outside of the semisphere surface.
+</blockquote>
+
+<blockquote>
+<i><b>r_inside</b></i>
+</blockquote>
+
+<blockquote>
+Set the radius of the inside of the semisphere surface.
+</blockquote>
+
+<blockquote>
+<i><b>z_offset</b></i>
+</blockquote>
+
+<blockquote>
+Offsets the z-axis coordinates of the surface.
+</blockquote>
+
+<blockquote>
+<i><b>half_angle</b></i>
+</blockquote>
+
+<blockquote>
+Set the angle at which the semisphere surface stops, e.g., 90 degrees will give a semisphere; 180 degrees is a normal sphere.
+</blockquote>
+
+<blockquote>
+<i><b>density</b></i>
+</blockquote>
+
+<blockquote>
+Provide a density setting for the mass calculations taken from the volume contained within the inner and outer semispheres.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>mass</b></i>
+</blockquote>
+
+<blockquote>
+Mass parameter of the generated volume.
+</blockquote>
+
+<blockquote>
+<i><b>zcg</b></i>
+</blockquote>
+
+<blockquote>
+Mass parameter of the generated volume.
+</blockquote>
+
+<blockquote>
+<i><b>izz</b></i>
+</blockquote>
+
+<blockquote>
+Mass parameter of the generated volume.
+</blockquote>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Grid and mesh containing the semisphere surface. Contains both polytri (surface) and polyline (outline) cell sets.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+SemiSphereEg is a simple example application showing the modSemiSphere module in use, with the output connected to a viewer.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/semisphr/smspmods.v</I> contains the modSemiSphere module V definition. <I>xp_comm_proj/semisphr/smspmacs.v</I> contains the SemiSphereEg example application V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level SemiSphereMods library containing the module modSemiSphere does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Advanced Visual Systems Inc.
+Documentation - Ian Curington, Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+</body>
+</html>

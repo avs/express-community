@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>StepCalc</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>modStepCalc</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+StepCalc performs a &quot;step&quot; data lookup based on the inputValue.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module modStepCalc &lt;src_file = &quot;stepcalc.cxx&quot;&gt; {
+  int+IPort2 active = 1;
+  float+IPort2 stepX[];   
+  float+IPort2 stepY[];
+  float+IPort2 inputValue; 
+  float+OPort2 outputValue; 
+
+  cxxmethod+notify_inst+req update(
+    .active+read+req,
+    .stepX+read+notify+req,
+    .stepY+read+notify+req, 
+    .inputValue+read+notify+req,
+    .outputValue+write
+  );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The modStepCalc module performs a &quot;step&quot; data lookup based on the inputValue input. It finds the first position in the StepX array that is greater than or equal to the input value, and then returns the corresponding value position from the StepY array as output.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>active</b></i>
+</blockquote>
+
+<blockquote>
+Used to turn operation of module on and off. If zero, module will not execute.
+</blockquote>
+
+<blockquote>
+<i><b>stepX[]</b></i>
+</blockquote>
+
+<blockquote>
+Input array of float values which are used for comparison with inputValue parameter.
+</blockquote>
+
+<blockquote>
+<i><b>stepY[]</b></i>
+</blockquote>
+
+<blockquote>
+Input array of float values. Once a position index has been found in the input StepX array, the value at that index from this StepY array is copied to the output outputValue.
+</blockquote>
+
+<blockquote>
+<i><b>inputValue</b></i>
+</blockquote>
+
+<blockquote>
+The float value to use to search the StepX array. Once a value in the StepX array has been found which is greater than or equal to this value, that index is used to extract a value from the StepY array.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>outputValue</b></i>
+</blockquote>
+
+<blockquote>
+The value from the StepY array at the same index at which the input value matched the requirements from the StepX array.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/stepcalc/stpcmods.v</I> contains the modStepCalc module V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level StepCalcMods library containing the module modStepCalc does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Advanced Visual Systems Inc.
+Documentation - Ian Curington, Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+</body>
+</html>

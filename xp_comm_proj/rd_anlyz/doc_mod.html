@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>ReadAnalyzeFile</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ReadAnalyzeFile</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads a Mayo Analyze file and outputs a uniform field representing the
+data.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module ReadAnalyzeFile {
+    string filename_in<NEportLevels={2,0}>;
+    Mesh_Unif+Node_Data out<NEportLevels={1,2}>;
+      
+    omethod+notify_inst+req update<src_file="rd_anlyz.c">(
+       filename_in+read+notify+req, out+write
+    ) = "read_analyze_update";
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The ReadAnalyseFile module reads Mayo Analyze files and outputs a
+uniform field for the data contained in the file. The Analyze file
+format consists of at least two file. For the image named <I>foo</I> the
+files need by this module are <I>foo.hdr</I> and <I>foo.img</I>. This
+module reads the <I>foo.hdr</I> file and prints all the information from
+the header to the standard output. It then uses this information to read
+in the file <I>foo.img</I> and converts it into the appropriate uniform
+field.
+</blockquote>
+
+<blockquote>
+The output field is stretched in the z axis to account for the
+difference in the interslice resolution. The module performs byte
+swapping as appropriate so that it works correctly on little and big
+endian platforms. Volumes containing RGB or Complex data cannot be dealt
+with.
+</blockquote>
+
+
+
+<h3>Input</h3>
+
+<blockquote>
+<i><b>&amp;filename_in</b></i>
+</blockquote>
+
+<blockquote>
+The name of the header file that should be initially read from. This
+parameter is of type string. If the file is not valid then module should
+correctly detect this and report the error that has occured.
+</blockquote>
+
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The uniform field that represents the data read from the Analyze file.
+The field has node data of the type specified in the Analyze header
+file. The resultant field data is automatically stretched in the z axis
+to account for the difference in the interslice distance. This scaling
+should normally be correct. However it can be changed by altering the
+<tt>out_points</tt> array in the field object.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadAnalyzeFile module is used in the User Macro readAnalyze.
+This module can be used directly in applications. The readAnalyze macro also
+uses the ReadAnalyzeUI UI macro.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadAnalyzeEg is provided that reads a set of
+Analyze files and renders three orthoslices through the volume. A sample
+set of Analyze files, head.hdr and head.img, are provided with the
+distribution of this module.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/rd_anlyze/rdanmods.v</I> contains the ReadAnalyzeFile module
+V definition.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ReadAnalyzeMods library containing the module
+ReadAnalyzeFile does not specify a process. By default the express
+process will be used.
+</blockquote>
+
+<blockquote>
+The ReadAnalyzeFile module was designed to work on a 32-bit system. In
+particular it assumes that the short variable type is 16 bits long, the
+int and float variable types are 32 bits long and the double variable
+type is 64 bits long. If this is not the case then it is unlikely that
+the data will be read correctly. Correcting this problem will require
+alterations to the <tt>rd_anlyz.c</tt> source code file.
+</blockquote>
+
+<blockquote>
+Information for this module was obtained from David Clunies Medical Image
+File Format web site, it can currently be accessed from:</P>
+</blockquote>
+
+<blockquote>
+<a href="http://idt.net/~dclunie/medical-image-faq/html/index.html">
+http://idt.net/~dclunie/medical-image-faq/html/index.html</a>
+</blockquote>
+
+<blockquote>
+Analyze is the file format of the software produced by the Biomedical
+Imageing Resource Group at the Mayo Clinic/Foundation.
+</blockquote>
+
+<blockquote>
+<a href="http://www.mayo.edu/bir/">http://www.mayo.edu/bir/</a>
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+<a href="http://www.man.ac.uk/MVC/staff/leng">Joanna Leng</a>
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+readAnalyze, ReadAnalyzeUI and ReadAnalyzeEg
+</blockquote>
+
+</body>
+</html>
+

@@ -1,0 +1,100 @@
+# Microsoft Developer Studio Generated Dependency File, included by Jlless.mak
+
+.\decompoptimise.c : \
+	"..\..\PapyEalloc3.h"\
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG_IO.H"\
+	".\JPEG.H"\
+	".\MCU.H"\
+	".\PROTO.H"\
+	
+
+.\huffcoptimisebug.c : \
+	"..\..\PapyEalloc3.h"\
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG_IO.H"\
+	".\JPEG.H"\
+	".\JPEGLESS.H"\
+	".\MCU.H"\
+	".\PREDICT.H"\
+	".\PROTO.H"\
+	
+
+.\huffdoptimise.c : \
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG_IO.H"\
+	".\JPEG.H"\
+	".\MCU.H"\
+	".\PREDICT.H"\
+	".\PROTO.H"\
+	
+
+.\JPEGUTIL.C : \
+	"..\..\PapyEalloc3.h"\
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG.H"\
+	".\MCU.H"\
+	".\PROTO.H"\
+	
+
+.\MCU.C : \
+	"..\..\PapyEalloc3.h"\
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG.H"\
+	".\MCU.H"\
+	".\PROTO.H"\
+	
+
+.\pmreadoptimise.c : \
+	"..\..\PapyEalloc3.h"\
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG_IO.H"\
+	".\JPEG.H"\
+	".\JPEGLESS.H"\
+	".\MCU.H"\
+	".\PROTO.H"\
+	
+
+.\pnmtoljpoptimisebug.c : \
+	"..\..\PapyEalloc3.h"\
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG.H"\
+	".\JPEGLESS.H"\
+	".\MCU.H"\
+	".\PROTO.H"\
+	
+
+.\PREDICT.C : \
+	".\MCU.H"\
+	
+
+.\READ.C : \
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG_IO.H"\
+	".\JPEG.H"\
+	".\MCU.H"\
+	".\PROTO.H"\
+	
+
+.\WRITE.C : \
+	"..\..\PapyEalloc3.h"\
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\JPEG_IO.H"\
+	".\JPEG.H"\
+	".\MCU.H"\
+	".\PROTO.H"\
+	

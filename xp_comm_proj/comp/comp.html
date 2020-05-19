@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta name="Author" content="Ian Curington">
+   <title>Composite - blends two full-color byte images together using alpha channel data</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>
+Composite</h1>
+
+<h3>
+Synopsis</h3>
+
+<blockquote>The composite module performs full-color blending on ARGB byte images using data from the the foreground image alpha channel.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by composite">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>foreground</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">First image to be blended. Should include alpha channel data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>background</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">Second image to be blended.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by composite">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_image</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">Blended composite of input images.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+<h3>
+Description</h3>
+
+<blockquote>
+<p>The composite module performs blending on two full colour AVS images. The data in the foreground image alpha channel is used to control how much of the foreground image and the background image is blended into the final image. Both images must be of exactly the same size.  If they are not an error message will be reported and no processing will be performed.</p>
+
+
+<p>The blending equation for each pixel in the final image is:</p>
+
+<pre>
+   alpha = ALPHA
+   red   = (Foreground(red)  *ALPHA) + (Background(red)  *(1.0-ALPHA))
+   green = (Foreground(green)*ALPHA) + (Background(green)*(1.0-ALPHA))
+   blue  = (Foreground(blue) *ALPHA) + (Background(blue) *(1.0-ALPHA))
+</pre>
+
+<p>ALPHA is the foreground image's alpha channel value.  All data in the background image's alpha channel is ignored. This module is a conversion of the AVS5 "composite" module. The low-level module is implementated in C++ and operates on simple byte arrays rather than fields.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>foreground : Image_ARGB</i></b></blockquote>
+
+<blockquote>The foreground full colour image that should by blended with the background image.  The alpha channel data in this image is used to determine how the two images are blended.  The data should be a 2D uniform field containing a single component of node data.  That node data should contain a vector of 4 byte values.  These correspond to the 4 colour channels; alpha, red, green and blue.  The read_image module outputs data of this form.</blockquote>
+
+<blockquote><b><i>background : Image_ARGB</i></b></blockquote>
+
+<blockquote>The background full colour image that should by blended with the foreground image.  The alpha channel data is ignored and is not transferred to the output image.  The data should be a 2D uniform field containing a single component of node data.  That node data should contain a vector of 4 byte values.  These correspond to the 4 colour channels; alpha, red, green and blue.  The read_image module outputs data of this form.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_image : Image_ARGB</i></b></blockquote>
+
+<blockquote>The output full colour image containing the blended foreground and background images.  The image is output as a 2D uniform field containing a single component of node data.  That node data contains a vector of 4 bytes.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to the viewer.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The composite user macro uses the low-level CompositeCore module.  This module contains all the C++ code used by the project.  No User Interface macro is necessary for this project.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The CompositeEg example application crops an image in two different areas, and shows the blended result in a 2D viewer. It also shows the two original cropped images and the alpha channel information used to blend the two images.  The original pixel data is from the mandrill.x image.  The alpha channel information was modified by adding a cosine squared wave, running vertically down the image. 
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/comp/compmods.v</i> contains the V definition of the CompositeCore module.</p>
+
+<p><i>xp_comm_proj/comp/compmacs.v</i> contains the V definitions of the composite user macro and the CompositeEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level CompositeMods library containing the module does
+not specify a process. By default the <tt>express</tt> process will be
+used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Sabreen Vig, Ian Curington, Larry Gelberg
+Advanced Visual Systems, Inc.
+
+Andrew Dodd, International AVS Centre
+</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+AVS5 composite module, from which this one is derived.
+</blockquote>
+
+</body>
+</html>
+

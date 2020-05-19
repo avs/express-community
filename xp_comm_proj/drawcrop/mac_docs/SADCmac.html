@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML VERSION="2.0">
+<HEAD>
+<!-- WEBMAGIC VERSION NUMBER="2.0.2" -->
+<!-- WEBMAGIC TRANSLATION NAME="ServerRoot" SRC="/var/www/htdocs/" DST="/" -->
+<!-- WEBMAGIC TRANSLATION NAME="ProjectRoot" SRC="./" DST="" -->
+<TITLE> SA_DC_macro</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>SA_DC_macro</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>This is a macro designed for a developer who wishes to create a stand-alone
+application that uses the DrawCrop functionality.</BLOCKQUOTE>
+<BLOCKQUOTE>The DrawCrop module allows the user to draw a box around the area of interest
+on each of the three orthoslices so the region can be cropped scaled and
+used in further networks. </BLOCKQUOTE>
+<H4>Input Ports</H4>
+<P><table>
+<tr><td width="125"><I>field</I></td> <td width="125">fieldin</td> <td width="300">Uniform Scalar 3D Field</td> </tr>
+ <tr><td width="125"><I>group</I></td> <td width="125">params</td> <td width="300">DefaultView</td> </tr>
+ <tr><td width="125"><I>GDview_templ</I></td> <td width="125">ContinuousSketch.view_in</td> <td width="300">GDview_templ</td> </tr>
+<tr><td width="125"><I>GDview_templ</I></td> <td width="125">ContinuousSketch.cont_sketch.rv</td> <td width="300">ilink</td> </tr>
+<tr><td width="125"><I>GDview_templ</I></td> <td width="125">ContinuousSketch#1.view_in</td> <td width="300">GDview_templ</td> </tr>
+ <tr><td width="125"><I>GDview_templ</I></td> <td width="125">ContinuousSketch#1.cont_sketch.rv</td> <td width="300">ilink</td> </tr>
+<tr><td width="125"><I>GDview_templ</I></td> <td width="125">ContinuousSketch#2.view_in</td> <td width="300">GDview_templ</td> </tr>
+ <tr><td width="125"><I>GDview_templ</I></td> <td width="125">ContinuousSketch#2.cont_sketch.rv</td> <td width="300">ilink</td> </tr>
+<tr><td width="125"><I>int</I></td> <td width="125">set_coord</td> <td width="300">integer</td> </tr>
+ </table> </P>
+<H4>Output Ports</H4>
+<P><table>
+<tr><td width="125"><I>int[]</I></td><td width="125">mins</td> <td width="300">array of 3 integer values</td> </tr>
+ <tr> <td width="125"><I>int[]</I></td><td width="125">maxs</td> <td width="300">array of 3 integer values</td> </tr>
+ <tr><td width="125"><I>DefaultObject</I></td> <td width="125">GroupObjectAXIS2</td><td width="300">output 2D renderable object</td> </tr>
+ <tr> <td width="125"><I>DefaultObject</I></td> <td width="125">GroupObjectAXIS1</td><td width="300">output 2D renderable object</td> </tr>
+ <tr> <td width="125"><I>DefaultObject</I></td> <td width="125">GroupObjectAXIS0</td> <td width="300">output 2D renderable object</td> </tr>
+ </table> </P>
+<H3>Description</H3>
+<BLOCKQUOTE>Allows the user to draw a box around the area of interest on each of the
+three orthoslices so the region can be cropped although this module does
+not actually do the cropping. There is no UI with this as the UI will depend
+on the particular stand-alone application's interface, however the macroUI
+could be adapted for individual applications.</BLOCKQUOTE>
+<BLOCKQUOTE>The module is complex and was designed for a stand-alone application used
+to examine uniform medical scan data. </BLOCKQUOTE>
+<H3>Input Ports</H3>
+<BLOCKQUOTE><B><I>fieldin</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the input field, it must be a uniform scalar 3D field.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>params</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is a group referance to all the paramter block that hold data on the
+following components:</BLOCKQUOTE>
+<PRE>
+        <I>int</I>   axis2    An integer value for the plane for orthoslice with axis 2.
+        <I>int</I>   axis1    An integer value for the plane for orthoslice with axis 2.
+        <I>int</I>   axis0    An integer value for the plane for orthoslice with axis 2.
+        <I>float</I> zscale   An float value for the value for scaling along the z axis.
+</PRE>
+<BLOCKQUOTE><B><I>ContinuousSketch.view_in</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the <I>curr_view</I> of the appropriate 2D Viewer, this Viewer should be connected to the output
+port GroupObjectAXIS0.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>ContinuousSketch.cont_sketch.rv</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the <I>UIrenderView</I> of the appropriate 2D Viewer, this Viewer should be connected to the output
+port GroupObjectAXIS0.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>ContinuousSketch#1.view_in</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the <I>curr_view</I> of the appropriate 2D Viewer, this Viewer should be connected to the output
+port GroupObjectAXIS1.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>ContinuousSketch#1.cont_sketch.rv</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the <I>UIrenderView</I> of the appropriate 2D Viewer, this Viewer should be connected to the output
+port GroupObjectAXIS1.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>ContinuousSketch#2.view_in</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the <I>curr_view</I> of the appropriate 2D Viewer, this Viewer should be connected to the output
+port GroupObjectAXIS2.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>ContinuousSketch#3.cont_sketch.rv</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the <I>UIrenderView</I> of the appropriate 2D Viewer, this Viewer should be connected to the output
+port GroupObjectAXIS2.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>set_coord</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is connected to the UI's crop_controls module.</BLOCKQUOTE>
+<H3>Output Ports</H3>
+<BLOCKQUOTE><B><I>mins</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is an array of 3 integers, the three minimum cropping values one for
+each axis. This can be passed into the crop module or used in your own module.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>maxs</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is an array of 3 integers, the three maximum cropping values one for
+each axis. This can be passed into the crop module or used in your own module.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>GroupObjectAXIS2</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is the renderable 2D group object of the orthoslice of axis value 2
+along with a white box superimpossed onto it so that the extents of the
+crop can be seen.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>GroupObjectAXIS1</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is the renderable 2D group object of the orthoslice of axis value 1
+along with a white box superimpossed onto it so that the extents of the
+crop can be seen.</BLOCKQUOTE>
+<BLOCKQUOTE><B><I>GroupObjectAXIS0</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>This is the renderable 2D group object of the orthoslice of axis value 0
+along with a white box superimpossed onto it so that the extents of the
+crop can be seen.</BLOCKQUOTE>
+<H3>Notes</H3>
+<P>This macro needs the parameter values to be passed to it so that they can
+be shared with the UI. The input field must be of type 3D uniform scalar
+field. It is important that the application connects the correct <I>cur_view</I> from the Viewer output to the appropriate Continuous Sketch module. The
+UI must create the integer<I> set_coord</I> value, it is the crop_controls module that produces this. Data references
+to parameter values outside this macro may need to be remade or altered
+before the macro starts working.</P>
+<P>For a more efficient stand-alone application it is sensible to use a light
+weight viewer, the ones needed to work with this macro would be 2D viewers
+with minimal interaction as all the user really needs to do it scale, transform
+and reset/normalise/centre the data. Each viewer must have a cur_view output
+port to work with this macro.</P>
+<P>The big difference between this macro and the main User Macro DrawCrop is
+that DrawCrop needs different error handling and coodination to fit into
+the SingleWindowApp and MultiWindowApp. In a stand-alone application, for
+which this macro was designed, there should be one Viewer for each orthoslice
+on display so that a very light weight viewer can be used and so the coordination
+with the selected_view does not have to be considered. This macro uses the
+crop_mouse module and the User Macro DrawCrop uses the module cropdata.</P>
+<P>The original code resets the module when a new data was read in, this detected
+by change in the file name. To work in a SingleWindowApp or MultiWindowApp
+this was altered to a change with the field dimensions.</P>
+<P><B>N.B. </B>The easiest error to make when using this module is to connect the Viewers
+incorrectly. The Viewer connected to the output port GroupObjectAXIS2.obj
+on the left of the output ports of the SA_DC_macro will also have two input
+connections with the SA_DC_macro ContinuousSketch#2.view_in and ContinuousSketch#2.cont_sketch.rv
+which are on the right of the module.<TT></TT></P>
+<H3>Example</H3>
+<BLOCKQUOTE>An example application DrawCrop_Eg is provided, which reads in the lobster
+data set a uniform medical scan which can be scaled only in the z axis through
+this module. </BLOCKQUOTE>
+<BLOCKQUOTE>The application produces three Views one for each axis of the orthoslice
+which are displayed in a 2D Viewer, the planes displayed can be altered
+through the UI. The box that shows the extents of the cropping are also
+displayed on these 2D Views. </BLOCKQUOTE>
+<BLOCKQUOTE>The output from the module is a 3D cropped field which can be used as the
+input to another network, in this case one that produces an isosurface.</BLOCKQUOTE>
+<H3>Files</H3>
+<BLOCKQUOTE><I>xp_comm_proj/drawcrop/cropmacs.v</I> contains several of the smaller components of the module box, ContinuousSketch,
+macroAXIS, macroAXIS2, parameters, macroUI, macroDrawCrop, DrawCrop and
+the example application DrawCrop_Eg. </BLOCKQUOTE>
+<BLOCKQUOTE>Only the larger macros, DrawCrop and DrawCrop_Eg, are available through
+the IAC library the other smaller ones can be accessed through the templates
+library. This is because alteration of these components will only be of
+interest to developers who wish to build a stand alone application.</BLOCKQUOTE>
+<H3>Other Notes</H3>
+<P>Compile with:</P>
+<PRE>
+$base -comp_proc express -exit
+</PRE>
+<H3>Author</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+        Joanna Leng
+        Manchester Visualization Centre
+        Manchester Computing
+        University of Manchester
+        Oxford Road
+        Manchester
+        UK
+        M13 9PL
+
+        Phone  +44 161  275 6252   Fax +44 161 275 6800  
+        email  j.leng@mcc.ac.uk
+        www    http://www.man.ac.uk/MVC/staff/leng
+</PRE>
+<H3>Date</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+J. Leng August 1998
+</PRE>
+<H3>Contact</H3>
+<P></P>
+<PRE>
+
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE>
+<H3>See Also</H3>
+<BLOCKQUOTE>All other DrawCrop modules and macros.</BLOCKQUOTE>
+</BODY>
+</HTML>

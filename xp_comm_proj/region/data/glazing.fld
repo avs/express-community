@@ -1,0 +1,18 @@
+# AVS field file 
+# d-glazing.dat
+ndim = 3
+dim1 = 18
+dim2 = 18
+dim3 = 10
+nspace = 3
+veclen = 5
+data = float
+field = uniform
+label = x-direction y-direction z-direction temperature pressure
+variable 1 file = d-glazing.dat filetype = ASCII skip = 1 offset = 0 stride = 5
+variable 2 file = d-glazing.dat filetype = ASCII skip = 1 offset = 1 stride = 5
+variable 3 file = d-glazing.dat filetype = ASCII skip = 1 offset = 2 stride = 5
+variable 4 file = d-glazing.dat filetype = ASCII skip = 1 offset = 3 stride = 5
+variable 5 file = d-glazing.dat filetype = ASCII skip = 1 offset = 4 stride = 5
+
+

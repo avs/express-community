@@ -1,0 +1,39 @@
+Express Community "InterSense" Project
+https://github.com/avs/express-community
+------------------------
+
+This special Community project contains an interface from AVS/Express to the
+InterSense range of motion tracking devices.  The Community does not have
+access to any of this hardware and hence we have not been able to test
+this project.  The project is provided so that users with InterSense
+hardware can make use of it.  Unfortunately the Community will not be able to
+provide any support in the use of this project as we will not be able
+to investigate or solve any problems.
+
+The supplied distribution contains a complete project directory structure.
+It should be extracted into a new directory and AVS/Express should be used
+to compile the supplied C++ source files.
+
+Further instructions can be found in the 'readme.txt' file.
+
+
+Files
+-----
+
+The following files can be found in the distribution.
+
+avsenv
+DISCLAIMER
+README
+readme.txt
+isense.cpp
+isense.h
+isense.dll
+isense1.ini
+IS_App.v
+src\ISWrapperMod.cxx
+src\ISWrapperMod_gen.cxx
+src\ISWrapperMod_gen.hxx
+v\proc.v
+v\templ.v
+

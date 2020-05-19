@@ -1,0 +1,207 @@
+<html>
+<head>
+<title>compress_tool</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>compress_tool</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Combines the <i>compress</i> and <i>examine_field</i> user macros, and merges their ui's into a single UImod_panel, to provide a convenient compression tool. Array information is listed below controls to perform compression on the arrays.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>&data</i></td>
+<td width="125">group reference</td>
+<td width="300">the input field components</td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>compress_all</i></td>
+<td width="125">int</td>
+<td width="300">triggers compression of all arrays.</td>
+</tr>
+
+<tr>
+<td width="125"><i>uncompress_all</i></td>
+<td width="125">int</td>
+<td width="300">triggers uncompression of all arrays.</td>
+</tr>
+
+<tr>
+<td width="125"><i>process_nth</i></td>
+<td width="125">int</td>
+<td width="300">triggers compression/uncompression of the <i>nth</i> array.</td>
+</tr>
+
+<tr>
+<td width="125"><i>nth</i></td>
+<td width="125">int</td>
+<td width="300">the array number of the array to process.
+</td>
+</tr>
+
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+
+Compresses / uncompresses arrays within an AVS/Express field. See documentation for <i>compress</i> and <i>examine_field</i> for full details.
+
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>& data</b></i>
+</blockquote>
+
+<blockquote>
+A reference to the input data, which must be in the form of certain field sub-objects. The following objects must be present in the group : int <i>nnodes</i>, int <i>nspace</i>, Data_Array <i>coordinates</i>. All the other sub-objects of a field are optional. Thus, any valid field or sub-set of a field (e.g. Mesh+Node_Data) will be accepted.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>compress_all</b></i>
+</blockquote>
+
+<blockquote>
+Invokes the method to compress all arrays when set to non-zero. Is reset to zero after the method has finished executing.
+</blockquote>
+
+<blockquote>
+<i><b>uncompress_all</b></i>
+</blockquote>
+
+<blockquote>
+Invokes the method to uncompress all arrays when set to non-zero. Is reset to zero after the method has finished executing.
+</blockquote>
+
+<blockquote>
+<i><b>process_nth</b></i>
+</blockquote>
+
+<blockquote>
+Invokes the method to compress or uncompress the <i>nth</i> array when set to non-zero. If the <i>nth</i> array is in an uncompressed state it is compressed, if it is in a compressed state it is uncompressed. Is reset to zero after the method has finished executing.
+</blockquote>
+
+<blockquote>
+<i><b>nth</b></i>
+</blockquote>
+
+<blockquote>
+The array number of the array to process when the <I>process_nth</I> parameter is set to non-zero.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The user macro <i>compress_tool</i> combines the user macros <i>compress</i> and <i>examine_field</i>. In <i>compress_tool</i> these macros share a single UImod_panel rather than having separate interfaces.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application <i>Compress_Tool_Eg</i> is provided, which uses the AVS/Express sample data file <i>bluntfin.fld</i>. This data file contains six arrays (one grid plus five node data). Executing compression on any of the arrays can be seen to change the size and type of the array in the field.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p>
+<i>xp_comm_proj/comptool/comptool_macs.v</i>
+<br>
+contains the V definitions for the user macro <i>compress_tool</i> and the example application <i>Compress_Eg</i>.
+</p>
+<p>
+<i>xp_comm_proj/Compress/INSTALL</i>
+<br>
+contains instructions on how to add the Compress_Tool project macro to the IAC library structure.
+</p>
+<p>
+<i>xp_comm_proj/Compress/README</i>
+<br>
+contains instructions on how to install the Compress_Tool project macro.
+</p>
+<p>
+Additional files are required for the pre-requisite projects (see below).
+</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+This macro requires the <i>compress</i> and <i>examine_field</i> macros, so 
+the Compress and Examine_Field projects must first be obtained and installed.
+These are also available from
+<a href="http://www.iavsc.org">http://www.iavsc.org/</a>. Note, that these 
+modules also have pre-requisites; check the documentation supplied with the
+projects for details.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Amardeep S Bhattal.
+
+Manchester Visualisation Centre,
+Manchester Computing,
+University of Manchester,
+Oxford Road,
+Manchester,
+M13 9PL,
+UK.
+</pre>
+
+<a href=mailto:a.bhattal@mcc.ac.uk>
+a.bhattal@mcc.ac.uk
+</a>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+compress, Compress_Prim, examine_field, Examine_Field_Prim, utils_xp.
+</blockquote>
+
+<h3>Copyright / Disclaimer</h3>
+
+<blockquote>
+This software/documentation was produced as part of the INDEX project
+(Intelligent Data Extraction) which is funded under contract ESPRIT EP22745 of 
+the European Community. For further details see
+<a href="http://www.man.ac.uk/MVC/research/INDEX/Public/">http://www.man.ac.uk/MVC/research/INDEX/Public/</a>.
+
+Copyright (c) June 1998, Manchester Visualisation Centre, UK. 
+All Rights Reserved.
+
+Permission to use, copy, modify and distribute this software and its 
+documentation is hereby granted without fee, provided that the above copyright
+notice and this permission notice appear in all copies of this software / 
+documentation.
+
+This software/documentation is provided with no warranty, express or implied, 
+including, without limitation, warrant of merchantability or fitness for a 
+particular purpose.
+</blockquote>
+
+</body>
+</html>

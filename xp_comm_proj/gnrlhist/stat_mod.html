@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+    <!-- SGI_COMMENT COSMOCREATE -->
+    <!-- SGI_COMMENT VERSION NUMBER="1.0.1" -->
+    <TITLE>GenerateStats</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>
+GenerateStats</H1>
+<H3>
+Synopsis</H3>
+<BLOCKQUOTE>
+Generates the mean and standard deviation from data produced by the 
+GeneralHistogram module.</BLOCKQUOTE>
+<HR>
+<BLOCKQUOTE>
+<PRE>
+module GenerateStats {
+       prim binval&lt;NEportLevels={2,1}&gt;[];
+       int binfreq&lt;NEportLevels={2,1}&gt;[];
+       double mean&lt;NEportLevels={1,2}&gt;;
+       double std_deviation&lt;NEportLevels={1,2}&gt;;
+     omethod+notify_inst+req update&lt;src_file=&quot;genstats.c&quot;&gt;(
+          binval+read+notify+req,
+          binfreq+read+notify+req,
+          mean+write,
+          std_deviation+write ) = &quot;generatestats&quot;;
+};
+</PRE>
+</BLOCKQUOTE>
+<HR>
+<H3>
+Description</H3>
+<BLOCKQUOTE>
+Generates the mean and standard deviation from a set of values and 
+their frequencies as produced by the <a href="his_mod.html">GeneralHistogramNodeData</a> module.</BLOCKQUOTE>
+<BLOCKQUOTE>
+If the data used to generate the histogram was iInteger data, then the 
+mean and standard deviation are correct.</BLOCKQUOTE>
+<BLOCKQUOTE>
+If the data used to generate the histogram was real data, then the mean 
+will be correct (because of the way the GeneralHistogram module labels 
+the frequencies) however the standard deviation is only approximate.</BLOCKQUOTE>
+<H3>
+Inputs</H3>
+<BLOCKQUOTE>
+<B><I>binval[]</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>
+Array of type primative which holds the labels to the frequency values</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>binfreq[]</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>
+Integer array holding the frequencies generated.</BLOCKQUOTE>
+<H3>
+Outputs</H3>
+<BLOCKQUOTE>
+<B><I>mean</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>
+Double precision floating point values, holding the mean of the input 
+data. </BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>std_deviation </I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Double precision floating point values, holding the standard deviation 
+of the input data.</BLOCKQUOTE>
+<H3>
+Utility Macros</H3>
+<BLOCKQUOTE>
+The low level GenerateStats is used in the Functional Macro 
+GeneralHistogram and the User Macro <a href="his_umac.html">general_histogram</a>. Additionally, 
+these macros also use the GeneralHistogramParams parameter block group 
+object, as does the GeneralHsitogramUI UI Macro and the GenerateStats 
+Module.</BLOCKQUOTE>
+<H3>
+Example</H3>
+<BLOCKQUOTE>
+An example application GeneralHistogramEg is provided which uses the 
+generalgraph module to display the histogram generated from the 
+AVS/Express sample data file, lobstr.fld. The statistics are displayed 
+in the user interface.</BLOCKQUOTE>
+<H3>
+Files</H3>
+<BLOCKQUOTE>
+<I>xp_comm_proj/gnrlhist/his_mods.v</I> contains the 
+GeneralHistogramParams group, the GenerateStats module and the 
+<a href="his_mod.html">GeneralHistogramNodeData</a> module V definitions.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The C code for the module is in file genstats.c</BLOCKQUOTE>
+<H3>
+Author</H3>
+<BLOCKQUOTE>
+<PRE>
+Alex Allen.
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE>
+</BLOCKQUOTE>
+<H3>
+See Also</H3>
+<BLOCKQUOTE>
+GeneralHistogramParams, <a href="his_mod.html">GeneralHistogramNodeData</a>, GeneralHistogram, 
+GeneralHistogramUI and <a href="his_umac.html">general_histogram</a>. </BLOCKQUOTE>
+<BLOCKQUOTE>
+</BLOCKQUOTE>
+<BLOCKQUOTE>
+</BLOCKQUOTE>
+</BODY>
+</HTML>

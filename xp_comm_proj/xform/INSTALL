@@ -1,0 +1,29 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/xform/xform.v" Xform;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Xform.XformMacs.cart2sph cart2sph;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Xform.XformMacs.sph2cart sph2cart;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Xform.XformMacs.cart2cyl cart2cyl;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Xform.XformMacs.cyl2cart cyl2cart;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Xfrom.XformMacs.CylindricalCoordsEg CylindricalCoordsEg;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Xfrom.XformMacs.SphericalCoordsEg SphericalCoordsEg;
+

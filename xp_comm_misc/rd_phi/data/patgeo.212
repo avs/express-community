@@ -1,0 +1,42 @@
+ * INL
+ GR OU Z     1 X     1    10 Y     1    10 COL     2
+ * IN2
+ GR OU Y    13 X     1     6 Z    22    27 COL     3
+ * OUT1
+ GR OU Z    21 X     1    10 Y     1    10 COL     4
+ * WW1
+ GR OU X     1 Y     1    10 Z     1    20 COL     5
+ * WE1
+ GR OU X    11 Y     1    10 Z     1    20 COL     6
+ * WS1
+ GR OU Y     1 X     1    10 Z     1    20 COL     7
+ * WN1
+ GR OU Y    11 X     1     2 Z     1    20 COL     8
+ * WN2
+ GR OU Y    11 X     9    10 Z     1    20 COL     9
+ * WN3
+ GR OU Y    11 X     3     8 Z     1     7 COL    10
+ * WN4
+ GR OU Y    11 X     3     8 Z    14    20 COL    11
+ * WW2
+ GR OU X     1 Y     1    12 Z    22    27 COL    12
+ * WE2
+ GR OU X     7 Y     1    12 Z    22    27 COL    13
+ * WL2
+ GR OU Z    22 X     1     6 Y     1    12 COL    14
+ * WH2
+ GR OU Z    28 X     1     6 Y     1    12 COL    15
+ * MBD1
+ GR OU X    11 Y     1    10 Z     1    20 COL     2
+ GR OU X     1 Y     1    10 Z     1    20 COL     2
+ GR OU Y    11 X     1    10 Z     1    20 COL     2
+ GR OU Y     1 X     1    10 Z     1    20 COL     2
+ * MBD2
+ GR OU X     7 Y     1    12 Z    22    27 COL     3
+ GR OU X     1 Y     1    12 Z    22    27 COL     3
+ GR OU Y    13 X     1     6 Z    22    27 COL     3
+ GR OU Y     1 X     1     6 Z    22    27 COL     3
+ * MBL1.2
+ GR OU Y    11 X     3     8 Z     8    13 COL     4
+ * MBL2.1
+ GR OU Y     1 X     1     6 Z    22    27 COL     5

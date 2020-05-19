@@ -1,0 +1,14 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/HiVis/VisApi/AVS/HiVis.v" HiVis;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.HiVis.HiVisLib HiVis;
+
+# Insert the following line into the v/lib_xp.v and v/lib_vxp.v file
+#   NElink HiVis <NEdisplayMode="open"> => Templates.XP_COMM_PROJ.HiVis.HiVisLib;
+# if you want the HiVis Lib to be accessable in the Libraries menu
+# Note: This is not a standard IAC module integration as this allows modules
+#  only to arise in the IAC Menu.

@@ -1,0 +1,15 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+   "../xp_comm_proj/rd_spot/rd_spot.v" ReadSpot;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+   XP_COMM_PROJ.ReadSpot.ReadSpotMacs.read_spot read_spot;
+   XP_COMM_PROJ.ReadSpot.ReadSpotMacs.read_spot_alt read_spot_alt;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+   XP_COMM_PROJ.ReadSpot.ReadSpotApps.ReadSpotEg ReadSpotEg;
+   XP_COMM_PROJ.ReadSpot.ReadSpotApps.ReadSpotEgAlt ReadSpotEgAlt;
+

@@ -1,0 +1,58 @@
+
+///////////////////////////////////////
+ Read_SLPSTL
+ Reader module for:
+      SLP (ASCII) File Format
+      STL (ASCII) File Format
+      STL (BINARY) File Format
+///////////////////////////////////////
+
+   This module parses a Pro/Engineer RENDER format file (.SLP) and puts it
+   into a Field with one cell_set - a triangle one. The RENDER file
+   tends to have the extension .SLP. As far as I know the RENDER
+   format has only two data components - NORMAL and COLOR.
+   These are both read and put into the node_data, since the data is
+   based on the triangle vertices. I also assume there is only one solid
+   in the file - I don't know if there can be more than one...
+
+   This module is based on my AVS5 reader, except that I have attempted
+   to do some error checking, and also have not hardcoded the maximum
+   number of triangles that can be read in. These are now counted and
+   malloc'ed. Error checking has be added from the original by I.
+   Curington, and status reporting for progress, and interrupt
+   by user intervention is also supported.
+
+   Inputs:
+      filename: the name of the .SLP / .STL  file to read.
+
+   Outputs:
+      out: field with on triangle cell_set and two node_data.
+      err: integer indicating read error (0 = no error, 1 = error)
+      err_str: string indicating error condition, or "" for no error.
+
+   The V user interface macro maps this to a label area
+   where visibility is controlled with the err int.
+
+   Jeremy Maccelari
+   Visual Numerics (Pty) Ltd
+   email: visuals@solo.pipex.co.za
+
+   Update for STL by I. Curington July 97
+   Advanced Visual Systems, Inc.
+   ianc@avs.com
+
+This module also parses the STL (Stereo Lithography)
+format, and converts patches into AVS/Express triangle
+lists. This can be piped directly into the renderer.
+
+IT is implemented in C++.
+
+It only has one input parameter, the filename.
+The module user interface is designed for standard
+module useage, with a UImod_panel as the parent.
+
+The module automatically detects the type of file, either
+SLP, STL, ascii or binary. The binary version also
+detects bigendian/littlendian conversion switching.
+
+

@@ -1,0 +1,186 @@
+<html>
+<head>
+<title>ReadDICOM</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<a name="ReadDICOM"><h1>ReadDICOM_Series and ReadDICOM_File</h1></a>
+<h3>Synopsis</h3>
+
+<blockquote> The ReadDICOM_Series user macro provides an interface to read a set
+of implicit DICOM files and output a uniform AVS field and a structure
+containing the data present in the DICOM header. It provides access to the DICOM
+Header data through a User Interface.  <br><br> The ReadDICOM_File user macro
+provide an easy to use interface to read a single (explicitly specified) DICOM
+file.  </blockquote>
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i><a href="#out">out</a></i></td>
+<td width="75">DICOM_Volume</td>
+<td width="425">A uniform field containing the DICOM images</td>
+</tr>
+
+<tr>
+<td width="100"><i><a href="#obj">obj</a></i></td>
+<td width="75">DataObject</td>
+<td width="425">renderable object</td>
+</tr>
+
+<tr>
+<td width="100"><i><a href="#header">header</a></i></td>
+<td width="75">DICOM_Header</td>
+<td width="425">DICOM header information</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote> The ReadDICOM_Series macro reads a set of DICOM V3 files and
+outputs a DICOM_Volume containing the reconstructed volume of data from the
+images. A DICOM_Volume is basically uniform field can be directly connected to
+all the standard visualization modules.  The information in the image header is
+output as an DICOM_Header object.  This object simply contains references to 5
+further objects which actually contain the primitive data values.  See <a
+href="#header">below</a> for further information.  </blockquote>
+
+<blockquote> The ReadDICOM_Series macro uses an interface to <a
+href="doc_mod.html#read_DCMLIST">read_DCMLIST</a> to specify the series of files
+to be loaded. The user interface also allows the information in the image header
+to be examined.  </blockquote>
+
+<blockquote> The ReadDICOM_Series and ReadDICOM_File modules use the DCM ToolKit
+(DCMTK) to read DICOM files.  This toolkit was developed by the <a
+href="http://dicom.offis.de/index.php.en">OFFIS Institute for Information
+Technology</a>.  </blockquote>
+
+<h3>User Interface</h3>
+
+<blockquote> <b>Select DICOM Series</b> - this button brings up a UI which
+allows the user to specify the DICOM series to be loaded, please refer to <a
+href="doc_mod.html#read_DCMLIST">read_DCMLIST</a> for more information on
+managing DICOM files. Unless a DCMLIST file is found in the current directory
+the macro will give and error that <tt>"./DCMLIST is not found"</tt>, this is
+normal behaviour. The <b>Change Directory</b> button allows a directory
+containing DICOM files to be specified. If no DCMLIST file is present or files
+have been added/removed then <b>Rescan</b> should be used to generate an upto
+date DCMLIST file. The <b>Read</b> button will load the selected series. The
+<b>Delete</b> button will delete the selected series. <i>NOTE</i> The
+<b>Delete</b> button is inactive under Win32 as it is assumed that the DICOM
+files are under the control of an external database such as <a
+href="http://www.efilm.ca">eFilm</a>.  </blockquote>
+
+<blockquote> <b>Series Information</b> - this text region display the more
+useful pieces of information once a series is loaded.  </blockquote>
+
+<blockquote> <b>Patient, Study, Series and Equipment Information</b> - these
+buttons bring up further windows displaying more detailed information obtained
+from the DICOM files. See <a href="#header">below</a> for further information.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b><a name="out">out</a></b></i>
+</blockquote>
+
+<blockquote> This object contains the image data contained within the DICOM
+file. The object is of type DICOM_Volume.  This object is derived from
+DICOM_Volume and can be used in the exactly the same way as a standard uniform
+field.  The DICOM_Volume object is used so that the number of dimensions can be
+constrained so that only 3D data can be stored. This will not effect how the
+object can be used.  </blockquote>
+
+<blockquote>
+<i><b><a name="obj">obj</a></b></i>
+</blockquote>
+
+<blockquote>
+A renderable object. Not particularly useful in itself.
+</blockquote>
+
+<blockquote>
+<i><b><a name="header">header</a></b></i>
+</blockquote>
+
+<blockquote>
+This object contains the header information contained within the DICOM
+file. The object is of type DICOM_Header. This object contains
+references to 5 further objects. These objects actually contain the
+information read from the DICOM file. Each of these sub-objects
+corresponds to the appropriate DICOM module. These modules are patient,
+generalStudy, generalSeries, generalEquipment and imageSeries.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote> The User Macro ReadDICOM_Series uses the low-level module <a
+href="doc_mod.html#read_dicom_files">read_dicom_files</a>, <a
+href="doc_mod.html#read_DCMLIST">read_DCMLIST</a>. It also uses the parameter
+blocks DICOM_Header and DICOM_Volume.  </blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote> Two example applications are provided.  They both read in a DICOM
+format file.  The TileDicomEg example uses the tile_volume module to visualize
+the data whilst the IsoSurfaceDicomEg example uses the isosurface module.  The
+IsoSurfaceDicomEg also uses a downsize module to reduce the amount of data to be
+visualized. </blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote> <i>xp_comm_proj/rd_dicom/rddimacs.v</i> contains the V definitions of
+the ReadDICOM_Series and ReadDICOM_File User Macros, the ReadDCMLISTUI Macro,
+and the example applications TileDicomEg and IsoSurfaceDicomEg.  </blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote> If the Output of the ReadDICOM project is used with the standard
+Orthoslice module the output of this module shows the slice from the back side.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+James S. Perrin
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote> <a href="doc_mod.html#read_dicom_files">read_dicom_files</a>,
+TileDicomEg, IsoVolDicomEg, Image_Data, Image_Header, Read_ACR_NEMA (IAC module)
+</blockquote>
+
+</body>
+</html>
+

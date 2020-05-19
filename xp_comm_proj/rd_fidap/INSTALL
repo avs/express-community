@@ -1,0 +1,14 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/rd_fidap/rd_fidap.v" ReadFidap;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadFidap.ReadFidapMacs.Read_Fidap_Dialog Read_Fidap_Dialog;
+  XP_COMM_PROJ.ReadFidap.ReadFidapMacs.Read_Fidap_Dialog Read_Fidap_Module;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ReadDicom.ReadDicomMacs.ReadFidapEg ReadFidapEg;
+

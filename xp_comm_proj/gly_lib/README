@@ -1,0 +1,47 @@
+Express Community GlyphLibrary Project
+https://github.com/avs/express-community
+------------------------
+
+This directory ( xp_comm_proj/gly_lib/ ) contains all the V code,
+HTML documentation, and installation information for the Community project
+"GlyphLibrary".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new GlyphLibrary project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+No modules within the project contain procedural code so the project does not
+have to be compiled.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/gly_lib/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+gly_lib.v	Creates the XP_COMM_PROJ.GlyphLibrary library.
+
+gly_s2d.v	Creates the Simple2D library which contains simple 2D glyph
+		modules that are not parametized.
+
+gly_s3d.v	Creates the Simple3D library which contains simple 3D glyph
+		modules that are not parametized.
+
+gly_p2d.v	Creates the Params2D library which contains parametized 
+		2D glyph modules.
+
+gly_p3d.v	Creates the Params3D library which contains parametized 
+		3D glyph modules.
+
+doc.html	HTML documentation for the GlyphLibrary project.
+
+README		This file.
+

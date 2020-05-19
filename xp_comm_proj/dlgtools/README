@@ -1,0 +1,146 @@
+Express Community DlgToolkit Project
+https://github.com/avs/express-community
+----------------------
+
+This directory ( xp_comm_proj/dlgtools/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"DlgToolkit".
+
+Please note that the write_dlg user macro and associated modules do not
+currently work properly and have been disabled.  The existing source code
+for these components has been placed in the write/ sub-directory.  If you
+wish to correct the problems with the write_dlg macro you will need to
+enable the project be removing a comment in the dlgtools directory.  You
+will then need to edit the write/wr_dlg.c file.  For further information
+please contact the Community at avs@iavsc.org
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file to add the
+new project, and single line additions to three of the xp_comm_lib/ files (in this
+instance data_io.v, mappers.v and examples.v) to add links to the User Macros 
+and Example Application from the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+If you modify the project, and elect to specify the process as "user" or
+another user-defined process, then the module may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the modules:
+
+        $compile XP_COMM_PROJ.DlgToolkit
+
+Users of the Developer's Edition may select the module in the relevant 
+Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/dlgtools/ directory.
+
+install        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/*.v files. This file should not be edited as
+               the future installation script will use this file.
+
+dlgtools.v     Creates the XP_COMM_PROJ.DlgToolkit library.
+
+dlg_apps.v     Creates the DlgToolkitApps library containing the DlgToolkitEg
+               example application.
+
+dlg.h          C header file used by all the C source code in the project.
+gen_proc.h
+
+read/               Directory containing the ReadDlg sub-project.
+
+read/rd_dlg.v       Creates the XP_COMM_PROJ.DlgToolkit.ReadDlg library.
+
+read/rd_mods.v      Creates the ReadDlgMods library containing the low-level
+                    ReadDlgCore module.
+
+read/rd_macs.v      Creates the ReadDlgMacs library containing the user interface
+                    macro ReadDlgUI, the functional macro ReadDlgFunc and the user
+                    macro read_dlg.
+
+read/rd_dlg.c       The C source code for the ReadDlgCore module.
+
+read/ram.c          C source code associated with rd_dlg.c
+
+outline/            Directory containing the OutlineDlg sub-project.
+
+outline/outl_dlg.v  Creates the XP_COMM_PROJ.DlgToolkit.OutlineDlg library.
+
+outline/ol_mods.v   Creates the OutlineDlgMods library containing the low-level
+                    OutlineDlgCore and DlgOnOff modules and the OutlineDlgParams
+                    parameter block.
+
+outline/ol_macs.v   Creates the OutlineDlgMacs library containing the user interface
+                    macro OutlineDlgUI, the functional macro OutlineDlgFunc and the user
+                    macro outline_dlg.
+
+outline/outl_dlg.c  The C source code for the OutlineDlgCore module.
+
+outline/sel_all.c   The C source code for the SelectAllCore module.
+
+write/              Directory containing the WriteDlg sub-project.
+
+write/wr_dlg.v      Creates the XP_COMM_PROJ.DlgToolkit.WriteDlg library.
+
+write/wr_mods.v     Creates the WriteDlgMods library containing the low-level
+                    WriteDlgCore module.
+
+write/wr_macs.v     Creates the WriteDlgMacs library containing the user interface
+                    macro WriteDlgUI, the functional macro WriteDlgFunc and the user
+                    macro write_dlg.
+
+write/wr_dlg.c      The C source code for the WriteDlgCore module.
+
+data/florida.dlg    Sample DLG data file.
+
+
+
+doc_mod.html   HTML documentation for the module
+
+doc_umac.html  HTML documentation for the User Macros.
+
+readme         This file.
+
+disclaimer     Community usage conditions.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+read/gen.h              AVS/Express generated header files.
+outline/gen.h
+write/gen.h
+
+read/gen.cxx            AVS/Express generated source code.
+outline/gen.cxx
+write/gen.cxx
+
+read/rd_dlg.o(bj)       Intermediate object files.
+read/ram.o(bj)
+outline/outl_dlg.o(bj)
+outline/sel_all.o(bj)
+write/wr_dlg.o(bj)
+

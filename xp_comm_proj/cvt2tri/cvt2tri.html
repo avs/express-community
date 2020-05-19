@@ -1,0 +1,157 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>Convert2TriStrip</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Convert2TriStrip</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote> 
+This module converts a 2D quad or tri input mesh to a polytri strip for faster rendering.</blockquote>
+
+<h4>Input Ports</h4>
+<blockquote>
+
+<table summary="Input Ports used by Convert2TriStrip">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+
+<tr>
+<td width="110"><i>out</i></td>
+<td width="165">Mesh</td>
+<td width="425">2D tri or quad mesh to be converted</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+
+
+
+<h4>Output Ports</h4>
+<blockquote>
+
+<table summary="Output Ports used by Convert2TriStrip">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+
+<tr>
+<td width="110"><i>out</i></td>
+<td width="165">PolyTri Mesh</td>
+<td width="425">Geometry data of the converted mesh.</td>
+</tr>
+
+<tr>
+<td width="110"><i>out_obj</i></td>
+<td width="165">DataObject</td>
+<td width="425">Directly Renderable Output Object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This project contains a definition of a module which converts
+an input mesh to a polytri strip for faster rendering. It requires 2D quad or
+tri data.</p>
+
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out</i></b></blockquote>
+
+<blockquote>
+Mesh data output that contains the nodal coordinates and a single poly triangle cell-set that describes the connectivity of the data.  
+</blockquote>
+
+<blockquote><i><b>out_obj</b></i></blockquote>
+
+<blockquote>
+The directly renderable output of the Convert2TriStrip macro. This output contains the geometry data read from the field file in a form that can be rendered by the standard data viewers.</blockquote>
+
+
+<h3>Utility Macros</h3>
+                                                                                  
+<blockquote>
+The Convert2TriStripFunc functional macro uses the Convert2TriStripCore low-level module. The Convert2TriStrip user macro uses this functional macro.  
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application Convert2TriStripEg is provided with the Convert2TriStrip project.  This application reads a field file, converts the mesh to tri strip, and then shows the originally read data and converted data in two Viewer windows.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/cvt2tri/c2t_mods.v</i> contains the V definitions of the Convert2TriStripCore module.</p>
+
+<p><i>xp_comm_proj/cvt2tri/c2t_macs.v</i> contains the V definitions of the Convert2TriStripFunc functional macro and the Convert2TriStrip user macro.</p>
+
+<p><i>xp_comm_proj/cvt2tri/c2t_apps.v</i> contains the V definitions of the Convert2TriStripEg example application.</p>
+</blockquote>
+
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Dave Goughnour,
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+
+<h3>Modification</h3>
+
+<blockquote>
+<pre>
+Mary McDerby,
+Manchester Visualization Centre
+
+Tobias Schiebeck,
+International AVS Centre
+</pre>
+</blockquote>
+
+
+</body>
+</html>
+

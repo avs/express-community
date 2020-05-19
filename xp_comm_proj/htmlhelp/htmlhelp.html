@@ -1,0 +1,116 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>HtmlHelp - launches external HTML browser to view help</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>
+HtmlHelp</h1>
+
+<h3>
+Synopsis</h3>
+
+<blockquote>Launches an HTML browser so that a help file can be shown from within an AVS/Express user interface.</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+   module HtmlHelpCore &lt;src_file="htmlhelp.cxx"&gt; {
+
+      string+IPort2 help_filename; // the help filename (.html)
+      int+IPort2    show_help;
+
+      cxxmethod  update (
+         help_filename+read+req,
+         show_help+notify
+      );
+   };
+</pre>
+<hr>
+</blockquote>
+
+
+
+<h3>
+Description</h3>
+
+<blockquote>
+<p>One of the problems found while creating AVS/Express user interfaces is that it is not easy to provide help to users.  This project aims to solve this problem by allowing the user to display an HTML help page at the touch of a button.  The project consists of three components, a low-level module, a user interface component and a user macro.</p>
+
+<ul>
+<li>The <b><tt>HtmlHelpCore</tt></b> low-level module takes the name of an HTML file as input and when triggered starts a browser and displays that file.</li>
+<li>The <b><tt>HtmlHelpButton</tt></b> macro extends the low-level module by combining it with a UI button.  This component can be easily added to an existing user interface to provide a help facility.</li>
+<li>The <b><tt>HtmlHelp_ModPanel</tt></b> further extends this concept by providing a module panel that contains a single help button.  This module panel could be very quickly added to an application to provide an overall help facility.</li>
+</ul>
+
+<p>Most of the operation of the HtmlHelp project is straight-forward.  However the project does use two environment variables.  These are described below.  For the best operation of the project these variables should be specified.  However if they are not then sensible defaults will be used.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>help_filename</i></b></blockquote>
+
+<blockquote>Name of the help file to be loaded. The parameter is of type string. This will be combined with the XP_HELP_DIR environment variable and passed to the HTML browser. Changing this parameter does <b>not</b> trigger the launching of the HTML browser.</blockquote>
+
+<blockquote><b><i>show_help</i></b></blockquote>
+
+<blockquote>Integer parameter that is used to trigger the showing of the HTML help page.  Whenever this parameter is changed the module update method runs and the appropriate page is loaded into the HTML browser.  This input can be directly connected to, for instance, the output of a UIbutton component.</blockquote>
+
+
+<h3>Environment Variables</h3>
+
+<blockquote><b><i>XP_HELP_DIR</i></b></blockquote>
+
+<blockquote>Root directory from which to load help files.  If this variable is not specified then the current directory will be used.</blockquote>
+
+<blockquote><b><i>HTML_BROWSER</i></b></blockquote>
+
+<blockquote><p>Full filename of the HTML browser to be used to view the HTML help files.  If it is necessary to specify a path to your browser then the full path and filename should be specified.  If this variable is not specified then the filename "netscape" will be used.</p>
+
+<p>Note that this environment variable is not necessary on Windows platforms.  On Windows systems the module uses whichever program is associated with HTML files.</p></blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>An example application is provided that will show this file when the Help button is pressed.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/htmlhelp/helpmods.v</i> contains the V definition of the HtmlHelpCore module.</p>
+
+<p><i>xp_comm_proj/htmlhelp/helpmacs.v</i> contains the V definitions of the HtmlHelpButton UI component, the HtmlHelp_ModPanel user macro and the HtmlHelpEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level HtmlHelpMods library containing the module HtmlHelpCore does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+
+<h3>
+Authors</h3>
+
+<blockquote>
+<pre>Dr. David Knight, Advanced Visual Systems, Inc.
+
+Andrew Dodd, International AVS Centre.</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+</body>
+</html>

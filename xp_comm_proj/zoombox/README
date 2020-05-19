@@ -1,0 +1,41 @@
+Express Community ZoomBox Project
+https://github.com/avs/express-community
+-------------------
+
+This directory ( xp_comm_proj/zoombox/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project 
+"ZoomBox".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new project, and additions to two of the files in the xp_comm_lib/ directory
+to add links to the User Macro and Example Applications to the top-level
+Community library page.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/zoombox/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/misc.v and xp_comm_lib/examples.v files. This file
+               should not be edited as the future installation script will
+               use this file.
+
+zoombox.v	   Creates the XP_COMM_PROJ.ZoomBox library.
+
+zoommacs.v     Creates the ZoomBoxMacs library containing the functional
+               macro ZoomBoxFunc and the user macro ZoomBox.
+			   
+zoomapps.v     Creates the ZoomBoxApps library containing the example 
+               application ZoomBoxEg.
+
+zoombox.html   HTML documentation for the user macro.
+
+README         This file.
+

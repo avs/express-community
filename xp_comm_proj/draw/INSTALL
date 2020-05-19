@@ -1,0 +1,17 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/draw/draw.v" Draw;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Draw.DrawMacs.SuperDraw SuperDraw;
+  XP_COMM_PROJ.Draw.DrawMacs.LineResampler LineResampler;
+  XP_COMM_PROJ.Draw.DrawMacs.RegionResampler RegionResampler;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Draw.DrawApps.SuperDrawEg SuperDrawEg;
+  XP_COMM_PROJ.Draw.DrawApps.LineResamplerEg LineResamplerEg;
+  XP_COMM_PROJ.Draw.DrawApps.RegionResamplerEg RegionResamplerEg;
+

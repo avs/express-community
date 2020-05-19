@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module FindTetrahedra documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Find Tetrahedra</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Find Tetrahedra</h1>
+
+<h2>Description</h2>
+<p>Display tetrahedra around specific atom types. The atom must have 4 connected atoms that will be used as vertices of the tetrahedra.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecule.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Select tetrahedra center atoms</td>
+	<td class="c2">multi select list</td>
+	<td class="c3">The list of atoms contained in the molecule that have exactly 4 bonds.</td>
+</tr>
+<tr>
+	<td class="c1">Deselect All</td>
+	<td class="c2">button</td>
+	<td class="c3">Deselect all the entries in the <i>Select tetrahedra center atoms</i> list.</td>
+</tr>
+<tr>
+	<td class="c1">Select All</td>
+	<td class="c2">button</td>
+	<td class="c3">Select all the entries in the <i>Select tetrahedra center atoms</i> list.</td>
+</tr>
+<tr>
+	<td class="c1">Selection type</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">Select the kind of operation:
+	<dl>
+	<dt>exact selection</dt>
+		<dd>Draw tetrahedra for only the atoms selected in the list</dd>
+	<dt>select similar similar</dt>
+		<dd>Draw tetrahedra for the atoms with names that starts like to the ones selected in the list</dd>
+	</dl></td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of tetrahedra.</td>
+</tr>
+</table>
+
+</body></html>

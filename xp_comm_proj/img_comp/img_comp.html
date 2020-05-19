@@ -1,0 +1,267 @@
+<html>
+<head>
+<title>ImageCompare</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ImageCompare</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+ImageCompare allows the user to compare two images visually. 
+The input images are merged into a new image.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>inImage1</i></td>
+<td width="100">Mesh_Unif+Node_Data</td>
+<td width="425">An image</td>
+</tr>
+
+<tr>
+<td width="100"><i>inDatamap1</i></td>
+<td width="100">DatamapTempl</td>
+<td width="425">A datamap</td>
+</tr>
+
+<tr>
+<td width="100"><i>inImage2</i></td>
+<td width="100">Mesh_Unif+Node_Data</td>
+<td width="425">An image</td>
+</tr>
+
+<tr>
+<td width="100"><i>inDatamap2</i></td>
+<td width="100">DatamapTempl</td>
+<td width="425">A datamap</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Border value</i></td>
+<td width="75">float</td>
+<td width="300">The value used to calculate the border position in the merged image</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Merge mode</i></td>
+<td width="75">int</td>
+<td width="300">0 is vertical slice<br>1 is horizontal slice<br>2 is diagonal<br>3 is solid<br>4 is circle<br>5 is checkerboard</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Switch datasets</i></td>
+<td width="75">boolean</td>
+<td width="300">Swaps the images</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh_Unif+Node_Data</td>
+<td width="425">output surface.</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">Link</td>
+<td width="425">A directly renderable object for UViewer2D.</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+img_compare merges 2 images using a selected mode. It is thus possible to compare images visually.
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>inImage1</b></i>
+</blockquote>
+
+<blockquote>
+This is an image.
+</blockquote>
+
+<blockquote>
+<i><b>inDatamap1</b></i>
+</blockquote>
+
+<blockquote>
+This is a datamap for Image1.
+</blockquote>
+
+<blockquote>
+<i><b>inImage2</b></i>
+</blockquote>
+
+<blockquote>
+This is an image.
+</blockquote>
+
+<blockquote>
+<i><b>inDatamap2</b></i>
+</blockquote>
+
+<blockquote>
+This is a datamap for Image2.
+</blockquote>
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>Border Value</b></i>
+</blockquote>
+
+<blockquote>
+Border value changes from 0 to 1 and defines the position of the border between the parts of the merged image. 
+</blockquote>
+
+<blockquote>
+<i><b>Merge Mode</b></i>
+</blockquote>
+
+<blockquote>
+There are 6 merge modes (from 0 to 5). Mode 0 is vertical slice, 1 is horizontal slice, 2 is diagonal, 3 is solid (Image1), 4 is circle, 5 is checkerboard.
+</blockquote>
+
+<blockquote>
+<i><b>Switch datasets</b></i>
+</blockquote>
+
+<blockquote>
+Swaps the source images.
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The merged image.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro img_compare makes use of the Functional Macro ImageFunc and the UI
+Macro ImageUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ImageEg is provided, which uses 2 different slices of the hydrogen data to display a merged image.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+  <p><i>xp_comm_proj/img_comp/img_mods.v</i> contains the V definitions of the
+  ImageParams 
+    parameter block and the Image_Compare module.</p>
+
+  <p><i>xp_comm_proj/img_comp/img_macs.v</i> contains the V definitions of the
+  ImageFunc 
+    Functional Macro, the ImageUI User Interface Macro, and the img_compare 
+    User Macro. </p>
+  <p><i>xp_comm_proj/img_comp/img_apps.v</i> contains the V definition of the example 
+    application ImageEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+anonymous
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+  <pre>
+Alexander Korban
+Manchester Visualization Centre</pre>
+</blockquote>
+
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/orthview/orthview.v" OrthogonalViewer;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.OrthogonalViewer.OrthogonalViewerMacs.OrthogonalViewer OrthogonalViewer;
+  XP_COMM_PROJ.OrthogonalViewer.OrthogonalViewerMacs.OrthogonalViewer2 OrthogonalViewer2;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.OrthogonalViewer.OrthogonalViewerApps.OrthogonalViewerSingleEg OrthogonalViewerSingleEg;
+  XP_COMM_PROJ.OrthogonalViewer.OrthogonalViewerApps.OrthogonalViewerMultiEg OrthogonalViewerMultiEg;
+  XP_COMM_PROJ.OrthogonalViewer.OrthogonalViewerApps.OrthogonalViewerSingleEg2 OrthogonalViewerSingleEg2;
+  XP_COMM_PROJ.OrthogonalViewer.OrthogonalViewerApps.OrthogonalViewerMultiEg2 OrthogonalViewerMultiEg2;

@@ -1,0 +1,53 @@
+Until 12/10/98: 
+
+Demonstration fixes and extensions including
+
+  o RenderCells with option 'faces' and range setting -- done
+  o RenderField rewrite -- done
+  o Blockinterpolate with less cells -- done
+
+Until 05/31/99:
+
+  o Marching Cubes Isosurface -- done
+  o RenderSparseGrid to render interpolation points -- done
+  o Progress bar enhanchements -- done
+  o Support for interruption of long tasks -- done
+  o Coordinates sharing in isosurface -- done
+  o New dividing into parts: 
+    DataIO[Read_SparseGrid,Read_Octree,Field2HiVis,HiVis2Field]
+    Filters[AG_Octree,AG_SparseGrid,AG_OrthoSlice,AG_Cell2Node,AG_Node2Cell]
+    Mappers[HiVis_Bounds,HiVis_Iso,HiVis_Streamline,HiVis_Render_Cells,HiVis_Render_SparseGrid],
+    Glyphs
+    Examples[SparseGrid[SG_Image,SG_LiquidCavity,ChainsawTank],
+             Octree[SG_Image,OC_LiquidCavity],
+             Visualization[Streamline,Isosurface,OrthoSlice]] -- done
+
+Until 01/17/00:
+
+  o RenderCell Fix for Node Associated data
+  o RenderCell eliminating equal nodes
+
+Until Release 2.0
+
+  o Global object instance list
+  o instance ID
+  o Adaptive Grid cache
+  o Unstructured grid support
+  o Profile and optimize: Optimized attribute calculation necessary?
+  o Render methods independent of AVS/Express
+  o Copy constructor
+  o Message system (like signal slot / Observer, Observable)
+  o Cell enumeration for unstructured grids
+  o New dividing into parts: 
+    DataIO[Read_Field,Write_Field,Field_To_HiVis,HiVis_To_Field]
+    AG_Conversion[Generate_Octree, Generate_SparseGrid, Generate_AdaptiveGrid]
+    AG_Extraction[Ortho_Slice,Crop,Iso_Value,Streamline]
+    Rendering[Render_Cells,Render_Nodes,Render_Primitive,Render_Lic]
+    Examples
+
+Until Release 2.1
+
+  o New parts: 
+    Attributes[Map_Attributes,Calc_Attributes]
+    UG_Functions[Combine_Mesh,Reduce_Mesh]
+    Transformation[Scale,Translate,Rotate]

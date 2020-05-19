@@ -1,0 +1,226 @@
+<html>
+<head>
+<title>readAnalyze</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>readAnalyze</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+The readAnalyze user macro reads Mayo Analyze data files and outputs
+a uniform field representing the volume of data.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters used by the readAnalyze user macro.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename_in</i></td>
+<td width="75">string</td>
+<td width="300">name of Analyze file to read</td>
+<td width="125">Filename text box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">uniform field</td>
+<td width="425">read 3D volume</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The readAnalyze macro reads a set of Mayo Analyze files and outputs a
+uniform field representing the data. The Analyze file format consists of
+at least two file. For the image named <I>foo</I> the files need by this
+module are <I>foo.hdr</I> and <I>foo.img</I>. This module reads the
+<I>foo.hdr</I> file and prints all the information from the header to
+the standard output. It then uses this information to read in the file
+<I>foo.img</I> and converts it into the appropriate uniform field.
+</blockquote>
+
+<blockquote>
+The output field is stretched in the z axis to account for the
+difference in the interslice resolution. The module performs byte
+swapping as appropriate so that it works correctly on little and big
+endian platforms. Volumes containing RGB or Complex data cannot be dealt
+with.
+</blockquote>
+
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>filename_in</b></i>
+</blockquote>
+
+<blockquote>
+The name of the file that should be read from. This parameter is of type
+string and can be specified through either a text-box or a file browser.
+If the file is not valid then module should correctly detect this and
+report the error that has occured.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the readAnalyze macro. This contains
+the generated 3D volume in the form of a uniform field. The field has
+node data of the type specified in the Analyze header file. The
+resultant field data is automatically stretched in the z axis to account
+for the difference in the interslice distance. This scaling should
+normally be correct. However it can be changed by altering the
+<tt>out_points</tt> array in the field object.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the readAnalyze macro. This
+contains a DataObject object that can be rendered by the standard data
+viewers. The DataObject is generated directly from the field data
+created from the Analyze image file.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro readAnalyze uses the low-level module ReadAnalyzeFile. It
+also makes use of the ReadAnalyzeUI UI macro.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadAnalyzeEg is provided that reads a set of
+Analyze files and renders three orthoslices through the volume. A sample
+set of Analyze files, head.hdr and head.img, are provided with the
+distribution of this module.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rd_anlyz/rdanmacs.v</i> contains the readAnalyze User Macro, the
+ReadAnalyzeUI UI Macro, and the example application ReadAnalyzeEg V definitions.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ReadAnalyzeMacs library inherits its process. As this library contains
+no procedural code, the process is not important.
+</blockquote>
+
+<blockquote>
+The ReadAnalyzeFile module was designed to work on a 32-bit system. In
+particular it assumes that the short variable type is 16 bits long, the
+int and float variable types are 32 bits long and the double variable
+type is 64 bits long. If this is not the case then it is unlikely that
+the data will be read correctly. Correcting this problem will require
+alterations to the <tt>rd_anlyz.c</tt> source code file.
+</blockquote>
+
+<blockquote>
+Information for this module was obtained from David Clunies Medical Image
+File Format web site, it can currently be accessed from:</P>
+</blockquote>
+
+<blockquote>
+<a href="http://idt.net/~dclunie/medical-image-faq/html/index.html">
+http://idt.net/~dclunie/medical-image-faq/html/index.html</a>
+</blockquote>
+
+<blockquote>
+Analyze is the file format of the software produced by the Biomedical
+Imageing Resource Group at the Mayo Clinic/Foundation.
+</blockquote>
+
+<blockquote>
+<a href="http://www.mayo.edu/bir/">http://www.mayo.edu/bir/</a>
+</blockquote>
+
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+<a href="http://www.man.ac.uk/MVC/staff/leng">Joanna Leng</a>
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+readAnalyze, ReadAnalyzeUI and ReadAnalyzeEg
+</blockquote>
+
+</body>
+</html>

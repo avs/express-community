@@ -1,0 +1,13 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/rd_anlyz/rd_anlyz.v" ReadAnalyze;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadAnalyze.ReadAnalyzeMacs.readAnalyze readAnalyze;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ReadAnalyze.ReadAnalyzeMacs.ReadAnalyzeEg ReadAnalyzeEg;
+

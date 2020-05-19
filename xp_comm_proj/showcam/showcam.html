@@ -1,0 +1,188 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>showcam - show and manipulate camera position in a second window.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>showcam</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Shows a geometric icon for the camera along with the scene objects in a second view. Allows the camera position to be viewed as it is manipulated.</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by showcam">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>camera_in</i></td>
+<td width="80">GDcamera</td>
+<td width="425">camera object extracted from Uviewer component.</td>
+</tr>
+
+<tr>
+<td width="100"><i>glyph_in</i></td>
+<td width="80">Mesh</td>
+<td width="425">geometry that should be used to represent the camera.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by showcam">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="80">Field</td>
+<td width="425">output field containing the transformed input glyph.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</blockquote>
+
+<h3>
+Description</h3>
+
+<blockquote>
+This project is intended to show how the camera producing one view can be seen in another.  Doing this has many applications; in particular it will be very useful in educational applications and when very fine control of the camera position is required.  The ability to visualise how you interact with the view is particularly important within AVS/Express because of the way that both objects and the camera can be interacted.  AVS/Express uses separate transformations for both the scene objects and the camera objects.  For many users this distinction is initially not clear or obvious.  However by being able to view both the scene and the camera viewing that scene the distinction is much easier to see.
+</blockquote>
+
+<blockquote>
+Placing a 'camera' glyph at the camera position initially appears to be a trivial problem.  However the camera transformation actually causes the glyph to appear in the 'inverse' location, with incorrect rotation.  To solve this the camera transformation must first be inverted before it is used to transform the camera glyph.  This is done by the <tt>prep_cam_xform</tt> low-level module.  The low-level module also changes the translation of output transformation. 
+</blockquote>
+
+<blockquote>
+The <tt>showcam</tt> functional macro builds on the <tt>prep_cam_xform</tt> module.  It also takes the generated transformation and uses it to transform the input glyph geometry.  Typically this geometry will be the supplied CameraGlyph macro.  However any glyph geometry could be used. 
+</blockquote>
+
+<blockquote>
+By using the showcam macro the camera transformation is used to position a camera glyph in a second view.  The objects in the second view also have to be transformed before the second view is completed.  This is done in the example application by extracting the object transformation of the first view from the Uviewer component, and using a GroupObject to apply that transformation to all the scene objects viewed in the second view.  
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>camera_in</i></b></blockquote>
+
+<blockquote>Connection to the camera that is to be viewed in a second window.  The camera is not normally exported from the Uviewer component and this will have to be done manually.  This can be seen in the ShowcamEg example application.</blockquote>
+
+<blockquote><b><i>glyph_in</i></b></blockquote>
+
+<blockquote>Connection to the geometric representation that should be used for the camera.  Normally the supplied CameraGlyph macro can be used.  However it is possible to use any normal glyph.  For the 'camera' glyph to look correct the glyph should face along the negative Z axis, right should be along the positive X axis and up should be along the positive Y axis.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>
+The glyph geometry transformed by the correct camera transformation.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>
+The directly renderable output of the showcam macro.  The DataObject contained within this output is generated from the same data as that output by <tt>out_fld</tt>.  This renderable output is the output that will normally be used.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The CameraGlyph macro provides a simple camera geometry that can be used immediately to represent the camera position. 
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application, ShowcamEg, is provided. It will be useful to give a brief walk through of how this application can be used. Once the application has been started it will open two windows and load the 'teapot' geometry supplied with AVS/Express. The teapot will appear in both windows. Select the window that does not show the camera object.
+</blockquote>
+<blockquote>
+First try rotating the teapot itself. The transform object button should be selected by default. If it is not press it. You should see that the teapot in the second window also rotates. Next try moving the camera. This can be done by selecting the transform camera button. This button should have a camera icon on it. If you attempt to rotate the scene now you should see that the teapot stays still and the camera moves.
+</blockquote>
+<blockquote>
+All movements of either the teapot or the camera in the first window should be reflected in the second window.  Unfortunately it is not currently possible to move the camera in the second window and have the view seen by the first window change.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/showcam/shcmods.v</i> contains the V definitions of the prep_cam_xform module and the CameraGlyph macro.</blockquote>
+
+<blockquote><i>xp_comm_proj/showcam/shcmacs.v</i> contains the V definitions of the showcam Functional macro and the ShowcamEg example application.
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>This project relies on the successful installation of the
+following components. Without them it will not function correctly.</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ShowcamMods library containing the module prep_cam_xform does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+John Methot, Ian Curington
+Advanced Visual Systems, Inc.
+Andrew Dodd
+International AVS Centre
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+</body>
+</html>
+

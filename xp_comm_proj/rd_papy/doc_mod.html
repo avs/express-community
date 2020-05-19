@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>ReadPapyrusFile</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ReadPapyrusFile</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads a Papyrus file and outputs a uniform AVS field and a structure containing the data present in the Image Header.
+</blockquote>
+
+<blockquote><hr>
+<pre>
+  module ReadPapyrusFile &lt;
+    build_dir="xp_comm_proj/rd_papy",
+    src_file="rd_papy.c",
+    c_src_files="rd_pyutl.c",
+    out_hdr_file="gen.h",
+#ifdef MSDOS
+    hdr_dirs="include/pc .",
+    link_files="lib/pc/papy3_32.lib"
+#else
+    link_files="-lP -lJpglless -lJpglossy"
+#endif
+    &gt;
+  {
+    // Input: Papyrus filename
+    string+read+notify+req+IPort2 filename;
+
+    // External C code function
+    omethod+req+notify_inst papyrus_update&lt;status=1&gt; = "Read_Papyrus_File";
+
+    // Outputs: Currently busy, header information &amp; image data
+    int+write+nonotify+OPort2 busy = 0;
+    Image_Header+write+nonotify+OPort2 header;
+    Image_Data+write+nonotify+OPort2 output_image;
+  };
+</pre>
+<hr></blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The ReadPapyrusFile module reads a Papyrus file and outputs an uniform field containing the image data and a data structure containing the information stored in the image header.  The uniform field is output as a Image_Data object.  This object is derived from the Field_Unif module and and can hence be used in the exactly the same way.  It can be directly connected to all the standard visualization modules.  The information in the image header is output as an Image_Header object.  This object simply contains references to 5 further objects which actually contain the primitive data values.  See below for further information.</p>
+
+<p>The ReadPapyrusFile module uses the Papyrus 3.5 toolkit to read Papyrus format files.  The Papyrus data format is an extended form of the DICOM V3 data format that can store multiple 2D slices.  This allows it to store an entire volume of data.  The Papyrus 3.5 toolkit was developed by the <a href="http://www.expasy.ch/UIN/">Digital Imaging Unit</a> of the University Hospital of Geneva.  More information can be found at the the <a href="http://www.expasy.ch/UIN/html1/projects/papyrus/papyrus.html">Papyrus website</a>.</p>
+</blockquote>
+
+<h3><a name="install">Installation</a></h3>
+
+<blockquote>
+<p>As this project internally uses the Papyrus library to read Papyrus files the Papyrus library must be installed correctly before compilation.  This section details how the library should be compiled and installed.
+</blockquote>
+
+<h4>Windows Installation</h4>
+
+<blockquote>
+<p>To ease install on Windows the ReadPapyrus project comes with a pre-built binary version of the Papyrus library that is compiled for VC++.  This binary will be automatically linked with Express when the ReadPapyrus project is compiled.  Normally you will not need to do anything extra to the normal IAC installation process.</p>
+
+<p>The only exception to this is if you want to build the Papyrus library yourself.  In this case you will have to recompile the library from the source code available on the Papyrus web-site.  This process is complicated by the fact that the available source code has a number of errors and the library has to be compiled different if it is to be included in AVS/Express.</p>
+
+<p>Once the source code has been downloaded it should be extracted into a empty directory.  Two sub-directories, <code>jpglless</code> and <code>jpglossy</code>, should have been created in this directory.  Next the changes to the source code and makefiles have to be applied.  This can be done by extracting the <code>papy_win.zip</code> file into the Papyrus toolkit directory.  This should overwrite several C files and 3 makefiles.  It will also add a new batch file, <code>make_pap.bat</code>.  This batch file can be used to compile both the release and debug versions of the Papyrus library.</p>
+
+<p>After the new build of the Papyrus library has been compiled the library file should be copied into your project directory.  You should replace the <code>xp_comm_proj/rd_papy/lib/pc/papy3_32.lib</code> file with the new <code>papy3_32.lib</code> file in either the <code>Debug</code> or <code>Release</code> directory.  The release version should normally be used.  However if you encounter problems then the debug version can be used to help solve those problems.</p>
+</blockquote>
+
+<h4>Other Platforms Installation</h4>
+
+<blockquote>
+<p>For all other platforms a pre-built library is not supplied with the ReadPapyrus project.  This is because it would not be feasible for the IAC to maintain all the necessary versions.  Instead the source code of the library must be downloaded from the Papyrus web-site and compiled for your system.  Again this process is complicated by the fact that the available source code has a number of errors.  It also does not have makefiles for Linux and Irix systems.</p>
+
+<p>Once the source code has been downloaded it should be extracted into a empty directory.  Several sub-directories should have been created in this directory.  Next the changes to the source code and makefiles have to be applied.  This can be done by extracting the <code>papy_uniz.tar.gz</code> file or <code>papy_uniz.tar.Z</code> file into the Papyrus source code directory.  This should overwrite several C files and add several makefiles.  Once this has been done the library can be compiled.  This can be done by making the appropriate makefile.  For instance on Irix the following command would be used:</p>
+
+<pre>
+make -f Makefile.sgN32
+</pre>
+
+<p>Finally the necessary header files and newly compiled libraries must be installed.  This can be done in one of three ways; by installing them into your project directory, by installing them into your system directories or by altering your environment variables so that they point to the correct files.</p>
+
+<p>If you intend to only use the Papyrus library in one project then it would probably be easiest to install the library into your project directory.  This can be done by copying all the header files in the Papyrus <code>include</code> directory into the <code>include</code> sub-directory of your project directory.  Similarly the <code>libP.a</code>, <code>libJpglless.a</code> and <code>libJpglossy.a</code> library must be copied from the <code>$MACHINE/lib</code> directory into the <code>lib/$MACHINE</code> sub-directory of your project directory.  <code>$MACHINE</code> is the Express name of you system (i.e. sgN32, sg6).</p>
+
+<p>If you intend to use the Papyrus library regularly it should be installed into the appropriate directories on your system.  For example on some systems you would copy the header files into <code>/usr/include</code> and the library files into <code>/usr/lib</code>.  Finally it is also possible to alter the appropriate environment variables so that your C compiler finds the appropriate header and library files and compiles Express using those.</p>
+</blockquote>
+
+
+
+<h3>Input</h3>
+
+<blockquote>
+<i><b>&amp;filename</b></i>
+</blockquote>
+
+<blockquote>
+The name of the file that should be read from. This parameter is of type string. The ReadPapyrusFile module checks that the supplied filename is valid and displays errors as appropriate.  The filename string can contain either the full or relative path name of the file and can contain any of the AVS/Express environment variables (e.g. $XP_PATH&lt;1&gt;)
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>busy</b></i>
+</blockquote>
+
+<blockquote>
+This parameter indicates whether the ReadPapyrusFile module is currently busy processing data.  The parameter is of type int.  The parameter is set as appropriate by the ReadPapyrusFile module.  It can be used by the user interface to indicate the current state of the module.
+</blockquote>
+
+
+<blockquote>
+<i><b>done</b></i>
+</blockquote>
+
+<blockquote>
+This parameter indicates whether the ReadDicomFile module has finished processing data.  The parameter is of type int.  The parameter is set to 1 when the ReadDicomFile module has completed correctly.  If the module finishes with an error this parameter is not altered.  The parameter can be used to trigger further processing of the read data.
+</blockquote>
+
+
+<blockquote>
+<i><b><a name="output_image">output_image</a></b></i>
+</blockquote>
+
+<blockquote>
+This object contains the image data contained within the Papyrus file. The object is of type Image_Data.  This object is derived from Field_Unif and can be used in the exactly the same way as a standard uniform field.  The output data can have either 2 or 3 dimensions.  If the specified Papyrus file only contains a single slice a 2D field will be created.  If the file contains several slices than a 3D volume field will be created.
+</blockquote>
+
+<blockquote>
+<i><b><a name="header">header</a></b></i>
+</blockquote>
+
+<blockquote>
+This object contains the header information contained within the Papyrus file. The object is of type Image_Header. This object contains references to 5 further objects. These objects actually contain the information read from the Papyrus file. Each of these sub-objects corresponds to the appropriate DICOM module. These modules are Patient, General_Study, General_Series, General_Equipment &amp; Image_Series and contain the information shown below.
+</blockquote>
+
+<ul>
+ <li>Patient
+  <ul>
+  <li>PatientsNameP</li>
+  <li>PatientIDP</li>
+  <li>PatientsBirthDateP</li>
+  <li>PatientsBirthTimeP</li>
+  <li>PatientsSexP</li>
+  <li>ReferencedPatientSequenceP</li>
+  <li>OtherPatientID</li>
+  <li>OtherPatientNamesP</li>
+  <li>EthnicGroupP</li>
+  <li>PatientCommentsP</li>
+  </ul>
+ </li>
+ <li>General_Study
+  <ul>
+  <li>StudyInstanceUIDGS</li>
+  <li>StudyDateGS</li>
+  <li>StudyTimeGS</li>
+  <li>ReferringPhysiciansNameGS</li>
+  <li>StudyIDGS</li>
+  <li>AccessionNumberGS</li>
+  <li>StudyDescriptionGS</li>
+  <li>NameofPhysiciansReadingStudyGS</li>
+  <li>ReferencedStudySequenceGS</li>
+  </ul>
+ </li>
+ <li>General_Series
+  <ul>
+  <li>ModalityGS</li>
+  <li>SeriesInstanceUIDGS</li>
+  <li>SeriesNumberGS</li>
+  <li>Laterality</li>
+  <li>SeriesDate</li>
+  <li>SeriesTime</li>
+  <li>PerformingPhysiciansNameGS</li>
+  <li>ProtocolName</li>
+  <li>SeriesDescription</li>
+  <li>OperatorsName</li>
+  <li>ReferencedStudyComponentSequenceGS</li>
+  <li>BodyPartExaminedGS</li>
+  <li>PatientPosition</li>
+  <li>SmallestPixelValueinSeries</li>
+  <li>LargestPixelValueinSeries</li>
+  </ul>
+ </li>
+ <li>General_Equipment
+  <ul>
+  <li>ManufacturerGE</li>
+  <li>InstitutionNameGE</li>
+  <li>InstitutionAddressGE</li>
+  <li>StationName</li>
+  <li>InstitutionalDepartmentName</li>
+  <li>ManufacturersModelName</li>
+  <li>DeviceSerialNumberGE</li>
+  <li>SoftwareVersionsGE</li>
+  <li>SpatialResolution</li>
+  <li>DateofLastCalibration</li>
+  <li>TimeofLastCalibration</li>
+  <li>PixelPaddingValue</li>
+  </ul>
+ </li>
+ <li>Image_Series
+  <ul>
+    <li>Interpretation</li>
+    <li>Rows</li>
+    <li>Columns</li>
+    <li>Slices</li>
+    <li>BitsAllocated</li>
+    <li>SliceSpacing</li>
+    <li>XSpacing</li>
+    <li>YSpacing</li>
+    <li>WindowCentre</li>
+    <li>WindowWidth</li>
+  </ul>
+ </li>
+</ul>
+
+
+<blockquote>
+Further information on the purpose of these variables can be found in the Papyrus 3.5 user manual.  This can be found at the <a href="http://www.expasy.ch/UIN/html1/projects/papyrus/papyrus.html">Papyrus website</a>.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadPapyrusFile module is used in the Functional Macro ReadPapyrusFunc.  This functional macro is used in the User Macro read_papyrus.  The read_papyrus macro also uses the ReadPapyrusUI UI macro, and the parameter blocks Image_Header and Image_Data.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided.  They both read in a Papyrus format file.  The TilePapyrusEg example uses the tile_volume module to visualize the data whilst the IsosurfacePapyrusEg example uses the isosurface module.  The IsosurfacePapyrusEg also uses a downsize module to reduce the amount of data to be visualized.  A sample Papyrus file <i>mipettra.pap</i> is provided with the ReadPapyrus project.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_papy/rdpymods.v</i> contains the V definitions of the ReadPapyrusFile module and the Image_Data, Image_Header, Patient, General_Study, General_Series, General_Equipment and Image_Series parameter blocks.</p>
+
+<p><i>xp_comm_proj/rd_papy/rdpymacs.v</i> contains the V definitions of the ReadPapyrusUI UI macro, the ReadPapyrusFunc functional macro and the read_papyrus user macro.</p>
+
+<p><i>xp_comm_proj/rd_papy/rdpyapps.v</i> contains the V definitions of the TilePapyrusEg and IsosurfacePapyrusEg example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ReadPapyrusMods library containing the module ReadPapyrusFile does not specify a process. By default the express process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Fernand Alcatrao
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd, International AVS Centre
+
+James Perrin, Manchester Visualization Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umac.html">read_papyrus</a> IAC user macro.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#rd_dicom">ReadDicom</a> IAC project.</li>
+<li><a href="http://www.expasy.ch/UIN/html1/projects/papyrus/papyrus.html">Papyrus</a> library web-site.</li>
+</ul>
+
+</body>
+</html>
+

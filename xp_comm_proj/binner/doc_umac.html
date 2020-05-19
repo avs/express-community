@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>binner</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>binner</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+<p>The binner user macro takes a scattered set of points as its input and fits them to a uniform mesh.  Each node of the uniform mesh is referred to as a bin.  The macro then counts the number of points in each bin.  If node data is available for the input points the macro is also able to count the number of points that lie within certain data bins.  The uniform mesh that is constructed can be either cartesian, polar or normalized polar.  The binner user macro outputs field data that contains the uniform mesh and one or more sets of node data that contains the final bin counts.</p> 
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input ports used by binner user macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="175"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="175">Mesh+Node_Data</td>
+<td width="425">Input scattered points field.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by binner user macro">
+<tr>
+<td width="150"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="350"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i>coordinate_system</i></td>
+<td width="75">enum</td>
+<td width="350">Coordinate system to be used for binning.</td>
+<td width="125">RadioBox</td>
+</tr>
+
+<tr>
+<td width="150"><i>ncoord_bins</i></td>
+<td width="75">int[]</td>
+<td width="350">Array specifying number of bins along every axis.</td>
+<td width="125">Fields</td>
+</tr>
+
+<tr>
+<td width="150"><i>ndata_bins</i></td>
+<td width="75">int</td>
+<td width="350">Number of data ranges to bin node data into.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="150"><i>comp</i></td>
+<td width="75">int</td>
+<td width="350">Node data component to be used.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output ports used by Binner user macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="175"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="175">Field_Unif</td>
+<td width="425">Uniform field containing bin counts.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="175">DataObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The Binner project allows a set of scattered points to be summarised.  It does this by using the concept of <i>binning</i>.  This means that the data is summarised by grouping or <i>binning</i> together all of the points that lie within certain coordinate and data ranges.  The grouping by coordinate ranges is done by constructing a uniform grid and fitting the scattered points to that grid.  By using this technique the project can allow simple statistical analysis to be done from within AVS/Express.  The project can also be used to help make trends more visible.</p>
+
+<p>The binner user macro takes a scattered set of points as its input and fits them to a uniform grid.  The uniform grid that is constructed can be either cartesian, polar or normalized polar.  Each node of the uniform mesh is referred to as a coordinate bin.  The macro then counts the number of points that can be fitted to each coordinate bin.  If node data is available for the input points the macro is also able to count the number of points that lie within certain data ranges.  These data ranges are called data bins.  Each data bin will cover an equal proportion of the full range of the input data.  Therefore if 3 data bins are asked for the data bins will have the following ranges:</p>
+
+<ol>
+<li>0% to 33% of the input data range.</li>
+<li>33% to 67% of the input data range.</li>
+<li>67% to 100% of the input data range.</li>
+</ol>
+
+<p>The counts calculated by the binner macro are output as Field data.  The output field contains a uniform mesh and a least one set of node data.  The uniform mesh contains the grid that the input points where fitted to.  If data binning has been disabled the output field will contain a single node data component that contains a count of the number of points that fitted into each coordinate bin.  If data binning has been enabled the output field will contain a node data component for each data bin.  Each node data component will contain a count of the number of points that fitted into each coordinate bin and which fitted into the appropriate data bin.</p>
+
+<p>The binner macro only counts the number of points within each coordinate or data bin.  It should be possible to add other statistical functions, such as averaging, to the low-level BinnerCore module.  Alternatively if only the average values is required the general AVS/Express <code>scat_to_unif</code> module or IAC <a href="http://www.iavsc.org/repository/express/mappers.html#sct2unif"><code>Scat2Unif</code></a> project could be used.  These provide general purpose ways of fitting scattered points to uniform grids.</p>
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in_fld</b></i>
+</blockquote>
+
+<blockquote>
+<p>Input field structure containing the set of scattered points that are to be binned.  The field structure should contain a mesh that contains the locations of the points and one or more node data components that contain the data values at each point.  The binner macro can only generate a 2D uniform polar grid.  Hence the input <code>nspace</code> value of the field must be 2 if a polar grid is to be used.</p>
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>coordinate_system</b></i>
+</blockquote>
+
+<blockquote>
+<p>Specifies the coordinate system that should be used to generate the the uniform grid that the points are to be matched against.  This parameter is an enumeration that has the following values.</p>
+
+<table summary="coordinate_system enumeration">
+<tr>
+<td><code>"cartesian"</code></td>
+<td>Grid is constructed along X,Y,Z axis (default)
+</tr>
+<tr>
+<td><code>"polar"</code></td>
+<td>Grid is constructed along R and rho axis.
+</tr>
+<tr>
+<td><code>"normalized polar"</code></td>
+<td>Grid is constructed along R and rho axis and adjusted to have equal area bins.
+</tr>
+</table>
+
+<p>Polar and normalized polar binning is only supported for 2D input points.  Cartesian binning is supported for 1D, 2D and 3D input points.  When in polar and normalized polar modes the output grid has to be converted into cartesian coordinates before it can be displayed.  The BinnerPolarEg example application shows how this can be done.</p>
+</blockquote>
+
+<blockquote>
+<i><b>ncoord_bins[]</b></i>
+</blockquote>
+
+<blockquote>
+Integer array that specifies now many coordinate bins should be created along each axis.  In effect this defines the dimensions of the uniform grid that the scattered points will be fitted to.  The Binner macro allows the input data to be collapsed to a lower dimension output field.  If the number of bins for an axis is less than or equal to 1 that axis will be ignored in the output field.  Hence setting the number of bins to <code>{10, 10, 1}</code> will create a 2D output grid.  One limitation of this feature is that the output grid is not transformed to match the axis that remain.
+</blockquote>
+
+<blockquote>
+<i><b>ndata_bins</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies now many data bins should be created.  If the value of this parameter is less than or equal to 1 data binning will be disabled.  If the parameter is greater than 1 the appropriate number of data bins will be created.  Each created data bin will cover an equal proportion of the data range of the input points.  Therefore if 2 data bins are requested the first data bin will cover the 0% to 50% range and the second bin will cover the 50% to 100% range.  The data bin counts will be output as separate sets of node data components.
+</blockquote>
+
+<blockquote>
+<i><b>comp</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies which input node data component should be binned.  This parameter is only valid if data binning has been requested.  If data binning is disabled this parameter will be ignored.  By default the first node data component will be binned.  If a node data component has a vector length greater than 1 only the first element of the vector will be binned.</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+Uniform field output of binner user macro.  This output contains a uniform mesh that describes the grid that the scattered points where fitted to and one or more node data components that contain the final bin counts.  If data binning has been disabled a single node data component will be output.  This component will contain a count of the number of points that have been fitted to each coordinate bin.  If data binning is enabled a node data component will be output for each data bin.  Each component will contain a count of the number of points that have been fitted to each coordinate bin and fit within the appropriate data range.  Node data labels are created to appropriately describe the output node data.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+Directly renderable DataObject output of binner user macro.  If no further visualization is necessary this output can be connected to a viewer module and displayed.  However normally further visualization will be necessary and this output should not be used.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level BinnerCore module is used in the Functional Macro BinnerFunc which is in turn used in the User Macro binner. Additionally, this macro also uses the BinnerParams parameter block group object, as does the BinnerUI UI Macro.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Three example applications are provided with the Binner project.  The BinnerEg applications reads a column data file(small.dat), converts it into a 3D scattered point field and inputs that field into the binner macro.  The binner macro fits the points to a uniform grid and counts the number of points that fall within each coordinate bin.  The resulting 3D uniform field is then visualized using an orthoslice and a bounding box.</p>
+
+<p>The BinnerCityPlotEg application shows how the city_plot module can be used to visualize the binning of 2D points.  As before a column data file is read.  However in this case it is converted into a field of 2D points.  These are binned and then visualized using the city_plot module.  It should be easy to see where the highest concentration of points is located.  By enabling data binning it should also be possible to see where points within various data ranges are located.  You should find that all the data points that are above the 75% point are located near to the centre of the field.</p>
+
+<p>Finally the BinnerPolarEg application shows how the coordinate system parameter of the binner macro can be used to generate a polar grid to match the input points against.  When using polar or normalized polar grids the output field data cannot be visualized directly.  It must first be converted into cartesian coordinates.  In this application the coordinate_math module is used to do this.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/binner/bin_mods.v</i> contains the V definition of the BinnerCore low-level module, the CoordinateSystemEnum enumeration definition and the BinnerParams parameter block.</p>
+
+<p><i>xp_comm_proj/binner/bin_macs.v</i> contains the V definitions of the BinnerUI user interface macro, the BinnerFunc functional macro and the binner user macro.</p>
+
+<p><i>xp_comm_proj/binner/bin_apps.v</i> contains the V definition of the BinnerEg, BinnerCityPlotEg and BinnerPolarEg example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level BinnerMods library containing the low-level BinnerCore modules does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Mario Valle,
+AVS Italy
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+<a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>IAC <a href="http://www.iavsc.org/repository/express/mappers.html#sct2unif">Scat2Unif</a> project.</li>
+<li>AVS/Express scat_to_unif module.</li>
+</ul>
+
+</body>
+</html>
+

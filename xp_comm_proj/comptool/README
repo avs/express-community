@@ -1,0 +1,79 @@
+Copyright / Disclaimer :
+https://github.com/avs/express-community
+------------------------
+
+This software/documentation was produced as part of the INDEX project
+(Intelligent Data Extraction) which is funded under contract ESPRIT EP22745 of 
+the European Community. For further details see
+http://www.man.ac.uk/MVC/research/INDEX/Public/. 
+
+Copyright (c) June 1998, Manchester Visualisation Centre, UK. 
+All Rights Reserved.
+
+Permission to use, copy, modify and distribute this software and its 
+documentation is hereby granted without fee, provided that the above copyright
+notice and this permission notice appear in all copies of this software / 
+documentation.
+
+This software/documentation is provided with no warranty, express or implied, 
+including, without limitation, warrant of merchantability or fitness for a 
+particular purpose.
+
+
+Compress Tool Project
+---------------------
+
+This directory ( xp_comm_proj/comptool/ ) contains all the V code, HTML
+documentation, and installation information for an AVS/Express field
+compression tool macro "Compress_Tool".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Compress_Tool project, and two single line additions to some of the
+xp_comm_lib/ files (in this instance misc.v and examples.v) to add a link to
+the user macro and the example application from the new top-level Community
+library page.
+
+It should be noted that this project is a macro, which includes the user
+macros of the Compress and Examine_Field projects, and unites their ui's
+into a single panel. Thus these two projects are pre-requisites.
+
+As both the Examine_Field project and the Compress project are required, the
+the cxx_src_files line in either the efldmods.v file or the
+compmods.v file should be removed or commented out (these cxx_src_files
+are common to both projects, which causes errors/warnings when linking if
+they are specified twice). 
+
+Installation is simply a matter of unpacking xp_comm_proj/comptool, and
+installing the files as directed in the INSTALL file. No compilation is 
+necessary for this project (but compilation is necessary for the 
+pre-requisite projects).
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/compress_tool/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ misc.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+comptool.v	Creates the XP_COMM_PROJ.Compress library.
+
+ctmacs.v	Creates the CompressMacs library containing the high-level
+		macro compress_tool and the example appplication 
+		Compress_Tool_Eg.
+
+doc_umac.html	HTML documentation for the compress_tool user macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+No generated files.

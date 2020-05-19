@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>Profile</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>Profile</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Interactive profile editor. A dedicated area in the User Interface is used as 
+a conceptual touchpad to draw an outline in the Scene Window.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<h5>ProfileParams</h5>
+
+<table summary="Parameters used by Profile">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>nx</i></td>
+<td width="200">int</td>
+<td width="425">number of pixels in a line</td>
+</tr>
+
+<tr>
+<td width="100"><i>ny</i></td>
+<td width="200">int</td>
+<td width="425">number of pixels in column</td>
+</tr>
+
+<tr>
+<td width="100"><i>x</i></td>
+<td width="200">int</td>
+<td width="425">x-coordinate of the mouse position</td>
+<td width="425">UIframe</td>
+</tr>
+
+<tr>
+<td width="100"><i>y</i></td>
+<td width="200">int</td>
+<td width="425">y-coordinate of the mouse position</td>
+<td width="425">UIframe</td>
+</tr>
+
+<tr valign=top>
+<td width="100"><i>state</i></td>
+<td width="200">int</td>
+<td width="425">current state of the left mouse button
+</td>
+<td width="425">UIframe</td>
+</tr>
+
+<tr valign=top>
+<td width="100"><i>mode</i></td>
+<td width="200">int</td>
+<td width="425">current mode of drawing image
+0 = constant colour on the right side of line<br>
+1 = colour on the right side of the line depends on drawing speed<br>
+2 = colour on the left side of the line depends on drawing speed
+</td>
+<td width="425">UIslider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Profile">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>line_out</i></td>
+<td width="200">mesh</td>
+<td width="425">data of the point mesh representing the points on the drawn lines</td>
+</tr>
+
+<tr>
+<td width="100"><i>line_obj</i></td>
+<td width="200">data object</td>
+<td width="425">directly renderable object</td>
+</tr>
+
+<tr>
+<td width="100"><i>img_out</i></td>
+<td width="200">uniform field</td>
+<td width="425">represents the image generated with by the drawn lines</td>
+</tr>
+
+<tr>
+<td width="100"><i>img_obj</i></td>
+<td width="200">data object</td>
+<td width="425">directly renderable object</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+
+The Parameters the module needs are given by the user by drawing with the mouse in the UIframe. Whenever there is a mouse event the profile update function is called. The functoin ignores the mouse event button up.<br>
+<br>
+If the mouse position is outside the UIframe the current local position (<i>local_x, local_y</i>) is set to the border of the frame (clipping).<br> 
+<br>
+When the left mouse button is down the previuos position (<i>local_px, local_py</i>) is initialized by the local position before the local position is set to the new mouse position.<br>
+<br>
+The module sets the pixel of the image between the old and the new mouse position in the <i>map_array</i> to a certain value corresponding to the mode parameter given by the user. Moreover it sets the x-values for each y coordinate in the <i>line_arr</i>.
+
+
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>nx, ny</i></b></blockquote>
+<blockquote>The Maximums of pixels in the x- and y-direction are given by the random size of the UIframe. The UIframe is quadratic. That is why <i>nx</i> equals <i>ny</i>.</blockquote>
+
+<blockquote><b><i>x, y</i></b></blockquote>
+
+<blockquote><b><i>state</i></b></blockquote>
+<blockquote>The current state of the left mouse button can be
+button down, running or button has been released</blockquote>
+
+<blockquote><b><i>mode</i></b></blockquote>
+<blockquote>The current mode of drawing image can have the following values:<br>
+0 = constant colour on the right side of line<br>
+1 = colour on the right side of the line depends on drawing speed<br>
+2 = colour on the left side of the line depends on drawing speed</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>line_out</i></b></blockquote>
+<blockquote>Contains point coordinates which x-values are taken from the <i>line_arr</i> mentioned in Descriptions</blockquote>
+<blockquote><b><i>line_obj</i></b></blockquote>
+<blockquote></blockquote>
+<blockquote><b><i>img_out</i></b></blockquote>
+<blockquote>Uses the data from the <i>map_arr</i> which is described in Descriptions</blockquote>
+<blockquote><b><i>img_obj</i></b></blockquote>
+<blockquote></blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+There are two example applications. <i>ProfileEg_line</i> views the line object and <i>ProfileEg_img</i> views the image with the help of a Uviewer2D.</i>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/profile/profile.v</i> Creates the XP_COMM_PROJ.Profile library</p> 
+<p><i>xp_comm_proj/profile/profmods.v</i> Creates the ProfileMods library containing the low-level module ProfileCore and the parameter block ProfileParams.</p>
+<p><i>xp_comm_proj/profile/profmacs.v</i> Creates the ProfileMacs library containing the high-level functional macro ProfileFunc, user interface macro ProfileUI and the user macro Profile.macro definition</p> <p><i>xp_comm_proj/profile/profapps.v</i> Creates the ProfileApps library containing the example applications ProfileEg_line and ProfileEg_img.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Ian Curington,
+Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Simone Herrmann
+Manchester Visualization Centre
+</pre></blockquote>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/wr_maya/wr_maya.v" WriteMaya;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+     XP_COMM_PROJ.WriteMaya.WriteMayaMacs.write_maya write_maya;
+     XP_COMM_PROJ.WriteMaya.WriteMayaMacs.write_maya_multi write_maya_multi;
+     XP_COMM_PROJ.WriteMaya.WriteMayaMacs.write_maya_GD write_maya_GD;
+     XP_COMM_PROJ.WriteMaya.WriteMayaMacs.write_maya_ARR write_maya_ARR;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+     XP_COMM_PROJ.WriteMaya.WriteMayaMacs.WriteMayaEg WriteMayaEg;
+     XP_COMM_PROJ.WriteMaya.WriteMayaMacs.WriteMayaMultiEg WriteMayaMultiEg;
+     XP_COMM_PROJ.WriteMaya.WriteMayaMacs.WriteMayaArrEg WriteMayaArrEg;
+

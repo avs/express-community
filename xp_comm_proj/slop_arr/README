@@ -1,0 +1,55 @@
+Express Community slice_orthoplane_ARR Project
+https://github.com/avs/express-community
+--------------------------------
+
+This directory ( xp_comm_proj/slop_arr/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"slice_orthoplane_ARR".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new slice_orthoplane_ARR project, and additions to two files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+No modules within the project contain procedural code so the project does not
+have to be compiled.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/slop_arr/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/ files. This file should not be edited as the
+               future installation script will use this file.
+
+slop_arr.v     Creates the XP_COMM_PROJ.slice_orthoplane_ARR library.
+
+slpa_mac.v     Creates the slice_orthoplane_ARRmacs library containing the 
+               parameter block slice_orthoplane_ARR_params, the functional
+               macro slice_orthoplane_ARR_func, the user interface macro 
+               slice_orthoplane_ARR_UI and the high-level user macro 
+			   slice_orthoplane_ARR.
+			
+slpa_app.v     Creates the slice_orthoplane_ARRapps library containing the
+               example application slice_orthoplane_ARREg.
+			
+
+slop_arr.html  HTML documentation for the slice_orthoplane_ARR macros.
+
+README         This file.
+
+
+Prerequisites
+-------------
+
+This project relies on the successful installation of the following components.
+Without them it will not function correctly.
+
+   AVS/Express Developer's Edition
+

@@ -1,0 +1,170 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>multiplexer</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>multiplexer</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A multiplexer for integer numbers.  Uses an input number to trigger a single output port.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by multiplexer macro">
+<tr>
+<td WIDTH="100"><b><font size=-1>Name</font></b></td>
+<td WIDTH="80"><b><font size=-1>Type</font></b></td>
+<td WIDTH="425"><b><font size=-1>Description</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4"><hr></td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>In</i></td>
+<td WIDTH="80">int</td>
+<td WIDTH="425">Index number which indicates which output port should be activated.</td>
+</tr>
+
+<tr>
+<td COLSPAN="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by multiplexer macro">
+<tr>
+<td WIDTH="100"><b><font size=-1>Name</font></b></td>
+<td WIDTH="80"><b><font size=-1>Type</font></b></td>
+<td WIDTH="425"><b><font size=-1>Description</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4"><hr></td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>Out1 ... Out10</i></td>
+<td WIDTH="80">int</td>
+<td WIDTH="425"><code>Out&lt;<i>num</i>&gt;</code> will be activated if <code>Inval==<i>num</i></code></td>
+</tr>
+
+<tr>
+<td COLSPAN="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This simple functional macro is used to trigger one of its output ports whenever it receives something on its input port.  If an integer &lt;<i>num</i>&gt; between 1 and 10 arrives at the <code>In</code> port, it is passed to the output Port <code>Out&lt;<i>num</i>&gt;</code>.</p>
+
+<p>This module is particularly important within the Visit interface project because it allows the IDs output by the <a href="doc_umacServer.html">visitserver</a> macro to trigger the appropriate reader or writer modules. If your application requires more than 10 IDs you can use multiple <code>Multiplexer</code> modules and specify the connection to the <code>VisitServer</code> with <code>'Trigger - 10'</code> (or similar).  The <code>Multiplexer</code> will then act on trigger values 11 to 20.
+
+<p>The Visit IAC project assumes that the VISIT library has been installed into
+the default directory i.e.</p>
+
+<p><code>/usr/local/visit/</code></p>
+
+<p>If this is not the case then the references to that directory in the
+visit_mods.v file will have to be modified.</p>
+
+<p>This functional macro is only provided for completeness.  It is a very thin wrapper around the low-level <a href="doc_modMulti.html">Multiplexer</a> module.  Therefore the <a href="doc_modMulti.html">Multiplexer</a> module should normally be used.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>In</i></b></blockquote>
+
+<blockquote>This integer input port gives the index number which indicates which output port should be activated.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>Out1 ... Out10</i></b></blockquote>
+
+<blockquote>Depending on the value of the input port <code>In</code> one of these output ports will be activated.</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>The Functional Macro multiplexer is only a wrapper around the low-level module Multiplexer.  All input and output ports of this module are directly connected to the macro ports.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>Examples of the use of the low-level Mulitplexer module can be found in the VisitSimpleEg and VisitGoLEg example applications.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/visit/visit_macs.v</i> contains the V definition of the functional macro multiplexer.</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote><p>The VisitMacs library inherits its process. As this library contains no procedural code, the process is not important. The modules in the low-level VisitMods library execute under the process specified in that library, not the process defined in the high-level library. By default the express process will be used.</p>
+
+<p>Before the Visit project can be compiled the VISIT library must be installed, configured and compiled.  For full instructions please see the <a href="http://www.fz-juelich.de/zam/visit">VISIT</a> library web-site.</p>
+
+<p>The Visit IAC project assumes that the VISIT library has been installed into
+the default directory i.e.</p>
+
+<p><code>/usr/local/visit/</code></p>
+
+<p>If this is not the case then the references to that directory in the
+visit_mods.v file will have to be modified.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Wolfgang Frings
+Central Institute for Applied Mathematics
+Research Center Juelich
+D-52425 Juelich
+Germany
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umacServer.html">visitserver</a> user macro.</li>
+<li><a href="doc_umacReader.html">visitreader</a> user macro.</li>
+<li><a href="doc_umacWriter.html">visitwriter</a> user macro.</li>
+<li><a href="doc_modServer.html">VisitServer</a> module.</li>
+<li><a href="doc_modReader.html">VisitReader</a> module.</li>
+<li><a href="doc_modWriter.html">VisitWriter</a> module.</li>
+<li><a href="doc_modMulti.html">Multiplexer</a> module.</li>
+<li><a href="http://www.fz-juelich.de/zam/visit">VISIT</a> library web-site.</li>
+</ul>
+
+</body>
+</html>
+

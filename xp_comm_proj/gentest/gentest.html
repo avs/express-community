@@ -1,0 +1,193 @@
+<html>
+<head>
+<title>GenerateTestData</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>GenerateTestData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Generates two kinds of uniform test datasets.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>pattern</i></td>
+<td width="75">int</td>
+<td width="300">The pattern of the output field</td>
+<td width="125">Toggle</td>
+</tr>
+<tr>
+<td width="100"><i>Width</i></td>
+<td width="75">int</td>
+<td width="300">The Width of the output field</td>
+<td width="125">Slider</td>
+</tr>
+<tr>
+<td width="100"><i>Height</i></td>
+<td width="75">int</td>
+<td width="300">The height of the output field</td>
+<td width="125">Slider</td>
+</tr>
+<tr>
+<td width="100"><i>Num_frames</i></td>
+<td width="75">int</td>
+<td width="300">The number of frames in the output field</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="100">Mesh+Data</td>
+<td width="425">Uniform field of test data</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+GenerateTestData can generate two kinds of uniform fields. The Field is constructed by a number of frames that have their size defined by the Width and Height parameters.
+The pattern parameter decides the types of output field. If pattern is 0, the frames in the ouput field are assigned a uniform value. The value of each frame is increased progressively from the bottom frame to the top frame. If pattern is 1, each frame has linear increasing node data values from one side to the other side,
+</blockquote>
+
+<blockquote>
+Note: The data type of the output field is integer.
+</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>Pattern</b></i>
+</blockquote>
+
+<blockquote>
+Pattern has two possible values 0 or 1. Value 0 generates progressively increasing uniform field from bottom to top. Value 1 generates progressively increasing node data in each frame.
+</blockquote>
+
+<blockquote>
+<i><b>Width</b></i>
+</blockquote>
+
+<blockquote>
+The width of output field and also the width of each frame.
+</blockquote>
+
+<blockquote>
+<i><b>Height</b></i>
+</blockquote>
+
+<blockquote>
+The height of output field and also the height of each frame.
+</blockquote>
+
+<blockquote>
+<i><b>Num_frames</b></i>
+</blockquote>
+
+<blockquote>
+The number of frames in the output field
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field contains uniform mesh data and progressively increasing node data.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro GenerateTestData makes use of the Functional Macro GenerateTestDataFunc and the UI Macro GenerateTestDataUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application GenerateTestDataEg is provided, which demonstrates the structure of test data field using both orthoslice and isosurface.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/gentest/gtstmods.v</i> contains the V definitions of the GenerateTestDataParams parameter block and the Generate_Test_Data module.</p>
+
+<p><i>xp_comm_proj/gentest/gtstmacs.v</i> contains the V definitions of the GenerateTestDataFunc Functional Macro, the GenerateTestDataUI User Interface Macro, and the GenerateTestData User Macro. </p>
+
+<p><i>xp_comm_proj/gentest/gtstapps.v</i> contains the V definition of the example application GenerateTestDataEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Dave Goughnour
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:may@man.ac.uk">MA YingLiang</a>
+Manchester Visualization Centre
+</pre></blockquote>
+
+
+</body>
+</html>

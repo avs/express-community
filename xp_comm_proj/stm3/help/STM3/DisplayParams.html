@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module DisplayParams documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,PDB">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>DisplayParams</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>DisplayParams</h1>
+
+<h2>Description</h2>
+<p>The DisplayParams is the data type that carry molecular visual rendering information between modules. It is composed by the following objects:</p>
+<pre style="padding-left: 20px">
+group DisplayParams {
+                  
+   int      num_atoms;                // total number of atoms
+   int      atom_z[.num_atoms];       // atomic numbers list
+   string   residue_name[.num_atoms]; // residue names
+   float    charge_min;               // min atom charge (or any other scalar parameter associated to the atom)
+   float    charge_max;               // max atom charge (or any other scalar parameter associated to the atom)
+   int      atoms_representation;     // representation for atoms
+   int      bonds_representation;     // representation for bonds
+   int      bonds_split_color;        // use split coloring for bonds
+   float    normal_scale;             // scale for atoms
+   float    cpk_scale;                // scale for atoms in CPK representation
+   float    licorice_scale;           // scale for atoms in "licorice" representation
+   float    default_colors[3];        // default color
+};
+
+</pre>
+
+</body></html>

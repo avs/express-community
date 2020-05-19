@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>BlendNodeData</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>BlendNodeData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Inputs two compatible fields (node data only) and blends (interpolates) between the two using a ratio value. A ratio of 0.0 outputs the first field's node data. A value of 1.0, outputs the second field's node_data. Values inbetween will produce an output containing node data linearly interpolated between each corresponding node. For example, a value of 0.3 will use 70% of the first field, and 30% from the second field.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module BlendNodeData &lt;src_file="blend.cxx"&gt; {
+  BlendParams_ref &params &lt;NEportLevels={2,0}&gt;;
+
+  Node_Data &in1 &lt;NEportLevels={2,0}&gt;;
+  Node_Data &in2 &lt;NEportLevels={2,0}&gt;;
+
+  float ratio =&gt; params.ratio;
+
+  Node_Data out &lt;NEportLevels={0,2}&gt;;
+
+  cxxmethod+notify_inst+req update (
+    in1+read+notify+req,
+    in2+read+notify+req,
+    ratio+read+notify+req,
+    out+write );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The BlendNodeData module may be used to linearly interpolate node data from two compatible input fields. Only node data is required for the inputs, but these must have the same number of components and nodes, and each component must have the same data type and vector length.</p>
+
+<p>The output node data is of equal size and consists of the same components. Only the actual node data values themselves are changed. The linear interpolation is only performed on the values of the input node data, and does not take into account the coordinate position of the nodes. As such it used instead of the existing <i>interpolate</i> macros/modules in AVS/Express which perform interpolation based on coordinate space (by placing a probe mesh into an existing field).</p>
+
+<p>The ratio parameter is used to determine the balance between the first and second inputs, and hence the value placed into the output node data. At 0.0, only the data from the first input is used. As the ratio value increases towards 1.0, the second input has more influence.</p>
+
+<p>One possible use for blend_node_data is to augment the animate_filename IAC project, so that interpolation may be performed between successive input files in a sequence of files.</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&in1</b></i>
+</blockquote>
+
+<blockquote>
+First input Node_Data which is processed by the module.
+</blockquote>
+
+<blockquote>
+<i><b>&in2</b></i>
+</blockquote>
+
+<blockquote>
+Second input Node_Data which is processed by the module, and must be compatible with the first input field (as detailed above).
+</blockquote>
+
+<blockquote>
+<i><b>&params</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of:
+</blockquote>
+
+<blockquote>
+<i><b>ratio</b></i>
+</blockquote>
+
+<blockquote>
+The blending ratio for generating the output node data. The ratio ranges from 0.0 to 1.0, with 0.0 corresponding to 100% of input 1, and 1.0 corresponding to 100% of input 2.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Output of the blended (linearly interpolated) node_data.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The BlendNodeData low-level module is used within the Functional Macro Blend and the User Macro <a href="doc_umac.html">blend_node_data</a>.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application BlendNodeDataEg is provided, which inputs two sample fields, and bounces (loops) the ratio between 0.0 and 1.0, and outputs the interpolated field to the surf_plot macro. The example shows blending between the figures '1' and '2'.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/blend/blndmods.v</I> contains the BlendParams group and the BlendNodeData module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level BlendNodeDataMods library containing the module BlendNodeData does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+BlendParams, BlendUI, <a href="doc_umac.html">blend_node_data</a>.
+
+</blockquote>
+
+</body>
+</html>

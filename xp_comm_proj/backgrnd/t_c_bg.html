@@ -1,0 +1,263 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>textured_background &amp; coloured_background</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>textured_background &amp; coloured_background</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The textured_background and coloured_background macros both create a DataObject that can be used as a static background to a Viewer window.  The textured_background macro uses a supplied image field while the coloured_background macro generates a interpolated fade based on 4 RGB values.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by textured_background">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>texture_in</i></td>
+<td width="75">Image</td>
+<td width="425">Image to use as Viewer background.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by textured_background &amp; coloured_background">
+
+<tr>
+<td width="150"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i>depth</i></td>
+<td width="50">float</td>
+<td width="300">Distance background is from camera.</td>
+<td width="100">None</td>
+</tr>
+
+<tr>
+<td width="150">
+<i>Upper_Left_Red</i><br>
+<i>Upper_Left_Green</i><br>
+<i>Upper_Left_Blue</i>
+</td>
+<td width="50">float</td>
+<td width="300">RGB values for upper left corner of image.</td>
+<td width="100">UIslider</td>
+</tr>
+
+<tr>
+<td width="150">
+<i>Upper_Right_Red</i><br>
+<i>Upper_Right_Green</i><br>
+<i>Upper_Right_Blue</i>
+</td>
+<td width="50">float</td>
+<td width="300">RGB values for upper right corner of image.</td>
+<td width="100">UIslider</td>
+</tr>
+
+<tr>
+<td width="150">
+<i>Lower_Left_Red</i><br>
+<i>Lower_Left_Green</i><br>
+<i>Lower_Left_Blue</i>
+</td>
+<td width="50">float</td>
+<td width="300">RGB values for lower left corner of image.</td>
+<td width="100">UIslider</td>
+</tr>
+
+<tr>
+<td width="150">
+<i>Lower_Right_Red</i><br>
+<i>Lower_Right_Green</i><br>
+<i>Lower_Right_Blue</i>
+</td>
+<td width="50">float</td>
+<td width="300">RGB values for lower right corner of image.</td>
+<td width="100">UIslider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by textured_background &amp; coloured_background">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Mesh+Node_Data</td>
+<td width="425">Field containing Quad cell-set that is used as background.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The textured_background and coloured_background macro both create a DataObject that can be used as the background to a Viewer window.  The textured_background macro allows an image to be used as the background while the coloured_background macro allows the user to specify a colour fade.</p>
+
+<p>The effect of a static viewer window background is produced by creating a field that contains a single square cell-set.  This cell-set is sized so that it covers the viewer window and is slightly in front of the far clipping plane.  The far clipping plane specifies the maximum distance that an object can be away from the camera before it is ignored.  Therefore by placing the background slightly in front of the far clipping plane it should be behind everything else.  The field is then placed into a DataObject and the transformation of the DataObject is locked.  This ensures that the background is not transformed with the rest of the scene.</p>
+
+<p>The background image is created by using node data.  The coloured_background macro creates a set of node data with a triplet of RGB values at each corner of the square.  AVS/Express interpolates between each of these RGB values as normal to create the colour fade effect that can be seen.  In a similarly the textured_background macro creates a set of node data.  However this node data specifies texture coordinates for each corner of the square.  These texture coordinates are then used to texture map the square with the input image.  The input image can be any AVS/Express image field.  The output of the <a href="backgrnd.html">background_generator</a> macro can be used to generate an alternate form of colour fade.</p>
+
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>texture_in</i></b></blockquote>
+
+<blockquote>2D image field that should be used to texture map the generated mesh data.  This input is only present on the textured_background macro.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>depth</i></b></blockquote>
+
+<blockquote>This floating point parameter specifies now far the background should be from the camera.  By default this distance is 0.98 and therefore the background is just in front of the far clipping plane.  Normally this distance will not need to be changed and hence no user interface component is presented.  However if the far clipping plane is altered or you wish to occlude some parts of your model this parameter can be used.</blockquote>
+
+
+<blockquote>
+<table summary="RGB Parameters">
+
+<tr>
+<td width="120">
+<b><i>Upper_Left_Red<br>
+Upper_Left_Green<br>
+Upper_Left_Blue</i></b></td>
+<td width="120">
+<b><i>Upper_Right_Red<br>
+Upper_Right_Green<br>
+Upper_Right_Blue</i></b></td>
+</tr>
+
+<tr>
+<td width="120">
+<b><i>Lower_Left_Red<br>
+Lower_Left_Green<br>
+Lower_Left_Blue</i></b></td>
+<td width="120">
+<b><i>Lower_Right_Red<br>
+Lower_Right_Green<br>
+Lower_Right_Blue</i></b></td>
+</tr>
+
+</table>
+</blockquote>
+
+<blockquote>The shading of the quad cell-set generated by the coloured_background macro is calculated by blending the colours at the corners towards the centre of the image.  The colours of the 4 corners of the image are specified by the parameters shown in the table above.  The colours are specified in the Red-Green-Blue colour model.  These parameters are only present on in the coloured_background macro.</blockquote>
+
+
+<h3>
+<b>Outputs</b></h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>Output field containing the generated background field data.  This field contains a Quad cell-set and a single set of node data.  In the coloured_background macro this node data contains the RGB colour values for each corner while in the textured_background macro this node data contains the texture coordinates for each corner.  Normally this output should not be used as its transformation is not locked and it does not contain the necessary texture image.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output.  If this output is connected to a viewer a background will be placed into that viewer window.  The output object contains the generated field data and, if necessary, the texture image data.  The transformation for the output object is locked so that the background will always stay at the back of the visualization.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The user macro coloured_background uses the RGB_BackgroundParams parameter block and the RGB_BackgroundUI user interface macro.  The textured_background macro does not use either a parameter block or a user interface.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The TexturedBackgroundEg example application uses the <a href="backgrnd.html">background_generator</a> macro to create a background image and then uses it as the background to the teapot.  The ColouredBackgroundEg example application creates a similar colour fade and also uses it as the background to the teapot.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/backgrnd/bg_mods.v</i> contains the V definitions of the BackgroundCore module and the BackgroundParams and RGB_BackgroundParams parameter blocks.</p>
+
+<p><i>xp_comm_proj/backgrnd/bg_macs.v</i> contains the V definitions of the BackgroundUI and RGB_BackgroundUI UI macro, the BackgroundFunc functional macro and the background, textured_background and coloured_background user macros.</p>
+
+<p><i>xp_comm_proj/backgrnd/bg_apps.v</i> contains the V definition of the BackgroundEg, TexturedBackgroundEg and ColouredBackgroundEg example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>Neither of these user macros rely on low-level code and hence do not need to be compiled.  The <a href="backgrnd.html">background_generator</a> user macro does rely on the low-level BackgroundCore module.  If this macro is to be used the project should be compiled as normal.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Sabreen Vig, Larry Gelberg, Ian Curington
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd, International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="backgrnd.html">background_generator</a> user macro.</li>
+</ul>
+
+</body>
+</html>
+

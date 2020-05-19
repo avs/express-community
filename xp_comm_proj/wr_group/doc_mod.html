@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>WriteGroup</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>WriteGroup</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Writes objects to Binary V files
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module WriteGroup <src_file = "wr_group.cxx",
+                   cxx_members = <"
+    protected:
+      int
+      WriteString (const char *string,
+                   FILE *fp);
+
+      int
+      SerializeGroup (OMobj_id groupId,
+                      OMobj_id templateId,
+                      FILE *fp);
+      int
+      Serialize (OMobj_id objId,
+                 OMobj_id templateId,
+                 FILE *fp);
+  "> > {
+
+  group &group <NEportLevels = {2,0}>;
+  string filename <NEportLevels = {2,0}>;
+
+  prim trigger <NEportLevels = {2,0}>;
+
+  cxxmethod+req Write( .trigger+req+notify,
+		       .filename+req+read,
+		       .group+req+read );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Very nice routine to write objects to a file in binary V (.vo) format from a group structure.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&group</b></i>
+</blockquote>
+
+<blockquote>
+Input group object which is written to file.
+</blockquote>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+Filename of the binary V (.vo) file to write.
+</blockquote>
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+Trigger the writing of the file.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/wr_group/wrgpmods.v</I> contains the WriteGroup module V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level WriteGroupMods library containing the module WriteGroup does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadGroup
+</blockquote>
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>finite_wing</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>finite_wing</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The finite_wing user macro computes a finite length simulation of the air flow over a wing.  The macro also creates a probe than can be used to help visualize the air flow.</blockquote>
+
+<blockquote>
+<h4>Input Parameters</h4>
+
+<table summary="Input Parameters used by finite_wing">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Angle_of_Attack</i></td>
+<td width="75">double</td>
+<td width="300">Angle of attack of finite wing.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Wing_span</i></td>
+<td width="75">double</td>
+<td width="300">Wing span of finite wing.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Grid_size</i></td>
+<td width="75">int</td>
+<td width="300">Number of elements in calculation grid.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>probe_z</i></td>
+<td width="75">int</td>
+<td width="300">Height of visualization probe.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>scan_probe</i></td>
+<td width="75">int</td>
+<td width="300">Scans probe through all heights.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Parameters</h4>
+
+<table summary="Output Parameters used by finite_wing">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>probe_x<br>probe_y<br>probe_z</i></td>
+<td width="75">float</td>
+<td width="425">Transformation of probe geometry.</td>
+</tr>
+
+<tr>
+<td width="100"><i>probe_scale</i></td>
+<td width="75">float</td>
+<td width="425">Scaling of probe geometry.</td>
+</tr>
+
+<tr>
+<td width="100"><i>wing_x<br>wing_y<br>wing_z</i></td>
+<td width="75">Transformation of wing geometry.</td>
+<td width="425"></td>
+</tr>
+
+<tr>
+<td width="100"><i>wing_scale</i></td>
+<td width="75">Scaling of wing geometry.</td>
+<td width="425"></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by finite_wing">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Uniform Vector Field</td>
+<td width="425">Simulated air-flow velocity data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable data object.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_probe</i></td>
+<td width="75">Line3D</td>
+<td width="425">Probe geometry field.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_probe_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable probe object.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_wing_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable wing object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The finite_wing user macro calculates the velocity field induced by steady, inviscid, incompressible flow around a finite length wing.  It allows the user to specify the parameters of the simulation and outputs the resulting simulation data as a uniform field containing the velocity at each point.  The velocity is represented as a 3 component vector of double precision type.  The macro also outputs two pieces of line geometry.  It outputs a line that represents the position of the wing and it outputs a line probe.  This probe can be used as the starting point for various visualizations, such as streamlines and advectors.  The user interface allows the height of the probe to be easily altered.  It also allows the user to scan the probe through a range of heights.</p>
+</blockquote>
+
+
+<h3>Background</h3>
+
+<blockquote>
+<p>The simulation contained in the finite_wing macro was originally created as part of a research project conducted by a MSc student at the University of Manchester.  The aim of the project was to create a mathematical model of the flow around a finite length wing that could be used as an aid in the teaching of aerodynamics students.  Because of this a number of compromises had to be made to ensure that the simulation could be run in a reasonable time.  The most significant of these was in the method used to simulate the air-flow.</p>
+
+<p>The simulation of air-flow around an infinite length wing is a relatively simple problem.  The aerofoil can be replaced with a bound straight vortex filament of strength equal to the circulation around the aerofoil.  This provides a basic model of the air-flow.  As the aerofoil has an infinite span the flow in any plane perpendicular to the aerofoil is identical and hence the flow can be considered to be two-dimensional.</p>
+
+<p>Obviously this simplification cannot be made in the case of a finite length wing.  Another problem is caused by Helmholtz's Vortex Theorems.  This states that a vortex filament cannot end within the boundaries of the fluid.  If we modelled our finite wing by a single vortex filament was condition would be broken.  Frederick W. Lanchester suggested a solution to this problem in 1907.  He modelled a finite wing as a horseshoe vortex where the two trailing legs of the vortex extend out of the fluid to infinity.  Ludwig Prandtl later extended this idea by using a lifting line consisting of an infinite number of horseshoe vortices.  This model later became known as <i>Prandtl's Lifting-Line Theorem</i>.</p>
+
+<p>Prandtl's theorem provides a more accurate simulation of the downwash induced by a finite wing.  However it is also significantly more expensive to calculate.  Because of this the finite wing model presented here uses a single horseshoe vortex.</p>
+
+<p>As a result of this simplification the finite wing simulation could be run interactively.  To fully exploit this interactivity the simulation code was converted into a AVS/Express module.  This allows the student using the simulation to very quickly alter a parameter and visualize its effect.  This integration of simulation code into AVS/Express was probably the most novel and successful aspect of the project.  It is believed that this technique could be used in many other application areas with similarly successful results.</p>
+</blockquote>
+
+
+<h3>Input Parameters</h3>
+
+<blockquote>
+<i><b>Angle_of_Attack</b></i>
+</blockquote>
+
+<blockquote>
+Double precision parameter that specifies the angle of attack for the finite wing simulation.
+</blockquote>
+
+<blockquote>
+<i><b>Wing_span</b></i>
+</blockquote>
+
+<blockquote>
+Double precision parameter that specifies the wing span of the finite wing.
+</blockquote>
+
+<blockquote>
+<i><b>Grid_size</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies the size of the calculation grid.  The calculation grid is always cubic so this parameter completely specifies the size of the grid.  The size of the grid must be an odd number.  If a even number is supplied then it is automatically rounded up to the next odd number.  The size of the grid must be in the range 11 to 51.  However a grid size of 51 requires a huge amount of memory.  On a typical workstation computer the maximum grid size you should use should be around 35 elements.
+</blockquote>
+
+<blockquote>
+<i><b>probe_z</b></i>
+</blockquote>
+
+<blockquote>
+Float parameter that specifies the height of the output line probe.  This user interface control is provided so that the user can more easily move the probe.  The probe can still be transformed in all the standard ways.  However it should be noted that whenever the simulation is run the position of the probe is reset.
+</blockquote>
+
+<blockquote>
+<i><b>scan_probe</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that is used to trigger the scanning of the line probe.  Whenever this parameter is activated the line probe is smoothly moved vertically upwards.  This allows the user to get a good idea of how the air-flow changes with height.  Internally this parameter controls the operation of a loop module.  This loop module can be directly edited if you wish to have greater control of how the scanning is done.
+</blockquote>
+
+
+<h3>Output Parameters</h3>
+
+<blockquote><b><i>probe_x probe_y probe_z</i></b></blockquote>
+
+<blockquote>
+Integer parameters that specify the translation that should be applied to the line probe.  Whenever the simulation is run these parameters are reset so that the probe is level with the aerofoil.  The position of the line probe can be altered by either using the user interface control or by transforming the probe using the standard AVS/Express tools.
+</blockquote>
+
+<blockquote><b><i>probe_scale</i></b></blockquote>
+
+<blockquote>
+Integer parameter that specifies the scaling that should be applied to the line probe.  Whenever the simulation is run this parameter is reset so that the probe covers the full width of the calculation grid.
+</blockquote>
+
+<blockquote><b><i>wing_x wing_y wing_z</i></b></blockquote>
+
+<blockquote>
+Integer parameters that specify the translation that should be applied to the wing geometry.  Whenever the simulation is run these parameters are reset so that the wing geometry is in the appropriate position.
+</blockquote>
+
+<blockquote><b><i>probe_scale</i></b></blockquote>
+
+<blockquote>
+Integer parameter that specifies the scaling that should be applied to the wing geometry.  Whenever the simulation is run this parameter is reset so that the wing geometry has the appropriate wing span.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>
+Uniform vector field output that contains the calculated simulation of the velocity field over the finite length wing.  The uniform grid is of length <tt>Grid_size</tt> on each axis.   The velocity data is stored as a 3 component vector of double precision type.  The data contained in the field can be visualised by any of the vector visualization modules(e.g. glyph, streamline, advector)  Alternatively the magnitude module can be used to calculate the scalar velocity at each point.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>
+Directly renderable version of the field output.  Normally this output will not be used as attempting to visualize the raw data will not be useful.
+</blockquote>
+
+<blockquote><b><i>out_probe</i></b></blockquote>
+
+<blockquote>
+Mesh output that contains the line probe.  This output can be used as the probe input for various visualization modules.  For instance, if this output is feed into the streamline module the calculated streamlines will start from the current probe position.  The probe has 50 sampling points along its length.  It should be noted that normally the calculation grid will have significantly fewer grid points.  Therefore AVS/Express will interpolate the data to generate the extra data points. 
+</blockquote>
+
+<blockquote><b><i>out_probe_obj</i></b></blockquote>
+
+<blockquote>
+Directly renderable version of the probe output.  If this output is feed into a viewer the user can get immediate visual feedback as to the current position of the probe.
+</blockquote>
+
+<blockquote><b><i>out_wing_obj</i></b></blockquote>
+
+<blockquote>
+Directly renderable wing geometry output. If this output is feed into a viewer the user can visually see the current position and size of the simulated finite wing.
+</blockquote>
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The finite_wing user macro uses the FiniteWingUI user interface macro and the FiniteWingFunc functional macro.  The FiniteWingFunc macro uses the low-level FiniteWingCore module.  All of these macros and modules use the FiniteWingInputParams and FiniteWingOutputParams parameter blocks to communicate parameters.</p>
+
+<p>The HorizontalLine3D utility macro is used to generate the probe line and wing geometries.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+The FiniteWingEg example application is provided.  This application uses the finite_wing macro to generate the simulation data.  This data is then visualized by streamline, advector and bounds modules.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/f-wing/fwg-mods.v</i> contains the V definitions of 
+the FiniteWingCore module, the HorizontalLine3D utility macro and the FiniteWingInputParams and FiniteWingOutputParams parameter blocks.</p>
+
+<p><i>xp_comm_proj/f-wing/fwg-macs.v</i> contains the V definitions of the FiniteWingUI user interface macro, the FiniteWingFunc functional macro and the finite_wing user macro.</p>
+
+<p><i>xp_comm_proj/f-wing/fwg-apps.v</i> contains the V definition of the FiniteWingEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level FiniteWingMods library containing the low-level FiniteWingCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Iestyn Jowers,
+University of Manchester
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><tt>streamlines</tt> AVS/Express module.</li>
+<li><tt>advector</tt> AVS/Express module.</li>
+<li><tt>glyph</tt> AVS/Express module.</li>
+<li><tt>orthoslice</tt> AVS/Express module.</li>
+</ul>
+ 
+</body>
+</html>
+

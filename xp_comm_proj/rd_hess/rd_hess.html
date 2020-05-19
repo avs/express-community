@@ -1,0 +1,102 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>ReadHess - Aerospace CFD Geometry .n3d file reader for AVS/Express</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ReadHess</h1>
+
+<h3>
+Synopsis</h3>
+
+<blockquote>Reads a Hess (.n3d) CFD panel method geometry file into an
+AVS/Express Mesh.</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+module Read_Hess_File &lt; src_file      = "rd_hess.cxx",
+                        out_src_file  = "gen.cxx",
+                        out_hdr_file  = "gen.h",
+                        cxx_hdr_files = "fld/Xfld.h" &gt; {
+
+    string+IPort2  hess_filename;
+
+    Field+Space3+OPort2  out_fld;
+
+    cxxmethod+req update (
+        .hess_filename +read+req+notify,
+        .out           +write
+    );
+};
+</pre>
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>The Read_Hess_File module allows files in the "Hess" file format to be read into AVS/Express. The Hess file format is used by CFD panel methods. It is also very close to the "PANAIR" format that is used by the North-American Aerospace industry. The module takes the geometry from the Hess file and generates a poly-tristrip that is placed into an Express field. The read_hess user macro enhances the module further by including an user interface and by generating a renderable DataObject. Hess format files typically have a&nbsp;".n3d" extension.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>
+Name of the Tin&nbsp;.N3D file to be read. The parameter is of type string. This is the only input parameter to the Read_Hess_File module.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>The output field containing field data constructed from the
+data present in the Hess file.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>A DataObject created from the data present in the Hess file, that is suitable for direct connection to a viewer.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level Read_Hess_File module is used in the User Macro read_hess. Additionally, the user macro also uses the ReadHessUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>An example application ReadHessEg is provided, which allows a Hess file to be loaded and allows the data to be mirrored around the X,Y and Z axis. Unfortunately no example data files are available for distribution with this module.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/rd_hess/hessmods.v</i> contains the V definition of the Read_Hess_File module.</blockquote>
+
+<blockquote><i>xp_comm_proj/rd_hess/hessmacs.v</i> contains the V definitions of the ReadHessUI User Interface Macro, the read_hess User macro and the ReadHessEg example application.</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadHessMods library containing the module Read_Hess_File does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+Brian Selle, Ian Curington, Advanced Visual Systems, Inc.
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>n/a</blockquote>
+
+</body>
+</html>

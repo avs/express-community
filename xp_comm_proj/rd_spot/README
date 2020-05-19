@@ -1,0 +1,100 @@
+Express Community ReadSpot Project
+https://github.com/avs/express-community
+--------------------
+
+This directory ( xp_comm_proj/rd_spot/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project "ReadSpot".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new project, and two additions to the xp_comm_lib/ files (in this instance
+data_io.v and examples.v) to add links to the User Macro and Example
+application from the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+If you modify the project, and elect to specify the process as "user" or
+another user-defined process, then the module may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the module:
+
+        $compile XP_COMM_PROJ.ReadSpot.ReadSpotMods
+
+Users of the Developer's Edition may select the module in the relevant 
+Templates library, and choose 'compile' from the Project menu.
+
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/rd_spot/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/ data_io.v and examples.v files. This file should
+               not be edited as the future installation script will use this file.
+
+rd_spot.v      Creates the XP_COMM_PROJ.ReadSpot library.
+
+rsptmods.v     Creates the ReadSpotMods library containing the low-level ReadSpotHeader,
+               ReadSpotImage and ReadSpotImageAlt modules and the parameter blocks
+               ReadSpotInputParams and ReadSpotOutputParams.
+
+rsptmacs.v     Creates the ReadSpotMacs library containing the user interface macros
+               ReadSpotUI and ReadSpotUIAlt, the functional macros ReadSpotImageFunc
+               and ReadSpotImageFuncAlt, and the high-level user macros read_spot and
+               read_spot_alt.
+
+rsptapps.v     Creates the ReadSpotApps library containing the example applications
+               ReadSpotEg and ReadSpotEgAlt.
+
+rspt_hdr.cxx   The C++ source code for the ReadSpotHeader module.
+
+rspt_img.cxx   The C++ source code for the ReadSpotImage module.
+
+gsspot.cxx     The C++ source code of the object that is used by ReadSpotHeader and
+               ReadSpotImage modules to actually read the SPOT file data.
+
+gsspot.h       C++ header files associated with the gsspot.cxx source code.
+gsconst.h
+gserror.h
+
+doc_mod.html   HTML documentation for the low-level ReadSpotHeader, ReadSpotImage
+               ReadSpotImageAlt modules.
+
+doc_umac.html  HTML documentation for the read_spot and read_spot_alt user macros.
+
+README         This file.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.hxx         AVS/Express generated header file.
+
+gen.cxx         AVS/Express generated source code.
+
+rspt_hdr.o/obj  Intermediate object files.
+rspt_img.o/obj
+gsspot.o/obj
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>read_papyrus</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>read_papyrus</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The read_papyrus user macro reads a Papyrus format file and outputs a uniform AVS field and a structure containing the data present in the Image Header. It also allows access to the Image Header data through a User Interface.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by read_papyrus">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">String</td>
+<td width="300">Name of Papyrus file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_papyrus macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i><a href="#busy">busy</a></i></td>
+<td width="75">int</td>
+<td width="425">Indicates activity of module.</td>
+</tr>
+
+<tr>
+<td width="100"><i><a href="#out_header">out_header</a></i></td>
+<td width="75">Image_Header</td>
+<td width="425">Image header data.</td>
+</tr>
+
+<tr>
+<td width="100"><i><a href="#out_fld">out_fld</a></i></td>
+<td width="75">Image_Data</td>
+<td width="425">Read 3D volume data.</td>
+</tr>
+
+<tr>
+<td width="100"><i><a href="#out_obj">out_obj</a></i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly Renderable Output Object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The read_papyrus macro reads a Papyrus file and outputs an uniform field
+containing the image data and a data structure containing the information
+stored in the image header.  The uniform field output is output as a Image_Data object.  This object is derived from the Field_Unif module and and can hence be used in the exactly the same way.  It can be directly connected to all the standard visualization modules.  The information in the image header is output as an Image_Header object.  This object simply contains references to 5 further objects which actually contain the primitive data values.  See <a href="#out_header">below</a> for further information.</p>
+
+<p>The read_papyrus macro also provides a user interface through which the file to be read can be specified.  The user interface also allows the information in the image header to be examined.</p>
+
+<p>The read_papyrus macro uses the Papyrus 3.5 toolkit to read Papyrus files. This toolkit was developed by the <a href="http://www.expasy.ch/UIN/">Digital Imaging Unit</a> of the University Hospital of Geneva.  More information can be found at the <a href="http://www.expasy.ch/UIN/html1/projects/papyrus/papyrus.html">Papyrus website</a>.  Full instructions for compiling and installing the Papyrus library can be found in the <a href="doc_mod.html#install">ReadPapyrusFile</a> documentation.</p>
+</blockquote>
+
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>
+The name of the file that should be read from. This parameter is of type string. The read_papyrus user macro checks that the supplied filename is valid and displays errors as appropriate.  The filename string can contain either the full or relative path name of the file and can contain any of the AVS/Express environment variables (e.g. $XP_PATH&lt;1&gt;)
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b><a name="busy">busy</a></b></i>
+</blockquote>
+
+<blockquote>
+This parameter indicates whether the read_papyrus macro is currently busy processing data.  The parameter is of type int.  The parameter is set as appropriate by the internal ReadPapyrusFile module.  It can be used by the user interface to indicate the current state of the module.
+</blockquote>
+
+<blockquote>
+<i><b><a name="out_header">out_header</a></b></i>
+</blockquote>
+
+<blockquote>
+This object contains the header information contained within the Papyrus file. The object is of type Image_Header. This object contains references to 5 further objects. These objects actually contain the information read from the Papyrus file. Each of these sub-objects corresponds to the appropriate DICOM module. These modules are Patient, General_Study, General_Series,  General_Equipment &amp; Image_Series. Further information on
+the data each of these sub-objects contains can be found in the
+<a href="doc_mod.html#header">ReadPapyrusFile</a> documentation and in the
+Papyrus 3.5 user manual. This can be found at the
+<a href="http://www.expasy.ch/UIN/html1/projects/papyrus/papyrus.html">Papyrus website</a>.
+</blockquote>
+
+<blockquote>
+<i><b><a name="out_fld">out_fld</a></b></i>
+</blockquote>
+
+<blockquote>
+This object contains the image data contained within the Papyrus file. The object is of type Image_Data.  This object is derived from Field_Unif and can be used in the exactly the same way as a standard uniform field.  The output data can have either 2 or 3 dimensions.  If the specified Papyrus file only contains a single slice a 2D field will be created.  If the file contains several slices than a 3D volume field will be created.
+</blockquote>
+
+<blockquote>
+<i><b><a name="out_obj">out_obj</a></b></i>
+</blockquote>
+
+<blockquote>
+This object contains a directly renderable version of the image data contained within the Papyrus file. The object is of type DataObject.  This object can be directly connected to a viewer.  However normally it will not be used as further processing will normally have to be done on the read image data.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The Functional Macro ReadPapyrusFunc uses the low-level module ReadPapyrusFile. The User macro read_papyrus uses this functional macro, the UI macro ReadPapyrusUI, and the parameter blocks Image_Header and Image_Data.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided.  They both read in a Papyrus format file.  The TilePapyrusEg example uses the tile_volume module to visualize the data whilst the IsosurfacePapyrusEg example uses the isosurface module.  The IsosurfacePapyrusEg also uses a downsize module to reduce the amount of data to be visualized.  A sample Papyrus file <i>mipettra.pap</i> is provided with the ReadPapyrus project.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_papy/rdpymods.v</i> contains the V definitions of the ReadPapyrusFile module and the Image_Data, Image_Header, Patient, General_Study, General_Series, General_Equipment and Image_Series parameter blocks.</p>
+
+<p><i>xp_comm_proj/rd_papy/rdpymacs.v</i> contains the V definitions of the ReadPapyrusUI UI macro, the ReadPapyrusFunc functional macro and the read_papyrus user macro.</p>
+
+<p><i>xp_comm_proj/rd_papy/rdpyapps.v</i> contains the V definitions of the TilePapyrusEg and IsosurfacePapyrusEg example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ReadPapyrusMacs library inherits its process. As this library contains no procedural code, the process is not important.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Fernand Alcatrao
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd, International AVS Centre
+
+James Perrin, Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_mod.html">ReadPapyrusFile</a> IAC user macro.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#rd_dicom">ReadDicom</a> IAC project.</li>
+<li><a href="http://www.expasy.ch/UIN/html1/projects/papyrus/papyrus.html">Papyrus</a> library web-site.</li>
+</ul>
+
+</body>
+</html>
+

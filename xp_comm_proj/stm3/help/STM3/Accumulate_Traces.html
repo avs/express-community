@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module Accumulate_Traces documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Accumulate Traces</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Accumulate Traces</h1>
+
+<h2>Description</h2>
+<p>Accumulate traces (accumulated positions) for specific atoms in a sequence of time steps. The accumulator is an uniformly subdivided volume. For
+each time step (as determined by the start, end, increment and step inputs) the cells containig selected atoms are incremented. Also the positions of
+the atoms are saved to create the lines of evolution of each atom.</p>
+<p>Basically the module can work with two modalities:</p>
+<ol>
+	<li><b>Immediate</b>: at each step both the accumulator size and counts are updated.</li>
+	<li><b>Deferred</b>: first the positions of the atoms are saved in a run, then in another run the accumulator is updated.</li>
+</ol>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+<tr>
+	<td class="c1">start</td>
+	<td class="c2">int</td>
+	<td class="c3">Loop start value of the sequence of positions.</td>
+</tr>
+<tr>
+	<td class="c1">end</td>
+	<td class="c2">int</td>
+	<td class="c3">Loop end value of the sequence of positions.</td>
+</tr>
+<tr>
+	<td class="c1">increment</td>
+	<td class="c2">int</td>
+	<td class="c3">Loop increment value for the sequence.</td>
+</tr>
+<tr>
+	<td class="c1">step</td>
+	<td class="c2">int</td>
+	<td class="c3">Loop current step value.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Select atoms to trace</td>
+	<td class="c2">multi select list</td>
+	<td class="c3">The list of atoms contained in the molecule.</td>
+</tr>
+<tr>
+	<td class="c1">Deselect All</td>
+	<td class="c2">button</td>
+	<td class="c3">Deselect all the entries in the <i>Select atoms to trace</i> list.</td>
+</tr>
+<tr>
+	<td class="c1">Select All</td>
+	<td class="c2">button</td>
+	<td class="c3">Select all the entries in the <i>Select atoms to trace</i> list.</td>
+</tr>
+<tr>
+	<td class="c1">Selection type</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">Select the kind of operation:
+	<dl>
+	<dt>pass all selected</dt>
+		<dd>Pass to output only the atoms selected in the list</dd>
+	<dt>remove all selected</dt>
+		<dd>Remove from the molecule only the atoms selected in the list</dd>
+	<dt>pass all similar</dt>
+		<dd>Pass to output the atoms with names that starts like to the ones selected in the list</dd>
+	<dt>remove all similar</dt>
+		<dd>Remove from the molecule the atoms with names that starts like to the ones selected in the list</dd>
+	</dt></td>
+</tr>
+<tr>
+	<td class="c1">Select operation</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">The operation to be performed. It can be:
+	<dl>
+		<dt>inactive</dt>
+			<dd>do nothing.</dd>
+		<dt>immediate</dt>
+			<dd>for each step update the accumulator.</dd>
+		<dt>accumulate</dt>
+			<dd>for each step accumulate only the atoms positions. This is useful when the accumulator limits are not know.</dd>
+		<dt>playback</dt>
+			<dd>use the accumulate positions to update the accumulator.</dd>
+	</dl>
+	</td>
+</tr>
+<tr>
+	<td class="c1">Clear</td>
+	<td class="c2">button</td>
+	<td class="c3">Empties the accumulator.</td>
+</tr>
+<tr>
+	<td class="c1">Accumulator side</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">The number of cells on each side of the accumulator.</td>
+</tr>
+<tr>
+	<td class="c1">use manual limits</td>
+	<td class="c2">toggle</td>
+	<td class="c3">For the accumulator volume use the limits entered below. If not set the volume limits are computed by the module and show
+	in the fields below.</td>
+</tr>
+<tr>
+	<td class="c1">X, Y, Z min</td>
+	<td class="c2">numeric fields</td>
+	<td class="c3">Lower coordinates values for the volume.</td>
+</tr>
+<tr>
+	<td class="c1">X, Y, Z max</td>
+	<td class="c2">numeric fields</td>
+	<td class="c3">Upper coordinates values for the volume.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">out_occupancy</td>
+	<td class="c2">Field_Unif</td>
+	<td class="c3">The accumulator. Each node contains a count of the accumulated presences of the traced atoms in the corresponding accumulator cell.</td>
+</tr>
+<tr>
+	<td class="c1">out_trace</td>
+	<td class="c2">Mesh</td>
+	<td class="c3">For each traced atom this field contains a polyline passing through all its visited positions .</td>
+</tr>
+<tr>
+	<td class="c1">obj_trace</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of out_trace.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="TracesDisplayApp.html">TracesDisplayApp</a> full application.</li>
+</ul>
+
+
+</body></html>

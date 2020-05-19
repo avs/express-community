@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>OrthogonalViewer2</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>OrthogonalViewer2</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module provides a new viewer that uses four separate windows to show a field.  Three of the windows show orthoslices through the field parallel to the main plains (xy, xz and yz plane). The fourth viewer is a 3D view onto the objects. The position of the orthoslice planes can be changed interactively.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Inputs used by OrthogonalViewer">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>child_objs</i></td>
+<td width="200">DataObject[]</td>
+<td width="425">array of directly renderable objects to be shown in the 3D scene</td>
+</tr>
+<tr>
+<td width="100"><i>in_objs</i></td>
+<td width="200">DataObject[]</td>
+<td width="425">array of directly renderable objects to be shown in the three orthoslice views.</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by OrthogonalViewer">
+<tr>
+<td width="150"><b><font size="-1">Name</font></b></td>
+<td width="100"><b><font size="-1">Type</font></b></td>
+<td width="375"><b><font size="-1">Description</font></b></td>
+<td width="100"><b><font size="-1">Name</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i>showPlane</i></td>
+<td width="100">int[3]</td>
+<td width="375">array of integers to toggle the tree orthoslice planes in the 3D scene</td>
+<td width="100"><i>Toggle Buttons</i></td>
+</tr>
+<tr>
+<td width="150"><i>plane</i></td>
+<td width="100">int[3]</td>
+<td width="375">array of integers that contains the positions of the orthoslice planes</td>
+<td width="100"><i>Sliders</i></td>
+</tr>
+<tr>
+<td width="150"><i>zoom</i></td>
+<td width="100">int[3]</td>
+<td width="375">array of integers that contain a zoom value for the orthoslice views (in steps of 0.05)</td>
+<td width="100"><i>Sliders</i></td>
+</tr>
+<tr>
+<td width="150"><i>globalZoom</i></td>
+<td width="100">int</td>
+<td width="375">integer that contains a common zoom value for the orthoslice views (in steps of 0.05)</td>
+<td width="100"><i>Slider</i></td>
+</tr>
+<tr>
+<td width="150"><i>DataRangeSize</i></td>
+<td width="100">int[3]</td>
+<td width="375">integers that contain the number of colours to be used in the datamap in the orthoslice views</td>
+<td width="100"><i>Sliders</i></td>
+</tr>
+<tr>
+<td width="150"><i>globalDataRangeSize</i></td>
+<td width="100">int</td>
+<td width="375">integer that contains a common number of colours to be used in the datamap in the orthoslice views</td>
+<td width="100"><i>Slider</i></td>
+</tr>
+<tr>
+<td width="150"><i>useGlobal</i></td>
+<td width="100">int</td>
+<td width="375">toggle that switches between using individual or common settings for the orthoslice views</td>
+<td width="100"><i>Toggle Button</i></td>
+</tr>
+<tr>
+<td width="150"><i>WindowCenter</i></td>
+<td width="100">int[2]</td>
+<td width="375">position of the crosshairs between the viewersubwindows</td>
+<td width="100"><i>&nbsp;</i></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by OrthogonalViewer">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>picked_obj</i></td>
+<td width="200">DefaultObject</td>
+<td width="425">picked_obj output from the 3D Viewer</td>
+</tr>
+<tr>
+<td width="100"><i>curr_view</i></td>
+<td width="200">DefaultView+DefaultView</td>
+<td width="425">curr_view output from the 3D Viewer</td>
+</tr>
+<tr>
+<td width="100"><i>cur_obj</i></td>
+<td width="200">DefaultObject</td>
+<td width="425">cur_obj output from the 3D Viewer</td>
+</tr>
+<tr>
+<td width="100"><i>SelectedPoint</i></td>
+<td width="200">int[3]</td>
+<td width="425">point where the three planes intersect</td>
+</tr>
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The OrthogonalViewer module provides a new 3D viewer which can be incorporated in all standard AVS/Express applictions. This module is derrived from the UViewer3D, which builds the 3D scene in the otuput window. The behaviour of the 3D scene is identical to the standard UViewer 3D. The 2D scenes cannot be selected by the user. That means all the buttons in the single and multi window
+application only affect the 3D scene.
+</p><p>
+This Viewer output also provides three orthoslice views of the axial (xy), coronal (xz) and sagittal (yz) plane. In each of the planes there are two white lines representing the positions of the other planes. The plane positions can be altered by a left mouse click at the wanted new position for the planes. The white lines and the affected planes wil be updated.
+</p><p>
+Dragging with the right mouse buttons in the 2D orthoslice windows allows to zoom in and out on the plane. 
+</p><p>
+Dragging with the middle mouse buttons in the 2D orthoslice windows allows to modify the number of colours used in the datamap of the orthoslice planes.
+</p><p>
+The orthoslice planes can be switched on and of in the 3D Scene. The datamap used for these orthoslice planes are identical to the ones used in the 2D scenes.
+</p><p>
+The orthoview crosshairs and with that the size of the viewersubwindows can be changed by dragging with the right mouse buttons on the crosshairs.
+</p><p>
+All interactions which can be done using mouse buttons except positioning of crosshairs, can also be set in the user interface of the OrthogonalViewer module.
+</p>
+<table>
+<tr>
+<td>
+<img src="orthview.png" alt="View window of the OrthogonalViewer">
+</td>
+</tr>
+<tr>
+<td>
+View window of the OrthogonalViewer
+</td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockqoute></blockquote>
+<blockquote>
+
+<h4>Inputs</h4>
+<blockquote><b><i>child_objs</i></b></blockquote>
+<blockquote>Array of directly renderable objects which is shown in the 3D scene.</blockquote>
+
+<blockquote><b><i>in_objs</i></b></blockquote>
+<blockquote>These directly renderable objects will be shown in the three orthoslice views. Structured and unstructured fields can be mixed when using this module. There is a problem however that the module throws error messages when fields are disconnected from the input port. However, these error messages do not interfere with the functioning of the module.</blockquote>
+
+<h4>Parameters</h4>
+<blockquote><b><i>showPlane</i></b></blockquote>
+<blockquote>These toggle buttons allow to show or hide the planes (axial - xy , coronal - xz and sagittal - yz)
+shown in the 2D views in the 3D scene.</blockquote>
+
+<blockquote><b><i>plane</i></b></blockquote>
+<blockquote>These sliders allow to move the orthoslice planes of the 2D views. The positions of the other planes are represented by the white cross int the 2D view. This position can be changed by clicking the left mouse button at the wanted point.</blockquote>
+
+<blockquote><b><i>zoom</i></b></blockquote>
+<blockquote>These sliders allow to change the zoom value for the individual 2D orthoslice views. This value can also be changed by dragging with the right mouse button up and down in the respective window.</blockquote>
+
+<blockquote><b><i>DataRangeSize</i></b></blockquote>
+<blockquote>These sliders allow to change the number of colours to be used in the datamap for the individual 2D orthoslice views. This value can also be changed by dragging with the middle mouse button up and down in the respective window.</blockquote>
+
+<blockquote><b><i>useGlobal</i></b></blockquote>
+<blockquote>This Toggle Button switches the settings for the individual 2D orthoslice views to a common values for all three 2D views. It effects the zoom value as well as the DataRangeSize. Modifications made in either of the three 2D views affect the common value.</blockquote>
+
+<blockquote><b><i>WindowCenter</i></b></blockquote>
+<blockquote>This IntArray describe the position of the center of crosshairs between the viewersubwindows. This values can also be changed by dragging with the right mouse button on the crosshairs.</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>picked_obj</i></b></blockquote>
+<blockquote>picked_obj output of the3D Viewer. This output is not processed by the OrthogonalViewer. It is passed through as it comes from the 3D scene. </blockquote>
+
+<blockquote><b><i>curr_view</i></b></blockquote>
+<blockquote>curr_view output of the3D Viewer. This output is not processed by the OrthogonalViewer. It is passed through as it comes from the 3D scene. </blockquote>
+
+<blockquote><b><i>cur_obj</i></b></blockquote>
+<blockquote>cur_obj output of the3D Viewer. This output is not processed by the OrthogonalViewer. It is passed through as it comes from the 3D scene. </blockquote>
+
+<blockquote><b><i>SelectedPoint</i></b></blockquote>
+<blockquote>This output provides the 3D point in the Field where the three orthoslice planes intersect.</blockquote>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+The example applications show the usage of the Orthogonal viewer as viewer in a single and a multi window application.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/orthview/orthview.v</i> </p><blockquote><p>Creates the XP_COMM_PROJ.OrthogonalViewer library.</p></blockquote>
+<p><i>xp_comm_proj/orthview/oviewmod.v</i> </p><blockquote><p>Creates the OrthogonalViewerMods library containing the low-level support modules copy_on_modify, TransSliceCute and the parameter group OrthogonalViewerParams.</p></blockquote>
+<p><i>xp_comm_proj/orthview/oviewmac.v</i> </p><blockquote><p>Creates the OrthogonalViewerMacs library containing the high-level macros OrthoScene, OrthogonalViewerUI, OrthogonalViewer and OrthogonalViewer2. It also contains the support macros transslice, transslice_ARR, get_position, ChangeDatarange, ChangeZoom, DrawCross2D, globalUI, localUI which are used by the high level macros.</p></blockquote>
+<p><i>xp_comm_proj/orthview/oviewapp.v</i> </p><blockquote><p>Creates the OrthogonalViewerApps library containing the examle applications OrthogonalViewerSingleEg, OrthogonalViewerMultiEg, OrthogonalViewerSingleEg2 and OrthogonalViewerMultiEg2.</p></blockquote>
+</blockquote>
+
+<h3>Prerequisites</h3>
+
+<blockquote>This project relies on the successful installation of the following components. Without them it will not function correctly.</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+<li>slice_orthoplane_ARR</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The OrthogonalViewer macro is using components of the slice_orthoplane_ARR module. Unfortunately due to the fact that original Express modules have been modified this project will only work with AVS/Express Developer's Edition.</p>
+</blockquote>
+
+<h3>Authors</h3>
+<blockquote><pre>
+Tobias Schiebeck
+Manchester Visualization Centre
+</pre></blockquote>
+<blockquote><pre>
+Stephan Ebersbach
+Manchester Visualization Centre
+</pre></blockquote>
+</body>
+</html>

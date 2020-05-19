@@ -1,0 +1,193 @@
+<html>
+<head>
+<title>readSLPSTL</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>readSLPSTL</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads in either a Pro/Engineer RENDER format file (.SLP) or a Stereo-Lithography (.STL) file and creates field data from it and directly renderable Data objects from the data.
+</blockquote>
+
+
+<blockquote>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block ReadSLPSTLParams, which are accessed by the module ReadSLPSTLFile and the UI Macro ReadSLPSTLUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</font>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">input SLP/STL filename</td>
+<td width="125">Read SLP/STL File Name</td>
+</tr>
+
+<tr>
+<td width="100"><i>err</i></td>
+<td width="75">int</td>
+<td width="300">error message trigger</td>
+<td width="125">Error label</td>
+</tr>
+
+<tr>
+<td width="100"><i>err_str</i></td>
+<td width="75">string</td>
+<td width="300">error message to display</td>
+<td width="125">Error label</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Field</td>
+<td width="425">field data representing the SLP/STL model.</td>
+</tr>
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="80">DataObjectNoTexture</td>
+<td width="425">directly renderable output object.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The readSLPSTL macro reads in two kinds of files, Pro/Engineer RENDER format files (.SLP) and Stereo-Lithography (.STL) files.  Data from these files is parsed by the macro and output in two forms, Field data and directly renderable DataObject. It is assumed that the RENDER format has only two data components - NORMAL and COLOR. These are both read and put into the node_data, since the data is based on the triangle vertices. It is also assumed that there is only one solid in the RENDER file.
+</blockquote>
+
+<blockquote>
+The module is capable of reading in both ASCII and binary forms of the STL file format, and converting the patches present into AVS/Express triangle lists. When reading in binary data the module also detects bigendian/littlendian conversion switching. It also sets two parameters within the parameter block it references. These are used to display error messages to the user through the UI.  The SLP/STL file to be read can also be chosen through the user interface.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ReadSLPSTLParams parameter block group, this string value is used to specify the name of the SLP or the STL file that should be loaded.
+</blockquote>
+
+<blockquote>
+<i><b>err</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ReadSLPSTLParams parameter block group, this int value is used to trigger the display of error messages in the UI. When this parameter is set to 1 the error label present in the UI becomes visible. This parameter is set by the function and is not used for input.
+</blockquote>
+
+<blockquote>
+<i><b>err_str</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ReadSLPSTLParams parameter block group, this string value is used to output the current error message so that it can be displayed. This parameter is set by the function and is not used for input.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the readSLPSTL macro. This contains the model read from the SLP/STL file represented as field data.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the readSLPSTL macro. This contains a DataObjectNoTexture object that can be rendered by the standard data viewers. The Data Object is generated directly from the field data created from the SLP/STL file.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadSLPSTLFile module is used in this User Macro readSLPSTL.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadSLPSTLEg is provided, which loads either a SLP or a STL file, generates a set of field data from it and then displays it using the standard 3d viewer.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rd_slpst/rdslmacs.v</i> contains the readSLPSTL User Macro, the ReadSLPSTLUI UI Macro, and the example application ReadSLPSTLEg V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ReadSLPSTLMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level ReadSLPSTLFile module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Jeremy Maccelari
+Ian Curington
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+Paul G. Lever
+Tobias Schiebeck
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadSLPSTLParams, ReadSLPSTLUI and <a href="doc_mod.html" name="ReadSLPSTLFile">ReadSLPSTLFile</a>.
+</blockquote>
+
+</body>
+</html>

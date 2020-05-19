@@ -1,0 +1,21 @@
+# Microsoft Developer Studio Generated Dependency File, included by sginfo.mak
+
+.\sgclib.c : \
+	".\sginfo.h"\
+	
+
+.\sgfind.c : \
+	".\sginfo.h"\
+	
+
+.\sghkl.c : \
+	".\sginfo.h"\
+	
+
+.\sgio.c : \
+	".\sginfo.h"\
+	
+
+.\sgsi.c : \
+	".\sginfo.h"\
+	

@@ -1,0 +1,247 @@
+<html>
+<head>
+<title>overlayImages</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>overlayImages</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Overlays two images using ARGB values to define transparency.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><b>Name</b></td>
+<td width="125"><b>Type</b></td>
+<td width="300"><b>Description</b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>&in1</i></td>
+<td width="125">Mesh_Unif+Dim2+Space2+Node_Data+Vector4</td>
+<td width="300">First image</td>
+</tr>
+
+<tr>
+<td width="125"><i>&in2</i></td>
+<td width="125">Mesh_Unif+Dim2+Space2+Node_Data+Vector4</td>
+<td width="300">Second image</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block
+OverlayParams, which are accessed by the module OverlayNodeData and the UI Macro
+OverlayUI.
+</p>
+
+<table>
+
+<tr>
+<td width="125"><b>Name</b></td>
+<td width="125"><b>Type</b></td>
+<td width="300"><b>Description</b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>maskA, maskR, maskG, maskB</i></td>
+<td width="125">byte</td>
+<td width="300">ARGB values for image2's transparent pixels.</td>
+</tr>
+
+<tr>
+<td width="125"><i>bkgndA, bkgndR, bkgndG, bkgndB</i></td>
+<td width="125">byte</td>
+<td width="300">ARGB values for background colour.</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><b>Name</b></td>
+<td width="125"><b>Type</b></td>
+<td width="300"><b>Description</b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>out</i></td>
+<td width="125">Mesh_Unif+Dim2+Space2+Node_Data+Vector4</td>
+<td width="300">Resultant composite image</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable object</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+Create a new image, <I>compos</I>, by overlaying <I>image2</I> over
+<I>image1</I> aligned at the bottom left corner. If <I>image2</I> is
+greater then <I>image1</I> in any dimension pad image1 with the ARGB
+values of <I>bkgnd</I> so that <I>compos</I> is large enough to contain
+both images. If any of the pixels in <I>image2</I> have the same ARGB
+values as <I>mask</I> then let them be transparent and not effect the
+current pixel values.
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&in1</b></i>
+</blockquote>
+
+<blockquote>
+Reference to first image.
+</blockquote>
+
+<blockquote>
+<i><b>&in2</b></i>
+</blockquote>
+
+<blockquote>
+Reference to second image. This will be overlayed over the first, the
+mask parameter specifying which colour is transparent.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>maskA, maskR, maskG, maskB</b></i>
+</blockquote>
+
+<blockquote>
+Pixels in the second image that have values ARGB values identical to the
+mask ARGB values will be transparent and the first image or
+the background colour will show through these pixels.
+</blockquote>
+
+<blockquote>
+<i><b>bkgndA, bkgndR, bkgndG, bkgndB</b></i>
+</blockquote>
+
+<blockquote>
+If the second image is larger than the first the space around the first
+image will be filled with these ARGB values.
+</blockquote>
+
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+A 2D image mesh showing the two input images overlaid.
+</blockquote>
+
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the overlayImages macro. This
+contains a DataObject object that can be rendered by the standard data
+viewers. The DataObject is generated directly from the field data
+created from the currently displayed image.
+</blockquote>
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level OverlayNodeData module is used in the User Macro
+overlayImages. Additionally, this macro also uses the OverlayParams
+parameter block group object, as does the OverlayImages Functional Macro
+and the OverlayUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application OverlayEg is provided, which uses the overlayImages macro
+to composite the Manchester Visualization Centre logo on top of the example
+Mandrill image.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/overlay/overmacs.v</i> contains the overlayImages User Macro,
+the OverlayImages Functional Macro, the OverlayUI UI Macro, and the
+example application OverlayEg V definitions.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><PRE>
+James S Perrin
+</PRE>
+</blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+OverlaysParams, OverlayImages, OverlayUI, overlay_images.
+</blockquote>
+
+</body>
+</html>

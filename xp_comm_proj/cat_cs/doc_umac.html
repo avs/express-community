@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>cat_cell_sets</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>cat_cell_sets</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Catenates all the Cell_Sets of the same Cell type within a field into a single Cell_Set.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>in</i></td>
+<td width="125">Mesh+Node_Data</td>
+<td width="300">input field for catenation of Cell_Sets</td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>out</i></td>
+<td width="125">Mesh+Node_Data</td>
+<td width="300">The catenated Cell_Sets and the orginal Node_Data</td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+This parses the input field and then creates a new mesh for it with all the Cell_Sets of a single Cell type catenated into one. 
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+A field containing Cell_Sets and possibly Node_Data
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+A field containing Cell_Sets of no more than one of each Cell type (e.g. Tri, Prism2).
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The Add_Data_to_Mesh recombines the mesh_out from cat_cell_sets with any original node data in the User Macro cat_cell_sets. Note that Add_Data_to_Mesh is pure V code and does not require compilation.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cat_cs/ccs_macs.v </I>  contains the User Macro cat_cell_sets.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The CatCSMacs library inherits its process. As this library contains no procedural
+code, the process is not important. The low-level <a href="doc_mod.html">CatCellSets</a> module, executes
+under the process specified in its library, not the process defined in the high-level
+library. 
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+James Perrin
+
+Manchester Visualiation Centre
+Manchester Computing
+The University
+Oxford Road
+Manchester
+UK
+M13 9PL
+
+j.perrin@mcc.ac.uk
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CatCellSets, Add_Data_to_Mesh
+</blockquote>
+
+</body>
+</html>

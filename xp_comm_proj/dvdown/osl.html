@@ -1,0 +1,207 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>Oriented Streamline</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Oriented Streamline</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+
+Oriented Streamline uses the streamlines, DVdownsize_scat and glyph module to show the direction of a streamline.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports of Oriented Streamline macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_field</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">input field</td>
+</tr>
+
+<tr>
+<td width="100"><i>in_probe</i></td>
+<td width="75">Mesh</td>
+<td width="425">probe input for streamlines module</td>
+</tr>
+
+<tr>
+<td width="100"><i>in_glyph</i></td>
+<td width="75">Mesh</td>
+<td width="425">example glyph to be drawn to show the direction of the streamline</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table summary="Ouput Ports of Oriented Streamline macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_strline</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field of the streamline</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_glyph</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field of the glyphs that show the direction of the sreamline</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object of the orientated streamline</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The Orientated Streamline macro shows a streamline and its direction in a 3D field. This macro is combined from a set of predefined macros. It does not have its own user interface but employs the user interfaces of the macros it is combined from.
+</blockquote>
+
+<blockquote>
+The Orientated Streamline macro uses the streamlines module to draw the streamlines, and a glyph module to indicate the direction of the streamline.
+To reeduce the number of glyphs the DVdownsize_scat is used as input for the glyph_coordinates.
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>in_field</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the input field.  
+</blockquote>
+
+
+<blockquote>
+<i><b>in_probe</b></i>
+</blockquote>
+
+<blockquote>
+Probe input for streamlines module.  
+</blockquote>
+
+
+<blockquote>
+<i><b>in_glyph</b></i>
+</blockquote>
+
+<blockquote>
+Example glyph that shall be used to indicate the direction of the streamline.  
+</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out_strline</b></i>
+</blockquote>
+
+<blockquote>
+This mesh output contains the new 3D model of the streamline which was generated from the input field.
+</blockquote>
+
+<blockquote>
+<i><b>out_glyph</b></i>
+</blockquote>
+
+<blockquote>
+This mesh output contains the 3D model of the glyphs that indicate the direction of the streamline which was generated from the input field.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable object that contains the output field of the Oriented Streamline macro. This contains a DataObject object that can be rendered by the standard data viewers. The DataObject contains both the streamline and the glyph objects that show the direction of the streamline.
+</blockquote>
+
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro Oriented Streamline combines several high-level AVS/Express mactros. The Oriented Streamline macro itself does not have its own user interface. Its parameters can be modified using the User interfaces of the macros it is assembled from. These macros are <i>DVdownsize_scat</i>, <i>glyph</i>, <i>interp_data</i> and <i>streamlines</i>.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application Oriented_StreamlineEG is provided. This reads a field file and shows the Oriented Streamline.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Mario Valle
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+
+<li><a href="dvdown.html">DVdownsize_scat</a></li>
+<li>streamlines</li>
+<li>interp_data</li>
+<li>glyph</li>
+</ul>
+
+</body>
+</html>

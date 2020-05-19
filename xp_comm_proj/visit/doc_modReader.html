@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+   <title>VisitReader</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>VisitReader</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This low-level module reads data from a visit connection.
+</blockquote>
+
+<blockquote>
+<hr><pre>
+module VisitReader&lt;src_file="VisitReader.c"&gt; {
+   int+IPort2 SockID = -1;
+   int+IPort2 Trigger = 0;
+
+   omethod+notify_inst VisitReader_inst(
+      TimeStamp+write,
+      n1+read+write,
+      n2+read+write,
+      n3+read+write,
+      n4+read+write,
+      DataIntSize+write,
+      DataInt+write,
+      DataShortSize+write,
+      DataShort+write,
+      DataByteSize+write,
+      DataByte+write,
+      DataDoubleSize+write,
+      DataDouble+write,
+      DataString+write,
+      DataIntScalar+write,
+      DataByteScalar+write,
+      DataShortScalar+write,
+      DataDoubleScalar+write
+   ) = "VisitReader_inst";
+
+   omethod+req VisitReader_read(
+      SockID+read+req,
+      Trigger+read+notify+req,
+      TimeStamp+write,
+      n1+write,
+      n2+write,
+      n3+write,
+      n4+write,
+      DataIntSize+write,
+      DataInt+write,
+      DataByteSize+write,
+      DataByte+write,
+      DataShortSize+write,
+      DataShort+write,
+      DataDoubleSize+write,
+      DataDouble+write,
+      DataString+write,
+      DataIntScalar+write,
+      DataShortScalar+write,
+      DataByteScalar+write,
+      DataDoubleScalar+write
+   ) = "VisitReader_read";
+
+   double+OPort2 TimeStamp;
+
+   int+OPort2 n1 = -1;
+   int+OPort2 n2 = -1;
+   int+OPort2 n3 = -1;
+   int+OPort2 n4 = -1;
+   int o1 = -1;
+   int o2 = -1;
+   int o3 = -1;
+   int o4 = -1;
+   int s1 = -1;
+   int s2 = -1;
+   int s3 = -1;
+   int s4 = -1;
+
+   int DataIntSize = 0;
+   int+OPort2 DataInt[DataIntSize];
+   int DataByteSize = 0;
+   byte+OPort2 DataByte[DataByteSize];
+   int DataShortSize = 0;
+   short+OPort2 DataShort[DataShortSize];
+   int DataDoubleSize = 0;
+   double+OPort2 DataDouble[DataDoubleSize];
+   string+OPort2 DataString;
+   int+OPort2 DataIntScalar;
+   byte+OPort2 DataByteScalar;
+   short+OPort2 DataShortScalar;
+   double+OPort2 DataDoubleScalar;
+};
+</pre><hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This module reads data from a remote application. The remote application it should connect to is specified by the SockID input. This input will normally be provided by the VisitServer module that has created the connection. The module is triggered whenever data arrives at the Trigger port.  The Trigger input can be connected directly to the Trigger output port of a VisitServer if only one VisitReader or VisitWriter module is being used. If more than one VisitReader or VisitWriter is connected to a VisitServer it is necessary to use a Multiplexer in order to select a VisitReader or VisitWriter module for each request. There is no implicit distinction between read and write requests.  Therefore the user is responsible for using different IDs for read and write requests.</p>
+
+<p>Whenever the module is triggered data is read from the remote application and presented on the output ports.  The output values TimeStamp and n1 ... n4 contain the header-information that has been sent by the remote application (using the <code>visit_send_4d</code> or <code>visit_send_string</code> function calls). The Data... output ports contain the data values that have been sent by the remote application. Depending on the type of data that has been sent the data will be presented on the appropriate Data output port. With a field of length n1=n2=n3=n4=1 the data is presented at both a vector and a scalar output port.</p>
+
+<p>The VisitReader module should be used in conjunction with the modules <a href="doc_modMulti.html">Multiplexer</a>, <a href="doc_modServer.html">VisitServer</a> and <a href="doc_modWriter.html">VisitWriter</a>.</p>
+
+<p>Before this module can be compiled and used the VISIT library must be installed.  For information on how to install this library please see the  <a href="http://www.fz-juelich.de/zam/visit">VISIT library</a>(<tt>http://www.fz-juelich.de/zam/visit</tt>) home page. A complete set of documentation for the VISIT-library can also be found at this URL.</p>
+
+<p>The Visit IAC project assumes that the VISIT library has been installed into
+the default directory i.e.</p>
+
+<p><code>/usr/local/visit/</code></p>
+
+<p>If this is not the case then the references to that directory in the
+visit_mods.v file will have to be modified.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>SockID</i></b></blockquote>
+
+<blockquote>Integer input port that contains a socket descriptor. This socket descriptor specifies the data-connection to the remote application. This input port should be connected to the SockID output port of the VisitServer module.</blockquote>
+
+<blockquote><b><i>Trigger</i></b></blockquote>
+
+<blockquote>When this input is triggered the VisitReader module will attempt to read a message from the remote application.  Normally this port should be connected to the Trigger output port of the VisitServer module.  This should be done by either making a direct connection or making an indirect connection through a Multiplexer module.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>Timestamp, n1, n2, n3, n4</i></b></blockquote>
+
+<blockquote>
+Contain the header-information that has been sent by the remote application (using the visit_send_4d or visit_send_string function calls).
+</blockquote>
+
+
+<blockquote><b><i>DataString</i></b></blockquote>
+
+<blockquote>
+If the datatype of the read message is STRING this output port will present the data contained in the message.
+</blockquote>
+
+<blockquote><b><i>DataInt, DataShort, DataByte, DataDouble</i></b></blockquote>
+
+<blockquote>
+If the read message contains numerical data the values will be presented at one of these array outputs.  The output used depends upon the datatype of the read message.  If the message only contains a single value the value will also be presented at the appropriate scalar output.
+</blockquote>
+
+
+<blockquote><b><i>DataIntScalar, DataShortScalar, DataByteScalar, DataDoubleScalar</i></b></blockquote>
+
+<blockquote>
+If the read message contains a single numerical value the value will be presented at one of these scalar outputs.  The output used depends upon the datatype of the read message.  If the message contains more than one value these outputs will not used.</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>The low-level module VisitReader is used in the Functional Macro visitreader.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>Examples of the use of this module can be found in the VisitSimpleEg and VisitGoLEg example applications.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/visit/visit_mods.v</i> contains the V definition of the VisitReader module.</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>By default the low-level library VisitMods, which needs to be compiled, has the process set to express.  Therefore express must not be running while this project is compiled.</p>
+
+<p>Before the Visit project can be compiled the VISIT library must be installed, configured and compiled.  For full instructions please see the <a href="http://www.fz-juelich.de/zam/visit">VISIT</a> library web-site.</p>
+
+<p>The Visit IAC project assumes that the VISIT library has been installed into
+the default directory i.e.</p>
+
+<p><code>/usr/local/visit/</code></p>
+
+<p>If this is not the case then the references to that directory in the
+visit_mods.v file will have to be modified.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Wolfgang Frings
+Central Institute for Applied Mathematics
+Research Center Juelich
+D-52425 Juelich
+Germany
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umacServer.html">visitserver</a> user macro.</li>
+<li><a href="doc_umacReader.html">visitreader</a> user macro.</li>
+<li><a href="doc_umacWriter.html">visitwriter</a> user macro.</li>
+<li><a href="doc_umacMulti.html">multiplexer</a> user macro.</li>
+<li><a href="doc_modServer.html">VisitServer</a> module.</li>
+<li><a href="doc_modWriter.html">VisitWriter</a> module.</li>
+<li><a href="doc_modMulti.html">Multiplexer</a> user macro.</li>
+<li><a href="http://www.fz-juelich.de/zam/visit">VISIT</a> library web-site.</li>
+</ul>
+
+</body>
+</html>
+

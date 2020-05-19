@@ -1,0 +1,222 @@
+<html>
+<head>
+<title>cfd_range</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>cfd_range</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+The cfd_range User Macro processes multi-block data, setting the min/max elements of each block to either the true global values or to user-defined values.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>&in</i></td>
+<td width="75">Node_Data[]</td>
+<td width="425">Input multi-block array</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block _NAME_Params, which are accessed by the module _NAMELL_ and the UI Macro _NAMEUI_.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</font>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>min</i></td>
+<td width="75">double</td>
+<td width="300">user range min value</td>
+<td width="125">Min</td>
+</tr>
+
+<tr>
+<td width="100"><i>max</i></td>
+<td width="75">double</td>
+<td width="300">user range max value</td>
+<td width="125">Max</td>
+</tr>
+
+<tr>
+<td width="100"><i>lock_mode</i></td>
+<td width="75">int</td>
+<td width="300">set range mode toggle</td>
+<td width="125">Lock to User Range</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Node_Data[]</td>
+<td width="425">Output multi-block array</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The cfd_range User Macro is a true multi-block module, the C code
+takes an array of blocks in and out. Actually, the output
+is CONNECTED to the input in V, so this is a pure reference
+pass-through module. It modifies the data inplace.
+</p>
+<p>
+If locked mode is off, it scans ALL the data in ALL the blocks,
+and finds each data component range. It then SETS the min/max
+subelement in EACH block to be this value, to force global
+consistancy. The first data element in the first component is
+shown on the user-interface.
+</p>
+<p>
+If lock mode is on, then the user type-in values on the interface or
+parameter block are used to force this range on all data components.
+This is likely to work best on just a single component, and is
+intended to have extract_component_ARR upstream.
+</p>
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+The input mult-block array of NodeData.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>&CFDRangeParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the min, max and lock_mode parameters.
+</blockquote>
+
+<blockquote>
+<i><b>min</b></i>
+</blockquote>
+
+<blockquote>
+User-defined min value for data if lock_mode is on.
+</blockquote>
+
+<blockquote>
+<i><b>max</b></i>
+</blockquote>
+
+<blockquote>
+User-defined max value for data if lock_mode is on.
+</blockquote>
+
+<blockquote>
+<i><b>lock_mode</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the lock_mode. If on, the min/max values of the multi-block data is set to the user-defined values. If off, the true global value from the input blocks is used.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output multi-block node data array with the min/max subelements set accordingly.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The user interface is provided in the CFDRangeUI macro, and this is combined with the low-level <a href="doc_mod.html">CFDRangeNodeData</a> module to form the User Macro cfd_range.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application is not provided.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/cfdrange_/cfdrmacs.v</i> contains the cfd_range User Macro and the CFDRangeUI UI Macro V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The CFDRangeMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level CFDRangeNodeData module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Authors</h3>
+<blockquote><pre>
+Ian Curington
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CFDRangeParams, CFDRangeUI, CFDRangeNodeData
+</blockquote>
+
+</body>
+</html>

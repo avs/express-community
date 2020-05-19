@@ -1,0 +1,97 @@
+Express Community ZipIO Project
+https://github.com/avs/express-community
+-----------------
+
+This directory ( xp_comm_proj/zip_io/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"ZipIO".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ZipIO project, and additions to two of the files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+        Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+	If you modify the ZipIO project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+        $compile XP_COMM_PROJ.ZipIO.ZipIOMods
+
+	If the project is placed in any process except for the normal "express"
+process then it must be linked with an external copy of the zlib library.  It
+is not possible to link it with the Express animator library.  Please the project
+documentation for more information on this.
+
+        Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/zip_io/ directory.
+
+INSTALL         Contains installation instructions for editing the xp_comm_proj.v
+                and xp_comm_lib/ files. This file should not be edited as the
+                future installation script will use this file.
+
+zip_io.v        Creates the XP_COMM_PROJ.ZipIO library.
+
+zip_mods.v      Creates the ZipIOMods library containing the low-level
+                modules CompressFileCore and DecompressFileCore, and the
+                parameter block ZipIOParams.
+
+zip_macs.v      Creates the ZipIOMacs library containing the user
+                interface macros CompressFileUI and DecompressFileUI and the 
+                user macros compress_file and decompress_file.
+
+zip_apps.v	Creates the ZipIOApps library containing the example applications
+                WriteCompressedImageEg and ReadCompressedImageEg.
+
+comp.c          The C source code for the CompressFileCore module.
+
+decomp.c        The C source code for the DecompressFileCore module.
+
+fn_util.c       C source code for filename manipulation functions used by the
+fn_util.h       low-level module code.
+
+zip_io.html     HTML documentation for the compress_file and decompress_file
+                user macros.
+
+README          This file.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h           AVS/Express generated header file.
+
+gen.cxx         AVS/Express generated source code.
+
+comp.o(bj)     Intermediate object files.
+decomp.o(bj)
+fn_util.o(obj)
+

@@ -1,0 +1,17 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+    "../xp_comm_proj/a_alias/a_alias.v" AntiAlias;
+# In the following xp_comm_lib file
+filters.v
+# insert the following line
+    XP_COMM_PROJ.AntiAlias.AntiAliasMacs.anti_alias anti_alias;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+    XP_COMM_PROJ.AntiAlias.AntiAliasMacs.AntiAliasEg1 AntiAliasEg1;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+    XP_COMM_PROJ.AntiAlias.AntiAliasMacs.AntiAliasEg2 AntiAliasEg2;
+

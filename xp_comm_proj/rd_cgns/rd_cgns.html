@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>read_cgns - Reads CGNS format files.</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>read_cgns</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The read_cgns user macro reads CGNS format files.
+CGNS files are used for the storage and retrieval of CFD data.
+More information about CGNS can be found at <a href= 
+"http://www.cgns.org">www.cgns.org</a>.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<h5>CgnsParams</h5>
+
+<table summary="Parameters used by read_cgns">
+<tr>
+<td width="150"><b><font size="-1">Name</font></b></td>
+<td width="75"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">Name of CGNS file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="150"><i>load</i></td>
+<td width="75">int</td>
+<td width="300">Triggers loading of selected data from CGNS file.</td>
+<td width="125">Button</td>
+</tr>
+
+<tr>
+<td width="150"><i>status</i></td>
+<td width="75">string</td>
+<td width="300">Reports any error during file loading.</td>
+<td width="125">Text Box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h5>CgnsOutputParams</h5>
+
+<table summary="Parameters output by the read_cgns UI">
+<tr>
+<td width="150"><b><font size="-1">Name</font></b></td>
+<td width="75"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i>currentBase</i></td>
+<td width="75">int</td>
+<td width="300">Selected Base.</td>
+<td width="125">Menu</td>
+</tr>
+
+<tr>
+<td width="150"><i>currentActiveZones[]</i></td>
+<td width="75">int[]</td>
+<td width="300">Specifies which zones should be read.</td>
+<td width="125">Check Boxes</td>
+</tr>
+
+<tr>
+<td width="150"><i>currentSolution[]</i></td>
+<td width="75">int[]</td>
+<td width="300">Specifies which solution should be read for each zone.</td>
+<td width="125">Menus</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h5>Other Parameters</h5>
+
+<table summary="Other parameters used by read_cgns">
+<tr>
+<td width="150"><b><font size="-1">Name</font></b></td>
+<td width="75"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i><a href="#BaseInfo">BaseInfo</a></i></td>
+<td width="75">group</td>
+<td width="425">Base information read from CGNS file.</td>
+</tr>
+
+<tr>
+<td width="150"><i><a href="#ZoneInfo">ZoneInfo</a></i></td>
+<td width="75">group</td>
+<td width="425">Zone information read from CGNS file.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_cgns">
+<tr>
+<td width="150"><b><font size="-1">Name</font></b></td>
+<td width="75"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i>Multi Block</i></td>
+<td width="75">Multi Block</td>
+<td width="425">Structured zones read from CGNS file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>unstr_field[]</i></td>
+<td width="75">Field[]</td>
+<td width="425">Unstructured zones read from CGNS file.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The read_cgns user macro reads a CGNS file. The CGNS file format is used for the storage and retrieval of CFD data.  CGNS is a fully supported file format of <a href="http://www.fluent.com">Fluent</a> (version 5.5 or later),<a href="http://www.cd.co.uk">Computational Dynamics STAR-CD</a> and other major CFD software vendors. More information on CGNS and a complete list of implementations can be found on the <a href="http://www.cgns.org">CGNS</a> web site (<a href="http://www.cgns.org">www.cgns.org</a>).</p> 
+
+<p>The read_cgns macro takes a filename, reads the CGNS file and outputs a Multi_Block group that contains structured Zones and an array of fields that contains the unstructured Zones. The user interface allows the user to select which Base to read. It also allows the user to select which Zones to read and which Solution to read for each Zone. Two shortcut buttons are provided so that the user can easily select or deselect all zones.</p>
+
+<p>The data output by the read_cgns macro can be processed by the macros and modules found in the <i>Accessories-&gt;Array of Fields</i> library. The structured Multi_Block output can be processed by the multiblock modules or can be converted into an array of fields. The unstructured array of fields output can be processed by any of the <tt>ARR</tt> modules (i.e. <tt>extract_cell_component_ARR</tt>).</p>
+</blockquote>
+
+
+<h3>Installation</h3>
+
+<blockquote>Internally this project uses the CGNS library to read CGNS files. This means that as well as installing the project in the normal way the CGNS library must also be installed onto your system.  On Windows systems a pre-built binary version of this library is included.  For other platforms pre-built binary versions of the CGNS library and the source code can be downloaded from the <a href="http://www.cgns.org">CGNS</a> web-site.  The instructions below detail how these files should be installed.</blockquote>
+
+<h4>Windows Installation</h4>
+
+<blockquote>
+<p>The ReadCgns project comes with a pre-built binary version of the CGNS library that is compiled for VC++. This binary will be automatically linked with Express when the ReadCgns project is compiled. Normally you will not need to do anything extra to the normal IAC installation process.</p> 
+
+<p>The only exception to this is if you want to use a different version of the CGNS library. In this case you will have to recompile the library from the source code available on the CGNS web-site. This is because the pre-built binaries available from the web-site have been linked with different runtime libraries than those used by AVS/Express. To change this the CFLAGS line of the Makefile.win40 file will have to be altered so that it reads:</p>
+
+<pre>
+CFLAGS = -c -nologo /MDd /Zi /Op -I.. -I$(CTOOLS)/include -W1 -DWINNT -D_WIN32
+</pre>
+
+<p>Once this is done the library should be recompiled and the resultant <tt>libcgns.lib</tt> file should be placed into the xp_comm_proj\rd_cgns directory.</p>
+</blockquote>
+
+<h4>Other Platforms Installation</h4>
+
+<blockquote>For all other platforms a pre-built library is not supplied with the ReadCgns project. Instead a copy of the library must be downloaded from the CGNS web-site. Fortunately the pre-built binaries available do work with AVS/Express on platforms other than Windows. The downloaded library file and header file(cgnslib.h) can be placed into the xp_comm_proj/rd_cgns project directory. Alternatively they can be placed into the appropriate lib and include directories on your system. In this case you should delete the cgnslib.h file in xp_comm_proj/rd_cgns project directory.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<h4>CgnsParams</h4>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>String parameter that specifies which CGNS file should be read. The filename string should contain the full path name of the file and can contain any of the AVS/Express environment variables (e.g. $XP_PATH&lt;1&gt;)</blockquote>
+
+<blockquote><b><i>load</i></b></blockquote>
+
+<blockquote>Integer parameter that triggers the loading of the selected data from the CGNS file. Whenever this parameter is altered the selected Zones are read from the specified CGNS file.</blockquote>
+
+<blockquote><b><i>status</i></b></blockquote>
+
+<blockquote>String parameter that reports any errors that occurred whilst loading the CGNS file. This parameter is intended to be used only as an output from the low-level module and should not be altered.</blockquote>
+
+<h4>CgnsOutputParams</h4>
+
+<blockquote><b><i>currentBase</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies which base is currently selected. The value of this parameter is set by the Base drop-down list in the user interface. When the data is read from the CGNS file only that data associated with the current base is loaded.</blockquote>
+
+<blockquote><b><i>currentActiveZones[]</i></b></blockquote>
+
+<blockquote>Integer array that specifies which Zones have been selected. The values of this array are set by the Active checkbox in each zone panel of the user interface. Each element in the array is used as a boolean value. If an element is true then the respective Zone is read.</blockquote>
+
+<blockquote><b><i>currentSolution[]</i></b></blockquote>
+
+<blockquote>Integer array that specifies which Solution should be read for each Zone. The values of this array are set by the Solution drop-down list in each zone panel of the user interface. If the zone is not active then changing the selected solution will have no affect.</blockquote>
+
+
+<h4>Other Parameters</h4>
+
+<blockquote><a name="BaseInfo">
+</a><b><i>BaseInfo</i></b></blockquote>
+
+<blockquote>Group parameter that stores all base information that is read from the CGNS file. It contains an array that specifies the name, cell dimensions and physical dimensions for each Base in the CGNS file. The BaseInfo group is used by the user interface to display information about each base. It is also used by the low-level module to store information between each stage of the reading process.</blockquote>
+
+<blockquote><a name="ZoneInfo">
+</a><b><i>ZoneInfo</i></b></blockquote>
+
+<blockquote>Group parameter that stores all zone information that is read from the CGNS file. It contains an array that specifies a number of properties for each Zone in the selected Base. The ZoneInfo group is used by the user interface to display information about each zone so that the user can make the appropriate choice. It is also used by the low-level module to store information between each stage of the reading process.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>Multi_Block</i></b></blockquote>
+
+<blockquote>This output group contains all of the structured data read from the selected zones in the CGNS file. Each active structured zone is output as a single element of the multiblock field array. The Multi_Block can be processed by a number of multiblock modules or can be converted into an array of fields by using the mblock_to_field module. Once this is done any of the <tt>ARR</tt> modules can be used to process the data.</blockquote>
+
+<blockquote><b><i>unstr_fields[]</i></b></blockquote>
+
+<blockquote>This output array contains all of the unstructured data read from the selected zones in the CGNS file. Each active unstructured zone is output as a single element of the field array. Any of the <tt>ARR</tt> modules can be used to process this data.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ReadCgnsFunc functional macro uses the low-level DVread_cgns module. The macro takes as input the two parameter blocks, CgnsParams and CgnsOutputParams. The macro outputs the data read from the CGNS file as structured multiblock data and unstructured array of field data. The macro also outputs the read BaseInfo and ZoneInfo.</p> 
+
+<p>The ReadCgnsFunc functional macro and the ReadCgnsUI user interface macro are both used by the read_cgns user macro. All of these macros use the CgnsParams and CgnsOutputParams parameter block to communicate data. There are also two additional links between the ReadCgnsUI macro and ReadCgnsFunc functional macro to transfer the BaseInfo and ZoneInfo data.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes two example applications that demonstrates the use of the read_cgns macro. The ReadCgnsMultiBlockEg application uses the read_cgns macro to read a CGNS file containing structured zones. The ReadCgnsUnstructuredEg application use read_cgns macro to read a CGNS file containing unstructured zones.</p>
+
+<p>A sub-library of test case applications has also been included.  These were used during development to ensure that the ReadCgns project could read certain unusual CGNS files.  These have been included so that the end user can also assure themselves that project works properly.  The included test cases are listed below:</p>
+
+<blockquote>
+<table summary="ReadCgns Test Cases">
+<tr>
+<td width="175"><b>TstMixed</b></td>
+<td>Tests the simultaneous reading of structured and unstructured zones.  Also tests reading of Sections with MIXED cell type and cells not defined in any order.</td>
+</tr>
+
+<tr>
+<td width="175"><b>TstNGON</b></td>
+<td>Tests the reading of NGON-n cells.</td>
+</tr>
+
+<tr>
+<td width="175"><b>TstRind</b></td>
+<td>Tests the reading of CGNS files containing Rind data.</td>
+</tr>
+
+<tr>
+<td width="175"><b>TstUnsupported</b></td>
+<td>Tests the reading of CGNS files that contain features that are not currently supported by the ReadCgns project.  The test case reads a file containing non-Cartesian coordinates and GridPosition, both of which are unsupported.</td>
+</tr>
+
+<tr>
+<td width="175"><b>TstCellTypes</b></td>
+<td>Tests the reading of various base cell types.</td>
+</tr>
+
+<tr>
+<td width="175"><b>Tst2DScndOrderCells</b></td>
+<td>Tests the reading of two dimensional second order cells.  These cell types are TRI_6, QUAD_8 and QUAD_9.</td>
+</tr>
+
+<tr>
+<td width="175"><b>Tst3DScndOrderCells</b></td>
+<td>Tests the reading of three dimensional second order cells.  These cell types are TETRA_10, PYRA_14, PENTA_15, PENTA_18, HEXA_20 and HEXA_27.</td>
+</tr>
+</table>
+</blockquote>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_cgns/cgnsmods.v</i> contains the V definitions of the DVread_cgns module, BaseInfo and ZoneInfo groups and the CgnsParams and CgnsOutputParams parameter blocks.</p> 
+
+<p><i>xp_comm_proj/rd_cgns/cgnsmacs.v</i> contains the V definitions of the ReadCgnsUI UI macro, the ReadCgnsFunc functional macro and the read_cgns user macro.</p>
+
+<p><i>xp_comm_proj/rd_cgns/cgnsapps.v</i> contains the V definitions of the ReadCgnsMultiBlockEg and ReadCgnsUnstructuredEg example applications, and the TestCases library containing the TstMixed, TstNGON, TstRind, TstUnsupported, TstCellTypes, Tst2DScndOrderCells and Tst3DScndOrderCells test cases.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>On all platforms this project requires the CGNS library to be used.  On the Windows platform a pre-compiled binary version of the library is included with the project.  On other platforms this project requires the CGNS library to be installed.  The necessary files to do this can be downloaded from <a href="http://www.cgns.org">http://www.cgns.org</a>. On this web-site you should be able to find pre-built binaries for a number of platforms. You can place the downloaded library file and header file (cgnslib.h) into the xp_comm_proj/rd_cgns directory. Alternatively you can place the CGNS library files into the appropriate lib and include directories on your system.</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadCgnsMods library containing the low-level module DVread_cgns does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Ian Curington, AVS Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang, Manchester Visualization Centre
+
+<a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>, International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="http://www.cgns.org">CGNS</a> home page.</li>
+
+<li><a href="http://www.fluent.com">Fluent Inc.</a> home page.</li>
+
+<li><a href="http://www.cd.co.uk">Computational Dynamics Ltd. (STAR-CD)</a> home page.</li>
+</ul>
+</body>
+</html>
+

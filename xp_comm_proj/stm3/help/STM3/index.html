@@ -1,0 +1,239 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 general module listing">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>STM3 module list</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>STM3 module list</h1>
+
+<p>This is the list of STM3 modules in the October 10<sup>th</sup>, 2003 version.</p>
+<p>The standard AVS/Express <a href="http://help.avs.com/Express/doc/help_62/index.htm">documentation</a> instead provides reference for the standard modules used or modified inside
+STM3.</p>
+
+<p>The modules are grouped by function:</p>
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+	<tr><td class="m1s"><a href="#Readers">Readers</a></td><td class="m2">Readers for various, static and dynamic, chemical file formats.</td></tr>
+	<tr><td class="m1s"><a href="#Molecular">Molecular Modules</a></td><td class="m2">Modules that compute various derived structures from the molecule.</td></tr>
+	<tr><td class="m1s"><a href="#Utility">Utility Modules</a></td><td class="m2">Manipulation of molecules like atom selection.</td></tr>
+	<tr><td class="m1s"><a href="#Crystallography">Crystallography Modules</a></td><td class="m2">Unit cells, periodic lattices and symmetries support.</td></tr>
+	<tr><td class="m1s"><a href="#GaussianCube">Gaussian Cube Utility Modules</a></td><td class="m2">Gaussian output density cubes visualization and manipulation.</td></tr>
+	<tr><td class="m1s"><a href="#Display">Display</a></td><td class="m2">Final rendering of molecular data, legends and interaction with the viewer.</td></tr>
+	<tr><td class="m1s"><a href="#Output">Output</a></td><td class="m2">Output to image files, movies and other formats of the visualized information.</td></tr>
+	<tr><td class="m1s"><a href="#Applications">Full Applications</a></td><td class="m2">Ready to run applications.</td></tr>
+	<tr><td class="m1s"><a href="#Hidden">Hidden Modules</a></td><td class="m2">Modules used, but not directly accessible from the STM3 library.</td></tr>
+  </tbody>
+</table>
+<p>To start using STM3 drag one of the <a href="#Applications">Full Applications</a> modules (<a href="MolDisplayApp.html">MolDisplayApp</a> or
+<a href="AnimDisplayApp.html">AnimDisplayApp</a> for example) to the Network Editor area.</p>
+
+<a name="Readers"></a><h2>Readers</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="ReadMolecule.html">Read Molecule</a></td><td class="m2">Read various chemistry data formats</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="ReadAnimMolecule.html">Read Anim Molecule</a></td><td class="m2">Read animated chemistry data formats</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Read_Gaussian_Cube.html">Read Gaussian Cube</a></td><td class="m2">Read Gaussian cube density data</td>
+  </tr>
+  </tbody>
+</table>
+
+<a name="Molecular"></a><h2>Molecular Modules</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="ComputeSESurface.html">Compute SE Surface</a></td><td class="m2">Compute the molecule Solvent Excluded Surface using the MSMS
+		(<a	href="http://www.scripps.edu/pub/olson-web/people/sanner/html/msms_home.html">Molecular Surface Computation Home Page</a> - Michel F. Sanner) tool.</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Accumulate_Traces.html">Accumulate Traces</a></td><td class="m2">Accumulate traces (accumulated positions) for specific atoms in a sequence of time steps</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="NCAC_Tube.html">NCAC Tube</a></td><td class="m2">Compute the N-CA-C tube</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="FindTetrahedra.html">Find Tetrahedra</a></td><td class="m2">Display tetrahedra around specific atoms</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Particle_Density.html">Particle Density</a></td><td class="m2">Compute the average particle mass density using uniform binning</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Velocity_Mean.html">Velocity Mean</a></td><td class="m2">Compute the average particle velocity using uniform binning</td>
+  </tr>
+  </tbody>
+</table>
+
+<a name="Utility"></a><h2>Utility Modules</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="Select_Atoms.html">Select Atoms</a></td><td class="m2">Select specific atoms (pass, remove, pass similar, remove similar)</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Select_Residues.html">Select Residues</a></td><td class="m2">Select residues (pass, remove, pass similar, remove similar)</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="AddBonds.html">Add Bonds</a></td><td class="m2">Manually add bonds between atoms</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="CutSurface.html">Cut Surface</a></td><td class="m2">Cut a surface (eg. the <a href="ComputeSESurface.html">Solvent Excluded Surface</a>) with a plane</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="BicolorSurface.html">Bicolor Surface</a></td><td class="m2">Color a surface on one side only</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="CountBonds.html">Count Bonds</a></td><td class="m2">Add as atom parameter (the atom <i>charge</i> field is used) its number of bonds</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Crop_Atoms.html">Crop Atoms</a></td><td class="m2">Crop the molecule inside a box, cylinder or sphere</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="ThresholdCharge.html">Threshold Charge</a></td><td class="m2">Select atoms whose <i>charge</i> value meets various criteria</td>
+  </tr>
+  </tbody>
+</table>
+
+<a name="Crystallography"></a><h2>Crystallography Modules</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="DisplayUnitCell.html">Display Unit Cell</a></td><td class="m2">Display the boundary of the crystal unit cell</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="ReplicateLattice.html">Replicate Lattice</a></td><td class="m2">Replicate the molecule unit cell to form the crystal lattice</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Miller_Plane.html">Miller Plane</a></td><td class="m2">Visualize the plane identified by given Miller indices. Optionally remove atoms above or below it</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="RecomputeBonds.html">Recompute Bonds</a></td><td class="m2">Recompute bonds after a molecule replication</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="CropUnitCell.html">Crop Unit Cell</a></td><td class="m2">Extract a subcell from the unit cell with sides parallel to those of the unit cell itself</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href=" ApplySymmetries.html">Apply Symmetries</a></td><td class="m2">The input molecule atoms are duplicated according to
+		its space group symbol symmetries</td>
+  </tr>
+  </tbody>
+</table>
+
+<a name="GaussianCube"></a><h2>Gaussian Cube Utility Modules</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="Isosurface.html">Isosurface</a></td><td class="m2">Create an isosurface for a given density cube</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Cube_on_Surface.html">Cube on Surface</a></td><td class="m2">Map density values on a given surface</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Float2ByteUnif.html">Float 2 Byte</a></td><td class="m2">Transform a cube with float values to byte values suitable for volume rendering</td>
+  </tr>
+  </tbody>
+</table>
+
+<a name="Display"></a><h2>Display</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="DisplayMolecule.html">Display Molecule</a></td><td class="m2">Display the molecule with selectable quality and performance levels</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="ColorLegend.html">Color Legend</a></td><td class="m2">Display a legend for the molecule representation colors (<i>charge</i> values or atom
+		type color codes)</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="PickAtoms.html">Pick Atom</a></td><td class="m2">Display information on the picked atom (pick using ctrl-click) or distances and angles</td>
+  </tr>
+  </tbody>
+</table>
+
+<a name="Output"></a><h2>Output</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="output_image.html">output image</a></td><td class="m2">Make a hardcopy of the screen</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="make_movie.html">make movie</a></td><td class="m2">Create a movie</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Write_POV_Ray.html">Write POV Ray</a></td><td class="m2">Write the current view as a POV-Ray raytracer scene</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="WritePDB.html">Write PDB</a></td><td class="m2">Output the molecular structure in PDB format (with animation support)</td>
+  </tr>
+  </tbody>
+</table>
+
+<a name="Applications"></a><h2>Full Applications</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="MolDisplayApp.html">MolDisplayApp</a></td><td class="m2">Read and display a molecule</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="AnimDisplayApp.html">AnimDisplayApp</a></td><td class="m2">Read and display a molecule animation</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="PickMoleculeApp.html">PickMoleculeApp</a></td><td class="m2">Same as MolDisplayApp plus the atom picking feature</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="TracesDisplayApp.html">TracesDisplayApp</a></td><td class="m2">Display traces (accumulated positions) for specific atoms in a molecule traiectory</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Scat2VolumeDisplayApp.html">Scat2VolumeApp</a></td><td class="m2">Display atoms as transparent/not transparent spheres depending on the
+		<i>charge</i> value</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="ParticleDensityApp.html">ParticleDensityApp</a></td><td class="m2">Display particle mass density as an isovolume</td>
+  </tr>
+  </tbody>
+</table>
+
+<a name="Hidden"><h2>Hidden Modules</h2>
+
+<table border="0" cellspacing="5" cellpadding="0">
+  <tbody>
+  <tr>
+		<td class="m1"><a href="MolViewer.html">MolViewer</a></td><td class="m2">The modified viewer used by the various full applications</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="MolecularDataType.html">MolecularDataType</a></td><td class="m2">Datatype used by the modules that operate on
+		molecular data</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="DisplayParams.html">DisplayParams</a></td><td class="m2">Datatype that carries information on how the molecules are
+		renderend on screen</td>
+  </tr>
+  <tr>
+		<td class="m1"><a href="Scat_to_Volume.html">Scat to Volume</a></td><td class="m2">Convert the molecule to an uniform volume in which sites occupied by atoms are
+		are represented as spheres of points. Each point has value corresponding to the <i>charge</i> atom value.</td>
+  </tr>
+  </tbody>
+</table>
+<p></p>
+</body></html>

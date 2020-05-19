@@ -1,0 +1,126 @@
+<html>
+<head>
+<title>multi_probe</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>multi_probe</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+Inputs an array of Grids (and Xforms) and merges all of the coordinates into one composite grid object. This allows multiple probes (glyphs) to be merged and used as a single input to modules such as streamlines and advect.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>&in[]</i></td>
+<td width="75">Grid+Xform</td>
+<td width="425">Input array of Grids containing coordinates</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh (Cell_Set+Point)</td>
+<td width="425">Output mesh containing all input coordinates and a Point mesh</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>Inputs an array of Grids (and Xforms) and merges all of the coordinates into one composite grid object. This allows multiple probes (glyphs) to be merged and used as a single input to modules such as streamlines and advect.</p>
+<p>For each grid in the input array of grids, each transformation matrix is applied to the corresponding set of coordinates, to map all the coordinates into a unified coordinate space.</p>
+<p>The output is a grid containing all of the input coordinates, and a Point mesh, so that the positions of each coordinate can be viewed. Connectivity of coordinates is not copied across to the output.</p>
+<p>The multi_probe data object has its transformation mode set to Parent, so that the coordinates cannot diverge from the original probe positions. Turn this back to Normal to move the multi-probe as a whole.</p>
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+Input array of Grids (coordinates) and a corresponding Xform.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Output field containing all the coordinates and a Point Mesh.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level <a href="doc_mod.html">MultiProbeMerge</a> module is used in this User Macro multi_probe.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application MultiProbeEg is provided, which shows a Sphere and a Box glyph combined to form a single probe into the Bluntfin example dataset, to generate streamlines. The white objects show the original input glyphs, which may be picked and transformed, and the red points show the combined coordinates of the multi_probe object.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/mprobe/mprbmacs.v</i> contains the multi_probe User Macro and the example application MultiProbeEg V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The MultiProbeMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level <a href="doc_mod.html">MultiProbeMarge</a> module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="doc_mod.html">MultiProbeMerge</a>.
+</blockquote>
+
+</body>
+</html>

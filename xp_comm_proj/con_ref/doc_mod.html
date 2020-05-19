@@ -1,0 +1,113 @@
+<html>
+<head>
+<title>ConnectRefToArrayCore</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ConnectRefToArrayCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Takes an array of group references (<i>ArrayOfIDs</i>) and an integer value to select the index which is connected to the output group reference (<i>RefToConnect</i>).
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+	module ConnectRefToArrayCore &lt;src_file=&quot;con_ref.cxx&quot;&gt;
+	{
+		group &amp;ArrayOfIDs&lt;NEportLevels={2,0}&gt;[];
+		int SelectedIndex&lt;NEportLevels={2,0}&gt;;
+		cxxmethod+notify_inst+req connect(
+			ArrayOfIDs+read+notify+req,
+			SelectedIndex+read+notify+req,
+			RefToConnect+write);
+		group &amp;RefToConnect&lt;NEportLevels={2,0}&gt;;
+	};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Takes an array of group references (<i>ArrayOfIDs</i>) and an integer value to select the index which is connected to the output group reference (<i>RefToConnect</i>). This can be used to generate a dynamic linking mechanism between various input/output ports in a network.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;ArrayOfIDs[]</b></i>
+</blockquote>
+
+<blockquote>
+Takes an array of group references.
+</blockquote>
+
+<blockquote>
+<i><b>SelectedIndex</b></i>
+</blockquote>
+
+<blockquote>
+The array index of the group to connect to the output.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>&amp;RefToConnect</b></i>
+</blockquote>
+
+<blockquote>
+Outputs a reference to the selected object in the array.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level module ConnectRefToArrayCore is used in the Connect_func macro. Additionally, these macros also use the Params parameter block group object, as does the ConnectRefUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ConnectRefToArrayEg is provided.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/con_ref/con_mods.v</I> contains the Params group and the ConnectRefToArrayMemberset module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level library ConnectRefToArray containing the module ConnectRefToArrayCore does not specify a process. By default the express process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ian Guthrie
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umac.html">ConnectRefToArray</a> user macro.</li>
+</ul>
+
+</body>
+</html>

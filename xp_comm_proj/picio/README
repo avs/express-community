@@ -1,0 +1,59 @@
+Read Bio-Rad PIC Project
+https://github.com/avs/express-community
+------------------------
+
+This directory ( xp_comm_proj/picio/ ) contains all the V code, HTML
+documentation, and installation information for the Read Bio-Rad PIC
+project "PIC_IO".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add
+the new project, and two single line additions to two of the xp_comm_lib/
+files (in this instance data_io.v and examples.v) to add a link to the
+User Macro and the Example Application from the top-level Community library
+page.
+
+The low-level module does not need compiling.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/thresh/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj/xp_comm_proj.v,
+		xp_comm_lib/data_io.v and xp_comm_lib/examples.v files. This file should
+		not be edited as the future installation script will use the file.
+
+PICio.v		Creates the XP_COMM_PROJ.PIC_IO library.
+
+pio_mods.v 	Creates the PICioMods library containing the low-level
+		module Read_PIC_core.
+
+pio_macs.v	Creates the PICioMacs library containing the User macro read_BioRad_PIC,
+		the Functional macro Read_BioRad_PIC, the User Interface macro Read_PIC_UI
+		and the example application Read_BioRad_PIC_Eg.
+
+doc_mod.html	HTML documentation for the Read_PIC_Core module.
+
+doc_umac.html	HTML documentation for the read_BioRad_PIC User Macro.
+
+flea3.pic	An example Bio-Rad PIC file.
+
+NOTE		A note about anisotropy of 3D confocal datasets.
+
+COPYRIGHT	Copyright notice.
+
+README		This file.
+
+
+
+Generated Files
+---------------
+
+No files are generated as the project contains only V code and is not compiled.
+

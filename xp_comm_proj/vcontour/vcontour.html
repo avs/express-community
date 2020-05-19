@@ -1,0 +1,296 @@
+<html>
+<head>
+<title>Volume_To_Contour</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Volume_To_Contour</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Volume_To_Contour generates contours from Volume data or 3D field data.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="100">Mesh+Data</td>
+<td width="425">input volume data or 3D field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Axis</i></td>
+<td width="75">int</td>
+<td width="300">The axis of contours</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>First_Slice</i></td>
+<td width="75">int</td>
+<td width="300">The position of first slice.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Last_Slice</i></td>
+<td width="75">int</td>
+<td width="300">The position of last slice.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Slice_Spacing</i></td>
+<td width="75">int</td>
+<td width="300">The gap size between two slices.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>NContours</i></td>
+<td width="75">int</td>
+<td width="300">The number of isoline(contours) in the each slice.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Level_min</i></td>
+<td width="75">float</td>
+<td width="300">Minimum level of contours.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Level_max</i></td>
+<td width="75">float</td>
+<td width="300">Maximum level of contours.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Color</i></td>
+<td width="75">int</td>
+<td width="300">Monochrome or color contours.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field of contours.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+Volume_To_Contour generates a set of orthoslices and on each slice there are a set of contours. This module acutally combines two AVS modules: isoline and orthoslice. The orthoslice generates slices from 3D field data and the isoline creates the contours on each slice. 
+</blockquote>
+
+<blockquote>
+Note: This module only works for one component field data. You can use extract_component to extract a single component from data with multiple components.
+</blockquote>
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the input field.  It has to be a 3D field or volume data.
+</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>Axis</b></i>
+</blockquote>
+
+<blockquote>
+The Axis of contours. It could be 0, 1 or 2 which corresponds to X, Y or Z axis in 3D.
+</blockquote>
+
+<blockquote>
+<i><b>First_Slice</b></i>
+</blockquote>
+
+<blockquote>
+The position of first slice. The minimum value is 1 and maximum value is the dimension of the axis. This value has to be less or equal to the value of <i>Last_Slice</i>.
+</blockquote>
+
+<blockquote>
+<i><b>Last_Slice</b></i>
+</blockquote>
+
+<blockquote>
+The position of last slice. The minimum value is 1 and maximum value is the dimension of the axis. This value has to be greater or equal to the value of <i>First_Slice</i>.
+</blockquote>
+
+<blockquote>
+<i><b>Slice_Spacing</b></i>
+</blockquote>
+
+<blockquote>
+The gap size between two slices. It is a integer value.
+</blockquote>
+
+<blockquote>
+<i><b>NContours</b></i>
+</blockquote>
+
+<blockquote>
+The number of contours on each slice. It is between 1 and 20. You can modify the maximum value in the V file of UI definition if a maximum of 20 is not sufficient for your purposes.
+</blockquote>
+
+<blockquote>
+<i><b>Level_min</b></i>
+</blockquote>
+
+<blockquote>
+This float value is used to define the node data value which is used for the minimum isoline. The minimum and maximum of this value are the minimum and maximum of node data values.
+</blockquote>
+
+<blockquote>
+<i><b>Level_max</b></i>
+</blockquote>
+
+<blockquote>
+This float value is used to define the node data value which is used for the maximum isoline. The minimum and maximum of this value are the minimum and maximum of node data values.
+</blockquote>
+
+<blockquote>
+<i><b>Color</b></i>
+</blockquote>
+
+<blockquote>
+This int value is used to control if the contours are colourized. Value 0 gives monochrome isolines and 1 gives coloured isolines.
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field of contours. It is a field of uniform mesh plus node data.
+</blockquote>
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro Volume_To_Contour makes use of the Functional Macro VolumeToContourFunc and the UI Macro VolumeToContourUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application VolumeToContourEg is provided, which uses the AVS/Express sample data file wind.fld, to display the contours.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+  <p><i>xp_comm_proj/vcontour/vcontmod.v</i> contains the V definitions of the VolumeToContourParams parameter block and the VolumeToContour module.</p>
+
+  <p><i>xp_comm_proj/vcontour/vcontmac.v</i> contains the V definitions of the VolumeToContourFunc Functional Macro, the VolumeToContourUI User Interface Macro, and the Volume_To_Contour User Macro. </p>
+  <p><i>xp_comm_proj/vcontour/vcontapp.v</i> contains the V definition of the example application VolumeToContourEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Dave Goughnour
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+  <pre>
+<a style="text-decoration:none" href="mailto:may@man.ac.uk">MA YingLiang</a>
+Manchester Visualization Centre</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+contour
+</blockquote>
+
+</body>
+</html>

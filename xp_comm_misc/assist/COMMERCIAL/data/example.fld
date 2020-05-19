@@ -1,0 +1,13 @@
+# AVS field file
+#
+ndim = 2
+dim1 = 10
+dim2 = 10
+nspace = 2
+veclen = 1
+data = float
+field = uniform
+label = val
+
+variable 1 file=example.dat filetype=ascii 
+

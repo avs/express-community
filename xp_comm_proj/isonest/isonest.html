@@ -1,0 +1,379 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>Isonest - Isosurfaces nested with transparent shells</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>
+Isonest - isosurface_nesting</h1>
+
+<h3>
+Synopsis</h3>
+
+<blockquote>A mapper module to control a set of N isosurfaces at unique
+levels, with each nested "onion-skins" having 2-pass transparency for high
+quality rendering.</blockquote>
+
+<blockquote>
+<h4>
+IsonestParams</h4>
+
+<table summary="Isonest Parameters" >
+<tr>
+<td WIDTH="125"><b><font size=-1>Name</font></b></td>
+
+<td WIDTH="125"><b><font size=-1>Type</font></b></td>
+
+<td WIDTH="300"><b><font size=-1>Description</font></b></td>
+
+<td WIDTH="125"><b><font size=-1>UI Control</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>num_component</i></td>
+
+<td WIDTH="125">int</td>
+
+<td WIDTH="300">The list of available data components in the input field</td>
+
+<td WIDTH="150">RadioBox</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>num_levels</i></td>
+
+<td WIDTH="125">int</td>
+
+<td WIDTH="300">Number of isosurfaces</td>
+
+<td WIDTH="150">Slider</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>min</i></td>
+
+<td WIDTH="125">float</td>
+
+<td WIDTH="300">The minimum value used for the first isosurface </td>
+
+<td WIDTH="150">Slider</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>max</i></td>
+
+<td WIDTH="125">float</td>
+
+<td WIDTH="300">The maximum data value used for the last isosurface </td>
+
+<td WIDTH="150">Slider</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>transparency</i></td>
+
+<td WIDTH="125">float</td>
+
+<td WIDTH="300">The overall group transparency level</td>
+
+<td WIDTH="150">Slider</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>trans_ramp</i></td>
+
+<td WIDTH="125">int</td>
+
+<td WIDTH="300">The trigger of transparency - all the same or ramped</td>
+
+<td WIDTH="150">CheckBox</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>ramp_delta</i></td>
+
+<td WIDTH="125">float</td>
+
+<td WIDTH="300">Width of range to vary transparency</td>
+
+<td WIDTH="150">Slider</td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+</table>
+
+<h4>
+Input Ports</h4>
+
+<table summary="Input Ports used by Transparency macros" >
+<tr>
+<td WIDTH="125"><b><font size=-1>Name</font></b></td>
+
+<td WIDTH="125"><b><font size=-1>Type</font></b></td>
+
+<td WIDTH="300"><b><font size=-1>Description</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>in_field</i></td>
+
+<td WIDTH="125">Field</td>
+
+<td WIDTH="300">Data that should be displayed, structured or unstructured,
+containing at least one scalar component.</td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+</table>
+
+<h4>
+Output Ports</h4>
+
+<table summary="Output Ports used by Transparency macros" >
+<tr>
+<td WIDTH="125"><b><font size=-1>Name</font></b></td>
+
+<td WIDTH="125"><b><font size=-1>Type</font></b></td>
+
+<td WIDTH="300"><b><font size=-1>Description</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>obj</i></td>
+
+<td WIDTH="125">GDobject</td>
+
+<td WIDTH="300">Directly renderable object output (group). Colormap editor
+may be connected to this port to change isonest color assignments.</td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+</table>
+</blockquote>
+
+<h3>
+Description</h3>
+
+<blockquote>The Isonest project implements one main new visualization macro
+module - "isosurface_nesting". The module is very similar to the standard
+isosurface module. The isosurface_nesting module creates N isosurfaces
+at once on the same data set rather than just one at a single threshold
+value. The range of threshold values for the isosurfaces is automatically
+spaced evenly between min and max values. All isosurfaces are assigned
+a unique color and transparency value. Secondary data values are not mapped
+onto the isosurfaces, only a solid color per isosurface is allowed for
+maximum visual differentiation. Transparency is applied with special care
+and methods to achieve high visual quality. First, transparency can be
+ramped from a low to a high value through the range of isosurfaces. This
+yields thin transparent shells on the outside with progressively more opaque
+shells on the interior. Second, a special variation of 2-pass transparency
+is used to reduce depth-order visual artifacts.
+<p>It is assumed that data contains some concentrated high values out of
+a broader field of low values. In this case, a set of isosurfaces will
+"nest" like onion-skins around the high value area. The onion is then sliced
+in half parallel to the viewer (using culling modes), into front and back
+halves. The back half is rendered first, in outside to inside order (accending
+isosurface levels). Then the front half is rendered in reverse order, from
+inside out. In this way all transparent skins of the onion are rendered
+in depth order. This method may not work on every data set. If you have
+a data set with small clusters of low values within a general field of
+high values, try reversing the data before hand using "data_math".
+<p>Because this module generates N-isosurfaces plus secondary GDobject
+references to them, it can easily generate a huge amount of geomety for
+the viewer. Please be patient and carefully select the parameters on smaller
+data sets first.
+<p>The color of each isosurface shell may be uniquely colored. By default,
+it uses a single range linear colormap to make color assigments. The values
+may be altered by connecting the "colormap_editor" and adding additional
+break points. Only the top group object at the output port may be used
+to edit colors.
+<p>The transparency of the whole system of isosurfaces is controlled using
+a module slider parameter rather than the Object editor. The same value
+may be applied to all isosurfaces, or they can be ramped. If ramp mode
+is on, then the range delta slider is active and controls the variation
+from the base transparency value as applied across the group.
+
+<h3>
+User Macros</h3>
+
+<blockquote>One main user macro is provided with this project:
+<ul><b><i>isosurface_nesting</i></b>
+<br>Performs the complete multiple-isosurface nesting operations with full
+user-interface control and simple to use macro packaging.
+<br>&nbsp;</ul>
+</blockquote>
+
+<h3>
+Input Ports</h3>
+
+<blockquote><b><i>in_field</i></b></blockquote>
+
+<blockquote>Field data to be used as input the isonest process. The input
+data can be any standard field data, matching "Mesh+Node_Data", where the
+node data contains at least one scalar component.</blockquote>
+
+<h3>
+Output Ports</h3>
+
+<blockquote><b><i>obj</i></b></blockquote>
+
+<blockquote>Directly renderable output object that can be displayed in
+a 3D viewer.&nbsp; This output is a link to a GroupObject that contains
+a Dynamically created set of subobjects. This top group object may also
+be used to edit the colormap.
+<br>&nbsp;</blockquote>
+
+<h3>
+Parameters</h3>
+
+<blockquote><b><i>num_component</i></b>
+<br>Radio list to select from the list of available data components in
+the input field to use in application of the isosurface functions.
+<p><b><i>num_levels</i></b>
+<br>Sets the number of isosurfaces to generate in the nested structure.
+Default is 3, default slider max is 8.
+<p><b><i>min</i></b>
+<br>Sets the minimum value used for the first isosurface using a slider.
+<p><b><i>max</i></b>
+<br>Sets the maximum data value used for the last isosurface in the sequence
+using a slider.
+<p><b><i>transparency</i></b>
+<br>Sets the overall group transparency level. If Transparency Progessive
+Ramp mode is off, this value is applied directly to all isosurfaces using
+the slider.
+<p><b><i>trans_ramp</i></b>
+<br>This toggle mode if off, allows a single transparency value to be used
+on all surfaces. If on, it can provide better visual clarity by having
+lower isosurface value shells (those most likely to be on the outside of
+the nest) to lower values, while those at the heart of the onion have higher
+values (more opaque).
+<p><b><i>ramp_delta</i></b>
+<br>This slider is active in Progressive Ramp mode. The value of this slider
+is used to control the range of transparency values across the nested structure,
+controlling the overall range of variation. The main transparency control
+above is used as the center point, with the range split +/- above and below
+this value. A range value of zero is identical to ramp mode off. The default
+is 0.3.
+<br>&nbsp;
+<br>&nbsp;</blockquote>
+
+<h3>
+Utility Macros</h3>
+
+<blockquote>The low-level modules used during the implementation of Isonest
+may also be of interest. The "Group Swap" module takes an array of GDobjects
+and generates a new list referencing the first but in reverse order. This
+module can also be wrapped with any group[] data structure for other array-based
+applications.
+<p>The "dmap2col" module takes a list of values, a DataMap as input, and
+produces an array of RGB float values representing the color assignments.
+<p>The "IsonestFunc" is a fully functional lower-level macro that performs
+all calculations but has no user interface.
+<p>The macro "fld2dmap" takes a field as input and creates a simple linear-range
+datamap referencing the input data range.</blockquote>
+
+<h3>
+Files</h3>
+
+<blockquote><i>xp_comm_proj/isonest/isonmacs.v</i> contains the V definitions
+of the isonest_local_UI and isonest&nbsp; macros, as well as utility modules
+mentioned above.
+<p><i>xp_comm_proj/isonest/isonmods.v</i> contains the V definitions of the
+group swap and dmap2color&nbsp; utility modules mentioned above.
+<p><i>xp_comm_proj/isonest/isonapps.v</i> contains the example applications.</blockquote>
+
+<h3>
+Example</h3>
+
+<blockquote>Four example applications are provided with this project. The
+first (<i>IsonestTestNoUI</i>) shows how to use the lower-level macro directly 
+without any user interface. In this case parameters can be set directly in the parameter block using the network editor. The next application (<i>IsonestEx1</i>) shows 5 isosurfaces nested to show the structure of hydrogen atom electron density field (hydrogen.dat). The next application (<i>IsonestEx2</i>) shows the meteorological dataset (water.fld) of water vapour content. The last example (<i>IsonestEx3</i>) shows the application of Isonest to FEA (Finite Element Analysis) results with the X-axis stress in a tuning-fork shown as a series of transparent nested isosurfaces on unstructured 3D elements.
+<p>Example images from the above application networks are available:
+<blockquote>
+<ul>
+<li>
+<a href="ison1.gif">ison1.gif</a> - hydrogen.dat with 5 nested isosurfaces</li>
+
+<li>
+<a href="ison2.gif">ison2.gif</a> - hydrogen.dat with 12 nested isosurfaces</li>
+
+<li>
+<a href="ison3.gif">ison3.gif</a> - water.fld with 6 nested isosurfaces</li>
+
+<li>
+<a href="ison4.gif">ison4.gif </a>- fork.inp - FEA stress results in tuning
+fork</li>
+</ul>
+</blockquote>
+</blockquote>
+
+<h3>
+Other Notes</h3>
+
+<blockquote>This project contains two procedural code methods and hence
+does&nbsp; require compiling before use. By default these are compiled
+into the express process for performance, but may be changed to the user
+process by editing the V files.</blockquote>
+
+<h3>
+Author</h3>
+
+<blockquote>
+<pre>Ian Curington, AVS Inc.</pre>
+</blockquote>
+
+<h3>
+Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+Tobias Schiebeck,
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>
+Contact</h3>
+
+<blockquote>
+<pre>International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL</pre>
+</blockquote>
+
+</body>
+</html>

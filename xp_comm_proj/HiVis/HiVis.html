@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>HiVis</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>HiVis</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+AVS/Express modules for the visualization of octrees and sparse grids and the 
+simplified and efficient integration of hierarchical adaptive data structures. 
+
+<p> 
+This project is classified as a special project by the IAC. Therefore we cannot offer the same level of support for this project as we do for other projects.
+</p>
+
+</blockquote>
+
+<h3>Objective</h3>
+
+<blockquote>
+Encapsulate scientific data that is hold by hierarchical adaptive 
+datastructures (e.g. Octree, Sparse Grids, ...) for the visualization. This is
+provided by a specification of rectilinear tiled grids (in short: adaptive 
+grid) as a generalized version of uniform grids. 
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+In AVS/Express the Adaptive Grid is integrated as a new grid type. It provides
+following modules:
+
+<UL>
+<LI><B>HiVis_Read_Octree</B>: Read an octree and represent it as an adaptive grid.</LI>
+
+<LI><B>HiVis_Read_SparseGrid</B>: Read a sparse grid and represent it as an adaptive
+grid.</LI>
+
+<LI><B>Field_To_HiVis</B>: Convert an AVS/Express uniform grid to an adaptive grid
+representation. Data is unchanged.</LI>
+
+<LI><B>HiVis_To_Field</B>: Convert an adaptive grid to an AVS/Express uniform
+grid. Node data is interpolated.</LI>
+
+<LI><B>AG_Octree</B>: Convert an adaptive grid to an octree representation. Grid must
+have data in cells. Note: The octree aproximates an adaptive grid and is itself
+represented as an adaptive grid. This matter should be understood
+correctly. E.g. the conversion from an AVS/Express uniform grid to an octree can
+be obtained with the modules Field_To_HiVis and AG_Octree.</LI>
+
+<LI><B>AG_SparseGrid</B>: Convert an adaptive grid to an sparsegrid
+representation.</LI>
+
+<LI><B>AG_Orthoslice</B>: Orthoslice an n-dimensional adaptive grid (i.e. reduce by one
+dimension).</LI>
+
+<LI><B>AG_Cell2Node</B>: Convert celldata to nodedata.</LI>
+
+<LI><B>HiVis_Bounds</B>: Draw grid bounds (no data map as yet).</LI>
+
+<LI><B>HiVis_Iso</B>: Generate isosurface. Grid must have data in nodes.</LI>
+
+<LI><B>HiVis_Streamlines</B>: Generate Streamlines. Grid must have data in nodes.</LI>
+
+<LI><B>HiVis_Render_Sparsegrid</B>: Visualize the nodes of the sparsegrid
+datastructure.</LI>
+
+<LI><B>HiVis_Render_Cells</B>: Visualize the adaptive grid cell structure</LI>
+</UL>
+
+The implementation is far from being complete. The integration of hierarchical
+adaptive datastructures into the visualization is an ongoing research
+topic. This package illustrates the choice of an abstract interface to unify
+different types of hierarchical adaptive datastructures for their
+visualization. But it does not take advantage of all aspects of the hierarchical
+adaptive data structures in the visualization. However here are some ideas for
+productive usage:
+
+<UL>
+<LI>Visualize the structure of an octree or a sparsegrid using
+HiVis_Render_Cells</LI> 
+
+<LI>Integrate new hierarchic adaptive datastructures by inheriting from the
+adaptive grid base class (C++-class visAdaptiveGrid).</LI>
+
+<LI>Interpolate a uniform grid with an octree or a sparsegrid, for example to
+illustrate image compression.</LI>
+
+</UL>
+<H3>Known Bugs</H3>
+
+<UL>
+<LI> After loading examples, that use the modules Generate_Octree or 
+Generate_SparseGrid you have to manually update the modules by selecting 
+different parameters like 'Max tree level' or epsilon values.</LI>
+</UL>
+</blockquote>
+
+<H3>Documentation</H3>
+
+<blockquote>
+<UL>
+<LI>
+<A href="http://www.comagic.com/visapi/"> Peter Breitling's web pages</A>
+</LI>
+<LI>
+<A HREF="VisApi/doc/FldFormat.html">HiVis fld-format draft specification</A>
+</LI>
+<LI>
+<A HREF="VisApi/doc/api/index.html">HiVis Class Reference</A>
+</LI>
+</UL>
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+<a STYLE="text-decoration: none" href="mailto:breitling@comagic.com">Peter Breitling <TT><FONT SIZE=+1>~</FONT></TT> breitling@comagic.com</a>
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Tobias Schiebeck,
+International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>
+

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module Particle_Density documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Particle Density</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Particle Density</h1>
+
+<h2>Description</h2>
+<p>Compute the average particle mass density using uniform binning. The mass value used is the atomic weight for each particle.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Select atoms</td>
+	<td class="c2">multi select list</td>
+	<td class="c3">The list of atoms contained in the molecule. Here the particles to be used are selected.</td>
+</tr>
+<tr>
+	<td class="c1">Deselect All</td>
+	<td class="c2">button</td>
+	<td class="c3">Deselect all the entries in the <i>Select atoms</i> list.</td>
+</tr>
+<tr>
+	<td class="c1">Select All</td>
+	<td class="c2">button</td>
+	<td class="c3">Select all the entries in the <i>Select atoms</i> list.</td>
+</tr>
+<tr>
+	<td class="c1">Selection type</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">Select the kind of operation:
+	<dl>
+	<dt>pass all selected</dt>
+		<dd>Pass to output only the atoms selected in the list</dd>
+	<dt>remove all selected</dt>
+		<dd>Remove from the molecule only the atoms selected in the list</dd>
+	<dt>pass all similar</dt>
+		<dd>Pass to output the atoms with names that starts like to the ones selected in the list</dd>
+	<dt>remove all similar</dt>
+		<dd>Remove from the molecule the atoms with names that starts like to the ones selected in the list</dd>
+	</dt></td>
+</tr>
+<tr>
+	<td class="c1">use cubic cells</td>
+	<td class="c2">toggle</td>
+	<td class="c3">If set the number of cells on each side is changed to obtain roughly cubic cells.</td>
+</tr>
+<tr>
+	<td class="c1">Cells per side</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">The number of cells on each side of the volume.</td>
+</tr>
+<tr>
+	<td class="c1">Smoothing</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">The smoothing factor for the gaussian. If set the particle mass is splattered on a <i>Kernel size</i> grid
+	with sigma equal to this value.</td>
+</tr>
+<tr>
+	<td class="c1">Kernel size</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">The number of cells on each side of the gaussian smoothing kernel.
+	This control is enabled only if <i>Smoothing</i> is greather than zero.</td>
+</tr>
+<tr>
+	<td class="c1">use manual limits</td>
+	<td class="c2">toggle</td>
+	<td class="c3">For the accumulator volume use the limits entered below. If not set the volume limits are computed by the module and show
+	in the fields below.</td>
+</tr>
+<tr>
+	<td class="c1">X, Y, Z min</td>
+	<td class="c2">numeric fields</td>
+	<td class="c3">Lower coordinates values for the volume.</td>
+</tr>
+<tr>
+	<td class="c1">X, Y, Z max</td>
+	<td class="c2">numeric fields</td>
+	<td class="c3">Upper coordinates values for the volume.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">selected_atoms</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">The atoms selected by the module.</td>
+</tr>
+<tr>
+	<td class="c1">fld_density</td>
+	<td class="c2">Field_Unif</td>
+	<td class="c3">The resulting volume with average mass density associated to each volume cell.</td>
+</tr>
+<tr>
+	<td class="c1">obj_density</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of fld_density.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="ParticleDensityApp.html">ParticleDensityApp</a> full application.</li>
+</ul>
+
+
+</body></html>

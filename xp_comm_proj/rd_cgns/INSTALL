@@ -1,0 +1,15 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+   "../xp_comm_proj/rd_cgns/rd_cgns.v" ReadCgns;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+   XP_COMM_PROJ.ReadCgns.ReadCgnsMacs.read_cgns read_cgns;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+   XP_COMM_PROJ.ReadCgns.ReadCgnsApps.ReadCgnsUnstructuredEg ReadCgnsUnstructuredEg;
+   XP_COMM_PROJ.ReadCgns.ReadCgnsApps.ReadCgnsMultiBlockEg ReadCgnsMultiBlockEg;
+   XP_COMM_PROJ.ReadCgns.ReadCgnsApps.TestCases ReadCgnsTestCases;
+

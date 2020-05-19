@@ -1,0 +1,252 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>IPEnhanceContrast &amp; ip_enhance_contrast</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>IPEnhanceContrast &amp; ip_enhance_contrast</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The IPEnhanceContrast user macro accepts 8 bit one band images in the standard Express IPimage format, uses the Contrast Limited Adaptive Histogram Equalization algorithm to enhance the contrast of the image.  The changed image is output in the same IPimage format, and as a standard Express field and DataObject.  The ip_enhance_contrast module provides a lower level way of using this algorithm.</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by IPEnhanceContrast">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_image</i></td>
+<td width="75">ip_Image</td>
+<td width="425">Input 8bit, single channel image.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by IPEnhanceContrast">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>level</i></td>
+<td width="75">float</td>
+<td width="300">Controls the clipping level of the histogram equalization</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by IPEnhanceContrast">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_image</i></td>
+<td width="75">ip_Image</td>
+<td width="425">Outputs the enhanced contrast image.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Field</td>
+<td width="425">Outputs the image as a 2D field.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The EnhanceContrast project provides two different macros that use the <i>'Contrast Limited Adaptive Histogram Equalization(CLAHE)'</i> algorithm to change the contrast of an 8bit, single channel image.  The CLAHE algorithm was written by Karel Zuiderveld and was included in the <a href="http://www.acm.org/pubs/tog/GraphicsGems/">Graphics Gems IV</a> book.  The best source of information on the functioning of this algorithm in this book.  Further information on the Graphics Gems series of books can be found at <code><a href="http://www.acm.org/pubs/tog/GraphicsGems/">http://www.acm.org/pubs/tog/GraphicsGems/</a></code>.</p>
+
+<p>The IPEnhanceContrast macro provides an easy to use interface to the CLAHE algorithm from AVS/Express.  The macro is designed to interact with the rest of the Image Processing(IP) kit included with Express and hence it does not take Field data as an input.  Instead it takes an ip_Image structure.  The IP kit uses this structure to store a single channel of image data.  It is assumed that the image data is always 8 bit.  An ip_Image structure can be created by using the <code>extract_scalar</code> module to select a single channel of an ARGB image and then using the <code>IPfldToImage</code> module to convert the field data into ip_Image data.  This process can be seen in the supplied example application.</p>
+
+<p>The IPEnhanceContrast macro provides a user interface.  This allows the clipping level parameter of the CLAHE algorithm to be adjusted.  The clipping level determines how much noise in the histogram should be smoothed and hence how much the contrast should be enhanced.  Full details of the effect of this parameter can be found in the original paper.</p>
+
+<p>After contrast enhancement the IPEnhanceContrast macro outputs the image in three forms.  It outputs a ip_Image structure so that further image processing can be done.  It also outputs a AVS/Express field structure and a directly renderable DataObject.</p>
+
+<p>The ip_enhance_contrast module is also provided in this project.  This module provides a reduced version of the IPEnhanceContrast macro that is intended to be used as part of a larger image processing application.  Due to this, this module does not include a user interface or output field data or a DataObject.</p>
+</blockquote>
+
+<h3>Notes</h3>
+
+<blockquote>
+<p>A problem was found with the CLAHE algorithm as given in the Graphics Gem IV book.  If low clipping levels were used it was possible for the algorithm to enter an infinite loop.  This problem was solved by adding a check for this condition in the appropriate loop.  Full details of this change can be found by searching for <code>IAC</code> in the <code>clahe.c</code> file.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_image</i></b></blockquote>
+
+<blockquote>
+Input image data this is to be operated upon.  This data should be contained in an ip_Image structure and should consist of a single channel of 8 bit data.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>level</i></b></blockquote>
+
+<blockquote>
+<p>Specifies which clipping level should be used in the CLAHE algorithm.  The values for the clipping level in the algorithm can range from negative infinite to positive infinite.  However certain ranges of values have special significance.  These are shown in the table below.</p>
+
+<table summary="valid ranges for clipping level">
+<tr>
+<td>negative infinity..0</td>
+<td>No histogram clipping.  This is equivalent to an infinite positive clipping level.</td>
+</tr>
+<tr>
+<td>0..1</td>
+<td>Contrast is decreased.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>No change to image.</td>
+</tr>
+<tr>
+<td>1..positive infinity</td>
+<td>Contrast is increased.</td>
+</tr>
+</table>
+
+<p>The slider in the user interface of the IPEnhanceContrast macro limits the adjust of clipping level to the range 0 to 5.  If a value outside of this range is required the ip_enhance_contrast module can be used.</p>
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_image</i></b></blockquote>
+
+<blockquote>
+The modified image output as ip_Image data.  The image data is output as 8 bit single channel data and will have the same dimensions as the original image.
+</blockquote>
+
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>
+The modified image output as an AVS/Express field structure.  The field structure will consist of a 2D uniform mesh with the same dimensions as the original image and a single set of scalar byte node data.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>
+Directly renderable output of the IPEnhanceContrast macro.  This output can be viewed by connecting it to the red input port of a 2D viewer component.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The IPEnhanceContrastFunc functional macro uses the EnhanceContrastCore low-level module.  The IPEnhanceContrast user macro uses this functional macro and the IPEnhanceContrastUI user interface macro.  All of these macros use the EnhanceContrastParams parameter block to communicate parameters between themselves.</p>
+
+<p>The ip_enhance_contrast module uses the EnhanceContrastCore low-level module.  It does not use any other modules or parameter blocks.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application is provided with the EnhanceContrast project.  The EnhanceContrastEg example application reads an image file and enhances the contrast of the loaded image.  A <code>extract scalar</code> module is used to select the colour component (alpha, red, green, blue) that should be enhanced.  An <code>IPfldToImage</code> module is then used to translate the field data into ip_Image data that is then processed by the IPEnhanceContrast macro.  The output object of that macro is then viewed in a 2D viewer.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/en_cont/enc_mods.v</i> contains the V definitions of the EnhanceContrastCore module and the EnhanceContrastParams parameter block.</p>
+
+<p><i>xp_comm_proj/en_cont/enc_macs.v</i> contains the V definitions of the IPEnhanceContrastUI UI macro, the IPEnhanceContrastFunc functional macro, the IPEnhanceContrast user macro and the ip_enhance_contrast module.</p>
+
+<p><i>xp_comm_proj/en_cont/enc_apps.v</i> contains the V definitions of the EnhanceContrastEg example application.</p>
+</blockquote>
+
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Mario Valle, AVS Italy
+
+Karel Zuiderveld, Computer Vision Research Group, Utrecht, The Netherlands
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Mary McDerby,
+Manchester Visualization Centre
+
+Tobias Schiebeck,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>Zuiderveld, Karel, <b>Contrast Limited Adaptive Histogram Equalization</b>, p. 474-485, code: p. 479-484</li>
+<li><a href="http://www.acm.org/pubs/tog/GraphicsGems/">Graphics Gems</a> home page.</li>
+</ul>
+
+</body>
+</html>
+

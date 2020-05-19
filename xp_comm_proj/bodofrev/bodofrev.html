@@ -1,0 +1,310 @@
+<html>
+<head>
+<title>BodyOfRevolution</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>BodyOfRevolution</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The BodyOfRevolution module rotates two polylines around the z-axis to form a &quot;solid&quot; body of revolution. The routine also calculates the mass properties for the body. The body is generated for 360 degrees of revolution.
+</blockquote>
+
+<blockquote>
+<h4>
+Input Ports</h4>
+
+<table summary="Input Ports used by BodyOfRevolution macro">
+<tr>
+<td WIDTH="125"><b><font size=-1>Name</font></b></td>
+
+<td WIDTH="125"><b><font size=-1>Type</font></b></td>
+
+<td WIDTH="425"><b><font size=-1>Description</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="3">
+<hr></td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>r_outside</i></td>
+
+<td WIDTH="125">float[]</td>
+
+<td WIDTH="425">Radii of the outside surface of the body of revolution at the z-positions given by z_outside.</td>
+</tr>
+<tr>
+
+<td WIDTH="125"><i>z_outside</i></td>
+
+<td WIDTH="125">float[]</td>
+
+<td WIDTH="425">Position of the next fixed points along the z-axis describing the inside and outside radius.</td>
+</tr>
+<tr>
+
+<td WIDTH="125"><i>r_inside</i></td>
+
+<td WIDTH="125">float[]</td>
+
+<td WIDTH="425">Radii of the inside surface of the body of revolution at the z-positions given by z_outside.</td>
+</tr>
+
+<tr>
+<td COLSPAN="3">
+<hr></td>
+</tr>
+</table>
+</blockquote>
+
+
+<blockquote>
+<h4>
+Parameters</h4>
+
+<table summary="BodyOfRevolution Parameters" >
+<tr>
+<td WIDTH="125"><b><font size=-1>Name</font></b></td>
+
+<td WIDTH="125"><b><font size=-1>Type</font></b></td>
+
+<td WIDTH="300"><b><font size=-1>Description</font></b></td>
+
+<td WIDTH="125"><b><font size=-1>UI Control</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>active</i></td>
+
+<td WIDTH="125">int</td>
+
+<td WIDTH="300">Enables or disables the BodyOfRevolution module.</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>Subdivision</i></td>
+
+<td WIDTH="125">int</td>
+
+<td WIDTH="300">Number of faces that generate the surface of the body of revolution.</td>
+
+<td WIDTH="125">Slider</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>nose_cap_on</i></td>
+
+<td WIDTH="125">int</td>
+
+<td WIDTH="300">Toggles a semisphere on the end of the body of revolution. </td>
+
+<td WIDTH="125">CheckBox</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>density</i></td>
+
+<td WIDTH="125">float</td>
+
+<td WIDTH="300">The density property is used for the mass calculation.</td>
+
+<td WIDTH="125">TextField</td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+</table>
+
+
+<h4>
+Output Ports</h4>
+
+<table summary="Output Ports used by BodyOfRevolution macro" >
+<tr>
+<td WIDTH="125"><b><font size=-1>Name</font></b></td>
+
+<td WIDTH="125"><b><font size=-1>Type</font></b></td>
+
+<td WIDTH="425"><b><font size=-1>Description</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>mass</i></td>
+
+<td WIDTH="125">float</td>
+
+<td WIDTH="425">Mass Property of the Body of revolution.</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>out</i></td>
+
+<td WIDTH="125">Mesh</td>
+
+<td WIDTH="425">Grid and mesh containing the Body of revolution surface. </td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>obj</i></td>
+
+<td WIDTH="125">DataObject</td>
+
+<td WIDTH="425">Directly renderable object generated from the out mesh.</td>
+</tr>
+
+<tr>
+<td COLSPAN="4">
+<hr></td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+BodyOfRevolution rotates &quot;inside&quot; and &quot;outside&quot; polylines around the &quot;z&quot; axis to form a &quot;solid&quot; body of revolution.  The routine creates surfaces and the appropriate normals for the inside, outside, and end caps (if required).  The outside polyline line is required.  The routine also calculates the mass properties for the body. The body is generated for 360 degrees of revolution only.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>r_outside[]</b></i>
+</blockquote>
+
+<blockquote>
+Radii of the outside surface of the body of revolution at the z-positions given by z_outside.
+</blockquote>
+
+<blockquote>
+<i><b>z_outside[]</b></i>
+</blockquote>
+
+<blockquote>
+Positions of the fixed points along the z-axis, on which a radius for the inside and outside surface is given.
+</blockquote>
+
+<blockquote>
+<i><b>r_inside</b></i>
+</blockquote>
+
+<blockquote>
+Radii of the inside surface of the body of revolution at the z-positions given by z_outside.</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>active</b></i>
+</blockquote>
+
+<blockquote>
+Enables or disables the BodyOfRevolution module.
+</blockquote>
+
+<blockquote>
+<i><b>nose_cap_on</b></i>
+</blockquote>
+
+<blockquote>
+Toggles a semisphere on the end of the body of revolution. 
+</blockquote>
+
+<blockquote>
+<i><b>Subdivision</b></i>
+</blockquote>
+
+<blockquote>
+Number of faces that generate the surface of the body of revolution.
+</blockquote>
+
+
+<blockquote>
+<i><b>density</b></i>
+</blockquote>
+
+<blockquote>
+The density property is used for the mass calculation.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>mass</b></i>
+</blockquote>
+
+<blockquote>
+Mass Property of the Body of revolution. This mass property is calculated from the volume of the body of revolution and the density parameter given by the user. This calculation is currently limited to the use of identical z-positions for the inside and
+outside radius. Therefore there is no z_inside Input array.  
+</blockquote>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Grid and mesh containing the Body of revolution surface. This output can be used for further processing.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+Directly renderable object generated from the out mesh. This output can be connected directly to the UViewer to get a rendered image.</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An Example Application that uses the BodyOfRevolution module is provided. This Application generates a body of revolution surface from the given inner and outer radii using the z positions given by the third array. The example arrays are fixed in the application.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/bodofrev/bodofrev.v</i> Creates the XP_COMM_PROJ.BodyOfRevolution library.</p> 
+<p><I>xp_comm_proj/bodofrev/bofrmods.v</I> Creates the BodyOfRevolutionMods library containing the low-level module BodyOfRevolutionCore and the parameter block BodyOfRevolutionParams.</p>
+<p><i>xp_comm_proj/bodofrev/bofrmacs.v</i> Creates the BodyOfRevolutionMacs library containing the high-level functional macro BodyOfRevolutionFunc, user interface macro BodyOfRevolutionUI and the user macro BodyOfRevolution.</p>
+<p><i>xp_comm_proj/bodofrev/bofrapps.v</i> Creates the BodyOfRevolutionApps library containing the example application BodyOfRevolutionEg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level BodyOfRevolutionMods library containing the module BodyOfRevolutionCore does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Ian Curington
+Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+Manchester Visualization Centre
+
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>

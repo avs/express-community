@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+   <title>ReadSegY</title>
+</head>
+
+<body bgcolor="#92BFBF">
+
+<h1>ReadSegY</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Reads files in SEG-Y format and outputs a uniform field.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by ReadSegY">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="75"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4">
+<hr>
+</td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">Name of SEG-Y file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>normalize</i></td>
+<td width="75">string</td>
+<td width="300">stores the data in a normal cube</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>timescale</i></td>
+<td width="75">string</td>
+<td width="300">scales the time axis by 10^timescale </td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4">
+<hr>
+</td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by ReadSegY">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="75"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4">
+<hr>
+</td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Uniform Field</td>
+<td width="425">Volume data read from file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly Renderable Output Object.</td>
+</tr>
+
+<tr>
+<td colspan="4">
+<hr>
+</td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>The <tt>ReadSegY</tt> user macro reads SEG-Y format data from a specified file and outputs mesh data. The SEG-Y format is commonly used for presentation of seismic data.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>String parameter that contains the name of the SEG-Y file that should be read. The filename can either by relative or absolute and it can contain AVS/Express environment variables (i.e. $XP_ROOT, $XP_PATH&lt;1&gt;).</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out</i></b></blockquote>
+
+<blockquote>Uniform field output that contains the data read from the SEG-Y file.  The uniform field contains a 3D uniform mesh and a single set of node data.</blockquote>
+
+<blockquote><b><i>obj</i></b></blockquote>
+
+<blockquote>The directly renderable output of the read_segy macro. This output contains the data read from the Seg-Y file in a form that can be rendered by the standard data viewers.  Normally this output will not be used as further processing will have to be done on the volume data.</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>The ReadSegyFunc functional macro uses the ReadSegyCore low-level module. The ReadSegY user macro uses this functional macro and the ReadSegyUI user interface macro. None of these objects use a parameter block.</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>To demonstrate the use of ReadSegY two example applications are provided.  The ReadSegyEg1 and ReadSegyEg2 example applications use the ReadSegY macro to read a set of Seg-Y data.  The read data is then processed by the ReadSegyEg1 application and to show and orthoslice in a bounding box. The ReadSegyEg2 application only shows the orthoslice using reset_xform to show it in a 2D plane.</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_segy/segymods.v</i> contains the V definition of the ReadSegyCore module.</p>
+
+<p><i>xp_comm_proj/rd_segy/segymacs.v</i> contains the V definitions of the ReadSegyUI UI macro, the ReadSegyFunc functional macro and the ReadSegY user macro.</p>
+
+<p><i>xp_comm_proj/rd_segy/segyapps.v</i> contains the V definition of the ReadSegyEg1 and ReadSegyEg2 example application.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadSegyMods library containing the module ReadSegyCore does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Tom Parker, AVS Inc.
+</pre></blockquote>
+
+
+<h3>Modification</h3>
+
+<blockquote><pre>
+Lars Mueller, Anja Bindrich,
+Manchester Visualization Centre
+
+Andrew Dodd, Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>
+

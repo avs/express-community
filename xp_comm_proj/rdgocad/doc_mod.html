@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>ReadGOCAD</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ReadGOCAD</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads GOCAD files and re-scales the data along the x, y and z axis.
+</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+  module ReadGOCAD &lt;src_file="gocad.cxx",
+                    libdeps="FLD",
+                    cxx_hdr_files="fld/Xfld.h"&gt;
+  {
+    GocadParams &amp;group_ref&lt;NEportLevels={2,0},export=2&gt;;
+
+    boolean scale&lt;export=2&gt; =&gt; group_ref.scale;
+    string file_name&lt;export=2&gt; =&gt; group_ref.file_name;
+    float x&lt;export=2&gt; =&gt; group_ref.x;
+    float y&lt;export=2&gt; =&gt; group_ref.y;
+    float z&lt;export=2&gt; =&gt; group_ref.z;
+
+    Grid Grid&lt;export=2&gt; {
+      nspace = 3;
+      coordinates {
+        min =&gt; ;
+        max =&gt; ;
+      };
+    };
+    Cells Cells&lt;export=2&gt; {
+      ncell_sets = 1;
+      cell_set = {
+        { cell_nnodes=3,poly_flag=0,cell_order=1,cell_ndim=2 }
+      };
+    };
+    Xform Xform&lt;export=2&gt;;
+
+    Mesh &amp;Mesh&lt;NEportLevels={0,2},export=2&gt; =&gt; merge(.Grid,.Cells,.Xform);
+
+    cxxmethod+notify_inst+req update&lt;export=2&gt;(
+       Grid+write,
+       Cells+write,
+       scale+read+notify+req,
+       x+read+notify+req,
+       y+read+notify+req,
+       z+read+notify+req,
+       file_name+read+notify+req
+    );
+  };
+</pre>
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+ReadGOCAD reads the contents of one GOCAD file, and converts this to a Mesh 
+(Xform+Cells+Grid), suitable for input into a DataObject module. The module 
+ignores all other lines from the GOCAD file except for vertices and triangles. 
+It scans each line for the appropriate keywords. If the the line contains 
+"VRTX", then it reads the id, and the position x, y, z. If the line contains 
+"TRGL", it reads three index numbers for which set of vertices to tie together 
+as a triangle. Axis specific scaling is achievable by using the floating point 
+parameters x,y and z.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;group_ref</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the GocadParams parameter block. 
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>Mesh (Xform+Cells+Grid)</b></i>
+</blockquote>
+
+<blockquote>
+The output field contains scaled/not scaled data, suitable for input into a 
+DataObject.  This can be viewed using either a 2D or 3D Uviewer.  
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadGOCAD is used in the Functional Macro Gocad and the User Macro 
+<a href="doc_umac.html">read_gocad</a>. Additionally, these macros also use the 
+GocadParams parameter block group object, as does the GocadUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadGocadEg is provided, which uses the sample data file 
+worldmap.tsurf, to display a picture of the world.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/rdgocad/goc_mods.v</I> contains the GocadParams group and the 
+ReadGocad module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+By default the low-level library GocadMods, inherits its process as 
+<tt>express</tt>. See the README file for details.
+</blockquote>
+
+<h3>Authors</h3>
+<blockquote><pre>
+AVS5 version
+Ian Curington,  AVS/UNIRAS Ltd.
+
+
+Ported to AVS/Express by
+Justin Greenhalgh
+
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+GocadParams, Gocad, GocadUI and <a href="doc_umac.html">read_gocad</a>.
+</blockquote>
+
+</body>
+</html>

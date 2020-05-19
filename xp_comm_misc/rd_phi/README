@@ -1,0 +1,50 @@
+Express Community "ReadPhoenics" Project
+https://github.com/avs/express-community
+--------------------------
+
+This special Community project contains a reader for the Phoenics data format.
+Phoenics is a CFD package created by CHAM Ltd. The code included is
+meant to provide a reader for the data files produced by this package.
+Unfortunately the Community have been unable to get this code working properly
+on our test platforms. However it is possible that the code may work or
+can be modified to work properly on different platforms. Therefore the
+Community have released this project so that users will have the code
+available. Unfortunately the Community will not be able to provide any support
+in the use of this project.
+
+It should also be noted that the data format read has become outdated
+and that the reader cannot read files from the current version of
+Phoenics.
+
+The supplied distribution contains a complete project directory structure.
+It should be extracted into a new directory and AVS/Express should be used
+to compile the supplied Fortran source files.
+
+
+Files
+-----
+
+The following files can be found in the distribution.
+
+avsenv
+DISCLAIMER
+README
+data/cham.x
+data/patgeo
+data/patgeo.212
+data/phi
+data/phida.212
+data/pho.phi
+data/pho.xyz
+data/pipe.phi
+data/smoke.phi
+data/xyzda.212
+source/neplib.f
+source/readp.f
+source/examples.v
+source/misc.v
+source/mods.v
+v/inst.v
+v/proc.v
+v/templ.v
+

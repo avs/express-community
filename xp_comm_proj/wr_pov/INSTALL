@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/wr_pov/wr_pov.v" WritePov;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+     XP_COMM_PROJ.WritePov.WritePovMacs.write_pov write_pov;
+     XP_COMM_PROJ.WritePov.WritePovMacs.write_pov_GD write_pov_GD;
+     XP_COMM_PROJ.WritePov.WritePovMacs.write_pov_ARR write_pov_ARR;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+     XP_COMM_PROJ.WritePov.WritePovMacs.WritePovEg WritePovEg;
+     XP_COMM_PROJ.WritePov.WritePovMacs.WritePovArrEg WritePovArrEg;
+

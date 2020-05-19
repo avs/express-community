@@ -1,0 +1,167 @@
+<html>
+<head>
+<title>CB_ColorMap</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CB_ColorMap</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Generate Colormaps from the Color Brewer database.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>Category</i></td>
+<td width="125">UIOptionMenu</td>
+<td width="300">type of colormap</td>
+</tr>
+
+<tr>
+<td width="125"><i>Select Colormap by</i></td>
+<td width="125">UIradioOption</td>
+<td width="300">order to list available colourmaps</td>
+</tr>
+
+<tr>
+<td width="125"><i>No of Colors / Name</i></td>
+<td width="125">UIoptionMention</td>
+<td width="300">number of colours or name of colormap</td>
+</tr>
+
+<tr>
+<td width="125"><i>Stepped</i></td>
+<td width="125">UItoggle</td>
+<td width="300">colors a descrete if checked</td>
+</tr>
+
+<tr>
+<td width="125"><i>colormap</i></td>
+<td width="125"></td>
+<td width="300">colormaps available</td>
+</tr>
+
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>CB_Datamap</i></td>
+<td width="125">Datamap</td>
+<td width="300">datamap object of the selected Color Brewer colormap</td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+This macro generates highly intuitive colormaps that take into account human perception of colors, their tone and intensity. The macro uses the ColorBrewer database (a .csv file) and presents a list of colormaps from the users parameters. The user can then easily select the colormap closest to their need. ColorBrewer is an online tool for generating colormaps primarily looking at map data but can be used with any type of data and provides much better interpretation of the data than the standard visualization colormaps. 
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>Category</b></i>
+</blockquote>
+
+<blockquote>
+There are three categories qualitative(qual), sequential(seq) and diverging(div). Qualitative are for data that represents labels rather than quantitative values. Sequential for quantitative data that goes from a minimum to a max values. Diverging colormaps are for values that a based around some sort of average.
+</blockquote>
+
+<blockquote>
+<i><b>Select Colormaps by</b></i>
+</blockquote>
+
+<blockquote>
+Choose the colormap by its name or number of colors
+</blockquote>
+
+<blockquote>
+<i><b>No of Colors / Name</b></i>
+</blockquote>
+
+<blockquote>
+Select the number of colors or the name of the colormaps to list. This widget changes depending on what <b>Select Colormaps by</b> is set to.
+</blockquote>
+
+<blockquote>
+<i><b>Stepped</b></i>
+</blockquote>
+
+<blockquote>
+By default the colourmaps are continous ie the color for any value is interperted between the nearest key colors. Otherwise the colormap is descrete and values will be assigned the nearest key color.
+</blockquote>
+
+<blockquote>
+<i><b>Colormaps</b></i>
+</blockquote>
+
+<blockquote>
+A visual list of the colormaps available from the choices made previously. These are presented in a descrete form so the key colors can be clearly seen.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>CB_Datamap</b></i>
+</blockquote>
+
+<blockquote>
+Standard Datamap object which contain the colormap create from the Color Brewer database. This object should be used as the Datamap input for the desired DataObject.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+CB_ColorMapEg
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cb_map/cbcmmacs.v</I> contains the User Macro, the UI Macro and the Example Application.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ColorBrewer database, <i>ColorBrewer_all_schemes_RGBonly3.csv</i>, is provided under the Apache license agreement. See the file <I>ColorBrewer_all_schemes_RGBonly3.license.txt</I>.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Tino Ernst & Tobias Shriebeck
+
+International AVS Centre
+Research Computing Services
+Devonshire House,
+Precinct Centre,
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CB_ColorMapCore
+</blockquote>
+
+</body>
+</html>

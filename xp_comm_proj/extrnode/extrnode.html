@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>ExtractNodeData</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>ExtractNodeData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module extracts the data values of a certain position (or a 
+set of positions) in a NodeData Array. 
+</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by ExtractNodeData">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="200">Mesh_Unif+NodeData</td>
+<td width="425">Uniform Mesh and NodeData that contains the information to extract.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+<h4>Parameters</h4>
+
+<h5>ExtractNodeDataParams</h5>
+
+<table summary="Parameters used by ExtractNodeData">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>node_index</i></td>
+<td width="200">int[]</td>
+<td width="300">Set of nodes the Data values should be obtained from.</td>
+<td width="125"></td>
+</tr>
+
+<tr>
+<td width="100"><i>offset</i></td>
+<td width="200">int</td>
+<td width="300">Order in which the output should be sorted.</td>
+<td width="125">slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by ReadTecplot">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="200">float[][]</td>
+<td width="425">data values of all NodeData entries at the given positions. </td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This module outputs the NodeData values of a given set of indices. The user macro ExtractNodeData provides a user interface that allows the input of coordinates. This makes the selection easier, but it does not use the full functionality of the functional macro ExtractNodeDataFunc, as it only allows to get the Data values of a single point. The ExtractNodeDataUI user interface macro uses the functionality of the IAC CombineCoordinateIndex Module to calculate the index from the given coordinates.</p>
+
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>MeshUnif + NodeData data that contains the geometries and data values. The Module only uses the dims-value of the Mesh and the NodeData.</blockquote>
+
+<h3>Parameters</h3>
+
+<h4>ExtractNodeDataParams</h4>
+
+<blockquote><b><i>node_index</i></b></blockquote>
+
+<blockquote>Set of nodes the Data values should be obtained from.</blockquote>
+
+<blockquote><b><i>offset</i></b></blockquote>
+
+<blockquote>
+Order in which the output should be sorted. The ouput array starts with the offset-th data value (e.g. if there are 5 NodeData entries, and offset is 3 the output array looks: { value[3], value[4], value[0], value[1], value[2]}).
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out</i></b></blockquote>
+
+<blockquote>Float array that contains the NodeData values at the given positions.</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ExtractNodeDataFunc functional macro uses the low-level Extract_Node_Data module. The macro takes as input the parameter blocks, ExtractNodeDataParams. </p> 
+
+<p>The ExtractNodeDataFunc functional macro and the ExtractNodeDataUI user interface macro are both used by the ExtractNodeData user macro. All of these macros use the ExtractNodeDataParams parameter block to communicate. The ExtractNodeDataUI user interface macro uses the CombineCoordinateIndex module. </p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes an example application ExtractNodeDataEg that demonstrates the use of the ExtractNodeData macro.</p>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/extrnode/exndmods.v</i> contains the V definitions of the Extract_Node_Data module and the ExtractNodeDataParams parameter block.</p> 
+
+<p><i>xp_comm_proj/extrnode/exndmacs.v</i> contains the V definitions of the ExtractNodeDataUI UI macro, the ExtractNodeDataFunc functional macro and the ExtractNodeData user macro.</p>
+
+<p><i>xp_comm_proj/extrnode/exndapps.v</i> contains the V definitions of the ExtractNodeDataEg example application.</p>
+</blockquote>
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project requires the following components to be installed correctly.
+Without them it will not function correctly.
+</blockquote>
+
+<ul>
+<li>CombineCoordinateIndex project 
+</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ExtractNodeDataMods library containing the low-level module Extract_Node_Data does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+Dave Goughnour,
+Advanced Visual Systems, Inc.
+<h3>Modifications</h3>
+
+<blockquote><pre>
+MA YingLiang
+Manchester Visualization Centre
+
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>, International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+
+<li>CombineCoordinateIndex project</li>
+</li>
+</ul>
+</body>
+</html>
+

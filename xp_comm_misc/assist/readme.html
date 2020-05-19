@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>Assistant</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>Assistant</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Demonstration project showing the use of AVS in a variety of application areas.
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The Assistant project is a demonstration application that shows how AVS/Express
+may be used in a number of different application areas.  The application areas
+available are:
+</blockquote>
+
+<ul>
+	<li>Standard 2D/3D Visualisation</li>
+	<li>Finite Element Modelling</li>
+	<li>Environmental Factor Visualisation</li>
+	<li>Medical Visualisation</li>
+	<li>Computational Fluid Dynamics</li>
+	<li>Commercial Visualisation</li>
+</ul>
+
+<blockquote>
+Each of these areas has a set of sample data available and the user can choose
+from a number of ways of visualising each piece of data.  The options available
+are appropriate for each application area.  The user can also choose to read in
+their own data.  All the standard properties are available for editing.  These
+include setting the camera, scene and object rendering properties.
+</blockquote>
+
+<hr>
+
+<h3>Installation</h3>
+
+<blockquote>
+Due to the way the Assistant project works the directory it is located in has
+to be specified.  This is done by editing the <tt>a_start.v</tt> file.  Open
+this file using a standard text editior such as MSDOS Edit, vi or emacs and
+find the line:
+</blockquote>
+
+<pre>
+$setenv ASSIST_HOME c:/assist
+</pre>
+
+<blockquote>
+Alter this line so that it points to the location of Assistant directory
+on your system. For example if the Assistant project was installed by
+<tt>fred</tt> on a Unix system in his home directory then the Assistant
+directory might be <tt>/usr/people/fred/assist</tt>. Therefore he would
+edit the <tt>a_start.v</tt> to read:
+</blockquote>
+
+<pre>
+$setenv ASSIST_HOME /usr/people/fred/assist
+</pre>
+
+
+<h3>Starting the Assistant</h3>
+
+<blockquote>
+To start the Assistant load the application file <tt>a_start.v</tt>
+using any of the standard methods.  The easiest way to do this is to
+choose the menu option <b>File-&gt;Load Application...</b> and browse
+for the <tt>a_start.v</tt> file from there.  The application can also
+be loaded from the AVS startup dialog box or from the command line.
+</blockquote>
+
+<h3>Using the Assistant</h3>
+
+<blockquote>
+The Assistant will start with the main menu shown below:
+</blockquote>
+
+<center><img src="images/ass_menu0.gif" width=323 height=493 alt="Main Menu"></center>
+
+<blockquote>
+Each of six pictures selects a different application area.  A text
+description of each can be seen by resting the mouse pointer over each
+picture.  Selecting one of the options brings a sub-menu similar to that
+shown below:
+</blockquote>
+
+<center><img src="images/submenu.gif" width=362 height=546 alt="Sub-menu"></center>
+
+<blockquote>
+It also brings up a larger window.  This is the scene viewer and will
+display the results of your visualisations.  The sub-menu window can be
+broken up into two sections, a toolbar at the top of the window and a
+number of option panels.  Clicking on a picture in an option panel enables
+the visualisation that it represents.  The visualisation selected will appear
+in the scene viewer and parameters will appear in the right-hand panel.  These
+parameters can be edited in place or the button below the picture can be used
+to enlarge the parameters panel.  Click the <TT>RETURN</TT> button to return
+to the sub-menu.  These options are shown in the picture below:
+</blockquote>
+
+<center><img src="images/vis_box.gif" width=400 height=250 alt="Option panel"></center>
+
+<blockquote>
+The toolbar options are shown below.  The two rightmost buttons perform
+the same functions as in AVS/Express and can be used to reset any
+rotations of the scene that you may have made.
+</blockquote>
+
+<center><img src="images/toolbar.gif" width=300 height=85 alt="Toolbar"></center>
+
+<hr>
+
+<h3>Technical Details</h3>
+
+<blockquote>
+The demonstration application is entirely written in V code. It creates
+and destorys user interface components as required by dynamically
+instancing and deinstancing objects. This technique has many uses when
+developing applications with AVS/Express and it can be learnt by
+studying out the Assistant project works. It particular the dynamic
+creation and destruction of objects can be seen if the Network Editor is
+examined.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Dr. Johannes Widyanatta
+Advanced Visual Systems GmbH
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+</body>
+</html>
+

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module Scat_to_Volume documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Scat to Volume</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Scat to Volume</h1>
+
+<h2>Description</h2>
+<p>Convert the molecule to an uniform volume in which sites occupied by atoms are
+are represented as spheres of points. Each point has value corresponding to the <i>charge</i> atom value.</p>
+<p>Then the resulting volume is <i>volume rendered</i> by the standard AVS/Express
+<a href="http://help.avs.com/Express/doc/help_62/reference/dvmac/volume_r.htm">volume_render</a> module.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+<tr>
+	<td class="c1">start</td>
+	<td class="c2">int</td>
+	<td class="c3">Loop start value of the sequence of positions.</td>
+</tr>
+<tr>
+	<td class="c1">end</td>
+	<td class="c2">int</td>
+	<td class="c3">Loop end value of the sequence of positions.</td>
+</tr>
+<tr>
+	<td class="c1">increment</td>
+	<td class="c2">int</td>
+	<td class="c3">Loop increment value for the sequence.</td>
+</tr>
+<tr>
+	<td class="c1">step</td>
+	<td class="c2">int</td>
+	<td class="c3">Loop current step value.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Sphere radius</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">The radius of the spheres used to represent atoms (it is equal for every atom).</td>
+</tr>
+<tr>
+	<td class="c1">Box resolution</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">The side of each cell of the resulting volume.</td>
+</tr>
+<tr>
+	<td class="c1">use manual limits</td>
+	<td class="c2">toggle</td>
+	<td class="c3">For the resulting volume use the limits entered below. If not set the volume limits are computed by the module and show
+	in the fields below.</td>
+</tr>
+<tr>
+	<td class="c1">X, Y, Z min</td>
+	<td class="c2">numeric fields</td>
+	<td class="c3">Lower coordinates values for the volume.</td>
+</tr>
+<tr>
+	<td class="c1">X, Y, Z max</td>
+	<td class="c2">numeric fields</td>
+	<td class="c3">Upper coordinates values for the volume.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">out</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of the volume plus the volume bounds.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="Scat2VolumeDisplayApp.html">Scat2VolumeDisplayApp</a> full application.</li>
+</ul>
+
+
+</body></html>

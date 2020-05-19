@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>DashGauge</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>DashGauge</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A colorful User Interface gauge module to output a float value.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>visible</i></td>
+<td width="75">int</td>
+<td width="300">Toggles the visibility of the DashGauge UIpanel.</td>
+</tr>
+<tr>
+<td width="100"><i>parent</i></td>
+<td width="75">UIconnection</td>
+<td width="300">The User interface parent object.</td>
+</tr>
+<tr>
+<td width="100"><i>step_value</i></td>
+<td width="75">float</td>
+<td width="300">The float value data to be shown by DashGauge.</td>
+</tr>
+<tr>
+<td width="100"><i>title</i></td>
+<td width="75">string</td>
+<td width="300">The title of the DashGauge in the UI.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This provides three colorful User Interface modules to display float values. 
+These modules display a changing float value like a traditional gauge.
+It shows the needle, dial and text in a 2D viewer (dash_camera). The needle and text display is implemented using the "mk_needle" and "mk_dashtext" modules similar to the ones released with the GlyphLibrary.
+GlyphLibrary.
+</p><p>
+This modules only provide the User Interface modules. They do not contain a UImod_panel.</p>
+<IMG src="gauge.jpg"></IMG>
+</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>visible</b></i>
+</blockquote>
+
+<blockquote>
+This integer value swiches the DashGauge User Interface element on or off. The elements themself are not disabled. They are just hidden with the UIpanel.
+</blockquote>
+
+<blockquote>
+<i><b>parent</b></i>
+</blockquote>
+
+<blockquote>
+This UIconnection value contains the User Interface element which provides the 
+parent frame or panel for the DashGauge element.
+</blockquote>
+
+<blockquote>
+<i><b>step_value</b></i>
+</blockquote>
+
+<blockquote>
+This parameter contains the float value which is to be shown by the gauge. This value is not constrained. If this value is in the range between 0 and 100, the needle will move in a range from 0 to 180 degrees.
+</blockquote>
+
+<blockquote>
+<i><b>title</b></i>
+</blockquote>
+
+<blockquote>
+The title string is displayed at the bottom of the DashGauge User Interface element. It is by default the name of the Module in the Network editor.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+<p>
+The DashGauge project provides three modules DashGaugeA, DashGaugeB and DashGaugeC. These modules use the common utility modules dash_camera, mk_dashtext, mk_needle, transform_needle, arc_grid and arc_solid.
+</p><p>
+dash_camera defines a very simple camera system to display the 2D dashboard widget. This camera does not contain picking functions.
+</p><p>
+mk_needle and transform_needle provide the fuctionality to draw and rotate the needle to show the value given by step_value.
+</p><p>
+mk_dashtext, arc_grid and arc_solid provide the functionality to draw the 
+DashGauge backgrounds.
+</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application DashGaugeArrayEg is provided, which demonstrates 
+displaying output values in the different ways.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/dh_gauge/dhg_macs.v</i> contains the V definitions of the low level macros dash_camera, mk_dashtext, mk_needle, transform_needle, arc_grid and arc_solid as well as the User Interface Macros DashGaugeA, DashGaugeB and DashGaugeC. </p>
+
+<p><i>xp_comm_proj/dh_gauge/dhg_apps.v</i> contains the V definition of the example application DashGaugeArrayEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ian Curington
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+MA YingLiang
+Manchester Visualization Centre
+
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+GlyphLibrary, DashDial
+</blockquote>
+
+
+</body>
+</html>

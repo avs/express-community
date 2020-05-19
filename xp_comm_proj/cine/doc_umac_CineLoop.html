@@ -1,0 +1,188 @@
+<html>
+<head>
+<title>CineLoop</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CineLoop</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module records movements in the Data Viewer and replays them in a loop with different speed.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>view</i></td>
+<td width="125">DefaultView+DefaultView</td>
+<td width="300">input for the current view of the data viewer</td>
+</tr>
+
+<tr>
+<td width="125"><i>end</i></td>
+<td width="125">float</td>
+<td width="300">number of the last frame</td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>enable</i></td>
+<td width="125">int</td>
+<td width="300">toggles record (and playback) mode on or off</td>
+</tr>
+
+<tr>
+<td width="125"><i>backward</i></td>
+<td width="125">int</td>
+<td width="300">toggles backward mode on or off</td>
+</tr>
+
+<tr>
+<td width="125"><i>start_frame</i></td>
+<td width="125">int</td>
+<td width="300">defines number of the first frame</td>
+</tr>
+
+<tr>
+<td width="125"><i>rate</i></td>
+<td width="125">float</td>
+<td width="300">defines framerate</td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>frame_out</i></td>
+<td width="125">int</td>
+<td width="300">number of the frame that is currently shown</td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The CineLoop macro records all the movements of the displayed objects in the data viewer. The recorded frames are displayed in a loop. Further changes are recorded while the recorded frames are shown. The end Value defines the number of frames that can be recorded. The CineLoop macro only plays back static frames. Movements between these frames are left out. The macro records everything that covers the data window (this includes windows from other Applications if they are on top of the Viewer window). The only thing that is not recorded is the mouse pointer. The CineLoop macro contains a simple UserInterface.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>view</b></i>
+</blockquote>
+
+<blockquote>
+The current view in the data viewer. The view is cached in the cache module of the CineFunc macro. In playback mode Cine_Control module in CineFunc controls the displayed frames.
+</blockquote>
+
+<blockquote>
+<i><b>end</b></i>
+</blockquote>
+
+<blockquote>
+Sets the total number of frames. The loop will restart when the end frame is reached. So you only can record within the loop, recording after the end affects the beginning of the loop.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>enable</b></i>
+</blockquote>
+
+<blockquote>
+Can be controlled by a checkbox and switchs record/playback mode on or off. The enable value is used by Cine_Control and cache module in the CineFunc macro.
+</blockquote>
+
+<blockquote>
+<i><b>backward</b></i>
+</blockquote>
+
+<blockquote>
+Can be controlled by a checkbox and switchs backward mode on or off. The backward value is used by Cine_Control module in the CineFunc macro.
+</blockquote>
+
+<blockquote>
+<i><b>start_frame</b></i>
+</blockquote>
+
+<blockquote>
+Can be controlled by a input field and sets the number of the starting frame. Frames before that are not played.
+</blockquote>
+
+<blockquote>
+<i><b>rate</b></i>
+</blockquote>
+
+<blockquote>
+Can be controlled by a slider and defines the current frame rate.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>frame_out</b></i>
+</blockquote>
+
+<blockquote>
+Provides the currently shown frame number.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro CineLoop combines the Functional Macro CineFunc with the UI Macro CineLoopUI, via the use of the common parameter block CineParams, to provide a usable macro in the visualization library.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application CineLoopEg is provided, which uses the AVS/Express sample data file mri.fld, to show the functionality of the macro.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cine/cinemacs.v</I> contains the Functional Macro CineFunc, the User Macro CineLoop, the UI Macro CineLoopUI and the Example Application CineLoopEg.
+This file also contains the CineInteract macros.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+unknown
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Gorden Tausch
+Manchester Visualization Centre
+
+Tobias Schiebeck
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+Image_Cache, Cine_Control and CineInteract.
+</blockquote>
+
+
+</body>
+</html>

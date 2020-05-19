@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html version="3.2">
+<head>
+<title>AccumulateCore</title>
+</head>
+
+<body bgcolor="#92bfbf">
+
+<h1>AccumulateCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Accumulates different areas that have been segmented by region growing.  Allows segmented fields to be cropped from a larger data set and then accumulated back into a complete data set.</blockquote>
+
+<blockquote>
+<hr><pre>
+    module AccumulateCore {
+       Mesh_Unif+Node_Data+IPort2 &amp;in_fld;
+
+       AccumulateParams+IPort2    &amp;params;
+
+       int go          =&gt; params.go;
+       int reset       =&gt; params.reset;
+       int dims[]      =&gt; params.dims[];
+       int dims_choice =&gt; params.dims_choice;
+
+       int dtype;
+
+
+       omethod+notify_inst+req update&lt;src_file="rg_accum.c"&gt;(
+          in_fld+read+notify+req,
+          in_fld.nnodes+req,
+          dims_choice+read+notify+req,
+          go+read+notify+req,
+          reset+read+notify+req,
+          dtype+read+write,
+          out_fld+read+write
+       ) = "rg_accum_update";
+
+       omethod+notify_inst+req update_dims&lt;src_file="rg_acc_d.c"&gt;(
+          in_fld+read+notify+req,
+          in_fld.nnodes+req,
+          dims+read+notify+req,
+          dims_choice+read+notify+req,
+          go+read+notify+req,
+          reset+read+notify+req,
+          dtype+read+write,
+          out_fld+read+write
+       ) = "rg_accum_update_dims";
+
+
+       Mesh_Unif+Node_Data+OPort2 out_fld;
+    };
+};
+</pre><hr>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This module allows several uniform fields to be accumulated into a single output field.  If a visualization requires several different regions to be segmented this module can be used to combine the regions into a single output.  Controls are provided so that if the input data has been cropped it can be placed into its correct position in the accumulated field.  Note that the module was designed for use on 8 or 16 bit integer data taken from medical imaging data.  It is able to deal with all the primitive types supported by AVS/Express.  However best results are likely to be obtained with either unsigned byte or unsigned short data.</p>
+
+<p>This module has been designed to support the operation of a user macro and hence it may not operate as you would expect.  If this module was orientated towards the network editor it would be normal for an array of fields to be input.  However as this module is designed to be used manually only one input is present for field.  Each region that is grown is presented sequentially to the module and the user is required to decide if they should be accumulated into the output field.  This allows the user to easily see the resulting field and decide if it is acceptable or should be refined further.</p>
+
+<p>Please note that the majority of this documentation deals with the detailed functioning of the low-level module.  You may find that it useful to look at and experiment with the <a href="#example"><tt>AccumulateRegionsEg</tt></a> example application before reading the rest of this documentation.  Please also note that the <tt>accumulate_regions</tt> user macro used in the example application provides a much simpler interface and should normally be used in preference to this module.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>&amp;in_fld</i></b></blockquote>
+
+<blockquote>Pointer to a unform 3D scalar field containing a 3D data set. The field should contain a single component of node data.  When the go input parameter is trigger the segmented data contained in this field is added to the output.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>dims_choice</i></b></blockquote>
+
+<blockquote>An integer value that specifies if the input field dimensions should be used for the output field.  If <tt>dims_choice</tt> has the value 0 then the output field has the same dimensions as the input.  Conversely if <tt>dims_choice</tt> has the value 1 then the output field has the dimensions given in <i>dims[]</i> parameter.</blockquote>
+
+<blockquote><b><i>dims[]</i></b></blockquote>
+
+<blockquote>Integer array holding the dimensions of the whole field.  This can be used if the input data was cropped and the resulting field needs to be the size of the original field.  The values for this parameter are normally obtained from the user interface.  If <tt>dims_choice</tt> is not 1 this parameter is ignored.</blockquote>
+
+<blockquote><b><i>go</i></b></blockquote>
+
+<blockquote>Flag to trigger the update method.  When this parameter is triggered the module takes the data present on the input and accumulates it with whatever data is present on the module output.  Normally the user interface would be used to trigger this update.</blockquote>
+
+<blockquote><b><i>reset</i></b></blockquote>
+
+<blockquote>Flag to reset both the size of the output field and its contents.  Before the module is used this parameter should be triggered to ensure that the output field contains zero value data.</blockquote>
+
+<blockquote><b><i>dtype</i></b></blockquote>
+
+<blockquote>Integer status flag used to store the data type of the output field.  This is used to check if the current input has a different data type from the current output.  This parameter should not normally be manually changed.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>Output field that contains the data current accumulated by the module.  The output field contains a uniform 3D mesh and a single component of node data.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>Several macros are provided to help ease the use of this module.  The <tt>AccumulateRegions</tt> functional macro sets up the AccumulateCore module and provides a link to a parameter block.  The <tt>accumulate_regions</tt> user macro uses that functional macro and also provides a user interface.  The user interface is contained in the <tt>AccumulateRegionsUI</tt> macro.  The <tt>AccumulateParams</tt> parameter block is used to connect these macros.</blockquote>
+
+
+<h3><a name="example">Example</a></h3>
+
+<blockquote><p>The example application for this module is called <tt>AccumulateRegionsEg</tt> and it demonstrates the use of the <tt>accumulate_regions</tt> user macro.  The application also makes use of the <a href="doc_reg.html"><tt>region_grow</tt></a> user macro.  Please see the <a href="doc_reg.html#example"><tt>RegionGrowEg</tt></a> documentation for information on creating a region.</p>
+
+<p>After starting the application use the region growing module to create a segment.  You should see this appear in the output window as a solid red isosurface.  To add this region to the final accumulated data set select the go toggle in the Accumulate Regions panel.  You see the the false colour isosurface change so that it is the correct green colour.  This indicates the region has been accumulated into the output data.  If you grow another region you should see that appear in red alongside the accumulated data.  Repeat this process until you are satisfied with the output field.  Select the reset toggle in the Accumulate Regions panel to clear the output field.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/reg_grow/rg_mods.v</i> contains the V definitions of the low-level modules RegionGrowCore, GenerateGuassianProbs and AccumulateCore; and the parameter blocks RegionGrowParams and AccumulateParams.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level RegionGrowMods library containing the module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Alex Allen &amp; Joanna Leng.
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL.
+
+Andrew Dodd
+International AVS Centre
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="doc_gau.html">GenerateGuassianProbs</a>,
+<a href="doc_reg.html">RegionGrowCore</a>
+</blockquote>
+
+
+</body>
+</html>
+

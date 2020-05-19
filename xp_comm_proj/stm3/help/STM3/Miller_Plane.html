@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module Miller_Plane documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Miller Plane</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Miller Plane</h1>
+
+<h2>Description</h2>
+<p>Visualize the plane identified by given Miller indices. Optionally remove atoms above or below it.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data with unit cell information.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Miller plane indices</td>
+	<td class="c2">field</td>
+	<td class="c3">The Miller indices (hkl) identifying the plane. The plane (000) is invalid. The bar-n index is entered as negative number.</td>
+</tr>
+<tr>
+	<td class="c1">offset</td>
+	<td class="c2">slider</td>
+	<td class="c3">Plane displacement along the normal. The value is the fraction of the longest displacement along the normal
+	that remains inside the unit cell.</td>
+</tr>
+<tr>
+	<td class="c1">scale u</td>
+	<td class="c2">slider</td>
+	<td class="c3">Scaling of one side of the resulting plane. This parameter modifies only the visualized plane.</td>
+</tr>
+<tr>
+	<td class="c1">scale v</td>
+	<td class="c2">slider</td>
+	<td class="c3">Scaling of the other side of the resulting plane. This parameter modifies only the visualized plane.</td>
+</tr>
+<tr>
+	<td class="c1">remove atoms above plane</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Reverse the side of the plane from which the atoms are removed.</td>
+</tr>
+<tr>
+	<td class="c1">opacity</td>
+	<td class="c2">slider</td>
+	<td class="c3">Opacity of the resulting plane.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">plane_fld</td>
+	<td class="c2">Mesh</td>
+	<td class="c3">The Miller plane.</td>
+</tr>
+<tr>
+	<td class="c1">plane_obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of plane_fld.</td>
+</tr>
+<tr>
+	<td class="c1">out</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular part that falls above or below Miller plane.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="http://www.uwgb.edu/dutchs/symmetry/millerdx.htm">Miller Indices</a> introduction.</li>
+</ul>
+</body></html>

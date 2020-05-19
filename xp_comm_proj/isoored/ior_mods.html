@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>iso_objs_reduce, iso_objs_reduce2</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>iso_objs_reduce, iso_objs_reduce2</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+These modules take an isosurface and find the isotopically separate objects, they then produce a mesh with the selected objects from the isosurface. Node_Data is currently ignored.
+</blockquote>
+
+<blockquote>
+<hr><pre>
+   group _iso_obj&lt;NEvisible=0&gt; {
+      int nNodes;
+      int nTris;
+   };
+
+   module iso_objs_reduce&lt;src_file="ior.cxx", cxx_members="void FindNodesAndTris( int node, int obj, int &nNodes, int &nTris);"&gt; {
+      Mesh &in_mesh&lt;NEportLevels={2,0}&gt;;
+      int get_objs&lt;NEportLevels={2,0}&gt;;
+      Mesh out_mesh&lt;NEportLevels={0,2}&gt;;
+      int tot_objs&lt;NEportLevels={0,2}&gt;;
+      int _vObjs&lt;NEvisible=0[]&gt;;
+      int _tObjs&lt;NEvisible=0[]&gt;;
+      int _sortedObjs&lt;NEvisible=0&gt;[tot_objs];
+      _iso_obj _objsN&lt;Evisible=0&gt;[tot_objs];
+      cxxmethod+req threshold (
+	 in_mesh+read+req+notify,
+	 get_objs+read+req+notify,
+	 out_mesh+write,
+	 tot_objs+read+write,
+	 _vObjs+read+write,
+	 _tObjs+read+write,
+	 _sortedObjs+read+write,
+	 _objs+read+write
+      );
+   };
+
+   module iso_objs_reduce2&lt;src_file="ior2.cxx", cxx_members="void FindNodesAndTris( int node, int obj, int &nNodes, int &nTris);"&gt; {
+      Mesh &in_mesh&lt;NEportLevels={2,0}&gt;;
+      int show_objs&lt;NEportLevels={2,0}&gt;[];
+      Mesh out_mesh&lt;NEportLevels={0,2}&gt;;
+      int tot_objs&lt;NEportLevels={0,2}&gt;;
+      int _vObjs&lt;NEvisible=0[]&gt;;
+      int _tObjs&lt;NEvisible=0[]&gt;;
+      int _sortedObjs&lt;NEvisible=0&gt;[tot_objs];
+      _iso_obj _objsN&lt;Evisible=0&gt;[tot_objs];
+      cxxmethod+req threshold (
+	 in_mesh+read+req+notify,
+	 show_objs+read+req+notify,
+	 out_mesh+write,
+	 tot_objs+read+write,
+	 _vObjs+read+write,
+	 _tObjs+read+write,
+	 _sortedObjs+read+write,
+	 _objs+read+write
+      );
+   };
+</pre><hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This module builds up a list of individual objects in the isosurface and then creates a new mesh containing the <i>N</i> largest objects. The searching of the nodes and triangles is quite computer intensive and so should not be performed of massive isosurfaces. To improve usability the object information is cached so that selecting a different number of objects to display is very fast. It is therefore not a good idea to connect it directly to an isosurface but to a <b>switch</b> module so that is may be turned on/off as required.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;in_mesh</b></i>
+</blockquote>
+
+<blockquote>
+A mesh from an isosrface though of course it can be any mesh containing a <i>Tri</i> cell_set.
+</blockquote>
+
+<blockquote>
+<i><b>get_objs</b></i>
+</blockquote>
+
+<blockquote>
+<i>iso_objs_red</i>: Return the this many of the largest objects.
+</blockquote>
+
+<blockquote>
+<i><b>show_objs</b></i>
+</blockquote>
+
+<blockquote>
+<i>iso_objs_red2</i>: Return the objects in the array from the a size sorted list, i.e., {0,9} will return a mesh containing the largest and tenth largest objects.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out_Mesh</b></i>
+</blockquote>
+
+<blockquote>
+A mesh with a <i>Tri</i> cell set containing the requested objects.
+</blockquote>
+
+<blockquote>
+<i><b>tot_objs</b></i>
+</blockquote>
+
+<blockquote>
+The total number of objects found in the isosurface.
+</blockquote>
+
+<h3>User Macros</h3>
+
+<blockquote>
+IsoObjsReduce and IsoObjsReduce2. 
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+IsoObjsReduceEg and IsoObjsReduce2Eg. 
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/isoored/ior_mods.v</i> contains the V definitions of the iso_objs_red and iso_objs_red2 low-level modules and the _iso_obj group.</p>
+
+<p><i>xp_comm_proj/isoored/ior_macs.v</i> contains the V definitions of the IsoObjsReduce and IsoObjsReduce2 user macros.</p>
+
+<p><i>xp_comm_proj/isoored/ior_apps.v</i> contains the V definition of the IsoObjsReduceEg and IsoObjsReduce2Eg example applications.</p>
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+James S. Perrin : <A HREF="mailto:james.perrin@man.ac.uk">james.perrin@man.ac.uk</A>,
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="ior_macs.html">IsoObjsReduce and IsoObjsReduce2</a> user macros.</li>
+<li>isosurface AVS/Express module.</li>
+</ul>
+
+</body>
+</html>
+

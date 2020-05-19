@@ -1,0 +1,51 @@
+Express Community "ReadStar" Project
+https://github.com/avs/express-community
+----------------------
+
+This special Community project contains a reader for the Star-CD data format.
+Star-CD is a CFD package created by Computational Dynamics Ltd.  The
+code included is meant to provide a reader for the data files produced
+by this package.  Unfortunately the Community have been unable to get this
+code working properly on our test platforms.  However it is possible
+that the code may work or can be modified to work properly on
+different platforms.  Therefore the Community have released this project
+so that users will have the code available.  Unfortunately the Community will
+not be able to provide any support in the use of this project.
+
+It should also be noted that the data format read has become outdated
+and that the reader cannot read files from the current version of
+Star-CD.
+
+The supplied distribution contains a complete project directory structure.
+It should be extracted into a new directory and AVS/Express should be used
+to compile the supplied Fortran source files.
+
+Further instructions can be found in the 'README.TXT' and 'src/readme' files.
+
+
+Files
+-----
+
+The following files can be found in the distribution.
+
+avsenv
+DISCLAIMER
+README
+README.TXT
+makefile
+logo.x
+apps/simple.v
+src/postconvert_lib.f
+src/readme
+src/readStar.f
+src/high.v
+src/low.v
+supersonicSolid/as_2d09
+supersonicSolid/as_2d16
+transExample/tut09
+transExample/tut16
+transExample/tut29
+v/proc.v
+v/templ.v
+v/templ.bak
+

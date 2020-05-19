@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>ReadVis5D - Reads Vis5D-Data-Files.</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>ReadVis5D</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module reads a Vis5D data file. It allows the user to select a single time step and computes a wind vector. 
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<h5>ReadVis5DParams</h5>
+
+<table summary="Parameters used by ReadVis5D">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="200">string</td>
+<td width="300">Name of the Vis5D file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>load_all_steps</i></td>
+<td width="200">boolean</td>
+<td width="300">if set the reader caches the all timesteps. </td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>timestep</i></td>
+<td width="200">int</td>
+<td width="300">The timestep to be read from cache or from file.</td>
+<td width="125">ListBox</td>
+</tr>
+
+<tr>
+<td width="100"><i>show_title</i></td>
+<td width="200">boolean</td>
+<td width="300">if set the reader outputs a headline object.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>time_steps</i></td>
+<td width="200">string[]</td>
+<td width="300">The list of all the timesteps (date/time) in the input file.</td>
+<td width="125">Listbox</td>
+</tr>
+
+<tr>
+<td width="100"><i>var_names</i></td>
+<td width="200">string[]</td>
+<td width="300">The list of variable names.</td>
+<td width="125">Listbox</td>
+</tr>
+
+<tr>
+<td width="100"><i>var_info</i></td>
+<td width="200">string[]</td>
+<td width="300">Info related to the corresponding variable.</td>
+<td width="125">TextLabel</td>
+</tr>
+
+<tr>
+<td width="100"><i>status</i></td>
+<td width="200">string</td>
+<td width="300">Status and error messages.</td>
+<td width="125">TextLabel</td>
+</tr>
+
+<tr>
+<td width="100"><i>wind_components</i></td>
+<td width="200">int[3]</td>
+<td width="300">The three variables that must be combined to form the wind component.</td>
+<td width="125">ListBox</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by ReadVis5D">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="200">string</td>
+<td width="425">Name of the Vis5D file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>vars3d_out</i></td>
+<td width="200">Field_Struct</td>
+<td width="425">Field structure containing the data for the selected time-step.</td>
+</tr>
+
+<tr>
+<td width="100"><i>vars2d_out</i></td>
+<td width="200">Field_Unif+group</td>
+<td width="425">One timestep with all the 2D variables (variables with nlevels = 1) as node data.</td>
+</tr>
+
+<tr>
+<td valign=top width="100"><i>vars3d_obj</i></td>
+<td valign=top width="200">DataObject</td>
+<td valign=top  width="425">directly renderable object of the selected time-step</td>
+</tr>
+
+<tr>
+<td valign=top width="100"><i>vars2d_obj</i></td>
+<td valign=top width="200">DataObject</td>
+<td valign=top  width="425">directly renderable object of the 2D variables</td>
+</tr>
+
+<tr>
+<td valign=top width="100"><i>title</i></td>
+<td valign=top width="200">DataObject</td>
+<td valign=top  width="425">directly renderable object of a headline containing the time-step information</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+This module reads a Vis5D data file, selects one time step on request and computes the wind vector.
+The code kernel used for this module is from the <a href="http://www.ssec.wisc.edu/~billh/vis5d.html"> official Vis5D distribution</a>.
+
+</blockquote>
+
+<h3>Parameters</h3>
+
+<h4>ReadVis5DParams</h4>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>String parameter that specifies which Vis5D file should be read. The filename string should contain the full path name of the file and can contain any of the AVS/Express environment variables (e.g. $XP_PATH&lt;1&gt;)</blockquote>
+
+
+<blockquote><b><i>load_all_steps</i></b></blockquote>
+
+<blockquote> If this boolean parameter is set, the reader caches all timesteps stored in the file when it is opened. Otherwise it reads only the requestes time-step from the file. </blockquote>
+
+
+<blockquote><b><i>time_step</i></b></blockquote>
+
+<blockquote> This int parameter specifies the time-step that should be read.</blockquote>
+
+
+<blockquote><b><i>time_steps[]</i></b></blockquote>
+
+<blockquote> This array of strings contains the description of all the timesteps stored in the Vis5D file. It contains the date and the time of each individual timestep.</blockquote>
+
+
+<blockquote><b><i>var_names[]</i></b></blockquote>
+
+<blockquote> This array of strings contains the names of all variables stored in the Vis5D file.</blockquote>
+
+
+<blockquote><b><i>var_info[]</i></b></blockquote>
+
+<blockquote> This array of strings contains the description of all variables stored in the Vis5D file. It contains infomation such as the number of rows, number of columns, number of levels, low-level, minimum and maximum values for each variable.</blockquote>
+
+
+<blockquote><b><i>status</i></b></blockquote>
+
+<blockquote>String parameter that contains status and error information from the last read operation.</blockquote>
+
+
+<blockquote><b><i>wind_components</i></b></blockquote>
+
+<blockquote>This array of three int values contains the indices of the variables that have to be combined to form the wind component. If the file contais variables called U, V, W they are selected for the three wind components. Zero means that this component must be zero. Positive is the ordinal number of the variable plus one. If all three components are zero, no wind component is created.</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>String output of the filename given by the user. This Output is used to be connected to the Vis5Dfile input in the ReadVis5DTopography module.</blockquote>
+
+<blockquote><b><i>vars3d_out</i></b></blockquote>
+
+<blockquote>Structured Field that contains one timestep with all the variables which have more than one level as node data. If the wind_components parameter specifies that a vectorial component has to be created this is added at the end of the node data list with the variable name "COMPWIND". The grid is usually rectilinear. If the vertical levels are equidistant, this grid is changed to Uniform. The xform is set to scale the height to an acceptable value.</blockquote>
+
+<blockquote><b><i>vars2d_out</i></b></blockquote>
+
+<blockquote>Field_Unif+group that contains one timestep with all the 2D variables (variables with nlevels = 1) as node data.</blockquote>
+
+<blockquote><b><i>vars3d_obj</i></b></blockquote>
+
+<blockquote>Directly renderable object of the data stored in vars3d_out.</blockquote>
+
+<blockquote><b><i>vars2d_obj</i></b></blockquote>
+
+<blockquote>Directly renderable object of the data stored in vars2d_out.</blockquote>
+
+<blockquote><b><i>title</i></b></blockquote>
+
+<blockquote>Directly renderable object of a headline containing the time-step information.</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ReadVis5DFunc functional macro uses the low-level ReadVis5DCore module. The macro takes as input the parameter block ReadVis5DParams. The macro outputs the data read from the Vis5D file as Field Structures and directly renderable objects.</p> 
+
+<p>The ReadVis5DFunc functional macro and the ReadVis5DUI user interface macro are both used by the ReadVis5D user macro. All of these macros use the ReadVis5DParams parameter block to communicate.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes an example application that demonstrates the use of the ReadVis5D macro. The ReadVis5DEg application uses the ReadVis5D macro to read a Vis5D file. The Example contains an isosurface and a bounds module to show the inner structure of the fields array which is read by the ReadVis5D macro. </p>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_vis5d/rv5dmods.v</i> contains the V definitions of the ReadVis5DCore module and the ReadVis5DParams parameter block.</p> 
+
+<p><i>xp_comm_proj/rd_vis5d/rv5dmacs.v</i> contains the V definitions of the ReadVis5DUI UI macro, the ReadVis5DFunc functional macro and the ReadVis5D user macro.</p>
+
+<p><i>xp_comm_proj/rd_tecpl/rv5dapps.v</i> contains the V definition of the ReadVis5DEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadVis5DMods library containing the low-level module ReadVis5DCore does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+<blockquote><pre>
+Mario Valle, AVS Italy
+
+Dr. Jean M. Favre, 
+CSCS, Swiss Center for Scientific Computing 
+</blockquote>
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Tobias Schiebeck,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="http://www.ssec.wisc.edu/~billh/vis5d.html"> Vis5D website</a>
+</blockquote>
+
+<blockquote>
+<a href="rv5dtopo.html">ReadVis5DTopography</a>
+</blockquote>
+
+
+</body>
+</html>
+

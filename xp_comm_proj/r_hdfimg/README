@@ -1,0 +1,90 @@
+Express Community Read HDF Image Project
+https://github.com/avs/express-community
+--------------------------
+
+This directory ( xp_comm_proj/r_hdfimg/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community Read HDF Image
+project "ReadHDFImage".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ReadHDFImage project, and two single line additions to some of the xp_comm_lib/
+files (in this instance data_io.v and examples.v) to add a link to the User
+Macro and the Example Application from the new top-level Community library page.
+
+Prerequisites
+-------------
+
+The project uses the SDSC image tool libraries, which are linked to when the
+project is compiled. The SDSC image tool library can be downloaded from
+ftp.sdsc.edu/pub/sdsc/graphics/imtools. In there you will find the source
+code archive, along with information about other required libraries, such as
+the TIFF and JPEG libraries.
+
+The TIFF library is obtainable from ftp.sgi.com/graphics/tiff, and the JPEG
+library is obtainable from ftp.uu.net/graphics/jpeg, if you do not already
+have these installed on your system.
+
+Note: By default, the V code for the module, assumes that it will find the
+"im.h" include file in /usr/local/include (the default installation area
+for the above libraries; PC users will have a different default), and 
+similarly that it will find the libraries libim, libsdsc, libtiff and libjpeg
+in /usr/local/lib. Change the module properties 'hdr_dirs' and 'link_files'
+to point to the appropriate place. Additionally, on some systems, the SDSC
+library may already contain the TIFF and JPEG libraries, so the -ltiff and
+-ljpeg parts of the 'link_files' property may not be required.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Users of the Developer's Edition may select the
+library XP_COMM_PROJ.ReadHDFImage.ReadHDFImageMods in the Templates library, and
+then perform a compile. Alternatively, you may type the following command into
+the VCP prompt; Visualization Edition users must type the following command
+to compile the project, as there is no access to the Templates library
+through the Network Editor:
+
+$compile XP_COMM_PROJ.ReadHDFImage.ReadHDFImageMods
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/r_hdfimg/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ data_io.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+r_hdfimg.v	Creates the XP_COMM_PROJ.ReadHDFImage library.
+
+rhi_mods.v	Creates the ReadHDFImageMods library containing the low-level
+		module ReadHDFImageField and the parameter group
+		ReadHDFImageParams.
+
+rhi_macs.v	Creates the ReadHDFImageMacs library containing the high-level
+		macros ReadHDFImageUI, ReadHDFImage, read_hdf_image and the
+		example appplication ReadHDFImageEg.
+
+r_hdfimg.c	The C source code for the ReadHDFImageField module.
+
+doc_mod.html	HTML documentation for the ReadHDFImageField module.
+
+doc_umac.html	HTML documentation for the read_hdf_image User Macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+r_hdfimg.o	Intermediate object file.

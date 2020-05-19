@@ -1,0 +1,17 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/rd_dted/rd_dted.v" ReadDted;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadDted.ReadDtedMacs.read_dted read_dted;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadDted.ReadDtedMacs.read_dted_alt read_dted_alt;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ReadDted.ReadDtedMacs.ReadDtedEg ReadDtedEg;
+

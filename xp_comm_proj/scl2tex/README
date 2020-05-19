@@ -1,0 +1,58 @@
+Express Community Scalar2Texture Project
+https://github.com/avs/express-community
+--------------------------
+
+This directory ( xp_comm_proj/scl2tex/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"Scalar2Texture".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Scalar2Texture project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+No modules within the project contain procedural code so the project does not
+have to be compiled.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/build3d/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+scl2tex.v	Creates the XP_COMM_PROJ.Scalar2Texture library.
+
+s2txmacs.v	Creates the Scl2TexMacs library containing the user macro
+		Scalar2Texture.
+
+s2txapps.v	Creates the Scl2TexApps library containing the example
+		applications Scalar2TextureEg and s2tComparisonEg.
+
+doc_umac.html	HTML documentation for the Scalar2Texture User Macro.
+
+scl2tex.html	Original macro documentation.
+
+README		This file.
+
+rainbow.jpg	Example texture map image.
+
+compare.jpg	Image showing comparison between colormaps and texture-maps.
+
+
+Prerequisites
+-------------
+
+The s2tComparisonEg example application relies on the successful installation
+of the following components.  Without them it will not function correctly.  All
+the other macros in this project do not have any prerequisites.
+
+Common Project
+

@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>extract_objects &amp; extract_single_object</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>extract_objects &amp; extract_single_object</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>These two user macros extract selected objects from an array of input objects.  The extract_objects macro extracts a new array of object.  The extract_single_object macro extracts a single object.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by extract_objects &amp; extract_single_object">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_objs</i></td>
+<td width="75">mlink</td>
+<td width="425">Link to the input array of objects.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by extract_objects &amp; extract_single_object">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>inc_objects</i></td>
+<td width="75">int[]</td>
+<td width="300">Indices of objects to include in output.</td>
+<td width="125">Option box list</td>
+</tr>
+
+<tr>
+<td width="100"><i>objectnames</i></td>
+<td width="75">string[]</td>
+<td width="300">Names of input objects.</td>
+<td width="125">n/a</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by extract_objects &amp; extract_single_object">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_objs</i></td>
+<td width="75">mlink</td>
+<td width="425">Array of links to selected objects.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">link</td>
+<td width="425">Link to single selected object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The V scripting language that AVS/Express uses has the ability to create and manipulate arrays of objects.  This ability can be used in a variety of ways.  The macros in the <tt>MODS_ARR</tt> library, that is supplied with AVS/Express, take an array of fields as an input and apply the same visualization to each field.  Similarly several of the projects in the <a href="http://www.iavsc.org">IAC</a> repository either accept object arrays as input or output object arrays.  For example the <a href="../rd_dxf/rd_dxf.html">ReadDXF</a> project outputs each DXF layer as a separate field in an array.</p>
+
+<p>However using arrays does cause some problems when creating applications.  One of these problems is that the user cannot easily select a sub-set of the elements in an array.  The ExtractObjects project aims to solve this problem by providing a simple, general purpose way of selecting one or more objects from an array of input objects.  The input objects can be any objects derived from group, module or macro types.  This includes all of the commonly used structures such as Field, Mesh, Node_Data, Cell_Data and DataObject.  The input objects cannot be of any of the primitive types (e.g. int, float, double etc.)</p>
+
+<p>Two user macros are provided with this project.  The <tt>extract_objects</tt> macro takes an array of objects as an input and allows the user to pick any number of these.  The selected objects are output as an array.  The <tt>extract_single_object</tt> macro similarly takes an array of objects as an input.  However the user can only select a single object.  The selected object is output as a link.  The <tt>extract_single_object</tt> macro can be useful in situations where other modules do not take arrays as inputs.</p>
+
+<p>If these user macros are not suitable for your application the low-level <tt>ExtractObjectsCore</tt> module can be used directly.  Examples of now this is done can be seen in the V code for the extract_objects and extract_single_object user macros and the <a href="../rd_dxf/rd_dxf.html">ReadDXF</a> project functional and user macros.</p>
+</blockquote>
+
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_objs</i></b></blockquote>
+
+<blockquote>Array of objects that the user will select from.  The input array can either be explicitly defined as an array or can be built up by making multiple connections to the <tt>in_objs</tt> port.  The ExtractObjectsEg example application shows the use of both of these methods.  The input objects must be derived from group, module or macro types.  The input array cannot be of a primitive type.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>inc_objects[]</i></b></blockquote>
+
+<blockquote>Integer array that specifies which elements of the input array should be linked to the output array.  The array contains a list of zero-based indices into the input array.  Therefore a value of <tt>{0,3}</tt> means that the first and fourth elements of the input array will be included in the output array.  By default no elements of the input array are selected.  The <a href="../rd_dxf/rd_dxf.html">ReadDXF</a> project demonstrates one method of ensuring that all objects are selected by default.</blockquote>
+
+<blockquote><b><i>objectnames[]</i></b></blockquote>
+
+<blockquote>String array that specifies the names of the objects in the input array.  These names are displayed in the user interface so that the user can more easily choose between the objects.  By default the objects are named <i>Object[0], Object[1]</i> and so forth.  However explicit object names can be easily specified.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_objs</i></b></blockquote>
+
+<blockquote>Output array containing references to the selected objects from the input array.  This output is only present on the <tt>extract_objects</tt> macro.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>Output link containing a reference to the selected object from the input array.  This output is only present on the <tt>extract_single_object</tt> macro.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The <tt>extract_objects</tt> and <tt>extract_single_object</tt> user macros both make use of the <tt>ExtractObjectsCore</tt> low-level module and the <tt>ExtractObjectsUI</tt> user interface.  This project does not use a functional macro or a parameter block.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The ExtractObjects project includes one example application.  The ExtractObjectsEg example is an adaption of the Multi_Block example that is supplied with AVS/Express.  A set of data is loaded and visualized as an array of fields.  <tt>extract_objects</tt> macros are used to control which fields are isosurfaced and which visualizations are displayed in the viewer.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/ext_objs/exo_mods.v</i> contains the V definition of the ExtractObjectsCore module.</p>
+
+<p><i>xp_comm_proj/ext_objs/exo_macs.v</i> contains the V definitions of the ExtractObjectsUI user interface macro and the extract_objects and extract_single_object user macros</p>
+
+<p><i>xp_comm_proj/ext_objs/exo_apps.v</i> contains the V definition of the ExtractObjectsEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ExtractObjectsMods library containing the ExtractObjectsCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+<a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>AVS/Express MODS_ARR library.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#rd_dxf">ReadDXF</a> IAC project.</li>
+</ul>
+
+</body>
+</html>
+

@@ -1,0 +1,97 @@
+Express Community Build3D_2 Project
+https://github.com/avs/express-community
+---------------------
+
+This directory ( xp_comm_proj/build3d_2/ ) contains all the V code, HTML
+documentation, and installation information for the Community project "Build3D_2".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Build3D_2 project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+If you modify the project, and elect to specify the process as "user" or
+another user-defined process, then the module may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the module:
+
+        $compile XP_COMM_PROJ.Build3D_2.Build3D_2_Mods
+
+Users of the Developer's Edition may select the module in the relevant 
+Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/build3d_2/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+build3d.v	Creates the XP_COMM_PROJ.Build3D_2 library.
+
+bd3dmods.v	Creates the Build3D_2_Mods library containing the low-level
+		modules Build3D_2_Core and AdjustSliceSpacingCore and the
+		parameter group Build3D_2_Params.
+
+bd3dmacs.v	Creates the Build3D_2_Macs library containing the high-level
+		macros Build3D_2_UI, Build3D_2_Func, build3d_2,
+		adjust_slice_spacing, node_2_argb_data and node_2_color_data.
+
+bd3dapps.v	Creates the Build3D_2_Apps library containing the example
+		applications Build3D_2_Eg, AdjustSliceSpacingEg,
+		NodeARGBDataEg and NodeColorDataEg.
+
+build3d_2.c	The C source code for the Build3D_2_Core module.
+
+image.h		Header file used by build3d_2.c source code.
+
+adjust.c	The C source code for the AdjustSliceSpacingCore module.
+
+doc_mod.html	HTML documentation for the Build3D_2_Core module.
+
+doc_umac.html	HTML documentation for the build3d_2 User Macro.
+
+adjust.html	HTML documentation for the adjust_slice_spacing User Macro.
+
+dense/*.tif	Sample images used by Build3D_2_Eg and AdjustSliceSpacingEg.
+
+cube/*.bmp	Sample images used by NodeARGBDataEg and NodeColorDataEg.
+
+README		This file.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h           AVS/Express generated header file.
+
+gen.cxx         AVS/Express generated source code.
+
+build3d_2.o/obj Intermediate object files.
+adjust.o/obj
+

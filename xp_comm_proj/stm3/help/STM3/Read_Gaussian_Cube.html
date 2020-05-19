@@ -1,0 +1,58 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module Read_Gaussian_Cube documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,Gaussian">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Read Gaussian Cube</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Read Gaussian Cube</h1>
+
+<h2>Description</h2>
+<p>Read the electronic density part from a Gaussian cube file. The resulting AVS/Express field can be visualized using standard techniques like
+isosurface or orthoslice.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">None</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">File name</td>
+	<td class="c2">file browser</td>
+	<td class="c3">The file to be read.</td>
+</tr>
+<tr>
+	<td class="c1">Units</td>
+	<td class="c2">list</td>
+	<td class="c3">Measurement units used in the files.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">out</td>
+	<td class="c2">Field_Unif</td>
+	<td class="c3">The cube data. Beware that the uniform field has been skewed, using xform, to match the Gaussian Cube cell size.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="http://www.gaussian.com/g_downloads/g98help.zip">Gaussian Cube</a> documentation (Zip format).</li>
+</ul>
+
+</body></html>

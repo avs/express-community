@@ -1,0 +1,229 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>Wiggle</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Wiggle</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>This module uses the data values on each line in a bitmap to generate seismic wave functions.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by wiggle">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="110"><i>direction</i></td>
+<td width="165">int</td>
+<td width="300">Direction in which wiggle occurs.</td>
+<td width="125"> Radio Box </td>
+</tr>
+<tr>
+<td width="110"><i>scale</i></td>
+<td width="165">float</td>
+<td width="300">Scaling factor for the wiggles.</td>
+<td width="125">Slider</td>
+</tr>
+<tr>
+<td width="110"><i>mode</i></td>
+<td width="165">int</td>
+<td width="300">The type of area fill required.</td>
+<td width="125">Option Menu</td>
+</tr>
+<tr>
+<td width="110"><i>component</i></td>
+<td width="165">int</td>
+<td width="300">The data component to use to create the wiggles.</td>
+<td width="125">Radio Box</td>
+</tr>
+<tr>
+<td width="110"><i>offset</i></td>
+<td width="165">float</td>
+<td width="300">A factor which can be used to move the base line of the wiggle.</td>
+<td width="125">Text Field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_tin">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="110"><i>out_line</i></td>
+<td width="165">Line Mesh</td>
+<td width="425">Geometry data read from file.</td>
+</tr>
+
+<tr>
+<td width="110"><i>out_tri</i></td>
+<td width="165">Triangle Mesh</td>
+<td width="425">Geometry data read from file.</td>
+</tr>
+
+<tr>
+<td width="110"><i>out_obj</i></td>
+<td width="165">DataObject</td>
+<td width="425">Directly Renderable Output Object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This project contains a definition of a module which creates
+`wiggle' displays in seismic (or other) data. It requires a 2D
+structured mesh as input. It computes coordinates and
+connectivity lists for a polyline and polytriangle strip. These
+are the input to the polyline_mesh and polytri_mesh field mappers.
+Data can be added to the output fields through the use of the
+interp_data module. </p>
+
+</blockquote>
+
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>direction</i></b></blockquote>
+
+<blockquote>
+Boolean parameter which specifies whether the direction of the wiggle is along the x axis (0) or along the y axis (1).  This parameter is controlled by the `Wiggle Direction' radio box options.
+</blockquote>
+
+
+<blockquote><b><i>scale</i></b></blockquote>
+
+<blockquote>
+Floating point parameter that specifies by how much the seismic data should be scaled.  This parameter can be modified by the use of the `Wiggle Scale' slider.
+</blockquote>
+
+
+<blockquote><b><i>mode</i></b></blockquote>
+
+<blockquote>
+Integer list parameter which allows you to choose the type of area fill: 0: no fill, 1: fill above base line, 2: fill below base line, 3: fill above and below base line.
+This parameter can be modified by the use of the `Wiggle Mode' option menu.
+</blockquote>
+
+<blockquote><b><i>component</i></b></blockquote>
+
+<blockquote>
+Boolean parameter which allows you to specify which data component to use.
+This parameter can be modified by the use of the `Wiggle Component' radio box.
+</blockquote>
+
+<blockquote><b><i>offset</i></b></blockquote>
+
+<blockquote>
+Floating point parameter which can be used to move the base line of the wiggle.
+This parameter can be modified by the use of the `Wiggle Offset' field.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_line</i></b></blockquote>
+
+<blockquote>
+Mesh data output that contains the geometry data read from the field file.  The output consists of the nodal coordinates and a single triangle cell-set that describes the connectivity of the data.  No node data or cell data is output.
+</blockquote>
+
+
+<blockquote><b><i>out_mesh</i></b></blockquote>
+
+<blockquote>
+Mesh data output that contains the geometry data read from the field file.  The output consists of the nodal coordinates and a single triangle cell-set that describes the connectivity of the data.  No node data or cell data is output.
+</blockquote>
+
+<blockquote><i><b>out_obj</b></i></blockquote>
+
+<blockquote>
+The directly renderable output of the wiggle macro. This output contains the geometry data read from the field, in a form that can be rendered by the standard data viewers.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The WiggleFunc functional macro uses the WiggleCore low-level module.  The wiggle user macro uses this functional macro and the WiggleUI user interface macro.  All of these macros use the WiggleParams parameter block to communicate parameters between themselves.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+One example application is provided with the Wiggle project.  The WiggleEg example application uses read_field to read one of the AVS datasets. The dataset is preprocessed using the orthoslice and downsize modules before it is passed into the wiggle module.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/wiggle/wigmods.v</i> contains the V definitions of the WiggleCore module and the WiggleParams parameter block.</p>
+
+<p><i>xp_comm_proj/wiggle/wigmacs.v</i> contains the V definitions of the WiggleUI UI macro, the WiggleFunc functional macro and the wiggle user macro.</p>
+
+<p><i>xp_comm_proj/wiggle/wigapps.v</i> contains the V definitions of the WiggleEg example application.</p>
+</blockquote>
+
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+David Knight,
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+
+<h3>Modification</h3>
+
+<blockquote>
+<pre>
+Mary McDerby,
+Manchester Visualization Centre
+
+Tobias Schiebeck,
+International AVS Centre
+</pre>
+</blockquote>
+
+
+</body>
+</html>
+

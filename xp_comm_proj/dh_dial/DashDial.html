@@ -1,0 +1,169 @@
+<html>
+<head>
+<title>DashDial</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>DashDial</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A colorful User Interface dial module to output a float value.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>visible</i></td>
+<td width="75">int</td>
+<td width="300">Toggles the visibility of the DashDial UIpanel.</td>
+</tr>
+<tr>
+<td width="100"><i>parent</i></td>
+<td width="75">UIconnection</td>
+<td width="300">The User interface parent object.</td>
+</tr>
+<tr>
+<td width="100"><i>step_value</i></td>
+<td width="75">float</td>
+<td width="300">The float value data to be shown by DashDial.</td>
+</tr>
+<tr>
+<td width="100"><i>title</i></td>
+<td width="75">string</td>
+<td width="300">The title of the DashDial in the UI.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This project provides a colorful user interface module to output a float value. It displays a changing float value in the way of a traditional meter.
+It shows the needle and text in a 2D viewer (dash_camera).
+The needle and text display is implemented using the "mk_needle" and "mk_dashtext" modules similar to the ones released with the GlyphLibrary.
+</p><p>
+This module only provides the User Interface module. It does not contain a UImod_panel.</p>
+
+<IMG src="dial.jpg"></IMG>
+
+</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>visible</b></i>
+</blockquote>
+
+<blockquote>
+This integer value swiches the DashDial User Interface element on or off. The elements themself are not disabled. They are just hidden with the UIpanel.
+</blockquote>
+
+<blockquote>
+<i><b>parent</b></i>
+</blockquote>
+
+<blockquote>
+This UIconnection value contains the User Interface element which provides the 
+parent frame or panel for the DashDial element.
+</blockquote>
+
+<blockquote>
+<i><b>step_value</b></i>
+</blockquote>
+
+<blockquote>
+This parameter contains the float value which is to be shown by the gauge. This value is not constrained. If this value is in the range between -2 and 2, the needle will move in a range from 0 to 180 degrees.
+</blockquote>
+
+<blockquote>
+<i><b>title</b></i>
+</blockquote>
+
+<blockquote>
+The title string is displayed at the bottom of the DashDial User Interface element. It is by default the name of the Module in the Net
+</blockquote>
+work editor.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+<p>
+The DashDial project provides the modules DashDial User Interface macro.
+This macro uses the utility modules dash_camera, mk_dashtic and mk_dashtext.
+</p><p>
+dash_camera defines a very simple camera system to display the 2D dashboard widget. This camera does not contain picking functions.
+</p><p>
+mk_dashtext and mk_dashtext provide the functionality to draw the 
+DashDial background.
+</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application DashDialArrayEg is provided, which demonstrates the display of output values in the different ways.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/dh_dial/dhd_macs.v</i> contains the V definitions of the low level macros dash_camera, mk_dashtic and mk_dashtext as well as the high level User Interface Macro DashDial.</p>
+
+<p><i>xp_comm_proj/dh_dial/dhd_apps.v</i> contains the V definition of the example application DashDialArrayEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ian Curington
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+MA YingLiang
+Manchester Visualization Centre
+
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+GlyphLibrary, DashGauge.
+</blockquote>
+
+
+</body>
+</html>

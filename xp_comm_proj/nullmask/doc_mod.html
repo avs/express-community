@@ -1,0 +1,178 @@
+<html>
+<head>
+<title>NullMask</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>NullMask</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Processes Node Data and replaces it with a binary mask. Valid data is replaced by a user specified value, and null data (either indicated by the input itself, or by the user) is replaced with another user specified value. The two output values may be inverted, and one of the values may be set as null in the output, thus allowing the null data (or the valid data) to be seen as a single value.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module NullMaskNodeData &lt;src_file="nullmask.cxx"&gt; {
+  NullMaskParams &NullMaskParams &lt;NEportLevels={2,0}&gt;;
+
+  Node_Data &in &lt;NEportLevels={2,0}&gt;;
+
+  double out_valid =&gt; NullMaskParams.out_valid;
+  double out_null =&gt; NullMaskParams.out_null;
+  double in_null =&gt; NullMaskParams.in_null;
+  int user_null =&gt; NullMaskParams.user_null;
+  int invert =&gt; NullMaskParams.invert;
+  int set_null  =&gt; NullMaskParams.set_null;
+
+  Node_Data out &lt;NEportLevels={0,2}&gt;;
+
+  cxxmethod+req update (
+    in+read+notify+req,
+    out_valid+read+notify+req,
+    out_null+read+notify+req,
+    in_null+read+notify+req,
+    user_null+read+notify+req,
+    invert+read+notify+req,
+    set_null+read+notify+req,
+    out+write );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The NullMaskNodeData module processes each component of the input Node Data and replaces each value with one of two user defined values, creating a binary mask of the input. Each value is tested to see if it is equal to the specified null value. The null_value in the component may be used, or the user may override this value with an optional user-defined null value.</p>
+
+<p>Values that match the null value are replaced with a user-defined value. Similarly, valid values in the data are replaced with a single user-defined value. If null data is present in the input, then the output will consist of just two values. Optionally, the two output values may be inverted.</p>
+
+<p>Finally, one of the two new output values may be specified as the null value in the output, resulting in a one value mask. Used with the invert option, it is possible to make the null data visible and remove the valid data.</p>
+
+<p>In this way it is possible to render the null data as a single block of colour, which has its own datamap and object properties.</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+Input Node_Data which is processed by the module, and which would normally contain null data.
+</blockquote>
+
+<blockquote>
+<i><b>&NullMaskParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of:
+</blockquote>
+
+<blockquote>
+<i><b>out_valid</b></i>
+</blockquote>
+
+<blockquote>
+All valid data (not equal to null_value) is replaced with this single user-defined value. If the output is inverted, then the input null data is replaced with this value.
+</blockquote>
+
+<blockquote>
+<i><b>out_null</b></i>
+</blockquote>
+
+<blockquote>
+All null data (equal to null_value) is replaced with this single user-defined value. If the output is inverted, then the input valid data is replaced with this value.
+</blockquote>
+
+<blockquote>
+<i><b>in_null</b></i>
+</blockquote>
+
+<blockquote>
+Optional user-defined null value for input data, which may be used in preference to the null_value contained within each component of the input.
+</blockquote>
+
+<blockquote>
+<i><b>user_null</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to specify if user-defined null_value (in_null) should be used for null data checking in preference to the null_value contained in each component of the input.
+</blockquote>
+
+<blockquote>
+<i><b>invert</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the output values: if off, valid data is replaced with out_valid, and null data is replaced with out_null. If on, valid data is replaced with out_null, and null data is replaced with out_valid.
+</blockquote>
+
+<blockquote>
+<i><b>set_null</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to specify if output node data should have null data specified too. If off, then the null_flag is not set in the output components. If on, then the null flag is set in the output, and the null value is set depending on the setting of the invert parameter: if invert is off, then null_value is set to out_null; if on, then null_value is set to out_valid.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Output Node Data with the data processed as described above.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The NullMaskNodeData low-level module is used within the Functional Macro NullMask and the User Macro <a href="doc_umac.html">null_mask</a>.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application NullMaskEg is provided, which inputs the hydrogen dataset, sets a null value of zero, takes an orthoslice, and displays three outputs: 1) shows the orthoslice with the null data missing; 2) shows just the null data, as a single colour mask, and 3) shows both the valid and null data as a binary mask. NOTE: the rendering is affected by the distribution of the null data; a cell (square) is only rendered if all four nodes have valid data.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/nullmask/nmskmods.v</I> contains the NullMaskParams group and the NullMaskNodeData module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level NullMaskMods library containing the module NullMaskNodeData does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Paul G. Lever
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+NullMaskParams, NullMaskParamsUI, <a href="doc_umac.html">null_mask</a>.
+
+</blockquote>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+Express Community ReadPapyrus Project
+https://github.com/avs/express-community
+-----------------------
+
+The ReadPapyrus project allows Papyrus files to be read into AVS/Express.
+It is based on the Papyrus 3.5 toolkit developed by the Digital Imaging Unit
+of the University Hospital of Geneva.  The Papyrus 3 file format is an
+implementation of the DICOM V3 standard file format.  The Papyrus toolkit
+was developed to allow this implementation to be read.  More information can
+be found at http://www.expasy.ch/UIN/html1/projects/papyrus/papyrus.html.
+The Digital Imaging Unit can be found at http://www.expasy.ch/UIN/.
+
+The ReadPapyrus project is available for both Windows and Unix platforms.
+For Windows platforms a pre-compiled binary containing the library has
+been included.  This will be automatically compiled into AVS/Express when
+the project is compiled.  Changes to the Papyrus source code and updated
+makefiles have also been included should the user wish to download and
+recompile the library themselves.
+
+On Unix platforms the source code of the Papyrus library will have to be
+downloaded from the web-site and compiled.  Changes to the Papyrus source
+code and additional makefiles for Irix and Linux have been included.
+These will have to be applied before the library is compiled.
+
+Full instructions for installing and compiling the Papyrus library are
+included in the project documentation (doc_mod.html)
+
+
+Installation Instructions
+-------------------------
+
+This directory ( xp_comm_proj/rd_papy/ ) contains all the V code, HTML
+documentation, and installation information for the ReadPapyrus
+project.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add
+the new project, and two additions to two of the xp_comm_lib/ files
+(in this instance data_io.v and examples.v) to add a link to the User
+Macro and the Example Applications from the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project must be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+	base -comp_proc express -exit
+or
+	make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+If you modify the ReadPapyrus project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.ReadPapyrus.ReadPapyrusMods
+
+Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/rd_papy/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ data_io.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+rd_papy.v       Creates the XP_COMM_PROJ.ReadPapyrus library.
+
+rdpymods.v 	Creates the ReadPapyrusMods library containing the low-level
+		module ReadPapyrusFile and the groups Image_Header, Image_Data,
+		Patient, General_Study, General_Series, General_Equipment and
+		Image_Series.
+
+rdpymacs.v	Creates the ReadPapyrusMacs library containing the user
+		macro read_papyrus, the functional macro ReadPapyrusFunc and
+		the UI macro ReadPapyrusUI
+
+rdpyapps.v	Creates the ReadPapyrusMacs library containing the example
+		applications TilePapyrusEg and IsosurfacePapyrusEg.
+
+rd_papy.c       Contains the C code for the ReadPapyrusFile module.
+
+rd_pyutl.c	Contains utility functions used by the ReadPapyrusFile code.
+
+rd_pyutl.h	Header file specifying functions contained in rd_pyutl.c
+
+lib/pc/papy3_32.lib
+		Binary file compiled from the Papyrus 3.5 source code for the
+		Windows platform.  This	library file is statically compiled
+		into the specified AVS process.
+
+include/pc/*.h	Header files required to link the C code with the Papyrus 3.5
+		library.
+
+patches/papy-win.zip
+		Alterations to the Windows version of the Papyrus source code.
+
+patches/papy-unix.tar.gz
+patches/papy-unix.tar.Z
+		Alterations to the Unix version of the Papyrus source code.
+		The contents of each of these files are identical.  They are
+		just provided to ensure that all systems can decompress them.
+
+doc_mod.html	HTML documentation for the ReadPapyrusFile module.
+
+doc_umac.html	HTML documentation for the read_papyrus User Macro.
+
+mipettra.pap	An example Papyrus file.
+
+COPYRIGHT	Copyright notice.
+
+README		This file.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h		AVS/Express generated header file.
+
+rd_papy.o(bj)	Intermediate object files.
+rd_pyutl.o(bj)
+

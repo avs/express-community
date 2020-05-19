@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>ReadMovieOffsetFile</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ReadMovieOffsetFile</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads in an offset file and constructs a 1 dimensional array of floating point numbers from it.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module ReadMovieOffsetFile <src_file="rdmovoff.c"> {  
+    string &amp;filename <NEportLevels={2,0}>;
+
+    int+read+write+nonotify size;
+    float+Oparam out[];
+	
+    omethod+notify_val+notify_inst read_off_update <status=1>
+        = "read_off_update";
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+ReadMovieOffsetFile reads in an offset file and generates an array of floating point numbers from it.  The offset file is an ASCII file which should consist of a series of 3D vectors that represent the offset to be applied to the respective coordinate in the field data constructed from the BYU data.  The file format can be seen in the supplied example files, cube001 to cube008.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;filename</b></i>
+</blockquote>
+
+<blockquote>
+Name of the offset file to be loaded. The parameter is of type string.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field containing a 1 dimensional array of floating point offsets. The vector offsets are placed sequentially into the array, therefore the first values would by x1,y1,z1, x2,y2,z2 and so on. This array can be converted into a 2D array of vectors by using the ReadMovieBYUFltToCoord module or the ReadMovieBYUApplyOffset module can be used to apply the offsets in the 1D array directly to a set of field data.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadMovieOffsetFile module is used in the Functional Macros ReadMovieOffset and ReadMovieOffsets and the User Macros read_movie_offset, read_movie_offsets and read_movie_animate. </blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadMovieBYUEg is provided, which uses the read_movie_byu macro to load a BYU file that is then animated by the read_movie_animate macro.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/rdmovbyu/rdmbmods.v</I> contains the ReadMovieOffsetFile module V definition. The file also contains several other module definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ReadMovieBYUMods library containing the module ReadMovieOffsetFile does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadMovieOffsetUI, ReadMovieOffset, read_movie_offset
+</blockquote>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+Read FIDAP
+==========
+
+AVS/Express developer edition and this FIDAP reader currently work with FIDAP Version 7
+from Fluid Dynamics International (now part of Fluent).
+Results created with FIDAP must be saved in the ASCII neutral file format.
+	
+In order to use FIDAP results with the "Read FIDAP" module, a FIDAP results file
+must be created with the appropriate information in it.
+See the FIDAP Users Manual on how to produce the .FDNEUT FIDAP Neutral File.  
+These files generally have the .FDNEUT extension.
+	
+Currently, the Read FIDAP module supports the following fields that result
+from the FIDAP solution of equations:
+
+Data Item              	Component
+---------               ---------
+Velocity		velocity
+Pressure		pressure
+Temperature		temperature
+Density			density
+Species #		species concentration
+Turbulent KE		turbulent kinetic energy k
+Dissipation 		viscous dissipation (rate of turbulent kinetic energy)
+Displacement		free surface position 
+
+
+The output of this module is an AVS/Express FIELD, with unstructured mesh
+and multi-component node data. The node data varies with time, and
+the module interface allows animating over time, or selecting a specific
+time result. The output field is also available as a GDobject, to be
+rendered directly with no additional filters. An output float variable
+is set to the current time sample, and may be used for annotation.
+
+
+File Selection
+--------------
+The filename may be enterred into the typein box directly, or
+the "browse..." button will bring up an interactive file selection menu.
+Once selected, the full path of the current file is shown in in the text box.
+
+Selection of Data Items
+-----------------------
+Once the file is selected, the available data components are shown in an
+option box list. Single or multiple components may be selected for access.
+This list is dynamic, and will be blank on start up. The contents of the
+list are updated from the file.
+
+
+Selection of Time States
+------------------------
+One, all, or some subset of available time states may be accessed from
+the file. The start, end, and increment parameters control what is
+to be brought from the file to memory. The default is to only bring
+in the 1st time step. If you want more, (such as to do an animation)
+then the user must change the increment to 1 (for loading all time states),
+or some other number smaller than the number in the file.
+
+
+Reading the Mesh & Results
+--------------------------
+Two read trigger buttons are available, Read Mesh, and Read Results.
+Usually, you only need to push the Read_Mesh once. Once time
+selections and data selections have been made, push the Read_Results
+button. Atthis point data should be on the output port for processing
+or visualization.
+
+
+Animating Time States
+---------------------
+If multiple time states have been loaded, then the animation panel
+can be used to set up a sequence of time states to loop or cyle
+automatically. A slider can be set to immediate mode, and
+the mouse moved along the time line for dynamic result animation.
+
+
+Implementation
+--------------
+The module is derived from code in the UCD_Builder fidap2meta translator.
+Initial conversion work was by ICS Stuttgart, with further work by
+I. Curington, Advanced Visual Systems Inc.
+
+The module is an AVS/Express project, with a directory containing
+all the C and V components. Two V libraries are used:
+
+ - rdfdmods.v defines the low level C code interface.
+
+ - rdfdmacs.v defines the full user macro with user interface systems.
+
+The user interface is available in 3 forms:
+  rdFidap_base - raw panels to be connected to a UIshell or other parent.
+
+  Read_Fidap_Dialog - popup dialog based interface, with a "visible"
+                      parameter to be connected to a File-Open menu bar.
+
+  Read_Fidap_Module - UImod_panel version for auto-connect behavior
+                      with the module stack areas of Single or
+                      Multi-Window App frameworks.
+
+The code is linked into the express process by default. It has not
+been tested in the user process, but is likely to be slow if you try it.
+

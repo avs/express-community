@@ -1,0 +1,219 @@
+<html>
+<head>
+<title>Revolve</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Revolve</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This Module takes a function specified by an array of 2D points and revolves it around the X axis. The result is the revolution surface of this function.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="100">float[][]</td>
+<td width="425">An array of 2D points describing the function to revolve</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Resolution</i></td>
+<td width="75">int</td>
+<td width="300">The resolution of the revolution surface (from 3 to 120)</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Smooth</i></td>
+<td width="75">boolean</td>
+<td width="300">Specifies whether or not the revolution surface should be smoothed </td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Quad+NodeData</td>
+<td width="425">output surface.</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">A directly renderable object for UViewer3D.</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+Revolve generates a surface of revolution around the X axis, for a function
+provided in the form of an array of 2D points.
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+is an array of 2D points defining the function to revolve.
+</blockquote>
+
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>Resolution</b></i>
+</blockquote>
+
+<blockquote>
+defines the quality of the Surface of the resulting object. The range for this is between 3 and 120. This parameter defines the number of points used on each circle perpendicular to the X axis to define the revolution surface.
+</blockquote>
+
+<blockquote>
+<i><b>Smooth</b></i>
+</blockquote>
+
+<blockquote>
+If toggled on, the surface is smoothed.
+</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output surface as a mesh.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The output surface as a directly renderable object.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro revolve makes use of the Functional Macro RevolveFunc and the UI
+Macro RevolveUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application RevolveEg is provided. It uses an array of ten integer values which defines five 2D points of a function, to generate the revolution surface.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+  <p><i>xp_comm_proj/revolve/rev_mods.v</i> contains the V definitions of the RevolveParams parameter block and the revolve module.</p>
+
+  <p><i>xp_comm_proj/revolve/rev_macs.v</i> contains the V definitions of the
+  RevolveFunc Functional Macro, the RevolveUI User Interface Macro, and the revolve User Macro. </p>
+  <p><i>xp_comm_proj/revolve/rev_apps.v</i> contains the V definition of the example application RevolveEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+anonymous
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Alexander Korban
+Manchester Visualization Centre
+</pre>
+</blockquote>
+
+
+</body>
+</html>

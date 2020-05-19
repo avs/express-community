@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module Cube_on_Surface documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Cube on Surface</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Cube on Surface</h1>
+
+<h2>Description</h2>
+<p>This is the standard AVS/Express <a href="http://help.avs.com/Express/doc/help_62/reference/dvmac/interp_d.htm">interp_data</a> module. Respect to the original one has the following modifications:</p>
+<ul>
+	<li>Use the STM3 cache dimension settings.</li>
+	<li>More convenient input ports.</li>
+</ul>
+<p>Gives to a surface the values of the volume in which the surface is immersed in the positions occupied by the surface itself.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">surface</td>
+	<td class="c2">Field</td>
+	<td class="c3">The surface that must receive the values.</td>
+</tr>
+<tr>
+	<td class="c1">cube</td>
+	<td class="c2">Field</td>
+	<td class="c3">The volume field with the values.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="cspan">None</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">out</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable surface.</td>
+</tr>
+</table>
+
+</body></html>

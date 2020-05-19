@@ -1,0 +1,9 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/r_hdfimg/r_hdfimg.v" ReadHDFImage;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadHDFImage.ReadHDFImageMacs.read_hdf_image read_hdf_image;

@@ -1,0 +1,237 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>Xray - orthographic volume visualization</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Xray</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The Xray module performs fast orthographic 3D volume visualization
+on byte data in five modes.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by xray">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_field</i></td>
+<td width="75">field</td>
+<td width="425">uniform byte field containing input data</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by xray">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>axis</i></td>
+<td width="75">int</td>
+<td width="300">axis to be used for voxel stack.</td>
+<td width="125">Radio Buttons</td>
+</tr>
+
+<tr>
+<td width="100"><i>mode</i></td>
+<td width="75">int</td>
+<td width="300">operation to be performed.</td>
+<td width="125">Radio Buttons</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by xray">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">field</td>
+<td width="425">uniform 2D integer field containing output data</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">directly renderable output data</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The Xray user macro does simple, orthogonal volume visualization on 3D uniform byte fields.  It outputs a 2D integer field which can be colorized and displayed as an image.  In essence the 'Xray' volume visualization technique is quite simple.  For a given direction the module looks at the row of voxels "behind" each screen pixel and depending on the selected operation the module creates a new pixel based on those voxels. The low-level module is written in C++, and accesses simple arrays for input &amp; output. It is classified as a filter, since it takes a 3D data array as input and produces another 2D projected data array. This is a direct port of the AVS5 X_ray module.
+</p>
+
+<p><a name="op_desc">The volume visualization processing options are:</a></p>
+
+<ul>
+<li><b>SUM</b> : each screen pixel is the sum of the stack of voxels</li>
+<li><b>MEAN</b> : each screen pixel is the sum of the stack of voxels divided by the number of voxels in the stack</li>
+<li><b>MEDIAN</b> : each stack of voxels is sorted by value and the screen pixel is set to the center value of the sorted stack</li>
+<li><b>MIN</b> : each screen pixel is the smallest value of the voxel stack</li>
+<li><b>MAX</b> : each screen pixel is the largest value of the voxel stack</li>
+</ul>
+
+<p>The Xray macro implements a pretty fast volume visualization technique.  It should be possible to easily extend it to cover other cases.</p>
+
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_field</i></b></blockquote>
+
+<blockquote>Any 3D structured volume with scalar byte data. The input data must have three dimensions. Any coordinates present in the field are ignored.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<p><b><i>axis</i></b> (Radio buttons)</p>
+
+<p>This parameter describes which direction should be used as the source for the voxel stack.  The choices are I, J, and K.</p>
+
+<ul>
+<li><b>I</b> implies that you look down the Y axis into the XZ plane.</li>
+<li><b>J</b> implies that you look down the X axis into the YZ plane.</li>
+<li><b>K</b> implies that you look down the Z axis into the XY plane.</li>
+</ul>
+
+<p>By default the K direction is used.</p>
+
+<br>
+
+<p><b><i>mode</i></b> (Radio buttons)</p>
+
+<p>This parameter specifies which operation should be performed on the voxel stack.  The choices are SUM, MEAN, MEDIAN, MIN and MAX.  The purpose of each of these operations is described <a href="#op_desc">above</a>.  The default operation is SUM.</p>
+
+<p>
+It should be noted that MEDIAN is rather slow to compute and produces results of limited utility.  Typically SUM and MEAN will produce the same visual results as normally AVS/Express will normalize the colormap to the data.  However MEAN takes a little longer to compute.  MIN will not typically be very
+useful for medical data.  Overall MEAN and MAX will tend to be most useful.
+</p>
+</blockquote>
+
+<h3>
+<b>Outputs</b></h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>The output field containing field data as a 2D uniform
+mesh projected along one of the axes.  The generated node data is of integer type.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to the viewer.  A 2D viewer is recommended.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The low-level module takes simple byte and integer arrays as input and outputs a simple integer array. It can be combined with other systems if a low-level custom solution is needed.</p>
+
+<p>
+The Xray_Func macro contains all the components necessary to perform full AVS/Express field volume visualization.  However it does not provide a user interface. Most custom solutions should use this macro.  The user interface for the project is contained in the XrayUI macro.  This macro can be replaced or modified without affecting the functional operation of the module.</p>
+
+<p>
+The xray user macro combines the Xray_Func functional macro with the XrayUI user interface macro.  This is the primary module exposed in the IAC library filter page.  The interface between the high level macros is contained in the XrayParams parameter block.
+</p>
+
+</blockquote>
+
+<h3>
+Example</h3>
+
+<blockquote>
+One example application is provided called XrayEg. This application demonstrates how the Xray module can be used to perform a simple volume visualization of the the Lobster data set.  As well as the Xray module a crop module is also included in the visualization pipeline.  This module can be used to adjust which parts of the data set are visualized and the length of the voxel stacks being analysed.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/xray/xraymods.v</i> contains the V definitions of the XrayCore module and the XrayParams parameter block.</p>
+
+<p><i>xp_comm_proj/xray/xraymacs.v</i> contains the V definitions of the XrayUI UI macro, the Xray_Func functional macro, the xray user macro and the XrayEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level XrayMods library containing the low-level module XrayCore does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Sabreen Vig, Larry Gelberg, Ian Curington
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+AVS5 x_ray module.
+</blockquote>
+
+</body>
+</html>
+

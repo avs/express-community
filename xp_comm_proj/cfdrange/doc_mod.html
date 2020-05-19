@@ -1,0 +1,159 @@
+<html>
+<head>
+<title>CFDRangeNodeData</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CFDRangeNodeData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The CFDRangeNodeData module processes multi-block data, setting the min/max elements of each block to either the true global values or to user-defined values.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module CFDRangeNodeData &lt;src_file="cfdrange.c"&gt; {
+
+  Node_Data+read+notify+req &in &lt;NEportLevels={2,0}&gt;[];
+
+  CFDRangeParams &CFDRangeParams &lt;NEportLevels={2,0}&gt;;
+  double+read+notify+req min =&gt; CFDRangeParams.min;
+  double+read+notify+req max =&gt; CFDRangeParams.max;
+  int+read+notify+req lock_mode =&gt; CFDRangeParams.lock_mode;
+
+  int nblocks =&gt; array_size(in);
+    
+  Node_Data+write+nonotify+OPort2 out[nblocks] =&gt; in;
+
+  omethod+notify_val+notify_inst update &lt;status=1&gt; = "cfd_range_update";
+
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The CFDRangeNodeData module is a true multi-block module, the C code
+takes an array of blocks in and out. Actually, the output
+is CONNECTED to the input in V, so this is a pure reference
+pass-through module. It modifies the data inplace.
+</p>
+<p>
+If locked mode is off, it scans ALL the data in ALL the blocks,
+and finds each data component range. It then SETS the min/max
+subelement in EACH block to be this value, to force global
+consistancy. The first data element in the first component is
+shown on the user-interface.
+</p>
+<p>
+If lock mode is on, then the user type-in values on the interface or
+parameter block are used to force this range on all data components.
+This is likely to work best on just a single component, and is
+intended to have extract_component_ARR upstream.
+</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+The input mult-block array of NodeData.
+</blockquote>
+
+<blockquote>
+<i><b>&CFDRangeParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the min, max and lock_mode parameters.
+</blockquote>
+
+<blockquote>
+<i><b>min</b></i>
+</blockquote>
+
+<blockquote>
+User-defined min value for data if lock_mode is on.
+</blockquote>
+
+<blockquote>
+<i><b>max</b></i>
+</blockquote>
+
+<blockquote>
+User-defined max value for data if lock_mode is on.
+</blockquote>
+
+<blockquote>
+<i><b>lock_mode</b></i>
+</blockquote>
+
+<blockquote>
+Toggle the lock_mode. If on, the min/max values of the multi-block data is set to the user-defined values. If off, the true global value from the input blocks is used.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output multi-block node data array with the min/max subelements set accordingly.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The user interface is provided in the CFDRangeUI macro, and this is combined with the low-level CFDRangeNodeData module to form the User Macro <a href="doc_umac.html">cfd_range</a>.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application is not provided.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cfdrange/cfdrmods.v</I> contains the CFDRangeParams group and the CFDRangeNodeData module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level CFDRangeMods library containing the module CDFRangeNodeData does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CFDRangeParams, CFDRangeUI, cfd_range
+</blockquote>
+
+</body>
+</html>

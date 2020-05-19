@@ -1,0 +1,214 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="Author" content="Ian Curington">
+   <title>gamma_correct - gamma correction for full-color byte images</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>gamma_correct</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The gamma_correct user macro performs full-color gamma correction
+on ARGB byte images.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by gamma_correct">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">Image that should be gamma corrected.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by gamma_correct">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>gamma_value</i></td>
+<td width="75">float</td>
+<td width="300">Amount of gamma correction to apply.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>method</i></td>
+<td width="75">int</td>
+<td width="300">Type of gamma correction to apply.</td>
+<td width="125">Radiobox</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by gamma_correct">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_image</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">Gamma corrected image.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The gamma correct module performs gamma correction on an full colour AVS image.  The user may control the amount of correction to apply.  The user can also specify whether Chromatic or Achromatic gamma correction should be used.</p>
+
+<p>Most common monitors do not have a linear colour transfer function.  Hence images taken from real-life sources will not look correct when displayed.  Gamma correction allows the user to correct for this non-linear transfer function.  This is done by applying the inverse of the monitor transfer function to the image before it is sent to the monitor.  The gamma_correct macro uses the following function to do this:</p>
+
+<blockquote><b>ouput_pixel = input_pixel ^ (1./gamma_value)</b></blockquote>
+
+<p>Where the range for input_pixel and output_pixel is 0 to 1, and gamma_value is the amount of gamma correction that should be applied.  To completely compensate for the monitor transfer function you would use a gamma value of 2.5. However due to lighting conditions that monitors are normally used in gamma values will normally be lower than this.</p>
+
+<p>This function can be applied to the input red, green and blue channels in several different ways.  The gamma_correct macro supports two of these, achromatic and chromatic.  Achromatic correction applies the gamma correction function independently to each of the red, green and blue channels.  This allows the gamma correction to be done very quickly but does course the colours of the image to change.  Chromatic correction prevents this colour change by transforming the RGB data into the HSV colour space.  Once this is done the gamma correction is applied only to the Value component and the HSV data then transformed back to the RGB colour space.  This preserves the colour contained in the image but does take significantly longer to compute.  The alpha values contained with in the image are left unchanged by both of these techniques.</p>
+
+<p>More information on gamma correction can be found on <a href="http://www.cgsd.com">CGSD Corporation's</a> gamma correction <a href="http://www.cgsd.com/papers/gamma.html">web-page</a>.  This web-page contains a good explanation of gamma correction and links to other online resources.</p>
+
+<p>This module is a conversion of the AVS5 "gamma_correct" module, also found at the IAC in the AVS5 repository.  The module implementation is now in C++, and has a new user interface.  The low-level code operates on simple byte arrays rather than fields.  A look-up table is used to speed up the conversion process.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>Full colour 2D image that is to be gamma corrected by the macro.  The image should be a 2D uniform grid of type Image_ARGB.  The read_image module outputs data of this type.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>gamma_value</i></b></blockquote>
+
+<blockquote>Float parameter that specifies the amount of gamma correction that should be applied to the image.  Typical gamma values will probably range from 0.5 to 3.0.</blockquote>
+
+<blockquote><b><i>method</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies which type of gamma correction should be applied to the image.  Currently two values are supported.  A value of 0 implies that chromatic correction should be used whilst a value of 1 implies that achromatic correction should be used.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_image</i></b></blockquote>
+
+<blockquote>Full colour 2D image after being gamma corrected by the macro.  The output image is also of Image_ARGB type.  The Red, Green and Blue channels will be changed by the gamma correction process.  The Alpha channel should be identical to that in the input image.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to the viewer.  A 2D viewer is recommended.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The GammaCorrectFunc macro makes use of the GammaCorrectCore low-level module.  The gamma_correct user macro uses this functional macro and the GammaCorrectUI user interface macro.  All these macros use the GammaCorrectParams parameter block.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The GammaCorrectEg example application reads an image, performs gamma correction upon it and shows it in a viewer along side the original image.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/gamma/gam_mods.v</i> contains the V definitions of the GammaCorrectCore module and the GammaCorrectParams parameter block.</p>
+
+<p><i>xp_comm_proj/gamma/gam_macs.v</i> contains the V definitions of the GammaCorrectUI user interface macro, the GammaCorrectFunc functional macro, the gamma_correct user macro and the GammaCorrectEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level GammaCorrectMods library containing the low-level GammaCorrectCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Wes Bethel, Lawrence Berkley Laboratory, (14 Oct 1992)
+
+Sabreen Vig, Ian Curington (30 Nov 1999)
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Andrew Dodd,
+International AVS Centre
+</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>AVS5 gamma_correct module</li>
+<li><a href="http://www.cgsd.com/papers/gamma.html">Gamma correction</a> information from CGSD Corporation.</li>
+</ul>
+
+</body>
+</html>
+

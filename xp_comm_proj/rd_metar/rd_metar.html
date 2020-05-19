@@ -1,0 +1,222 @@
+<html>
+<head>
+<title>ReadMETARS</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ReadMETARS</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module returns the wheather information (i.e. Temperature and Preassure) for given weather stations. The weather information is stored in METARS (a representation of the current weather situation provided by the National Weather Service for Aviation in USA.) 
+</blockquote>
+
+
+<blockquote>
+<h4>Inputs</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>StationLocation</i></td>
+<td width="75">Mesh</td>
+<td width="425">Location of the weahter station as read by ReadStations.</td>
+</tr>
+
+<tr>
+<td width="100"><i>StationID</i></td>
+<td width="75">string[]</td>
+<td width="425">ID of the weather Stations read by ReadStations.</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Filename</i></td>
+<td width="75">string</td>
+<td width="300">The filename of the METARS file.</td>
+<td width="125">FileDialog</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Node_Data</td>
+<td width="425">output mesh data of the location of stations, with temperature and preassure as Node_Data</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+ReadMETRAS is used to read weather information from METARS Data files. These data files contain the current weather situation and are provided by the National Weather Service for Aviation in USA. Current data files can be downloaded from <a href="http://weather.noaa.gov/weather/metar.shtml">METAR Data Access page on the National Weather Service Website(USA)</a>.
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>StationLocation</b></i>
+</blockquote>
+
+<blockquote>
+The coordinates of the stations for which the weather information is to be read.
+</blockquote>
+
+<blockquote>
+<i><b>StationID</b></i>
+</blockquote>
+
+<blockquote>
+String array of the station ID for which the weather information is to be read. Each ID is a four letter code.
+</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+Name of the METARS file.
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The coordinates of the stations and associated weather information. It contains the mesh data of the station location and Node_Data for the teperature and preassure of the station.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+Directily renderalbe object of the out mesh.
+</blockquote>
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro ReadMETARS makes use of the Functional Macro ReadMETARSFunc and the UI Macro ReadMETARSUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadMETARS_Eg is provided, which uses an ASCII data file, to display all selected stations on the world sphere map and reads the METARS for these stations.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_metar/metarmod.v</i> Creates the ReadMETARSMods library containing the low-level module ReadMETARS and the parameter group ReadMETARSParams.</p>
+
+<p><i>xp_comm_proj/rd_metar/metarmac.v</i> Creates the ReadMETARSMacs library containing the high-level macros ReadMETARSUI, ReadMETARSFunc, and the user macro ReadMETARS.</p>
+
+<p><i>xp_comm_proj/rd_metar/metarapp.v</i> Creates the ReadMETARSApps library which contains the example appplication ReadMETARS_Eg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+<blockquote>
+This project include a METAR data file for station location information. However, the lastest version can be downloaded from  <a href="http://weather.noaa.gov/weather/metar.shtml">METAR Data Access page on the National Weather Service Website(USA)</a>.
+The format of this data file is also described on this page.
+</blockquote>
+
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+anonymous
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+MA YingLiang
+Manchester Visualization Centre
+
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+
+</body>
+</html>

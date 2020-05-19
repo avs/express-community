@@ -1,0 +1,37 @@
+Express Community cp_utils Library
+https://github.com/avs/express-community
+--------------------
+
+This directory ( xp_comm_proj/cp_utils/ ) contains all the source code the
+Community cp_utils library.  This library is not a project, it is a library
+of functions used by several other projects.  There is no V code as
+this library defines no modules or macros.
+
+The directory should be placed into your existing project directory,
+which should already contain the Community Project File structure, i.e., the
+xp_comm_proj/, xp_comm_lib/ and v/ directories.
+
+Installation is simply a matter of unpacking xp_comm_proj/cp_utils and its
+contents.  Projects that use cp_utils will set properties c_src_files
+and hdr_dirs to make use of cp_utils.
+
+There is no need to compile this library.  It will be automatically
+compiled when projects that use cp_utils are compiled.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/cp_utils/ directory:
+
+avs_err.c	Error reporting functions.
+
+data_field.c	Field manipulation functions.
+
+timer.c		Simple timer functions.
+
+README		This file.
+
+Generated Files
+---------------
+
+No generated files.

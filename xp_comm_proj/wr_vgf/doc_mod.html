@@ -1,0 +1,164 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>WriteVGF</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>WriteVGF</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Writes the contents of a field or array of fields to a dVision VGF format file.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module WriteVGFCore< src_file="wr_vgf.cxx",
+                        cxx_hdr_files="fld/Xfld.h",
+                        out_src_file="gen.cxx",
+                        out_hdr_file="gen.h",
+                        build_dir="xp_comm_proj/wr_vgf">
+   {
+      cxxmethod+req upd<status=1>(
+         filename+read+notify+req,
+         in+read,
+         top_name+read,
+         nobjs+read,
+         .err+write,
+         .err_str+write);
+
+      string filename<export=2,NEportLevels={2,0}>;
+      Mesh+Node_Data &amp;in<export=2,NEportLevels={2,0}>[];
+      string top_name<export=2,NEportLevels={2,0}> = "default_avs_field";
+      int nobjs<export=2,NEportLevels={2,0}>;
+
+      int err<export=2,NEportLevels={0,2}> = 0;
+      string err_str<export=2,NEportLevels={0,2}> = "";
+   };
+</pre>
+
+<hr>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+This module parses the arrays of meshes <tt>in</tt> and then creates an ASCII VGF output
+file containing the Cell_Sets of 2D elements such as triangles, quads,
+lines, polylines and polytristrips. The module takes cell mesh topology
+from the input field structure, and writes them out to a file in
+ASCII VGF file format.
+</blockquote>
+<blockquote>
+This format is part of the dVision dVise virtual reality system, which
+can store 3D geometric objects in the scene in this format. It is
+able to pass normals through if they exist on the input mesh, colors, and
+scalar numerical values at nodes using UV texture coordinates.
+</blockquote>
+<blockquote>
+The cell-set hierarchy is preserved in the file format.  As the module takes an array of meshes as its input it able to output an array of objects.  This is used by the user macro writeVGF_ARR to output a GroupObject containing a number of Graphic Display objects.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<b><i>&amp;in[]</i></b>
+</blockquote>
+
+<blockquote>
+Reference to an array of Fields which are to be written to the VGF file. Each Field should consist of a Mesh containing Cell_Sets, and Node Data.
+</blockquote>
+
+<blockquote>
+<b><i>filename</i></b>
+</blockquote>
+
+<blockquote>
+The name of the file that should be written to. The parameter is of type string. The filename should specify the full path name of the file.
+</blockquote>
+
+<blockquote>
+<b><i>top_name</i></b>
+</blockquote>
+
+<blockquote>
+The name of the object being written to the file. The parameter is of type string. The VGF file format stores the names of the objects in the file.  This parameter allows these names to be specified.  The supplied user macros use the standard AVS object names.
+</blockquote>
+
+<blockquote>
+<b><i>nobjs</i></b>
+</blockquote>
+
+<blockquote>
+The number of objects to be written to the file. The parameter is of type int. The user macro writeVGF_ARR uses the GroupObject parameters to set this parameter.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<b><i>err</i></b>
+</blockquote>
+
+<blockquote>
+This flag is used to indicate whether an error has occured. The parameter is of type int. If this parameter is set to 1 then an error has occured within the module and the user should be informed. This can be done by using the parameter to control the visibilty of an <tt>err_str</tt> label.
+</blockquote>
+
+<blockquote>
+<b><i>err_str</i></b>
+</blockquote>
+
+<blockquote>
+The description of the current error condition. The parameter is of type string. This parameter is used to store a user readable description of the current error. If no error has occured the parameter has a value of "". 
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The low-level WriteVGFCore module is used in the User Macros
+writeVGF, writeVGF_GD and writeVGF_Arr.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/wr_vgf/wvgfmods.v</i> contains the WriteVGFCore module V definition.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level WriteVGFMods library containing the module WriteVGFCore does not specify a process. By default the <TT>express</TT> process will be used. 
+</blockquote>
+
+
+<h3>Author</h3>
+
+<pre>
+Ian Curington
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+</pre>
+
+<pre><a HREF="mailto:ianc@avs.com">ianc@avs.com</a></pre>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+writeVGF, writeVGF_GD, writeVGF_ARR, WriteVGF_UI, WriteVGFEg, WriteVGF_ARR_Eg, Write STL
+</blockquote>
+
+</body>
+</html>

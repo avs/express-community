@@ -1,0 +1,203 @@
+<html>
+<head>
+<title>NullBrickNodeData</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>NullBrickNodeData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+NullBrickNodeData modifies a sub-volume of node data within a uniform volume, by replacing all the values with a single given value. This value may optionally be set to be the null_value.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module NullBrickNodeData &lt;src_file="nullbrik.cxx"&gt; {
+  Node_Data_Struct &in &lt;NEportLevels={2,0}&gt;;
+
+  NullBrickParams_ref params &lt;NEportLevels={2,0}&gt;;
+
+  int xmin =&gt; params.xmin;
+  int xmax =&gt; params.xmax;
+  int ymin =&gt; params.ymin;
+  int ymax =&gt; params.ymax;
+  int zmin =&gt; params.zmin;
+  int zmax =&gt; params.zmax;
+  double nval =&gt; params.nval;
+  int setnull =&gt; params.setnull;
+
+  Node_Data_Struct out &lt;NEportLevels={0,2}&gt; {
+    &nnode_data =&gt; in.nnode_data;
+    &ndim =&gt; in.ndim;
+    &dims =&gt; in.dims;
+  };
+
+  cxxmethod+req update (
+    in+read+notify+req,
+    xmin+read+notify+req,
+    xmax+read+notify+req,
+    ymin+read+notify+req,
+    ymax+read+notify+req,
+    zmin+read+notify+req,
+    zmax+read+notify+req,
+    nval+read+notify+req,
+    setnull+read+notify+req,
+    out+write );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>NullBrickNodeDara inputs a uniform volume (Node_Data_Struct) and a set of parameters to define a sub-volume within, and a replacement data value. All node data within the sub-volume is replaced with the given value, in all components. This allows sub-volumes to be cut away - similar to the excavate_brick module - but doesn't convert the field to an unstructured mesh, thus allowing the volume to be volume rendered.</p>
+<p>Additionally, the given value, may be specified as the null_value in the Node_Data components, and the null_flag parameter is set.</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+Input for uniform node data (Node_Data_Struct), which will have a sub-volume modified as defined by the extents in the parameter block, for all components of all primitive data types.
+</blockquote>
+
+<blockquote>
+<i><b>&params</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of:
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>xmin</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume lower extent for the x-axis.
+</blockquote>
+
+<blockquote>
+<i><b>xmax</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume upper extent for the x-axis.
+</blockquote>
+
+<blockquote>
+<i><b>ymin</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume lower extent for the y-axis.
+</blockquote>
+
+<blockquote>
+<i><b>ymax</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume upper extent for the y-axis.
+</blockquote>
+
+<blockquote>
+<i><b>zmin</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume lower extent for the z-axis.
+</blockquote>
+
+<blockquote>
+<i><b>zmax</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume upper extent for the z-axis.
+</blockquote>
+
+<blockquote>
+<i><b>nval</b></i>
+</blockquote>
+
+<blockquote>
+Value (null) to be used to fill all values defined as the sub-volume.
+</blockquote>
+
+<blockquote>
+<i><b>setnull</b></i>
+</blockquote>
+
+<blockquote>
+Sets the nval parameter to be the null_value in each component, and sets the null_flag of the Node_Data.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Modified uniform Node Data output.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+NullBrickNodeData is used within the functional macro NullBrick and subsequently the high-level user macro <a href="doc_umac.html">null_brick</a>.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications, NullBrickEg1 and NullBrickEg2 are provided, which show the null_brick macro in use with the volume_render modules and the isosurface modules respectively.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/nullbrik/nbrkmods.v</I> contains the NullBrickParams group and the NullBrickNodeData module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level NullBrickMods library containing the module NullBrickNodeData does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Paul G. Lever
+International AVS Centre
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+NullBrickParams, NullBrickUI, NullBrick, and <a href="doc_umac.html">null_brick</a>
+</blockquote>
+
+<blockquote>
+excavate_brick
+</blockquote>
+
+</body>
+</html>

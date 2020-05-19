@@ -1,0 +1,72 @@
+Express Community Threshold Example Project
+https://github.com/avs/express-community
+-----------------------------
+
+This directory ( xp_comm_proj/overlay/ ) contains all the V code, source code,
+HTML documentation, and installation information for the project
+"OverlayImages".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Threshold project, and two single line additions to some of the xp_comm_lib/
+files (in this instance filters.v and examples.v) to add a link to the User
+Macro and the Example Application from the new top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Users of the Developer's Edition may select the
+library XP_COMM_PROJ.Overlay.OverlayMods in the Templates library, and then
+perform a compile. Alternatively, you may type the following command into
+the VCP prompt; Visualization Edition users must type the following command
+to compile the project, as there is no access to the Templates library
+through the Network Editor:
+
+$compile XP_COMM_PROJ.Overlay.OverlayMods
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/thresh/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/ filters.v and examples.v files. This file should
+               not be edited as the future installation script will use this
+               file.
+
+overlay.v      Creates the XP_COMM_PROJ.Overlay library.
+
+overmods.v     Creates the OverlayMods library containing the low-level
+               module OverlayNodeData and the parameter group
+               OverlayParams.
+
+overmacs.v     Creates the OverlayMacs library containing the high-level
+               macros OverlayUI, OverlayImages, overlayImages and the
+               example application OverlayEg.
+
+over_img.cxx   The C source code for the OverlayNodeData module.
+
+doc_mod.html   HTML documentation for the OverlayNodeData module.
+
+doc_umac.html  HTML documentation for the overlayImages User Macro.
+
+mvc.tif        example data
+
+README         This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h          AVS/Express generated header file.
+
+gen.cxx        AVS/Express generated source code.
+
+over_img.o     Intermediate object file.
+

@@ -1,0 +1,135 @@
+<HTML><HEAD><TITLE>visAttribute Class</TITLE></HEAD>
+<BODY bgcolor="#ffffff">
+
+<H1>visAttribute Class Reference</H1>
+<p>
+[<A HREF="index.html">VisAPI Index</A>] [<A HREF="hier.html">VisAPI Hierarchy</A>]
+</p>
+<HR>
+<P>Attribute specification.   <a href="#short">More...</a></P>
+<P>
+<code>
+	#include &lt;<a href="VisApi-VisApi-h.html">VisApi/VisApi.h</a>&gt;
+</code>
+
+</P>
+
+<P>
+Inherits: <a href="visObject.html">visObject</a>
+<P>
+<H2>Public Members</H2>
+<UL>
+<LI>virtual bool <b><a name="ref0">instanceOf</a></b> (visClassId id) 
+</LI>
+<LI><b><a href="#ref1">visAttribute</a></b> () 
+</LI>
+<LI>virtual <b><a href="#ref2">~visAttribute</a></b> () 
+</LI>
+<LI>virtual bool <b><a name="ref3">allocate</a></b> () 
+</LI>
+<LI>virtual void <b><a name="ref4">deallocate</a></b> () 
+</LI>
+<LI>virtual double <b><a href="#ref5">getValue</a></b> (int i) 
+</LI>
+<LI>virtual void <b><a href="#ref6">setValue</a></b> (int dim, visAttrVal val) 
+</LI>
+<LI>virtual void <b><a href="#ref7">setValue</a></b> (int i, double x) 
+</LI>
+<LI>virtual void <b><a href="#ref8">setValue</a></b> (int dim, visAttribute *attr) 
+</LI>
+<LI>virtual double <b><a href="#ref9">getScalarValue</a></b> (int dim) 
+</LI>
+<LI>double *<b><a href="#ref10">lendBuffer</a></b> (int dim) 
+</LI>
+<LI>void <b><a href="#ref11">takebackBuffer</a></b> (int dim, double *buffer) 
+</LI>
+<LI>virtual bool <b><a href="#ref12">isEqual</a></b> (int dim, visAttribute *) 
+</LI>
+<LI>virtual bool <b><a href="#ref13">isLess</a></b> (int dim, visAttribute *) 
+</LI>
+<LI>virtual void <b><a href="#ref14">add</a></b> (int dim, visAttribute *) 
+</LI>
+<LI>virtual void <b><a href="#ref15">sub</a></b> (int dim, visAttribute *) 
+</LI>
+<LI>virtual void <b><a href="#ref16">mult</a></b> (int dim, double) 
+</LI>
+<LI>virtual void <b><a href="#ref17">div</a></b> (int dim, double) 
+</LI>
+</UL>
+<HR>
+<H2><a name="short">Detailed Description</a></H2>
+<P>
+
+Defines the basic functionality of attributes in VisApi: The mapping to a
+scalar or a vector and their arithmetic operations. The reason why they are
+not using operator overloading is the unhandy usage with pointers that need
+to be used with virtual functions.
+</p><p>
+An attribute does not store its vector dimension. The vector dimension must
+be obtained from the corresponding attribute factory. This saves unnecessary
+memory usage.
+</p><p>
+
+
+</P>
+<HR>
+<H2><a name="ref1"></a><a name="visAttribute">visAttribute</a>()  </H2>
+<p>Constructor.
+</p>
+<H2>virtual <a name="ref2"></a><a name="~visAttribute">~visAttribute</a>()  </H2>
+<p>Destructor calls deallocate method.
+</p>
+<H2>virtual double <a name="ref5"></a><a name="getValue">getValue</a>(int i)  </H2>
+<p>Return i-th vector component (0 < i < vector dimension).
+</p>
+<H2>virtual void <a name="ref6"></a><a name="setValue">setValue</a>(int dim, visAttrVal val)  </H2>
+<p>Set this attribute to given constant.
+</p>
+<H2>virtual void <a name="ref7"></a><a name="setValue">setValue</a>(int i, double x)  </H2>
+<p>Sets i-th vector component (0 < i < vector dimension).
+</p>
+<H2>virtual void <a name="ref8"></a><a name="setValue">setValue</a>(int dim, <a href="visAttribute.html">visAttribute</a> *attr)  </H2>
+<p>Set attribute value to attr.
+</p>
+<H2>virtual double <a name="ref9"></a><a name="getScalarValue">getScalarValue</a>(int dim)  </H2>
+<p>Return scalar value of object.
+</p>
+<H2>double *<a name="ref10"></a><a name="lendBuffer">lendBuffer</a>(int dim)  </H2>
+<p>Return buffer to vector data for writing. Use takebackBuffer() to 
+write contents back to attribute.
+</p>
+<H2>void <a name="ref11"></a><a name="takebackBuffer">takebackBuffer</a>(int dim, double *buffer)  </H2>
+<p>Write vector data to attribute. The buffer must be obtained by
+lendBuffer!
+</p>
+<H2>virtual bool <a name="ref12"></a><a name="isEqual">isEqual</a>(int dim, <a href="visAttribute.html">visAttribute</a> *)  </H2>
+<p>Returns true if this object has the same value as the given
+attribute.
+</p>
+<H2>virtual bool <a name="ref13"></a><a name="isLess">isLess</a>(int dim, <a href="visAttribute.html">visAttribute</a> *)  </H2>
+<p>Returns true if this objects value is less than the given attribute.
+</p>
+<H2>virtual void <a name="ref14"></a><a name="add">add</a>(int dim, <a href="visAttribute.html">visAttribute</a> *)  </H2>
+<p>Add given attribute value to this attribute. Dimension must be equal.
+</p>
+<H2>virtual void <a name="ref15"></a><a name="sub">sub</a>(int dim, <a href="visAttribute.html">visAttribute</a> *)  </H2>
+<p>Substract the given attribute from this attribute. Dimension must be
+equal. 
+</p>
+<H2>virtual void <a name="ref16"></a><a name="mult">mult</a>(int dim, double)  </H2>
+<p>Multiply attribute value by the given scalar.
+</p>
+<H2>virtual void <a name="ref17"></a><a name="div">div</a>(int dim, double)  </H2>
+<p>Divide attribute value by the given scalar.
+</p>
+<HR>
+<TABLE WIDTH="100%"><TR><TD ALIGN="left" VALIGN="top">
+
+<UL><LI><I>Author</I>: Peter Breitling </LI>
+<LI>Documentation generated by breitlip@atzenger10 on Mon Jan 17 19:29:23 CET 2000
+</LI>
+</UL></TD><TD ALIGN="RIGHT" VALIGN="TOP">
+<b>K</b><i>doc</i>
+</TD>
+</TR></TABLE></BODY></HTML>
+

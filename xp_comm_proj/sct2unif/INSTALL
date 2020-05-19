@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/sct2unif/sct2unif.v" Sct2Unif;
+#
+# In the following xp_comm_lib file
+mappers.v
+# insert the following line
+  XP_COMM_PROJ.Sct2Unif.Sct2UnifMods.sct2unif sct2unif;
+# In the following xp_comm_lib file
+examples.v
+# insert the following lines
+  XP_COMM_PROJ.Sct2Unif.Sct2UnifMacs.Sct2UnifEg1 Sct2UnifEg1;
+  XP_COMM_PROJ.Sct2Unif.Sct2UnifMacs.Sct2UnifEg1 Sct2UnifEg2;
+  XP_COMM_PROJ.Sct2Unif.Sct2UnifMacs.Sct2UnifEg2 Sct2UnifEg3;
+

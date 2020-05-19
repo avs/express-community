@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>SphereSurfaceGen</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>SphereSurfaceGen</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The module SphereSurfaceGen generates a 2D sphere surface grid and mesh. Parameters allow modification of the angles, radius and resolution.
+</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+#ifdef MSDOS
+  module SphereSurfaceGen &lt;src_file="spsurf.c"&gt; {
+#else
+  module SphereSurfaceGen &lt;src_file="spsurf.c",
+                           link_files="-lm"&gt; {
+#endif
+
+    SphereSurfaceParams+IPort2 &amp;SphereSurfaceParams&lt;export=2&gt;;
+
+    int longdim =&gt; SphereSurfaceParams.longdim;
+    int latdim =&gt; SphereSurfaceParams.latdim;
+    double end_lat =&gt; SphereSurfaceParams.end_lat;
+    double start_lat =&gt; SphereSurfaceParams.start_lat;
+    double end_long =&gt; SphereSurfaceParams.end_long;
+    double start_long =&gt; SphereSurfaceParams.start_long;
+    double radius =&gt; SphereSurfaceParams.radius;
+    int closedlong =&gt; SphereSurfaceParams.closedlong;
+    int closedlat =&gt; SphereSurfaceParams.closedlat;
+
+    omethod+notify_inst+req update(
+      longdim+read+notify+req,
+      latdim+read+notify+req,
+      end_lat+read+notify+req,
+      start_lat+read+notify+req,
+      end_long+read+notify+req,
+      start_long+read+notify+req,
+      radius+read+notify+req,
+      closedlong+read+notify+req,
+      closedlat+read+notify+req,
+      mesh+write
+    ) = "sphere_surface_gen";
+
+    Grid_Struct+Cells+Xform+OPort2 mesh&lt;NEcolor1=65280,export=2&gt; {
+      ndim = 2;
+    };
+  };
+</pre>
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>SphereSurfaceGen generates a 2D spherical surface grid and mesh based on the numerous input parameters.  These parameters control the resolution of the resultant grid, specify the start and end angles for the longitude and latitude of the surface, and the sphere radius.</p>
+
+<p>Additional options allow the two edges of the 2D surface to be closed: as the sphere wraps around the two edges will be connected in the mesh information, thus producing a continuous surface, as opposed to the standard Express sphere which simply aligns the two edges - producing a visible shading artefact.</p>
+
+<p>Node data may also be mapped onto the grid, and the closed surface will keep the two edges of the mesh apart.</p>
+
+<p>Typically the longitude will range between -180 and +180 degrees, and if the closed parameter is not selected, the two edges will not coincide. The resolution controls the angle between each grid line and the distance between the two edges will equal to this interval (for -180 to +180 longitude), thus producing a continuous surface.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;SphereSurfaceGenParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of:
+</blockquote>
+
+<blockquote>
+<i><b>longdim</b></i>
+</blockquote>
+
+<blockquote>
+Resolution of the sphere surface grid along the longitude axis.
+</blockquote>
+
+<blockquote>
+<i><b>latdim</b></i>
+</blockquote>
+
+<blockquote>
+Resolution of the sphere surface grid along the latitude axis.
+</blockquote>
+
+<blockquote>
+<i><b>start_long</b></i>
+</blockquote>
+
+<blockquote>
+Start angle in degrees for longitude (default is -180 degrees).
+</blockquote>
+
+<blockquote>
+<i><b>end_long</b></i>
+</blockquote>
+
+<blockquote>
+End angle in degrees for longitude (default is +180 degrees).
+</blockquote>
+
+<blockquote>
+<i><b>start_lat</b></i>
+</blockquote>
+
+<blockquote>
+Start angle in degrees for latitude (default is +90 degrees).
+</blockquote>
+
+<blockquote>
+<i><b>end_lat</b></i>
+</blockquote>
+
+<blockquote>
+Start angle in degrees for latitude (default is -90 degrees).
+</blockquote>
+
+<blockquote>
+<i><b>radius</b></i>
+</blockquote>
+
+<blockquote>
+Specify radius of the sphere surface (default is 1.0).
+</blockquote>
+
+<blockquote>
+<i><b>closedlong</b></i>
+</blockquote>
+
+<blockquote>
+Connect the two edges of the grid to make longitude continuous (by default this is ON).
+</blockquote>
+
+<blockquote>
+<i><b>closedlat</b></i>
+</blockquote>
+
+<blockquote>
+Connect the two edges of the grid to make latitude continuous (by default this is OFF).
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>mesh</b></i>
+</blockquote>
+
+<blockquote>
+Output structured mesh of the sphere surface.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The functional macro SphereSurface outputs the mesh as a normal field object and as a renderable data object. The functional macro SphereSurfaceData extends the functionality by allowing Node_Data to be mapped onto the Mesh, with output as both field and data object.</p>
+
+<p>The user macros <a href="doc_umac.html">sphere_surface</a>, <a href="doc_umac.html">sphere_surface_data</a> and <a href="doc_umac.html">sphere_surface_lite</a> combine the functional macros and the UI macro SphereSurfaceUI.</p>
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications, SphereSurfaceEg1 and SphereSurfaceEg2, are provided which demonstrate the sphere_surface and sphere_surface_data macros respectively.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/spsurf/spsfmods.v</i> contains the SphereSurfaceParams group and the SphereSurfaceGen module V definitions.</p>
+
+<p><i>xp_comm_proj/spsurf/spsfmacs.v</i> contains the sphere_surface, sphere_surface_data and sphere_surface_lite User Macros, the SphereSurface and SphereSurfaceData Functional Macros and the SphereSurfaceUI UI Macro V definitions.</p>
+
+<p><i>xp_comm_proj/spsurf/spsfapps.v</i> contains the SphereSurfaceEg1 and SphereSurfaceEg2 example application module V definitions.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level SphereSurfaceMods library containing the module SphereSurfaceGen does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever,
+International AVS Centre
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+SphereSurfaceParams, SphereSurface, SphereSurfaceData, <a href="doc_umac.html">sphere_surface</a>, <a href="doc_umac.html">sphere_surface_data</a> and <a href="doc_umac.html">sphere_surface_lite</a>.
+</blockquote>
+
+<blockquote>
+Sphere, Field_Sphere
+</blockquote>
+
+</body>
+</html>
+

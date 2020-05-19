@@ -1,0 +1,15 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+    "../xp_comm_proj/p_demo/p_demo.v" PresentDemo;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+    XP_COMM_PROJ.PresentDemo.PresentDemoMacs.present_demo present_demo;
+    XP_COMM_PROJ.PresentDemo.PresentDemoApps.PresentDemoApp PresentDemoApp;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+    XP_COMM_PROJ.PresentDemo.PresentDemoApps.PresentDemoEg1 PresentDemoEg1;
+    XP_COMM_PROJ.PresentDemo.PresentDemoApps.PresentDemoEg2 PresentDemoEg2;
+

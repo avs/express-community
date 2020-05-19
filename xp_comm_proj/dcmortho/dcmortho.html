@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>DICOM_Orthoslice</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>DICOM_Orthoslice</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+An orthoslice module that works in conjunction with Read_DICOM to produce correctly orientated 2D slices of medical data.
+</blockquote>
+
+<blockquote>
+<h4>Inputs</h4>
+
+<table  width="100%" summary="Inputs used by DICOM_Orthoslice">
+<tr>
+<td width="30%"><b><font size="-1">Name</font></b></td>
+<td width="20%"><b><font size="-1">Type</font></b></td>
+<td width="50%"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+<tr>
+<td width="30%"><i>in</i></td>
+<td width="20%">link (Mesh_Unif+Node_Data)</td>
+<td width="50%">Field containing a DICOM volume</td>
+</tr>
+
+<tr>
+<td width="30%"><i>axis</i></td>
+<td width="20%">int</td>
+<td width="50%">slice direction perpendicular to x(0), y(1) or z(2) axis</td>
+</tr>
+
+<tr>
+<td width="30%"><i>plane</i></td>
+<td width="20%">int</td>
+<td width="50%">the slice to extract</td>
+</tr>
+
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table width="100%" summary="Inputs used by DICOM_Orthoslice">
+<tr>
+<td width="30%"><b><font size="-1">Name</font></b></td>
+<td width="20%"><b><font size="-1">Type</font></b></td>
+<td width="50%"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+<tr>
+<td width="30%"><i>out</i></td>
+<td width="20%">link (Mesh_Unif+Node_Data)</td>
+<td width="50%">a link to a 2D Field represent to request slice</td>
+</tr>
+
+<tr>
+<td width="30%"><i>obj</i></td>
+<td width="20%">link (DataObject)</td>
+<td width="50%">renderable object</td>
+</tr>
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+In the main this module works similarly to the standard AVS/Express orthoslice module, with the following expections:
+<ol>
+  <li>only handles uniform meshes (the core module being DICOM_orthoslice_unif)</li>
+  <li>currently only handles scalar data.</li>
+</ol>
+</blockquote>
+
+<blockquote>
+The way in which ReadDICOM works and clincians expect to view the slices means that the the standard orthoslice doesn't necessarily produce slices that are correctly orientated, especially when displayed in a 2D view e.g, Patient Left is on the left rather than the right. In a 3D view since the images can be viewed from either side anyway the feature of DICOM_Orthoslice aren't required. For DICOM_Orthoslice to work some assumptions are made about the DICOM data:
+<ol>
+  <li>The patients was lying on thier back for the scan</li>
+  <li>Slices were acquired moving in the direction from the feet to the head, hence the images are to viewed as if looking from the feet at the head</li>
+</ol>
+<img src="dicom_head.png" alt="orientation of data within the Express field" align="right">ReadDICOM places each slice face down starting at z = 0, consecutive slices are added at incremental z positions. The AVS/Express orthoslice when set to the z axis (2) look from the <font color="green">green</font> view point whereas the desired direction and the one returned by DICOM_Orthoslice is from the <font color="blue">blue</font> view point this being the <i>axial</i> view. There is a similar problem in the y axis, <i>coronal</i> view.
+<br clear="all">
+
+</blockquote>
+
+<h3>Parameters</h3>
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>in</i></b></blockquote>
+<blockquote>A Mesh_Unif+Node_Data  possibly originating from a Read_DICOM macro ut not necessarily</blockquote>
+
+<blockquote><b><i>axis</i></b></blockquote>
+<blockquote>Which axis to slice; 0 = x, sagittal , 1 = y, coronal, 2 = z, axial</blockquote>
+
+<blockquote><b><i>plane</i></b></blockquote>
+<blockquote>Which slice to return in the range 0 to dims[axis]-1</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>out</i></b></blockquote>
+<blockquote>A 2D Mesh_Unif+Node_Data of the requested slice</blockquote>
+
+<blockquote><b><i>obj</i></b></blockquote>
+<blockquote>A renderable object</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+The DICOM_Orthoslice_Eg application requires Read_DICOM (the user must also provide the data) and uses DICOM_Orthoslice to present the three orthogonal views of the data.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/dcmortho/dcmortho.v</i> Creates the XP_COMM_PROJ.DICOMOrtho library</p>
+<p><i>xp_comm_proj/dcmortho/dcmomods.v</i> Creates the DICOMOrthoMods library containing the low-level module DICOM_orthoslice_unif.</p>
+<p><i>xp_comm_proj/dcmortho/dcmomacs.v</i> Creates the DICOMOrthoMacs library containing the high-level user macro DICOM_Orthoslice, functional macro DICOM_Orthoslice_Unif and user interface macro DICOM_Orthoslice_UI.</p>
+<p><i>xp_comm_proj/dcmortho/dcmoapps.v</i> Creates the DICOMOrthoApps library containing the example application macro DICOM_OrthosliceEg.</p>
+</blockquote>
+
+
+<h3>Notes</h3>
+
+<blockquote>
+It is possible that in future that Read_DICOM will change the orientation in which it loads the data making this macro unnecessary.
+</blockquote>
+
+<blockquote>
+Developed as part of the Sir Jules Thorn Charitable Trust funded project CAMRAS
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+James S. Perrin : <A HREF="mailto:james.perrin@man.ac.uk">james.perrin@man.ac.uk</A>,
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+<ul>
+  <li>AVS/Express documentation for orthoslice.</li>
+  <li>ReadDICOM from the <a href="http://www.iavsc.org">IAC</a>.</li>
+</ul>
+</body>
+</html>

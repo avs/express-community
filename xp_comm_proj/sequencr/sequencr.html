@@ -1,0 +1,124 @@
+<html>
+<head>
+<title>Sequencer</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>modSequencer</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Triggers in sequence, an output of three integers, each within their own context.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module modSequencer &lt;src_file = &quot;sequencr.cxx&quot;&gt; {
+
+  prim+IPort2 trigger;
+  int+OPort2 seq_1;
+  int+OPort2 seq_2;
+  int+OPort2 seq_3;
+
+  cxxmethod+req update (
+    .trigger+notify,
+    .seq_1+write,
+    .seq_2+write,
+    .seq_3+write
+  );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Triggers in sequence, an output of three integers, each within their own context. This is basically a series of context push and pops to force Express to trigger in a more controlled manner what parts of a network will fire. 
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+Input trigger to start the context push and pops. Each output integer is called in turn, each within its own context.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>seq_1</b></i>
+</blockquote>
+
+<blockquote>
+Integer output to be used a trigger for a sub-network within the user's application. This integer is called first. Network objects connected to the other output triggers will not be triggered duting this context, thus ensuring that all network objects connected/triggered by this trigger will fire before objects connected to the remaining triggers.
+</blockquote>
+
+<blockquote>
+<i><b>seq_2</b></i>
+</blockquote>
+
+<blockquote>
+Second output trigger to fire a second sub-network of components. When this triggers it can be assumed that all objects connected to the previous trigger will have fired and completed.
+</blockquote>
+
+<blockquote>
+<i><b>seq_3</b></i>
+</blockquote>
+
+<blockquote>
+Third and final trigger. Last set of network components to be fired. Assume that previous two triggers have fired and all objects have updated in the previous two sub-networks.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/sequencr/seqrmods.v</I> contains the modSequencer module V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level SequencerMods library containing the module modSequencer does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Advanced Visual Systems Inc.
+Documentation - Ian Curington, Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+</body>
+</html>

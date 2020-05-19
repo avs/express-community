@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Xform</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>Xform</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Transforms between cartesian, cylindrical and spherical coordinates.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by cart2sph, sph2cart, cart2cyl, cyl2cart">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>cart</i></td>
+<td width="75">Mesh+Space3</td>
+<td width="425">Cartesian coordinates to be converted</td>
+</tr>
+
+<tr>
+<td width="100"><i>cyl</i></td>
+<td width="75">float[][3]</td>
+<td width="425">Cylindrical coordinates to be converted</td>
+</tr>
+
+<tr>
+<td width="100"><i>sph</i></td>
+<td width="75">float[][3]</td>
+<td width="425">Spherical coordinates to be converted</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by cart2sph, sph2cart, cart2cyl, cyl2cart">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>cart</i></td>
+<td width="75">Point Mesh</td>
+<td width="425">converted cartesian coordinates</td>
+</tr>
+
+<tr>
+<td width="100"><i>cyl</i></td>
+<td width="75">float[][3]</td>
+<td width="425">converted cylindrical coordinates</td>
+</tr>
+
+<tr>
+<td width="100"><i>sph</i></td>
+<td width="75">float[][3]</td>
+<td width="425">converted spherical coordinates</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable cartesian output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>Normally coordinates in space are described by the distance a point is along three perpendicular axis.  These distances are called x,y and z, and this system of describing coordinates is called the cartesian coordinate system.  This is the system that is used by AVS/Express Fields to describe the position of node points.  However there are alternative ways to describe positions in space.  In particular the cartesian coordinate system is not well suited to describing circular or spherical objects.  To help solve this problem two other coordinate systems have been developed, namely cylindrical and spherical coordinates.  The macros and modules presented in this project allow the user to easily transform coordinates between these three systems.</p>
+
+<p>Both spherical and cylindrical describe the position of a point by using 3 values.  The spherical coordinate values are called <i>r</i>, <i>theta</i> and <i>pi</i>.  <i>r</i> is the distance the point is from the origin.  <i>theta</i> is the angle in the X-Y plane and <i>pi</i> is the angle in the Z plane.  Similarly the cylindrical coordinate values are called <i>r</i>, <i>theta</i> and <i>z</i>. <i>r</i> is the distance the point is from the Z axis, <i>z</i> is the distance the point is along the Z axis and <i>theta</i> is the angle in the X-Y plane.</p>
+
+<p>Four macros are provided to allow data to be transformed between these systems.  <tt>sph2cart</tt> and <tt>cart2sph</tt> convert spherical coordinates to and from cartesian coordinates respectively.  <tt>cyl2cart</tt> and <tt>cart2cyl</tt> convert cylindrical coordinates to and from cartesian coordinates respectively.  This project does not allow direct transformation between cylindrical and spherical coordinates.  However this can be easily achieved by combining two macros i.e. <tt>sph2cart</tt> and <tt>cart2cyl</tt>.</p>
+
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote><b><i>cart</i></b></blockquote>
+
+<blockquote>
+Mesh containing 3-dimensional cartesian coordinates that should be transformed.  Please note that allowing a Mesh to be processed is a convenience to the user.  Internally the low-level module operates directly upon the coordinate array contained within the Mesh.  All other data contained within the Mesh is ignored.  If you do not wish to transform Mesh data you should use the low-level modules directly.
+</blockquote>
+
+<blockquote><b><i>sph[][3]</i></b></blockquote>
+
+<blockquote>
+Floating point array containing the spherical coordinates that should be transformed.  Each element in the array should contain the coordinates in this order: <i>r</i>, <i>theta</i>, <i>pi</i>.
+</blockquote>
+
+<blockquote><b><i>cyl[][3]</i></b></blockquote>
+
+<blockquote>
+Floating point array containing the cylindrical coordinates that should be transformed.  Each element in the array should contain the coordinates in this order: <i>r</i>, <i>theta</i>, <i>z</i>.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>cart</b></i>
+</blockquote>
+
+<blockquote>
+Point mesh containing the original points transformed into cartesian coordinates.  This mesh can be directly used by other visualization modules.
+</blockquote>
+
+<blockquote>
+<i><b>sph[][3]</b></i>
+</blockquote>
+
+<blockquote>
+Floating point array containing the original points transformed into spherical coordinates.  This array contains the spherical coordinates in the following order: <i>r</i>, <i>theta</i>, <i>pi</i>.
+</blockquote>
+
+<blockquote>
+<i><b>cyl[][3]</b></i>
+</blockquote>
+
+<blockquote>
+Floating point array containing the original points transformed into cylindrical coordinates.  This array contains the cylindrical coordinates in the following order: <i>r</i>, <i>theta</i>, <i>z</i>.
+</blockquote>
+
+
+<blockquote><b><i>obj</i></b></blockquote>
+
+<blockquote>
+The GDobject version of the cartesian point mesh output, suitable for direct connection to the viewer.  This output is only provided by the sph2cart and cyl2cart modules.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The four functional macros presented here each encapsulate a single low-level module that contains the procedural code necessary to perform the transformation.</p>
+
+<ul>
+<li>sph2cart uses spherical_to_cartesian module</li>
+<li>cart2sph uses cartesian_to_spherical module</li>
+<li>cyl2cart uses cylindrical_to_cartesian module</li>
+<li>cart2cyl uses cartesian_to_cylindrical module</li>
+</ul>
+
+<p>No user interface or user macros are provided as they are not necessary for this project.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided.  The CylindricalCoordsEg application generates a series of cylindrical coordinates that represent a spiral.  These coordinates are converted into cartesian coordinates and displayed in a normal viewer.  The cartesian coordinates are then converted back into cylindrical coordinates and displayed on a polar graph.  Similarly the SphericalCoordsEg application generates a series of spherical coordinates that follow a path around the surface of a sphere.  These coordinates are converted into cartesian coordinates and displayed using the glyph module.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level XformMods library containing the low-level modules does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/xform/xfrmmods.v</i> contains the V definitions of the spherical_to_cartesian, cartesian_to_spherical, cylindrical_to_cartesian and cartesian_to_cylindrical modules.</p>
+
+<p><i>xp_comm_proj/xform/xfrmmacs.v</i> contains the V definitions of the sph2cart, cart2sph, cyl2cart and cart2cyl functional macros, and the CylindricalCoordsEg and SphericalCoordsEg example applications.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Jeremy Maccelari - <a href="mailto:visualn@iafrica.com">visualn@iafrica.com</a>
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd - <a href="http://www.iavsc.org">International AVS Centre</a>
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+N/A
+</blockquote>
+
+</body>
+</html>
+

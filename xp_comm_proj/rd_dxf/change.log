@@ -1,0 +1,166 @@
+ ***********************************************************************
+ Stephen Marsland, MVC Summer Student
+ email: stephen.marsland@somerville.ox.ac.uk
+        zzptmsm@afs.mcc.ac.uk
+
+	* Changes to the files of /rddxf-p2.0/rd_dxf
+
+	* Version 1.0: 30/7/97 
+		Original files as given.
+	
+	* Version 1.1: 7/8/97  
+		A lot of DXF files added in dxf_files, courtesy of AVS.
+		Two extra entities, DXFArc and DXFRay added.
+	
+
+	* Version 1.2: 19/8/97
+		Creates an error file showing those entities not read.
+		Further entities added. DXFArc and DXFRay implemented.
+
+
+	* Version 1.3: 1/9/97
+		Several other entities have header and code files added, 
+		although not all are implemented yet. They are:
+			3DSolid
+			Ellipse
+			Insert
+			Leader
+			PLine
+		Code which is already written is changed to correct a few bugs
+		- especially the DXFLine.cxx module. 
+
+	* Version 1.4: 12/9/97
+		As much of the code as possible has been amended to enable the
+		introduction of a block reader. This has meant rewriting parts
+		of the DXFFile module which was unable to cope with the 
+		additions.
+
+	* Version 1.5: 17/9/97
+		The block reader is part completed. It reads in blocks and 
+		stores their names, but does not yet set up a database to 
+		record the entities.
+
+
+ ***********************************************************************
+ Margaret Wood, AVS
+ email: margaret@avsuk.com
+
+    * Version 1.6: 30/9/97
+        Set tablesHead and tablesTail to null in DXFfile constructor
+        (fixed crash on PC)
+        Allow user to specify whether plines & circles (also
+        ellipses when implemented) should be filled (Express 
+        polyhedron field) or outline (Express line field)
+        Allow cell data to be attached - at present this is 
+        hardwired to 39 (line thickness) 
+        Rewrote user interface to include reverse_normals & 
+		fill_polygons - stored in separate v file for DXF_UI 
+		library.
+		Added rd_dxf_params object in DXF_COMP library.
+		Rewrote read_dxf.v and rd_adj_dxf.v to use this
+		interface.
+		Removed one DXF library
+		Prevented erroneous error messages from DXFPrim::Make
+
+	* Version 1.7: 2/10/97
+	    Added code to store color and flags associated with a layer 
+		definition and to use the appropriate color for any entity
+		associated with a layer. Node data is now RGB, with 1 - 7 given 
+		somewhat arbitrary colors, and everything else being white.
+		Needs a lookup table of some sort.
+
+	* Version 1.8: 3/10/97
+	    Added code to extract text information. This is exported as
+		a Point Mesh and an array of strings - these can be input to 
+		text_glyph.
+
+
+ ***********************************************************************
+ Ms Anja Bindrich, MVC Summer Student
+ mvc-info@mcc.ac.uk
+
+    	* Version 4.0: 26/11/97
+
+           -added message to indicate which entities are being ignored
+           -removed debugging code being output to screen
+           -added UIlabel to display current version no and date
+	   -Current state of Entities is shown below:
+
+	3DFACE          Coded but not tested
+        3DSOLID         Not done
+        ARC             Working			
+        ATTDEF          Not done
+        ATTRIB          Not done
+        BLOCK		Working
+        BODY            Not done
+        CIRCLE          Working
+        DIMENSION       Not done
+        ELLIPSE         Working			see note 1.
+        INSERT          Working
+        LEADER          Not done
+        LINE            Working
+        MLINE           Not done
+        MTEXT           Not done
+        OLEFRAME        Not done
+        POINT           Working
+        POLYLINE        Working
+        RAY             Coded but not tested
+        REGION          Not done
+        SEQEND          Working
+        SHAPE           Not done
+        SOLID           Not done
+        SPLINE          Not done
+        TEXT            Working			see note 2.
+        TOLERANCE       Not done
+        TRACE           Not done
+        VERTEX          Working
+        VIEWPORT        Not done
+        XLINE           Not done
+
+ 
+  1). when a DXF file of an ellipse is created the rotation information is
+      not saved.  The information which is (centerpoint and axesendpoint)
+      are interpreted correctly.  This is under further investigation.
+
+   
+  2) simply displaying one text string at each point. Information such
+     as scaling and rotation is ignored.
+
+	* Version 4.1: 28/11/97
+
+	- handle with extrusion directions in all entitys implemented yet
+
+
+ ***********************************************************************
+ Andrew Dodd, IAC Visualization Engineer
+ andrew.dodd@man.ac.uk
+
+   * Version 5.5: 6/7/99
+
+      - Fixed project so that it compiled correctly on Win32 platform.
+
+      - Removed some unused code from project.
+
+      - Reformatted V code so that it fitted into IAC project structure.
+
+      - Added ReadDXF project to repository as a special, unsupported project.
+
+
+   * Version 6.0: 15/8/00
+
+      - Completed reformatting of project V code into IAC project structure.
+        Project now has low-level modules and separated User Interface,
+        Functional and User macros.
+
+      - Removed redField module and replaced with more efficient ExtractObjectsCore
+        module.
+
+      - Wrote standardized IAC project documentation for readDXF user macro.
+
+      - Moved unused code into ReadDXFUnsupported library.
+
+      - Added support for AVS/Express environment variables (e.g. $XP_PATH<>)
+
+      - Updated ReadDXF project in repository and changed status to standard
+        supported project.
+

@@ -1,0 +1,191 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>IsoObjectLabelCore</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>IsoObjectLabelCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A mapper module that generates position data for isoline labels.  The module processes the input field data and generates a Point mesh with node data values.  The IsoObjectLabel macro uses this data to generate text labels.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module IsoObjectLabelCore &lt;src_file="isolbl2.cxx",
+                         libdeps="FLD",
+                         cxx_hdr_files="fld/Xfld.h"&gt; {
+
+      Mesh+Node_Data &amp;in_fld&lt;NEportLevels={2,1}&gt;;
+      IsoObjectLabelParams &amp;params&lt;NEportLevels={2,1}&gt;;
+
+      int Active =&gt; params.Active;
+      int ContourFrequency =&gt; params.ContourFrequency;
+      int NodeFrequency =&gt; params.NodeFrequency;
+      int LineIndependent =&gt; params.LineIndependent;
+      int NumberOfLabels =&gt; params.NumberOfLabels;
+
+      cxxmethod update (
+         in_fld+read+notify+req,
+         Active+read+notify+req,
+         ContourFrequency+read+notify+req,
+         NodeFrequency+read+notify+req,
+         LineIndependent+read+notify+req,
+         NumberOfLabels+read+notify+req,
+         out+write
+      );
+
+      Mesh+Node_Data out&lt;NEportLevels={1,2}&gt; {
+         &amp;xform =&gt; in_fld.xform;
+      };
+   };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The IsoObjectLabelCore module generates data that can be used to position text labels on isolines.  The module connects to the field output of the isoline module and generates field data that contains a Point mesh and a set of node data.  The Point mesh contains the position of the labels while the node data contains the data value at each of those points.  The <a href="doc_umac.html">IsoObjectLabel</a> macro uses this field data as an input to the text_glyph module, which actually generates the isoline text labels.  The frequency of labels output and the format of the label text can both be controlled. 
+</blockquote>
+
+<blockquote>
+The module combines the IAC projects <a href="../isolabel/doc_mod.html">Isolabel</a> and <a href="../isolabel2/doc_mod.html">Isolabel2</a>.  Both of these projects have advantages and disadvantages and the functionality of both projects is available in the IsoObjectLabel project.  The label placement algorithm in the Isolabel2 project is significantly more advanced than in the Isolabel project.  The isoline project outputs the contours it generates as a mesh with a Line cell-set.  The IsoObjectLabelCore module uses the algorithm from the Isolabel2 project to reconstruct the generated contours from this Line mesh and to generate at least one isolabel on each contour.  This ensures that each contour is labeled and that the isolabel positions are relatively consistent and sensible.  As the positions are consistent these isolabels are suitable for animation.
+</blockquote>
+
+<blockquote>
+The disadvantage of this approach is that the isoline module does not always output each contour as a continuous series of lines.  If the input data is noisy then the isoline module is likely to output each contour as a series of smaller line segments.  While using the Isolabel2 algorithm the IsoObjectLabelCore module interprets each of these line segments as a separate contour.  As one label is generated per line segment this can lead to large numbers of labels being generated.  One solution to this problem is to use the ContourFrequency parameter.  This parameter allows the module to skip a certain proportion of line segments, hence reducing the number of labels generated. Moreover the Isolabel2 algorithm only works with Line type data, such as that output by the isoline module.
+</blockquote>
+
+<blockquote>
+Alternatively the algorithm from the Isolabel project can be used by the IsoObjectLabelCore module. The original Isolabel project does not reconstruct contour lines and therefore does not suffer from this problem.  It also is able to work with input data that has cell-sets other than Line. To use the algorithm from the Isolabel project the parameter LineIndependent must be greater than zero. In this case ContourFrequency parameter and the NodeFrequency parameter have no effect as they are only needed for the Isolabel2 algorithm.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;in_fld</b></i>
+</blockquote>
+
+<blockquote>
+Field data which should be used by the module to generate the text labels. The Field should consist of a Line Mesh and Node Data. Only the first set of Node data is used and that Node data must be scalar.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>Active</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies whether the module should update.  If the parameter is set to zero no updates take place.  Conversely if the parameter is not set to zero updates take place as normal.
+</blockquote>
+
+<blockquote>
+<i><b>NodeFrequency</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies how frequently labels should be generated. The parameter specifies the stride that should be taken between each node that is labelled.  Therefore a NodeFrequency of 1 implies that a label should be generated for every node.
+</blockquote>
+
+<blockquote>
+<i><b>ContourFrequency</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies how frequently labels should be generated for a contour. The parameter specifies the stride that should be taken between each contour that is processed. Therefore a ContourFrequency of 1 implies that labels should be generated for every contour.
+</blockquote>
+
+<blockquote>
+<i><b>LineIndependent</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies which algorithm is used to create the labels. If it is set to zero the algorithm of the IAC project Isolabel2 is used to create labals at each isoline. If LineIndependent is greater than zero the algorithm from the project Isolabel is used to create a certain number of labels given in the parameter NumberOfLabels. In this case the parameters ContourFrequency and NodeFrequency are not used.
+</blockquote>
+
+<blockquote>
+<i><b>NumberOfLabels</b></i>
+</blockquote>
+
+<blockquote>
+Number of Labels which shall be created if the parameter LineIndependent is greater than zero.  
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Field data containing the locations and values of each point that should be labelled. The field contains a Point mesh that contains the locations of each label and a single set of node data that contains the node data values at each label position.  The isolabel2 user macro uses this output to generate the necessary input for the text_glyph.  This module actually renders and displays the generated labels. If the input mesh contains any transformation data this is copied across to the output mesh.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level IsoObjectLabelCore module is used in the Functional Macro IsoObjectLabelFunc and the User Macro IsoObjectLabel. Additionally these macros also use the IsoObjectLabelParams parameter block group, as does the IsoObjectLabelUI macro. In the User Macro IsoObjectLabel the outputs of the Functional Macro IsoObjectabelFunc are connected to the text_glyph module which displays the labels. The text_glyph parameters can be set in the same User Interface like the IsoObjectLabel input paramters.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Three example applications are provided, IsoObjectLabelEg1, IsoObjectLabelEg2 and IsoObjectLabelEg3. These applications generate text labels for 2D and 3D isoline plots. They show how the numbers of generated labels can be controlled for data-sets of various sizes and types.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/isoobjlbl/isoobjlblmods.v</i> Creates the IsoObjectLabelMods library containing the low-level module IsoObjectLabelCore and the parameter block IsoObjectLabelParam.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+Please refer to AVS documentation for more information on the isoline and text_glyph modules. This module does not use the AG kit, and should not be confused with AGContour which also contains isoline labels.
+</blockquote>
+
+<blockquote>
+The low-level IsoObjectLabelMods library containing the module Isolabel2Core does not specify a process. By default the express process will be used.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Dr Federico Gamba
+Advanced Visual Systems, Inc.
+
+Andrew Dodd
+International AVS Centre
+
+Simone Herrmann
+Manchester Visualization Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umac.html">IsoObjectLabel</a> user macro.</li>
+<li><a href="../isolabel2/doc_mod.html">Isolabel2</a> IAC project.</li>
+<li><a href="../isolabel/doc_mod.html">Isolabel</a> IAC project.</li>
+<li>isoline AVS/Express module.</li>
+<li>text_glyph AVS/Express module.</li>
+</ul>
+
+</body>
+</html>
+

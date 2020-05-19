@@ -1,0 +1,18 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+   "../xp_comm_proj/instment/instment.v" Instrumentation;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+   XP_COMM_PROJ.Instrumentation.InstrumentationMacs.time_activity time_activity;
+   XP_COMM_PROJ.Instrumentation.InstrumentationMacs.time_on_off   time_on_off;
+   XP_COMM_PROJ.Instrumentation.InstrumentationMacs.object_stats  object_stats;
+   XP_COMM_PROJ.Instrumentation.InstrumentationMacs.gated_verbose gated_verbose;
+   XP_COMM_PROJ.Instrumentation.InstrumentationMacs.gated_trace   gated_trace;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+   XP_COMM_PROJ.Instrumentation.InstrumentationApps.InstrumentationEg1 InstrumentationEg1;
+   XP_COMM_PROJ.Instrumentation.InstrumentationApps.InstrumentationEg2 InstrumentationEg2;
+

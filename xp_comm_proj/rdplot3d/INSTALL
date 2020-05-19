@@ -1,0 +1,12 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/rdplot3d/rdplot3d.v" ReadPlot3d;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ReadPlot3d.ReadPlot3dMacs.ReadPlot3d read_plot3d;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ReadPlot3d.ReadPlot3dMacs.ReadPlot3dEg ReadPlot3dEg;

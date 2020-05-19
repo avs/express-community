@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>ReadVis5DTopography - Reads Vis5D-Topography-Files.</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>ReadVis5DTopography</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module reads a Vis5D Topography file and creates the
+ground surface that covers the area of the corresponding data file.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by ReadVis5DTopography">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Vis5Dfile</i></td>
+<td width="200">string</td>
+<td width="425">Name of the Vis5D data file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>Vis5Dxform</i></td>
+<td width="200">group</td>
+<td width="425">Field structure that is used to align the Topography information on.</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<h5>ReadVis5DTopographyParams</h5>
+
+<table summary="Parameters used by ReadVis5DTopography">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>topofile</i></td>
+<td width="200">string</td>
+<td width="300">Name of the Vis5D Topography file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>subsampling</i></td>
+<td width="200">int</td>
+<td width="300">Factor to reduce the number of points of the resulting grid.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>show_topo</i></td>
+<td width="200">boolean</td>
+<td width="300">Decides if the topography output is shown.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>min_height</i></td>
+<td width="200">float</td>
+<td width="300">minimum height of the output field.</td>
+<td width="125">UIField</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by ReadVis5DTopography">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>fld</i></td>
+<td width="200">Mesh+group</td>
+<td width="425">The terrain that covers the same area of the Vis5D data file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td valign=top width="200">DataObject</td>
+<td valign=top  width="425">directly renderable object of the terrain.</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+This module reads a Vis5D Topography file using the Vis5D data-file to specify the area to read. 
+
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>Vis5Dfile</i></b></blockquote>
+
+<blockquote>Name of the Vis5D data file the Topography file should be attached to. This input port can be connected to the filename output port available on the ReadVis5D user macro.</blockquote>
+
+<blockquote><b><i>Vis5Dxform</i></b></blockquote>
+
+<blockquote>This Field structure is used to align the Topography information on. This input port can be connected to the vars3d_out output of the ReadVis5D user macro. The xform information is used in the output field of the ReadVis5DTopography macro.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<h4>ReadVis5DTopographyParams</h4>
+
+<blockquote><b><i>topofile</i></b></blockquote>
+
+<blockquote>String parameter that specifies which Vis5D Topography file should be read. The filename string should contain the full path name of the file and can contain any of the AVS/Express environment variables (e.g. $XP_PATH&lt;1&gt;)</blockquote>
+
+<blockquote><b><i>subsampling</i></b></blockquote>
+
+<blockquote>This int value contains the factor to reduce the number of points of the resulting grid.</blockquote>
+
+<blockquote><b><i>show_topo</i></b></blockquote>
+
+<blockquote>This boolean value decides if the topogrphy output is shown or not. If this value is 0 the ReadVis5DTopography does not output any data.</blockquote>
+
+<blockquote><b><i>min_height</i></b></blockquote>
+
+<blockquote>This float value sets the minimum height value of the output field. All height values below this are lifted to this value.</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>fld</i></b></blockquote>
+
+<blockquote>This mesh contains the geometry and node data information for the Topography of the terrain that covers the same area as the Vis5D data file.</blockquote>
+
+<blockquote><b><i>obj</i></b></blockquote>
+
+<blockquote>Directly renderable object of the data stored in fld.</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ReadVis5DTopographyFunc functional macro uses the low-level ReadTopoCore module. The macro takes as input the parameter block ReadVis5DTopographyParams. The macro outputs the data read from the Vis5D Topography file as Field Structures and directly renderable objects.</p> 
+
+<p>The ReadVis5DTopographyFunc functional macro and the ReadVis5DTopographyUI user interface macro are both used by the ReadVis5DTopography user macro. All of these macros use the ReadVis5DTopographyParams parameter block to communicate.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes an example application that demonstrates the use of the ReadVis5DTopography macro. The ReadVis5DTopographyEg application uses the ReadVis5D macro to read a Vis5D file and a ReadVis5DTopography to read the Vis5D Topography file. The Example contains two isosurface modules a bounds and an orthoslice module to show the inner structure of the fields array which is read by the ReadVis5D and ReadVis5DTopography macro. </p>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_vis5d/rv5dmods.v</i> contains the V definitions of the ReadTopoCore module and the ReadVis5DTopographyParams parameter block.</p> 
+
+<p><i>xp_comm_proj/rd_vis5d/rv5dmacs.v</i> contains the V definitions of the ReadVis5DTopographyUI UI macro, the ReadVis5DTopographyFunc functional macro and the ReadVis5DTopography user macro.</p>
+
+<p><i>xp_comm_proj/rd_tecpl/rv5dapps.v</i> contains the V definition of the ReadVis5DTopographyEg and ReadVis5DStreamlinesEg example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadVis5DMods library containing the low-level module ReadTopoCore does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+<blockquote><pre>
+Mario Valle, AVS Italy
+
+Dr. Jean M. Favre, 
+CSCS, Swiss Center for Scientific Computing 
+</blockquote>
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Tobias Schiebeck,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="http://www.ssec.wisc.edu/~billh/vis5d.html"> Vis5D website</a>
+</blockquote>
+
+<blockquote>
+<a href="rd_vis5d.html">ReadVis5D</a>
+</blockquote>
+
+
+</body>
+</html>
+

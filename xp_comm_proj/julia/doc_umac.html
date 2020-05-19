@@ -1,0 +1,171 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>julia</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080" BGCOLOR="#92bfbf">
+
+<H1>julia</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>Generates the julia set.
+<P><HR></P><DIR></BLOCKQUOTE>
+
+<H4>Parameters</H4>
+The following lists all of the parameters found in the parameter block JuliaParams, which are accessed by the module <a href="doc_mod.html">JuliaGen</a> and the UI Macro JuliaUI.</BLOCKQUOTE></DIR>
+
+<BLOCKQUOTE>
+<TABLE CELLSPACING=0 BORDER=0 WIDTH=555>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<P><I>mandelx</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>x coordinate of point on mandelbrot set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>mandely</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>y coordinate of point on mandelbrot set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>leftx</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>left edge of julia set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>rightx</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>right edge of julia set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>topy</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>top edge of julia set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>bottomy</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>bottom edge of julia set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>max_value</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>"bailout value" for iteration loop</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>max_iter</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>int</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>maximum number of iterations allowed</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>resx</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>int</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>horizontal resolution</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>resy</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>int</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>vertical resolution</TD>
+</TR>
+</TABLE>
+
+<P><HR></P><DIR>
+</BLOCKQUOTE>
+<H4>Output Ports</H4></DIR>
+
+<BLOCKQUOTE>
+<TABLE CELLSPACING=0 BORDER=0 WIDTH=555>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<P><I>out_fld</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>Mesh_Unif+Node_Data</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>output field containing Node_Data combined with a  generated uniform Mesh.</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>out_obj</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>DataObjectNoTexture</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>directly renderable output object</TD>
+</TR>
+</TABLE>
+
+<P><HR></BLOCKQUOTE>
+</P>
+<H3>Description</H3>
+<BLOCKQUOTE>The julia module generates data that represents a view of the julia set. The location of a rectangular portion of the julia set, the coordinates of the mandelbrot set it is based upon and the limits of the algorithm can be specified through a simple user interface. The number of iterations is output as a single byte of node data. The node data is mapped onto a uniform mesh and output as both Mesh_Unif+Node_Data objects and directly renderable data objects.</BLOCKQUOTE>
+<H3>Parameters</H3>
+<B><I><BLOCKQUOTE>mandelx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this double value is used to specify the horizontal coordinate of the mandelbrot set that is used to generate the julia set. </BLOCKQUOTE>
+<B><I><BLOCKQUOTE>mandely</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this double value is used to specify the vertical coordinate of the mandelbrot set that is used to generate the julia set. </BLOCKQUOTE>
+<B><I><BLOCKQUOTE>leftx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this double value is used to specify the left edge of the julia set. This is the minimum real number that the julia function iterates over.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>rightx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this double value is used to specify the right edge of the julia set. This is the maximum real number that the julia function iterates over.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>topy</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this double value is used to specify the top edge of the julia set. This is the maximum imaginary number that the julia function iterates over.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>bottomy</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this double value is used to specify the bottom edge of the julia set. This is the minimum real number that the julia function iterates over.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>max_value</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this double value is used to specify the "bailout value" used to calculate the julia set. If the magnitude of the iterated function Z(n) exceeds this value then the iteration is stopped and number of iterations taken is stored.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>max_iter</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this int value is used to specify the maximum number of iterations allowed while calculating a point in the julia set. If the value of Z(n) is below the "bailout value" after the maximum number of iterations then the magnitude of the function is assumed have reached a steady state and therefore no more iterations need to be performed. The maximum number of iterations possible is 255, and values above this level are ignored.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>resx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this int value is used to specify the horizontal resolution of the julia set.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>resy</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the JuliaParams parameter block group, this int value is used to specify the vertical resolution of the julia set.</BLOCKQUOTE>
+<H3>Output Ports</H3>
+<BLOCKQUOTE>&nbsp;<B><I>out_fld</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>The most primitive output field of the julia macro. This contains the julia set represented as Node_Data combined with a generated uniform Mesh. </BLOCKQUOTE>
+<B><I><BLOCKQUOTE>out_obj</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>The directly renderable output field of the julia macro. This contains DataObjectNoTexture objects that can be rendered by the standard data viewers. The Data Objects are generated directly from the combined Node_Data and Mesh_Unif.</BLOCKQUOTE>
+<H3>Utility Macros</H3>
+<BLOCKQUOTE>The low-level <a href="doc_mod.html">JuliaGen</a> module is used in this User Macro julia. </BLOCKQUOTE>
+<H3>Example</H3>
+<BLOCKQUOTE>An example application JuliaEg is provided, which generates a large scale portion of the Julia Set and displays it using the Uviewer2D standard data viewer.</BLOCKQUOTE>
+<H3>Files</H3>
+<I><BLOCKQUOTE>xp_comm_proj/julia/jul_macs.v</I> contains the julia User Macro, the JuliaUI UI Macro, and the example application JuliaEg V definitions. </BLOCKQUOTE>
+<H3>Other Notes</H3>
+<BLOCKQUOTE>The JuliaMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level <a href="doc_mod.html">JuliaGen</a> module, executes under the process specified in its library, not the process defined in the high-level library. </BLOCKQUOTE>
+<H3>Authors</H3>
+<BLOCKQUOTE>
+<PRE>Paul G. Lever
+Andrew Dodd
+</PRE>
+</BLOCKQUOTE>
+<H3>Contact</H3>
+<BLOCKQUOTE>
+<PRE>
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL</PRE></BLOCKQUOTE>
+<H3>See Also</H3>
+<BLOCKQUOTE>JuliaParams, JuliaUI, JuliaEg and <a href="doc_mod.html">JuliaGen</a>. </BLOCKQUOTE></BODY>
+</HTML>

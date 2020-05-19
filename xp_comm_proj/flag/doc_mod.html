@@ -1,0 +1,202 @@
+<html>
+<head>
+<title>FlagRaw</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>FlagRaw</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+AVS/Express Flag simulation from the XP_DEMO suite, in 3D Wind Field, with
+Analysis or Textures applied.
+</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+module FlagRaw &lt;src_file="flag.c"&gt; {
+  FlagParams+IPort2 &amp;FlagParams;
+
+  int+read+notify+req count =&gt; FlagParams.count;
+  int+read+notify+req reset =&gt; FlagParams.reset;
+  int+read+notify+req flag_motion =&gt; FlagParams.flag_motion;
+  int+read+notify+req flag_color =&gt; FlagParams.flag_color;
+  int+read+notify+req release_top =&gt; FlagParams.release_top;
+  int+read+notify+req release_bottom =&gt; FlagParams.release_bottom;
+  float+read+notify+req flag_wind_1 =&gt; FlagParams.flag_wind_1;
+  float+read+notify+req flag_wind_2 =&gt; FlagParams.flag_wind_2;
+  float+read+notify+req flag_strength =&gt; FlagParams.flag_strength;
+
+  int+nonotify traverse = 0;
+
+  omethod+notify_val+notify_inst update = "flag_demo";
+  omethod+notify_del delete = "flag_demo_del";
+
+  Mesh_Struct+Dim2+Space3+Node_Data+Oparam out;
+};
+</pre>
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The Flag demo application is a running physical simulation.
+Over the 2D mesh of the flag, gravity, friction, wind force, and
+elasticity constraints are simulated. Optional controls allow two
+corner points to be constrained (tied) to a flag pole. Using the
+File-Open, you can select alternate flag images to use to color
+the flag. To view simulation parameters, Velocity Tricolor, Force
+Tricolor, and Force Magnitude modes can be selected. The raw mesh
+field data is available in the network, such that other
+visualization tools could be added, such as force magnitude
+contours, normal vector glyphs, etc. The simulation will run
+forever, and can be started using the Run/Pause control button.
+The flag strength control controls material strength parameter
+during the simulation.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&FlagRawParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of:
+</blockquote>
+
+<blockquote>
+<i><b>count</b></i>
+</blockquote>
+
+<blockquote>
+Trigger to calculate next frame of simulation.
+</blockquote>
+
+<blockquote>
+<i><b>reset</b></i>
+</blockquote>
+
+<blockquote>
+Reset the flag to it's original starting place.
+</blockquote>
+
+<blockquote>
+<i><b>flag_motion</b></i>
+</blockquote>
+
+<blockquote>
+(Always set to 1).
+</blockquote>
+
+<blockquote>
+<i><b>flag_color</b></i>
+</blockquote>
+
+<blockquote>
+Select the colour mode for flag.
+</blockquote>
+
+<blockquote>
+<i><b>release_top</b></i>
+</blockquote>
+
+<blockquote>
+Trigger to allow top-left corner to be released from its tie.
+</blockquote>
+
+<blockquote>
+<i><b>release_bottom</b></i>
+</blockquote>
+
+<blockquote>
+Trigger to allow bottom-left corner to be released from its tie.
+</blockquote>
+
+<blockquote>
+<i><b>flag_wind_1</b></i>
+</blockquote>
+
+<blockquote>
+First part of wind velocity vector.
+</blockquote>
+
+<blockquote>
+<i><b>flag_wind_2</b></i>
+</blockquote>
+
+<blockquote>
+Second part of wind velocity vector.
+</blockquote>
+
+<blockquote>
+<i><b>flag_strength</b></i>
+</blockquote>
+
+<blockquote>
+Flag material strength.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Output mesh and data of the flag in its current state.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The FlagRaw module is used in the functional macro Flag, and the user macro <a href="doc_umac.html">flag</a> along with the UI macro FlagUI.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application FlagEg is provided, which demonstrates the flag simulation with two image textures available.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/flag/flagmods.v</I> contains the FlagParams group and the FlagRaw module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level FlagMods library containing the module FlagRaw does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+The simulation will sometimes pause - pressing reset will restart the simulation successfully.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Ian Curington - AVS
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+FlagParams, FlagUI, Flag, and flag.
+</blockquote>
+
+</body>
+</html>
+

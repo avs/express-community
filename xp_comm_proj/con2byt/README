@@ -1,0 +1,60 @@
+Express Community Threshold Example Project
+https://github.com/avs/express-community
+-----------------------------
+
+This directory ( xp_comm_proj/con2byt/ ) contains all the V code, source code,
+HTML documentation, and installation information for the project "Convert2Byte".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Threshold project, and two single line additions to some of the xp_comm_lib/
+files (in this instance filters.v and examples.v) to add a link to the User
+Macro and the Example Application from the new top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled.
+From the project directory type:
+      base -comp_proc express -exit
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/thresh/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ filters.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+con2byt.v	Creates the XP_COMM_PROJ.Convert2Byte library.
+
+c2b_mods.v	Creates the Convert2ByteMods library containing the low-level
+		module Convert2ByteNodeData.
+
+c2b_macs.v	Creates the Convert2ByteMacs library containing the high-level
+		macro Convert2Byte and the example appplication Convert2ByteEg.
+
+con2byt.c	The C source code for the Convert2ByteNodeData module.
+
+doc_mod.html	HTML documentation for the Convert2ByteNodeData module.
+
+doc_umac.html	HTML documentation for the Convert2Byte User Macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h	AVS/Express generated header file.
+
+gen.cxx	AVS/Express generated source code.
+
+con2byt.o	Intermediate object file.

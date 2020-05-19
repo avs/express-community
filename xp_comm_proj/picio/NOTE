@@ -1,0 +1,26 @@
+3D confocal microscope images are usually anisotropic in that the
+xy-pixel size is usually different from the z-step between optical
+sections.  To handle this use the "scale" module.  The xy-pixel size
+and z-step are often appended to Bio-Rad PIC files in the Notes
+section.  You can find these values by using the Unix "strings" and
+"grep" commands.  E.g.
+
+>strings COLL6.PIC | grep AXIS
+AXIS_0 4 0.000000e+00 1.000000e+00 
+AXIS_2 257 -7.008000e+01 1.825000e-01 
+AXIS_3 257 -4.672000e+01 1.825000e-01 
+AXIS_4 1 -1.000000e+01 2.000003e+00 
+
+0.1825 is the xy-pixel size (value for x- and y-scale in the
+"scale" module).
+
+>strings COLL6.PIC | grep Zoom
+COLL6.PIC 20-Aug-97 12:25:03 PM  Zoom 5.0  Kalman 3, -10.0 
+COLL6.PIC 20-Aug-97 12:25:14 PM  Zoom 5.0  Kalman 3, -8.0 
+COLL6.PIC 20-Aug-97 12:25:26 PM  Zoom 5.0  Kalman 3, -6.0 
+...
+
+2.0 is the z-pixel size (value for z-scale in the "scale" module).
+
+Note the example file flea3.pic is isotropic and does not require
+scaling.

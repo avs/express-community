@@ -1,0 +1,223 @@
+<html>
+<head>
+<title>PrintField</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>PrintField</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Dump extensive information about the contents of the input Field to an HTML file, and write a simple summary to a string output (user interface parameter.)
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module PrintField&lt; src_file="printfld.c"&gt; {
+    PrintFieldParams &PrintFieldParams &lt;NEportLevels={2,1}&gt;;
+
+    string filename &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.filename;
+    int gridout &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.gridout;
+    int cellout &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.cellout;
+    int xformout &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.xformout;
+    int nodesout &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.nodesout;
+    int htmlout &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.htmlout;
+    int allout &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.allout;
+    int trigger &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.trigger;
+    string message &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.message;
+    string notes &lt;NEportLevels={1,1}&gt; =&gt; PrintFieldParams.notes;
+
+    Mesh+Node_Data &in &lt;NEportLevels={2,0}&gt;;
+
+    omethod+req print_fld(
+      filename+read+notify+req,
+      gridout+read+notify+req,
+      cellout+read+notify+req,
+      xformout+read+notify+req,
+      nodesout+read+notify+req,
+      htmlout+read+notify+req,
+      allout+read+notify+req,
+      trigger+read+notify+req,
+      message+write,
+      notes+write,
+      in+read+notify+req ) = "print_field";
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+PrintField accepts any type of Field for input and dumps extensive selectable information about the Grid, Cell, Node, Xform and Point data to a plain text or HTML formatted file. Additionally a summary of the information is written to a string parameter, which is displayed by the UI macro.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to a field containing Mesh+Node_Data.
+</blockquote>
+
+<blockquote>
+<i><b>&PrintFieldParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the information toggles and message output strings.
+</blockquote>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+Contains the filename and path of the HTML file to write the contents of the field to.
+</blockquote>
+
+<blockquote>
+<i><b>gridout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if the Grid information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>cellout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if the Cell information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>xformout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if the Xform information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>nodesout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if the Nodes information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>allout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if all the Point information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>htmlout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if output contains HTML formatting. If turned off, the file only contains a purely textual dump of the same information.
+</blockquote>
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+Used to trigger the actual printing (dumping) of the information to the selected file.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>&PrintFieldParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the information toggles and message output strings.
+</blockquote>
+
+<blockquote>
+<i><b>message</b></i>
+</blockquote>
+
+<blockquote>
+Used to hold status of the printing.
+</blockquote>
+
+<blockquote>
+<i><b>notes</b></i>
+</blockquote>
+
+<blockquote>
+When HTML file is dumped, this multi-line string is filled with a simple summary of the field contents.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level PrintField module is used in the User Macro print_field. Note that there is no Functional Macro. Additionally, the User Macro also uses the PrintFieldParams parameter block group object, as does the PrintFieldUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application PrintFieldEg is provided, which uses the AVS/Express sample data file hydrogen.fld, to display or dump the contents of that field.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/printfld/pfldmods.v</I> contains the PrintFieldParams group and the PrintField module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level PrintFieldMods library containing the module PrintField does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+Note that if "Print All Point" is selected then the output file may become very large!
+</blockquote>
+
+<blockquote>
+The filename specified as the output HTML file may only be written to once; any attempt to do so will result in an error message in the error dialog window.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Phil Chen
+Connie Farb
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+PrintFieldParams, PrintFieldUI and print_field
+</blockquote>
+
+<blockquote>
+print_field in AVS/Express version 3.4.
+</blockquote>
+
+</body>
+</html>

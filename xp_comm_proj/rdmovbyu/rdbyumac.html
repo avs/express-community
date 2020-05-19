@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>read_movie_byu</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>read_movie_byu</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads in a BYU file and constructs field data from it.
+</blockquote>
+
+<blockquote>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block ReadMovieBYUParams, which are accessed by the module ReadMovieBYUFile and the UI Macro ReadMovieBYUUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="150"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">BYU file to be read</td>
+<td width="150">'Read MOVIE-BYU File Name'</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="80">Mesh+Cell_Data+Node_Data</td>
+<td width="425">field data representing the BYU model.</td>
+</tr>
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable output object.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+read_movie_byu reads in a BYU data file and generates both field data and renderable Data Objects from the information contained in the file.  The BYU file format was created by the Brigham Young University and contains the information necessary for reconstructing one or more surfaces consisting of 3-D polygons. The BYU file to read can be specified through a simple user interface.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ReadMovieBYUParams parameter block group, this string value is used to specify the name of the BYU file that should be loaded.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the read_movie_byu macro. This contains the model read from the BYU file represented as field data.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the read_movie_byu macro. This contains a DataObject object that can be rendered by the standard data viewers. The Data Object is generated directly from the field data created from the BYU file.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadMovieBYUFile module is used in this User Macro read_movie_byu.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadMovieBYUEg is provided, which uses the read_movie_byu macro to load a BYU file that is then animated by the read_movie_animate macro.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rdmovbyu/rdmbmacs.v</i> contains the read_movie_byu User Macro, the ReadMovieBYU Functional Macro, the ReadMovieBYUUI UI Macro, and the example application ReadMovieBYUEg V definitions. The file also contains several other macro definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ReadMovieBYUMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level ReadMovieBYUFile module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadMovieBYUParams, ReadMovieBYUUI, ReadMovieBYU and <a href="rdmovbyu.html" name="ReadMovieBYUFile">ReadMovieBYUFile</a>.
+</blockquote>
+
+</body>
+</html>

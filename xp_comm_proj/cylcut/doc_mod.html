@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>CylinderCutDist</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>CylinderCutDist</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A mapper module that cuts a 3D model with a cylinder, returning
+the model remaining either inside or outside of the cylinder.
+</blockquote>
+
+
+<blockquote>
+<hr>
+
+<pre>
+   module CylinderCutDist &lt; build_dir="xp_comm_proj/cylcut",
+                            src_file="cylcut.c",
+                            out_src_file="gen.cxx",
+                            out_hdr_file="gen.h"
+                          &gt; {
+      /* compute distance to a plane */
+
+      Mesh+Iparam  &amp;in {
+         nnodes+req;
+      };
+      Mesh+Xform+Iparam &amp;plane;
+
+      method+notify_val+notify_inst cylinder_cut_update&lt;status=1&gt; = "cylinder_cut_update";
+
+      Node_Data+Scalar+Float+Oparam out;
+      float+Oparam dist;
+   }; 
+</pre>
+
+<hr>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The CylinderCutDist module takes a set of Mesh data and a cylindrical cut-plane as input. It then calculates the distance of each point in the Mesh from the cylinder and outputs these distances as a new set of node data. This node data can then subsequently be used by the DVcut module to partition the original model.  It should be noted that this module only generates a single new set of node data.  The recombination of this node data with the original mesh and node data and the partitioning of the recombined model should be done by other modules.
+</blockquote>
+
+<blockquote>
+This module is intended to be used within the functional macro CylinderCut and the user macro cylinder_cut.  These macros perform the recombination necessary and are used to generate a new partitioned model from an original set of data and a cylindrical cut plane.  They are effectively a variation on the cut_plane macro, which partitions a model using a simple plane tool.  The operation of the functional and user macros is very similar to that of the cut_plane module.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<b><i>&amp;in</i></b>
+</blockquote>
+
+<blockquote>
+Reference to a Mesh input containing the points to be operated upon.  The distance of each point from the cylinder is calculated and a new set of node data is created containing this data. 
+</blockquote>
+
+<blockquote>
+<b><i>&amp;plane</i></b>
+</blockquote>
+
+<blockquote>
+Reference to a Mesh input containing the cylinder that should be used within the calculation.  </blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote>
+<b><i>out</i></b>
+</blockquote>
+
+<blockquote>
+Node data containing the distance of each point from the specified cylinder.  This data can then be recombined with the original Mesh and Node data, and the DVcut module can then be used to parition the model as desired.  It should be noted that this module only outputs a single set of node data.  It does not copy across any node data present with the original Mesh.
+</blockquote>
+
+<blockquote>
+<b><i>dist</i></b>
+</blockquote>
+
+<blockquote>
+Plane dist of the cylindrical cut plane.  The parameter is of type float.  In the CylinderCut macro this parameter is added to the user specified cylinder radius and used by the DVcut module to determine the threshold level.
+</blockquote>
+
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The low level CylinderCutDist module is used in the Functional Macro CylinderCut.  This Functional macro is used in turn by the User macro cylinder_cut.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application CylinderCutEg is provided, which loads a UCD data file
+and cuts a cylindrical section out of it.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/cylcut/cylcmods.v</i> contains the CylinderCutDist module V definition.
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project requires the following components to be installed correctly.
+Without these components the user level macros will not work correctly.
+</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level CylinderCutMods library containing the module CylinderCutDist does
+not specify a process. By default the <TT>express</TT> process will be used. 
+</blockquote>
+
+<blockquote>
+For more details on the operation of this module please refer to the standard
+cut_plane module.  This module is based on the same underlying system as
+cut_plane, but substitutes the cut plane object with a cylinder object and uses
+that as the cutting shape.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ian Curington
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+</pre>
+
+<pre><a HREF="mailto:ianc@avs.com">ianc@avs.com</a></pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CylinderCut, CylinderCutUI, cylinderCut, CylinderCutEg, cut_plane
+</blockquote>
+
+</body>
+</html>

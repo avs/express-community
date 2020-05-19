@@ -1,0 +1,13 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/picio/PICio.v" PIC_IO;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.PIC_IO.PICioMacs.read_BioRad_PIC read_BioRad_PIC;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.PIC_IO.PICioMacs.Read_BioRad_PIC_Eg Read_BioRad_PIC_Eg; 
+

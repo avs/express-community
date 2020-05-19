@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module MolecularDataType documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,PDB">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>MolecularDataType</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>MolecularDataType</h1>
+
+<h2>Description</h2>
+<p>The MolecularDataType is the data type that carry molecular information between modules. It is composed by the following objects:</p>
+<pre style="padding-left: 20px">
+group MolecularDataType {
+                  
+   int      num_atoms;                 // total number of atoms
+   int      atom_z[.num_atoms];        // atomic numbers list
+   string   atom_name[.num_atoms];     // atom names as read from the file
+   string   residue_name[.num_atoms];  // residue names
+   int      residue_id[.num_atoms];    // residue number as read from the file
+   float    xyz_lst[.num_atoms][3];    // atom coordinates
+   float    charge_lst[.num_atoms];    // atom charge (or any other scalar parameter associated to the atom)
+
+   int      num_bonds;                 // number of bonds
+   int      connect_lst[2*.num_bonds]; // connection list
+   int      bond_type_lst[.num_bonds]; // type of bond; the values are defined in mol_type.h
+
+   float    offset_lst[.num_atoms][3]; // atom offset vector provided by some formats
+
+   group unit_cell {                   // info on unit cell placement (some info are redundant, but keep here for convenience)
+      float    side_vectors[3][3];     // vectors defining the three unit cell sides (first vector (0, 0, 0) means no unit cell available)
+      float    angles[3];              // angles between unit cell sides (as defined in the PDB format)
+      float    origin[3];              // the origin of the unit cell
+   };
+   
+   group symmetry {                    // info on atom symmetries
+      string   space_group;            // the Hermann-Mauguin space group symmetry code (eg. P 21 21 21)
+   };
+};
+</pre>
+
+</body></html>

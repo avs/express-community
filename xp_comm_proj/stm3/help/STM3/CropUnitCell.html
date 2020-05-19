@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module CropUnitCell documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Crop Unit Cell</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Crop Unit Cell</h1>
+
+<h2>Description</h2>
+<p>Extract a subcell from the unit cell with sides parallel to those of the unit cell itself.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data with unit cell information.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">a min</td>
+	<td class="c2">slider</td>
+	<td class="c3">The lower crop plane index (n00). Zero means a plane perpendicular to a base vector passing through the unit cell origin.</td>
+</tr>
+<tr>
+	<td class="c1">a max</td>
+	<td class="c2">slider</td>
+	<td class="c3">The upper crop plane index (n00). Zero means a plane perpendicular to a base vector passing through the unit cell origin.</td>
+</tr>
+<tr>
+	<td class="c1">b min</td>
+	<td class="c2">slider</td>
+	<td class="c3">The lower crop plane index (0n0). Zero means a plane perpendicular to b base vector passing through the unit cell origin.</td>
+</tr>
+<tr>
+	<td class="c1">b max</td>
+	<td class="c2">slider</td>
+	<td class="c3">The upper crop plane index (0n0). Zero means a plane perpendicular to b base vector passing through the unit cell origin.</td>
+</tr>
+<tr>
+	<td class="c1">c min</td>
+	<td class="c2">slider</td>
+	<td class="c3">The lower crop plane index (00n). Zero means a plane perpendicular to c base vector passing through the unit cell origin.</td>
+</tr>
+<tr>
+	<td class="c1">c max</td>
+	<td class="c2">slider</td>
+	<td class="c3">The upper crop plane index (00n). Zero means a plane perpendicular to c base vector passing through the unit cell origin.</td>
+</tr>
+<tr>
+	<td class="c1">Epsilon</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">A tolerance value for the crop: atoms just outside the crop plane by less than <i>epsilon</i> will be included.</td>
+</tr>
+
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">out</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Cropped molecular data.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="http://www.uwgb.edu/dutchs/symmetry/millerdx.htm">Miller Indices</a> introduction.</li>
+	<li><a href="Miller_Plane.html">Miller Plane</a> module.</li>
+</ul>
+</body></html>

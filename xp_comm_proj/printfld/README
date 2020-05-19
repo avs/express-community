@@ -1,0 +1,70 @@
+PrintField
+https://github.com/avs/express-community
+----------
+
+This directory ( xp_comm_proj/printfld/ ) contains all the V code, source code,
+HTML documentation, and installation information for the "PrintField"
+project.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new PrintField project, and two single line additions to some of the xp_comm_lib/
+files (in this instance data_io.v and examples.v) to add a link to the User
+Macro and the Example Application from the new top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Please note that the process is set to inherit from
+the parent libraries (usually the express process).
+
+Either select the library XP_COMM_PROJ.PrintField.PrintFieldMods and then choose
+compile from the Project menu, or use the following VCP command:
+
+$compile XP_COMM_PROJ.PrintField.PrintFieldMods
+
+Alternatively you may compile without starting the AVS/Express application:
+
+e.g., base -comp_proc express -exit
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/printfld/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ data_io.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+printfld.v	Creates the XP_COMM_PROJ.PrintField library.
+
+pfldmods.v	Creates the PrintFieldMods library containing the low-level
+		module PrintField and the parameter group PrintFieldParams.
+
+pfldmacs.v	Creates the PrintFieldMacs library containing the high-level
+		macros PrintFieldUI, print_field and the example appplication
+                PrintFieldEg.
+
+printfld.c	The C source code for the PrintField module.
+
+doc_mod.html	HTML documentation for the PrintField module.
+
+doc_umac.html	HTML documentation for the print_field User Macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+printfld.o	Intermediate object file.

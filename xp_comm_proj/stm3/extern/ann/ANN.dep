@@ -1,0 +1,97 @@
+# Microsoft Developer Studio Generated Dependency File, included by ANN.mak
+
+.\src\ANN.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annx.h"\
+	
+
+.\src\bd_pr_search.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	".\include\ann\annx.h"\
+	".\src\bd_tree.h"\
+	".\src\kd_pr_search.h"\
+	".\src\kd_tree.h"\
+	".\src\kd_util.h"\
+	".\src\pr_queue.h"\
+	".\src\pr_queue_k.h"\
+	
+
+.\src\bd_search.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	".\include\ann\annx.h"\
+	".\src\bd_tree.h"\
+	".\src\kd_search.h"\
+	".\src\kd_tree.h"\
+	".\src\kd_util.h"\
+	".\src\pr_queue_k.h"\
+	
+
+.\src\bd_tree.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	".\include\ann\annx.h"\
+	".\src\bd_tree.h"\
+	".\src\kd_split.h"\
+	".\src\kd_tree.h"\
+	".\src\kd_util.h"\
+	
+
+.\src\brute.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	".\include\ann\annx.h"\
+	".\src\pr_queue_k.h"\
+	
+
+.\src\kd_pr_search.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	".\include\ann\annx.h"\
+	".\src\kd_pr_search.h"\
+	".\src\kd_tree.h"\
+	".\src\kd_util.h"\
+	".\src\pr_queue.h"\
+	".\src\pr_queue_k.h"\
+	
+
+.\src\kd_search.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	".\include\ann\annx.h"\
+	".\src\kd_search.h"\
+	".\src\kd_tree.h"\
+	".\src\kd_util.h"\
+	".\src\pr_queue_k.h"\
+	
+
+.\src\kd_split.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annx.h"\
+	".\src\kd_split.h"\
+	".\src\kd_tree.h"\
+	".\src\kd_util.h"\
+	
+
+.\src\kd_tree.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	".\include\ann\annx.h"\
+	".\src\kd_split.h"\
+	".\src\kd_tree.h"\
+	".\src\kd_util.h"\
+	
+
+.\src\kd_util.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	".\include\ann\annx.h"\
+	".\src\kd_tree.h"\
+	".\src\kd_util.h"\
+	
+
+.\src\perf.cxx : \
+	".\include\ann\ann.h"\
+	".\include\ann\annperf.h"\
+	

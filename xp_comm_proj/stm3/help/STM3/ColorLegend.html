@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module ColorLegend documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,PDB">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Color Legend</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Color Legend</h1>
+
+<h2>Description</h2>
+<p>Display a legend for the molecule representation colors. There are three types of display:</p>
+<ul>
+<li>The list of unique atoms with an example of atom sphere.</li>
+<li>The list of residues.</li>
+<li>A continuous representation of the color scale for atoms charge values.</li>
+</ul>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">display_params</td>
+	<td class="c2"><a href="DisplayParams.html">DisplayParams</a></td>
+	<td class="c3">Molecule display settings data.</td>
+</tr>
+</table>
+
+<h2>Parameters (for atom and residue colors)</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">X min, X max</td>
+	<td class="c2">various numeric fields</td>
+	<td class="c3">The horizontal extension of the legend. The screen goes from -1 to 1. Currently X max is ignored.</td>
+</tr>
+<tr>
+	<td class="c1">Y min, Y max</td>
+	<td class="c2">various numeric fields</td>
+	<td class="c3">The vertical extension of the legend. The screen goes from -1 to 1.</td>
+</tr>
+<tr>
+	<td class="c1">Z value</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">The Z position of the legend. The screen goes from -1 to 1.</td>
+</tr>
+<tr>
+	<td class="c1">Scale</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">The scale of the spheres representing atoms and residues.</td>
+</tr>
+<tr>
+	<td class="c1">Label offset</td>
+	<td class="c2">numeric field</td>
+	<td class="c3">The offset of the label respect to the corresponding sphere.</td>
+</tr>
+<tr>
+	<td class="c1">Font</td>
+	<td class="c2">font selector</td>
+	<td class="c3">Standard AVS/Express text parameters selector.</td>
+</tr>
+</table>
+
+<h2>Parameters (for atom charge)</h2>
+<p>The parameters are the same of the standard AVS/Express
+<a href="http://help.avs.com/Express/doc/help_62/reference/dvmac/LegendHo.htm">LegendVert</a> module.</p>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">legend_obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">Graphic object to be sent to the viewer (MolViewer or the standard Uviewer3D).</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="DisplayMolecule.html">DisplayMolecule</a> module.</li>
+</ul>
+</body></html>

@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>CatCellSets</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CatCellSets</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Catenates all the Cell_Sets of the same Cell type within a mesh into a single Cell_Set.
+</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+  module CatCellSets &lt;NEx=286.,NEy=154.,src_file=&quot;cat_cs.cxx&quot;&gt;
+  {
+     cxxmethod+notify_inst+req update;
+     Mesh+read+notify+req &amp;mesh_in &lt;NEportLevels={2,0}&gt;;
+     Mesh+write mesh_out &lt;NEportLevels={0,2}&gt;
+     {
+        nspace =&gt; &lt;-.mesh_in.nspace;
+        nnodes =&gt; &lt;-.mesh_in.nnodes;
+        coordinates
+        {
+           values =&gt; &lt;-.&lt;-.mesh_in.coordinates.values;
+        };
+     };
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Though the Express documentation states that in a mesh there should be only one Cell_Set 
+of each Cell type (e.g. Tri Prism2) this is not enforced and it is possible for such 
+meshes to be created especially by 3D object readers. It far more eficient to render a 
+single Cell_Set than several of the same type. This module parses the mesh_in and then 
+creates a mesh_out with all the Cell_Sets of a single Cell type catenated into one. 
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;mesh_in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to a Field with a Mesh containing Cell_Sets.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>mesh_out</b></i>
+</blockquote>
+
+<blockquote>
+A Mesh with the catenated Cell_Sets, the Coordinates are reference from the input mesh_in.
+</blockquote>
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The Add_Data_to_Mesh recombines the mesh_out from cat_cell_sets with any original node data in the User Macro <a href="doc_umac.html">cat_cell_sets</a>. Note that Add_Data_to_Mesh is pure V code and does not require compilation.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cat_cs/ccs_mods.v </I> contains the CatCellSets and Add_Data_to_Mesh modules.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The module should run in the same process as the Mesh which it takes as input. By default the CatCellSets runs in the user process. Use the following command in the VCP to compile this project:
+<blockquote>
+<pre>
+$compile XP_COMM_PROJ.CatCellSets.CatCSMods
+</pre>
+</blockquote>
+
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+James Perrin
+
+Manchester Visualiation Centre
+Manchester Computing
+The University
+Oxford Road
+Manchester
+UK
+M13 9PL
+
+j.perrin@mcc.ac.uk
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+Add_Data_to_Mesh
+</blockquote>
+
+</body>
+</html>
+
+
+
+
+

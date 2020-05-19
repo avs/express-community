@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>RadioBox</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>RadioBox</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The RadioBox module sets the behaviour of an array of groups (currently 
+required to be type int) to that of a radiobox i.e. only one item can be
+selected at any particular time.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module RadioBox &lt;src_file = &quot;radiobox.cxx&quot;&gt; {
+
+  int+IPort2 active = 1;
+  group+IPort2 &set[];
+  int+OPort2 selectedItem = 0; 
+  int bufferItem &lt;NEvisible=0&gt; = 0; 
+  int+OPort2 previousItem = 0; 
+
+  cxxmethod+notify_inst+req update (
+    .active+read+req,
+    .set+read+write+notify+req,
+    .selectedItem+read+write+notify, 
+    .bufferItem+read+write,
+    .previousItem+write
+  );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The RadioBox module sets the behaviour of an array of groups (currently 
+required to be type int) to that of a radiobox i.e. only one item can be
+selected at any particular time. It changes the set array according to 
+the input in selectedItem or vice versa. The set
+array contains one value set to 1 and 0 values for all other values.   
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>active</b></i>
+</blockquote>
+
+<blockquote>
+Active is a flag which switches the module on or off.
+</blockquote>
+
+<blockquote>
+<i><b>&set[]</b></i>
+</blockquote>
+
+<blockquote>
+Array of integers that contains a single value 1 on the position given by
+selectedItem. All other values are set to 0.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>selectedItem</b></i>
+</blockquote>
+
+<blockquote>
+Contains the index of the currently selected item.
+</blockquote>
+
+<blockquote>
+<i><b>previousItem</b></i>
+</blockquote>
+
+<blockquote>
+Contains the index of the previously selected item.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/radiobox/rdbxmods.v</I> contains the RadioBox module V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level RadioBoxMods library containing the module RadioBox does not 
+specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Advanced Visual Systems Inc.
+Documentation - Ian Curington, Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+</body>
+</html>

@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>MandelbrotGen</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080" BGCOLOR="#92bfbf">
+
+<H1>MandelbrotGen</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>Generates the mandelbrot set.
+<P><HR></P>
+<PRE>
+module MandelbrotGen &lt;build_dir="xp_comm_proj/mandel",
+  src_file="mandel.cxx",
+  out_hdr_file="gen.h",
+  out_src_file="gen.cxx",
+  libdeps="FLD",
+  cxx_hdr_files="fld/Xfld.h"&gt;{
+
+  MandelbrotParams &amp;MandelbrotParams &lt;NEportLevels={2,0}&gt;;
+
+  double leftx =&gt; MandelbrotParams.leftx;
+  double rightx =&gt; MandelbrotParams.rightx;
+  double topy =&gt; MandelbrotParams.topy;
+  double bottomy =&gt; MandelbrotParams.bottomy;
+  double max_value =&gt; MandelbrotParams.max_value;
+  int max_iter =&gt; MandelbrotParams.max_iter;
+  int resx =&gt; MandelbrotParams.resx;
+  int resy =&gt; MandelbrotParams.resy;
+
+  Mesh_Unif+Node_Data+Xform out &lt;NEportLevels={0,2},NEcolor2=16776960&gt; {
+    ndim = 2;
+    dims =&gt; {&lt;-.resx,&lt;-.resy};
+    nspace =&gt; ndim;
+    nnode_data = 1;
+    node_data {
+      values+byte;
+      null_value+byte;
+      min+byte;
+      max+byte;
+      min_vec+byte;
+      max_vec+byte;
+    } = {{veclen=1,,,,,,,,}};
+    points =&gt; {{&lt;-.leftx,&lt;-.bottomy},{&lt;-.rightx,&lt;-.topy}};
+  };
+
+  cxxmethod+notify_inst+req update (
+    .leftx+read+notify+req,
+    .rightx+read+notify+req,
+    .topy+read+notify+req,
+    .bottomy+read+notify+req,
+    .max_value+read+notify+req,
+    .max_iter+read+notify+req,
+    .resx+read+notify+req,
+    .resy+read+notify+req,
+    .out+write );
+};
+</PRE>
+<P><HR></BLOCKQUOTE></P>
+<H3>Description</H3>
+<BLOCKQUOTE>MandelbrotGen generates mesh and node data that represents a view of the mandelbrot set. The location of a rectangular portion of the mandelbrot set, and the limits of the algorithm can be specified through either a MandelbrotParams object or by explicitly setting the parameters within the object. The number of iterations is output as a single byte of node data. The node data is mapped onto a uniform mesh that is generated from the input parameters.</BLOCKQUOTE>
+<H3>Inputs</H3>
+<B><I><BLOCKQUOTE>&amp;MandelbrotParams</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>Reference to the parameter block, which contains real instances of the parameters for the mandelbrot function.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>leftx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>Position of the left edge of the mandelbrot set. The value is of type double. This is the minimum real number that the mandelbrot function iterates over. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;MandelbrotParams input.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>rightx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>Position of the right edge of the mandelbrot set. The value is of type double. This is the maximum real number that the mandelbrot function iterates over. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;MandelbrotParams input.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>topy</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>Position of the top edge of the mandelbrot set. The value is of type double. This is the maximum imaginary number that the mandelbrot function iterates over. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;MandelbrotParams input.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>bottomy</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>Position of the bottom edge of the mandelbrot set. The value is of type double. This is the minimum imaginary number that the mandelbrot function iterates over. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;MandelbrotParams input.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>max_value</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>The "bailout value" for the mandelbrot set. The value is of type double. The iteration at a point is stopped when the magnitude of the complex number <FONT FACE="Courier New" SIZE=2>Z(n)</FONT>exceeds this value ( i.e. <FONT FACE="Courier New" SIZE=2>|Z(n)| = x^2 + y^2 &gt; max_value</FONT> ). Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;MandelbrotParams input.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>max_iter </BLOCKQUOTE>
+</B></I><BLOCKQUOTE>The maximum number of iterations that are performed at a point. The value is of type int. If the magnitude at a point is less then the "bailout value" after this number of iterations then the point is assumed to have reached a steady state and therefore no more iterations need to be performed. The maximum number of iterations possible is 255, and values above this level are ignored. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;MandelbrotParams input.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>resx </BLOCKQUOTE>
+</B></I><BLOCKQUOTE>The horizontal resolution of the generated data. The value is of type int. This is the number of lines that are plotted in each horizontal row of the mesh. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;MandelbrotParams input.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>resy </BLOCKQUOTE>
+</B></I><BLOCKQUOTE>The vertical resolution of the generated data. The value is of type int. This is the number of lines that are plotted in each vertical column of the mesh. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;MandelbrotParams input.</BLOCKQUOTE>
+<H3>Outputs</H3>
+<B><I><BLOCKQUOTE>out</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>The output field containing Mesh_Unif and Node_Data. The uniform mesh is generated from the horizontal and vertical resolutions input to the module. The node data uses a single byte to store the number of iterations at each point, therefore the maximum number of iterations that can be represented is 255.</BLOCKQUOTE>
+<H3>Utility Macros</H3>
+<BLOCKQUOTE>The low-level MandelbrotGen module is used in the User Macro <a href="doc_umac.html">mandelbrot</a>. Additionally, this macro also uses the MandelbrotParams parameter block group object, as does the MandelbrotUI UI Macro. </BLOCKQUOTE>
+<H3>Example</H3>
+<BLOCKQUOTE>An example application MandelbrotEg is provided, which generates a large scale portion of the Mandelbrot Set and displays it using the Uviewer2D standard data viewer.</BLOCKQUOTE>
+<H3>Files</H3>
+<I><BLOCKQUOTE>xp_comm_proj/mandel/mandmods.v</I> contains the MandelbrotParams group and the MandelbrotGen module V definitions. </BLOCKQUOTE>
+<H3>Other Notes</H3>
+<BLOCKQUOTE>The low-level MandelbrotMods library containing the module MandelbrotGen does not specify a process. By default the <TT>express</TT> process will be used. </BLOCKQUOTE>
+<H3>Authors</H3>
+<BLOCKQUOTE>
+<PRE>Paul G. Lever
+Andrew Dodd</PRE>
+</BLOCKQUOTE>
+<H3>Contact</H3>
+<BLOCKQUOTE>
+<PRE>
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL</PRE>
+</BLOCKQUOTE>
+<H3>See Also</H3>
+<BLOCKQUOTE>MandelbrotParams, MandelbrotUI, <a href="doc_umac.html">mandelbrot</a> </BLOCKQUOTE></BODY>
+</HTML>

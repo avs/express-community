@@ -1,0 +1,141 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Installationsnotes for Windows/NT or Windows 95</TITLE>
+<META NAME="Template" CONTENT="C:\Programme\Microsoft Office\Office\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<B><FONT SIZE=6><P ALIGN="CENTER">AVS/EXPRESS ASSISTANT  v 1.4</P>
+<P ALIGN="CENTER">Installationsnotes for </P>
+<P ALIGN="CENTER">Windows/NT 4.0 or Windows 95</P>
+</B></FONT><FONT SIZE=2><P>&nbsp;</P>
+</FONT><P><A HREF="#ins_default"><FONT SIZE=2>Default Directories</FONT></A></P>
+<P><A HREF="#ins_environmen">Environment Variable  ASSIST_HOME</A></P>
+<P><A HREF="#ins_starting">Starting Express with Assistant</A></P>
+<P><A HREF="#ins_mainmenu">Assistant Mainmenu
+<P>&nbsp;</P></A></P>
+<P>&nbsp;</P>
+<B><U><FONT SIZE=4><P ALIGN="CENTER"><A NAME="ins_default"></A>Default Installationsdirectories:</P><DIR>
+<DIR>
+
+</B></U></FONT><FONT SIZE=2><P>This Assist 1.4 was tested with Express version 3.1.</P>
+<P>It should not have any Problems to run with Express/3.0</P>
+<P>&nbsp;</P>
+<P>The <I>default</I> homedirectory of Express version 3.1 is &nbsp;</P>
+</FONT><P><A HREF="GIF_FILES/EXPLORER.GIF">C:\express</A></P>
+<FONT SIZE=2><P>&nbsp;</P>
+<P>The <I>default hirarchy directory </I>of ASSIST14 is:</P>
+</FONT><P><A HREF="GIF_FILES/EXPLORER_ASS.GIF">C:\assist
+<P>&nbsp;</P></DIR>
+</DIR>
+</A><FONT SIZE=2>&nbsp;</P><DIR>
+<DIR>
+
+<P>If you use winzip32 , it will automatically create targetdirectory c:\assist</P>
+<P>But you are free to create your own directory names</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+</FONT><P ALIGN="CENTER"><HR></P>
+<FONT SIZE=2><P>&nbsp;</P>
+</FONT><B><U><FONT SIZE=4><P ALIGN="CENTER"><A NAME="ins_environmen"></A>Environment Variable  ASSIST_HOME</P>
+</B></U></FONT><FONT SIZE=2><P>&#9;<B>Assist14</B> needs an environment variable called </FONT><B>$ASSIST_HOME</B><FONT SIZE=2>.</P><DIR>
+<DIR>
+
+<P>AVS/Express is able to define this Environmentvariable in the </FONT><A HREF="GIF_FILES/ASS_HOME.GIF">VCP mode</A><FONT SIZE=2>.</P></DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>To redefine the ASSIST_HOME environment variable please:&#9;</P>
+<B><P>Edit</B> the file <B>a_start.v          </B>( it is located in c:\assist)</P>
+<P>Modify the first line :</P><DIR>
+<DIR>
+
+<P>$setenv ASSIST_HOME c:/assist &#9;</P></DIR>
+</DIR>
+
+<P> ( replace c:\assist with your target directory for assist14,</P>
+<P>example if your target directory c:\my_ass14, than please modify as:&#9;</P>
+<P>$setenv ASSIST_HOME c:\ my_ass14</P>
+</FONT><P ALIGN="CENTER"><HR></P>
+<FONT SIZE=2><P>&#9;&#9;</P>
+<P>&nbsp;&nbsp;</P>
+</FONT><B><U><FONT SIZE=4><P ALIGN="CENTER"><A NAME="ins_starting"></A>Starting Express with Assist14</P>
+</U></FONT><FONT SIZE=2><P>&nbsp;</P>
+<P>&#9;From DOS Window</P>
+</B><P>Assist is written in pure Express-V code. </P>
+<P>So you can load  assist.v as describe in Express Documents.</P>
+<P>To load the assist from DOS Window just typein in the DOS-Window: </P>
+<P>&nbsp;</P><DIR>
+<DIR>
+
+</FONT><FONT SIZE=4><P>c:\express\pc\bin\express  c:\assist\a_start.v  -ne  –vcp</P>
+<P>&nbsp;</P>
+</FONT><FONT SIZE=2><P> ( -ne: Start Express with the NetworkEditor</P>
+<P> -vcp: Start Express with the Command Window)</P></DIR>
+</DIR>
+
+<B><P>&#9;</P>
+</B><P>For further information please typein:   </FONT><I><FONT SIZE=4>c:\express\pc\bin\express –usage</P>
+</I></FONT><B><FONT SIZE=2><P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&#9;</FONT><U>From your desktop</P>
+</U><FONT SIZE=2><P>&nbsp;</P>
+</B><P>- Create your Shortcut on your Desktop</P><DIR>
+<DIR>
+
+<P>Click on the file c:\express\bin\pc\express.exe and move to your Desktop</P></DIR>
+</DIR>
+
+<P>- Change the </FONT><A HREF="GIF_FILES/LINK_PROPERTIES.GIF">Shortcut properties</A><FONT SIZE=2> </P><DIR>
+<DIR>
+
+<P>Target</FONT>: <I>c:\express\bin\pc\express.exe c:\assist\a_start.v –ne –vcp</P>
+</I><FONT SIZE=2><P>Working Directory:  </FONT><I>c:\express\bin\pc</P></DIR>
+</DIR>
+
+</I><FONT SIZE=2><P>&#9;&#9;&#9;</P>
+<P>&#9;&#9;</P><DIR>
+<DIR>
+
+</FONT><B><U><P>From Express:</P></DIR>
+</DIR>
+
+</U><FONT SIZE=2><P>&nbsp;</P>
+
+<UL><DIR>
+<DIR>
+
+
+<UL>
+</B><LI>Start Express as usual </LI>
+<LI>Select </FONT><A HREF="GIF_FILES/APPL_TYPE.GIF">Applicationstype: none</A><FONT SIZE=2> </LI>
+</FONT><LI><A HREF="GIF_FILES/LOAD_APPL.GIF">Load Application</A><FONT SIZE=2>: </LI>
+</FONT><LI><A HREF="GIF_FILES/LOAD_APPL.GIF">Select Menu&gt;File&gt;Load Application 
+<LI></LI></UL>
+</DIR>
+</DIR>
+</UL>
+</A><FONT SIZE=2>In the filebrowser: select &lt;assist14 home directory&gt;/</FONT><A HREF="GIF_FILES/FILE_BROWSER.GIF">a_start.v</A></LI>
+<P ALIGN="CENTER"><HR></P>
+<FONT SIZE=2><P>&nbsp;</P>
+<P>&nbsp;</P>
+</FONT><B><U><FONT SIZE=5><P ALIGN="CENTER"><A NAME="ins_mainmenu"></A>Assist Mainmenu</P>
+</B></U></FONT><FONT SIZE=2><P>After you load a_start.v you will see <I>four</I> windows:</P>
+<P>AVS/Express Console</P>
+<P>ModuleStack</P>
+<P>AVS/Express NetworkEditor</P>
+</FONT><P><A HREF="GIF_FILES/ASS_MENU0.GIF">Assistant v. 1.4 ( 1024 x 780)
+<P>&nbsp;</P></A><FONT SIZE=2>&nbsp;</P>
+<P>In order to see dynamically how modules are assembled on the NetworkEditor,</P>
+<P> your Display resolution should be changed   in <B>1024 x 768</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>Further Questions please send mail to  </P>
+</B></FONT><P><A HREF="mailto:johw@avs-uniras.de">johw@avs-uniras.de</A></P>
+<FONT SIZE=2><P>&#9;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></FONT></BODY>
+</HTML>

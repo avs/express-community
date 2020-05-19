@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>CombineData - generates colours using RGB or HSV colour models.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>CombineData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The macros provided in this project allow 3 sets of node data to be combined together so that colours can be generated using either the RGB or HSV colour models.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by Combine_Datasets_To_HSV &amp; Combine_Datasets_To_RGB">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="75">Field</td>
+<td width="425">original field containing node data to be mapped.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Combine_Datasets_To_HSV &amp; Combine_Datasets_To_RGB">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>comp0</i></td>
+<td width="75">int</td>
+<td width="300">specifies red/hue node data component</td>
+<td width="125">Radio Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>comp1</i></td>
+<td width="75">int</td>
+<td width="300">specifies blue/saturation node data component</td>
+<td width="125">Radio Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>comp2</i></td>
+<td width="75">int</td>
+<td width="300">specifies green/value node data component</td>
+<td width="125">Radio Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>constant0on<br>constant1on<br>constant2on</i></td>
+<td width="75">int</td>
+<td width="300">specifies whether to use a constant colour value</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>constant0val<br>constant1val<br>constant2val</i></td>
+<td width="75">float</td>
+<td width="300">specifies constant colour value to use</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>invert0on<br>invert1on<br>invert2on</i></td>
+<td width="75">int</td>
+<td width="300">specifies whether to invert the input data</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Combine_Datasets_To_HSV &amp; Combine_Datasets_To_RGB">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Field</td>
+<td width="425">modified field containing colour node data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The CombineData project allows the user to directly generate a colour node data component by combining together other node data components using either the RGB or HSV colour models.  Two user macros are provided that allow this to be done.  The <tt>Combine_Datasets_To_RGB</tt> macro converts 3 node data components into values for Red, Green and Blue and generates another node data component containing colour data.  Similarly the <tt>Combine_Datasets_To_HSV</tt> macro converts 3 node data components into values for Hue, Saturation and Value and generates another node data component containing colour data.</p>
+
+<p>Both macros normalize the input node data components before converting them into colour values.  Both macros also provide a user interface so that the node data component to be used for each colour component can be choose.  The user interface also allows the user to specify if the input data should be inverted or whether a constant value should be used for a colour component.</p>
+
+<p>Internally the user macros use two low-level modules that contain the C++ code necessary to perform the conversion between data values and colour values.  The user interface macros, functional macros and user macros used by this project are built up by defining macros for the HSV colour model and then modifying them to create macros for the RGB colour model.</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_fld</i></b></blockquote>
+
+<blockquote>Input field that is to be coloured using node data components.  The field should contain at least one set of node data.  The node data can be of any type and the colouring is not dependent upon the structure of the mesh.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>comp0</i></b></blockquote>
+
+<blockquote>
+Specifies which set of node data should be used for the first colour data component.  This component is either the red component or the hue component depending upon which colour model is used.  Before being converted into colour values the selected node data is normalized so that all values lie between 0 and 1.
+</blockquote>
+
+<blockquote><b><i>comp1</i></b></blockquote>
+
+<blockquote>
+Specifies which set of node data should be used for the second colour data component.  This component is either the blue component or the saturation component depending upon which colour model is used.  Before being converted into colour values the selected node data is normalized so that all values lie between 0 and 1.
+</blockquote>
+
+<blockquote><b><i>comp2</i></b></blockquote>
+
+<blockquote>
+Specifies which set of node data should be used for the third colour data component.  This component is either the green component or the value component depending upon which colour model is used.  Before being converted into colour values the selected node data is normalized so that all values lie between 0 and 1.
+</blockquote>
+
+
+<blockquote><b><i>constant0on constant1on constant2on</i></b></blockquote>
+
+<blockquote>
+If these parameters are not zero they specify that a constant value should be used for the appropriate component of the colour data.  The constant value to be used is specified by the <tt>constant0val</tt>, <tt>constant1val</tt> and <tt>constant2val</tt> parameters.
+</blockquote>
+
+<blockquote><b><i>constant0val constant1val constant2val</i></b></blockquote>
+
+<blockquote>
+These floating point parameters specify the constant values that should be used instead of node data if the appropriate parameter is set (i.e. <tt>constant0on</tt>, <tt>constant1on</tt> or <tt>constant2on</tt>)  The value of these parameters should be between 0 and 1.  If the appropriate <tt>constant?on</tt> parameter is not set these parameters have no effect.
+</blockquote>
+
+<blockquote><b><i>invert0on invert1on invert2on</i></b></blockquote>
+
+<blockquote>
+If these parameters are not zero they specify that the normalized node data for the appropriate component should be inverted before it is used to calculate colour data.
+</blockquote>
+
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>Output Field data containing both the original node data components and the colour node data component has been generated. </blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to the viewer.  AVS/Express will by default display this Object with the colours specified in the colour node data component.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The CombineData project makes use of three utility macros.  <tt>CMBD_extract_data_array</tt> allows a node data component to be extracted with out the need for a user interface.  <tt>DVadd_node_data</tt> allows a set of colour node data to be added to an existing set of field data.  <tt>CMBD_ComponentBox</tt> creates a UI panel containing the controls necessary for a single component of colour.</p>
+
+<p>The CombineDataParams parameter block is also used by all of the User Interface, Functional and User macros.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The CombineDataEg example application is provided with this project.  This application demonstrates how node data can be combined using either colour model.  A block of data containing 3 node data components is read and an orthoslice is taken of the data.  This orthoslice is then coloured by both the <tt>Combine_Datasets_To_RGB</tt> and <tt>Combine_Datasets_To_HSV</tt> macros and the results displayed in two separate windows.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/combdata/cmbdmods.v</i> contains the V definitions of the DVcombine_data_to_HSV, DVcombine_data_to_RGB and DVadd_node_data low-level modules, the CMBD_extract_data_array utility module and the CombineDataParams parameter block.</p>
+
+<p><i>xp_comm_proj/combdata/cmbdmacs.v</i> contains the V definitions of the UI component CMBD_ComponentBox, the User Interface macros Combine_Datasets_To_HSV_UI and Combine_Datasets_To_RGB_UI, the functional macros Combine_Datasets_To_HSV_Func and Combine_Datasets_To_RGB_Func, the user macros Combine_Datasets_To_HSV and Combine_Datasets_To_RGB and the example application CombineDataEg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level CombineDataMods library containing the module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Mark Lambert
+Advanced Visual Systems, Inc.
+
+Andrew Dodd
+International AVS Centre
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+N/A
+</blockquote>
+
+</body>
+</html>
+

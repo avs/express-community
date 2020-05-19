@@ -1,0 +1,14 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+   "../xp_comm_proj/isolbl2/isolbl2.v" Isolabel2;
+# In the following xp_comm_lib file
+mappers.v
+# insert the following line
+   XP_COMM_PROJ.Isolabel2.Isolabel2Macs.isolabel2 isolabel2;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+   XP_COMM_PROJ.Isolabel2.Isolabel2Macs.Isolabel2Eg1 Isolabel2Eg1;
+   XP_COMM_PROJ.Isolabel2.Isolabel2Macs.Isolabel2Eg2 Isolabel2Eg2;
+

@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML VERSION="2.0">
+<HEAD>
+<!-- WEBMAGIC VERSION NUMBER="2.0.2" -->
+<!-- WEBMAGIC TRANSLATION NAME="ServerRoot" SRC="/var/www/htdocs/" DST="/" -->
+<!-- WEBMAGIC TRANSLATION NAME="ProjectRoot" SRC="./" DST="" -->
+<TITLE>Convert2Byte</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>Convert2Byte</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>Convert data in other numeric data types into bytes. This is necessary if
+the data is to be volume rendered.</BLOCKQUOTE>
+<H4>Input Ports</H4>
+<P><table>
+<tr><td width="125">in</td><td width="125">Mesh+Node_Data</td><td width="300">input field for conversion</td></tr>
+</table></P>
+<H4>Parameters</H4>
+<P>None.</P>
+<H4>Output Ports</H4>
+<P><table>
+<tr><td width="125"><I>out</I></td> <td width="125">Mesh+Node_Data</td> <td width="300">field with node data converted to bytes</td> </tr>
+ </table> </P>
+<H3>Description</H3>
+<BLOCKQUOTE>Convert2Byte converts the node data of a field from short ints, ints, floats
+and doubles into bytes scaled to fit into the 0-255 range of byte data.</BLOCKQUOTE>
+<BLOCKQUOTE>new_value= old_value * (255/ (maximum - minimum))</BLOCKQUOTE>
+<BLOCKQUOTE>Note: Where the input data has context (eg velocities in m/s) this information
+is lost. Accuracy will also be lost due to the limited range of the byte.
+Therefore the output of this module should not really be used as the basis
+for any accurate calculation.</BLOCKQUOTE>
+<H3>Input Ports</H3>
+<BLOCKQUOTE><B><I>input_name</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>input field for the Convert2Byte macro. The lower-level module <a href="doc_mod.html">Convert2ByteNodeData</a>
+is used to convert to bytes the Node_Data of this input field then recombine
+it with the Mesh (if present).</BLOCKQUOTE>
+<H3>Parameters</H3>
+<BLOCKQUOTE>None.</BLOCKQUOTE>
+<H3>Output Ports</H3>
+<BLOCKQUOTE><B><I>out</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>The output field for the Convert2Byte macro. This contains the converted
+Node_Data combined with the original Mesh (if present). </BLOCKQUOTE>
+<H3>Utility Macros</H3>
+<BLOCKQUOTE>Parameter Group, Module, Functional Macro and UI Macro. </BLOCKQUOTE>
+<H3>Example</H3>
+<BLOCKQUOTE>Convert2ByteEg. Convert2Byte used to convert the floating point values from
+bluntfin.fld into byte data so that the data can be rendered by the volume
+renderer.</BLOCKQUOTE>
+<H3>Files</H3>
+<BLOCKQUOTE><I>xp_comm_proj/con2byt/c2b_macs.v </I></BLOCKQUOTE>
+<H3>Other Notes</H3>
+<BLOCKQUOTE>To compile the project type:</BLOCKQUOTE>
+<BLOCKQUOTE><CODE>base -comp_proc express -exit</CODE></BLOCKQUOTE>
+<BLOCKQUOTE>from the project directory.</BLOCKQUOTE>
+<BLOCKQUOTE>To run AVS/Express now, type:</BLOCKQUOTE>
+<BLOCKQUOTE><CODE>bin/sgi/express.</CODE> </BLOCKQUOTE>
+<H3>Author</H3>
+<BLOCKQUOTE>Alex Allen
+<PRE>
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE></BLOCKQUOTE>
+<H3>See Also</H3>
+<BLOCKQUOTE><a href="doc_mod.html">Convert2ByteNodeData</a>. </BLOCKQUOTE>
+</BODY>
+</HTML>

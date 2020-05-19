@@ -1,0 +1,149 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>DisplaySplitFilename</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>DisplaySplitFilename</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Processes a full filename and path, splitting the filename and path into two strings, and displays them in a UI panel.
+</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+module DSFCore &lt;src_file="dispfile.cxx"&gt; {
+   string+IPort2  FullFileName;
+
+   cxxmethod update (
+      .FullFileName+read+notify,
+      .FileName+write,
+      .Path+write,
+      .ValidName+write
+   );
+
+   string+OPort2  FileName;
+   string+OPort2  Path;
+   boolean+OPort2 ValidName;
+};
+</pre>
+<hr>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The DSFCore module takes a full filename string as input. This input is processed by a C++ method and split into two strings; the directory path and the actual filename.  A User macro is also provided that allows the strings to assembled into a user-interface panel.  This macro is intended to provide more readable feedback to users about the file they have selected.
+</blockquote>
+
+<blockquote>
+The module assumes that the directory path is the part of the full filename before the final file separator.  Conversely the filename is the part of the full filename after the final file separator.  The final file separator character is not included in either string.  The module is designed to search for both forms of file separator(i.e. <tt>\</tt> or <tt>/</tt>).  On Windows systems a backslash(<tt>\</tt>) is initially searched for.  If this is not found then a forward slash(<tt>/</tt>) is searched for.  On other systems a forward slash is looked for before a backslash.  
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>FullFileName</i></b></blockquote>
+
+<blockquote>
+Name of the file to be split into file and directory parts.  This parameter is a string value.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>FileName</i></b></blockquote>
+
+<blockquote>
+The actual filename extracted from the input FullFileName parameter.
+</blockquote>
+
+<blockquote><b><i>Path</i></b></blockquote>
+
+<blockquote>
+The directory path extracted from the input FullFileName parameter.
+</blockquote>
+
+<blockquote><b><i>ValidName</i></b></blockquote>
+
+<blockquote>
+A boolean flag indicating that the supplied input parameter is a valid filename string.  If no file separator can be found this flag is cleared. 
+</blockquote>
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The display_split_filename user macro makes use of the DSFCore low-level module and the DSF_UI user interface macro.  The DSFCore module contains all the C++ code necessary for this project.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+The DisplaySplitFilename example application is provided.  This demonstrates now the display_split_filename macro can be connected to a file dialog box so that it displays the path and filename separately.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/dispfile/dsf_mods.v</i> contains the V definition of the DSFCore module.</blockquote>
+
+<blockquote><i>xp_comm_proj/dispfile/dsf_macs.v</i> contains the V definitions of the DSF_UI UI macro, the display_split_filename user macro and the DisplaySplitFilenameEg example applications.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level DisplaySplitFilenameMods library containing the DSFCore module does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Mark Ward, Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>Andrew Dodd, International AVS Centre</pre>
+</blockquote>
+
+
+<h3>
+Contact</h3>
+
+<blockquote>
+<pre>International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+
+</body>
+</html>
+

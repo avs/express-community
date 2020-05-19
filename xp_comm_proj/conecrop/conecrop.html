@@ -1,0 +1,326 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>ConeCrop - Crop field on a Cone.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ConeCrop</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A mapper module that cuts a 3D model with a cone, returning
+the model remaining the inside or outside of the cone.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports of ConeCrop macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_field</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">input field that should be cut using the cone</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by ConeCrop macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>above</i></td>
+<td width="75">int</td>
+<td width="300">toggles the cropped part between inside and outside of the cone</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>plane dim1</i></td>
+<td width="75">int</td>
+<td width="300">x - dimension of each plane which describe the surface of the cone</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>plane dim2</i></td>
+<td width="75">int</td>
+<td width="300">y - dimension of each plane which describe the surface of the cone</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>revolution subdivisions</i></td>
+<td width="75">int</td>
+<td width="300">Number of planes that describe the surface of the cone</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>side angle in</i></td>
+<td width="75">int</td>
+<td width="300">slope angle of the cone</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table summary="Ouput Ports of ConeCrop macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_plane_flds</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output fields which describe the cutting planes</td>
+</tr>
+
+<tr>
+<td width="100"><i>plane_objs</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object of the cutting planes used</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field after cutting</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+The ConeCrop macro crops a 3D model using a cone shape object.  It is a variation on the crop_box module. It works in essentially the same way except that it uses planes arranged in a way to form a cone instead of a box.  The ConeCrop macro returns a whole new 3D model.  It does not remove value by setting their node data value to NULL and it does not just return the values at the Cone surface.
+</blockquote>
+
+<blockquote>
+The macro includes a user interface.  The Cone radius and transformation can be controlled from the user interface panel (Transformation Editor). It should be noted that as the high level macros require the use of a number of low level AVS/Express modules these macros will only work with the AVS/Express developer edition.
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>in_field</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the field input that is to be cropped.  The field should contain at least a Mesh component.
+</blockquote>
+
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>above</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ConeParams parameter block group. This integer value is used to specify whether the inside or the outside values of the cone shaped object should be retained.
+</blockquote>
+
+
+<blockquote>
+<i><b>plane dim1</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ConeParams parameter block group. This integer value is used to specify the size of each plane in its x-direction.
+</blockquote>
+
+<blockquote>
+<i><b>plane dim2</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ConeParams parameter block group. This integer value is used to specify the size of each plane in its y-direction.
+</blockquote>
+
+<blockquote>
+<i><b>revolution subdivisions</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ConeParams parameter block group. This integer value is used to specify how many planes are used to describe the outside of the Cone. 
+</blockquote>
+
+<blockquote>
+<i><b>side angle</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ConeParams parameter block group. This integer value is used to specify the slope angle of the Cone.
+</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out_plane_flds</b></i>
+</blockquote>
+
+<blockquote>
+The array of fields of the planes that are used to describe the the Cone surface on which the original field was cut. This contains 3D model of the cutting planes in a way that it can be used for further processing.
+</blockquote>
+
+<blockquote>
+<i><b>plane_objs</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the planes that are used to describe the the Cone surface on which the original field was cut. This contains a DataObject object that can be rendered by the standard data viewers.
+</blockquote>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the ConeCrop macro. This contains the new 3D model generated from the model present on the input, cropped using the specified cone and combined with the original data components.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the ConeCrop macro. This contains a DataObject object that can be rendered by the standard data viewers. The DataObject is generated directly from the field data created from the input model.
+</blockquote>
+
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro ConeCrop makes use of the Functional Macro ConeCropFunc and the UI Macro ConeCropUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ConeCropEg is provided, which loads a field file and cuts a cone section out of it.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/conecrop/ccrpmacs.v</i> contains the V definitions of the ConeCropFunc Functional Macro, the ConeCrop User Macro, and the ConeCropUI User Interface Macro. </p>
+
+<p><i>xp_comm_proj/conecrop/ccrpapps.v</i> contains the V definition of the example application ConeCropEg.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project requires the following components to be installed correctly.
+Without these components the user level macros will not work correctly.
+</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ConeCropMacs library inherits its process. As this library contains
+no procedural code, the process is not important.
+</blockquote>
+
+<blockquote>
+The high level macros use DV low level objects, and hence these macros require a license for the AVS/Express Developer Edition. 
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ali Bitar
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+Crop_box
+</blockquote>
+
+</body>
+</html>

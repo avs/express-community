@@ -1,0 +1,161 @@
+<html>
+<head>
+<title>Image_Cache</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>Image_Cache</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The Image_Cache module caches frames of the displayed objects in data viewer. 
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module Image_Cache<src_file="imgcache.c"> {
+    omethod+notify_inst create() = "CacheCreate";
+    omethod+req set_mode(.mode+notify+read+write+req
+                         ) = "CacheSetMode";
+    omethod+req set_capture(.capture+notify+read+req,
+                            .playback+nonotify+write
+                            ) = "CacheCapture";
+    omethod+req set_playback(.playback+notify+read+req,
+                             .capture+nonotify+write
+                             ) = "CachePlayback";
+    omethod+req set_frame(.frame_in+notify+read+req,
+                          .frame_out+nonotify+write
+                          ) = "CacheSetFrame";
+    omethod+req proc_trigger(.view+notify+read,
+                             .frame_out+nonotify+write,
+                             .num_frames+nonotify+write
+                             ) = "CacheProcessTrigger";
+    omethod+notify_deinst delete() = "CacheDestroy";
+    GDview_templ &view<NEportLevels={2,0}>;
+    enum mode<NEportLevels={2,0}> {
+      choices = {"interactive","loop"};
+    } = "interactive";
+    Boolean capture<NEportLevels={2,0}>;
+    Boolean playback<NEportLevels={2,0}>;
+    int frame_in<NEportLevels={2,0}>;
+    int frame_out<NEportLevels={0,2}>;
+    int num_frames<NEportLevels={0,2}>;
+    ptr hidden<NEvisible=0> = 0;
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The Image_Cache module caches the frames of the movements of the displayed objects in the data viewer. In playback mode the cached frames are provided to the viewer with the set frame rate. The Image_Cache module records everything that covers the data window, except for the mouse pointer.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>view</b></i>
+</blockquote>
+
+<blockquote>
+Input for the current view of the data viewer.
+</blockquote>
+
+<blockquote>
+<i><b>mode</b></i>
+</blockquote>
+
+<blockquote>
+"interactive" (=0) is used for the CineInteract macro. The recording must be stopped manually. "loop" (=1) is used for the CineLoop module. It starts frames from the beginning when the end value has been reached.
+</blockquote>
+
+<blockquote>
+<i><b>capture</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the enable value, via the parameter block, which is referenced by the &CineParams input.
+</blockquote>
+
+<blockquote>
+<i><b>playback</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the playback value, via the parameter block, which is referenced by the &CineParams input. In CineLoop this value is not required.
+</blockquote>
+
+<blockquote>
+<i><b>frame_in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the frame_in value of the Cine_Control module.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>frame_out</b></i>
+</blockquote>
+
+<blockquote>
+Value of the currently shown frame.
+</blockquote>
+
+<blockquote>
+<i><b>frame_number</b></i>
+</blockquote>
+
+<blockquote>
+Number of all frames.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The Cache_Image module is used in the Functional Macro CineFunc and is cooperating with the Cine_Control module.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application CineInteractEg and CineLoopEg is provided, which uses the AVS/Express sample data file mri.fld, to show the functionality of the macro.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cine/cine_mods.v</I> contains the CineParams group, the Image_Cache module and the Cine_Control module V definitions.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+unknown
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Gorden Tausch
+Manchester Visualization Centre
+
+Tobias Schiebeck
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+Cine_Control, CineInteract and CineLoop.
+</blockquote>
+
+</body>
+</html>

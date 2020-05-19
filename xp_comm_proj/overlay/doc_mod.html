@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>OverlayNodeData</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>OverlayNodeData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Overlay one image over another using a specified ARGB mask.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module OverlayNodeData&lt;src_file="over_img.cxx"&gt; {
+    Mesh_Unif+Dim2+Space2+Node_Data+Vector4 &amp;image1&lt;NEportLevels={2,0}&gt;;
+    Mesh_Unif+Dim2+Space2+Node_Data+Vector4 &amp;image2&lt;NEportLevels={2,0}&gt;;
+    OverlayParams &OverlayParams&lt;NEportLevels={2,0}&gt;;
+    byte mask[4] =&gt; {OverlayParams.maskA,
+                     OverlayParams.maskR,
+                     OverlayParams.maskG,
+                     OverlayParams.maskB};
+    byte bkgnd[4] =&gt; {OverlayParams.bkgndA,
+                       OverlayParams.bkgndR,
+                       OverlayParams.bkgndG,
+                       OverlayParams.bkgndB};
+    Mesh_Unif+Dim2+Space2+Node_Data+Vector4 compos&lt;NEportLevels={0,2}&gt;;
+
+    cxxmethod+notify_inst+req overlay(
+      mask+notify+read+req,
+      bkgnd+notify+read+req,
+      image1+notify+read+req,
+      image2+notify+read+req,
+      compos+write);
+   };
+
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Create a new image, <I>compos</I>, by overlaying <I>image2</I> over
+<I>image1</I> aligned at the bottom left corner. If <I>image2</I> is
+greater then <I>image1</I> in any dimension pad image1 with the ARGB
+values of <I>bkgnd</I> so that <I>compos</I> is large enough to contain
+both images. If any of the pixels in <I>image2</I> have the same ARGB
+values as <I>mask</I> then let them be transparent and not effect the
+current pixel values.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&image1</b></i>
+</blockquote>
+
+<blockquote>
+Reference to first image.
+</blockquote>
+
+<blockquote>
+<i><b>&image2</b></i>
+</blockquote>
+
+<blockquote>
+Reference to second image. This will be overlayed over the first with
+the mask specifying which colour is transparent.</blockquote>
+
+<blockquote>
+<i><b>&OverlayParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to parameter block that contains the ARGB values to be used as
+mask and bkgnd.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>compos</b></i>
+</blockquote>
+
+<blockquote>
+An image of the two input images overlaid.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level OverlayNodeData module is used in the Functional Macro
+OverlayImages. Additionally, this macro also uses the OverlayParams
+parameter block group object, as does the overlayImages User Macro and
+the OverlayUI UI Macro. 
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application OveralyEg is provided, which uses the overlayImages macro
+to composite the Manchester Visualization Centre logo on top of the example
+Mandrill image.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/overlay/overmods.v</I> contains the OverlayParams group
+and the OverlayNodeData module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level OverlayMods library containing the module OverlayNodeData does not
+specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><PRE>
+James S Perrin
+</PRE></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+OverlaysParams, OverlayImages, OverlayUI, overlayImages.
+</blockquote>
+
+</body>
+</html>

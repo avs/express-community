@@ -1,0 +1,14 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/build3d/build3d.v" Build3D;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.Build3D.Build3DMacs.build3D build3D;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Build3D.Build3DApps.Build3DEg Build3DEg;
+  XP_COMM_PROJ.Build3D.Build3DApps.CreateImageSlicesEg CreateImageSlicesEg;
+

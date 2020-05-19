@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>MakeArray</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>MakeArray</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This is an example of how to create an array of floats on the fly using the C-API.
+
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module MakeArray <src_file="mk_array.c"> {
+  omethod+notify_inst update() = "mk_array";
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+This MakeArray module utilizes the currently undocumented OMset_array_dims ( I think the variables are like OMget_array_dims....)
+</p>
+<p>
+You can't create the object and then change the dimensions using OMset_array_size because that required that the array to be changed already BE an array.  The object created with OMcreate_obj_from_path is not yet an array.
+</p>
+<p>
+The module is provided as a simple example for developers, and is not for general use in an application.
+</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<p>
+n/a
+</p>
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<p>
+n/a
+</p>
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>
+n/a
+</p>
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+This module is for developer information only and does not include an example application, or any other support macros.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/mk_array/mkarmods.v</I> contains the MakeArray module V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level MakeArrayMods library containing the module MakeArray does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Leigh J. Grundy, AVS Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+</body>
+</html>

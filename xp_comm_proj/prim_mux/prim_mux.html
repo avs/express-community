@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>PrimitiveMUX</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>modPMUX</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The module modPMUX takes an array of Express primitives and outputs the value and index of the element that changed.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module modPMUX &lt;src_file = &quot;prim_mux.cxx&quot;&gt; {
+  group+IPort2 &input[];
+  prim+OPort2 output &lt;val_state=2&gt;;
+  int+OPort2 selectedItem &lt;val_state=2&gt;; 
+
+  cxxmethod+req update (
+    .input+read+notify+req,
+    .output+write+nonotify,
+    .selectedItem+write+nonotify 
+  );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The module modPMUX takes an array of Express primitives of differing types and outputs the value and index of the element that changed. The type of the output matches the primitive type of the element that has changed.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&input[]</b></i>
+</blockquote>
+
+<blockquote>
+The input array of primitives. This is an input of multiple individual primitive objects i.e., multiple connections to the input port. It does not process array objects, group objects or group arrays.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>output</b></i>
+</blockquote>
+
+<blockquote>
+Output element that changed in the input. Type of output changes to the type of the changed element. 
+</blockquote>
+
+<blockquote>
+<i><b>selectedItem</b></i>
+</blockquote>
+
+<blockquote>
+The index of the changed element.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/prim_mux/pmuxmods.v</I> contains the modPMUX module V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level PrimitiveMUXMods library containing the module modPMUX does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+The module returns the first element in the array that has changed. If more than one element changes, only the first is reported.
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Advanced Visual Systems Inc.
+Documentation - Ian Curington, Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+</body>
+</html>

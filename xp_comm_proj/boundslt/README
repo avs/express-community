@@ -1,0 +1,40 @@
+Express Community BoundsLite Project
+https://github.com/avs/express-community
+----------------------
+
+This directory ( xp_comm_proj/boundslt/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project BoundsLite.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new BoundsLite project, and a single line addition to an xp_comm_lib/
+file (in this instance misc.v) to add a link to the User
+Macro from the new top-level Community library page.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/boundslt/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/misc.v file. This file should not be edited as the
+			   future installation script will use this file.
+
+boundslt.v     Creates the XP_COMM_PROJ.BoundsLite library.
+
+bltmac.v       Creates the BoundsLiteMacs library containing the high-level 
+               functional macro BoundsLiteFunc, user interface macro 
+               BoundsLiteUI, the user macro BoundsLite and the parameter block
+               BoundsLiteParams.
+
+bltapp.v       Creates the BoundsLiteApps library containing the example
+               application BoundsLiteEg.  
+			   
+boundslt.html  HTML documentation for the BoundsLite module.
+
+README         This file.

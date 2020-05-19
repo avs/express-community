@@ -1,0 +1,185 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>background_generator - generate shaded background images</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>downsample_mean</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The downsample_mean macro reduces the size of uniformed mesh data.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by background_generator">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">Mesh_Unif + Node_Data</td>
+<td width="425">Required data field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by background_generator">
+
+<tr>
+<td width="150"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150">
+output_size[3]</td>
+<td width="50">int</td>
+<td width="300">Size of the desired mesh</td>
+<td width="100">UIsliders</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by background_generator">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Mesh_Unif + Node_Data</td>
+<td width="425">Reduced data field</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The downsample_mean macro reduces the size of the input data field to the 
+size provided by the user using the Sliders in the user interface. The data 
+reduction is done by calculating the mean value of all original points around 
+the new data point. It can only handle uniform mesh data.</p>
+
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>The original Uniform Mesh.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+
+<table summary="HSV Parameters">
+
+<tr>
+<td width="120">
+<b><i>output_size[3]</i></b></td>
+</tr>
+
+</table>
+</blockquote>
+
+<blockquote>
+Defines the desired output size of the Mesh. New values of the field are 
+calculated as the mean of all surrounding points which fall away through these 
+data reduction.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The functional macro DownSampleFunc uses the low-level module 
+  downsample.  The user macro downsample_mean uses this functional macro and the user interface macro BackgroundUI.  The BackgroundParams parameter block is used to connect these components together.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The BackgroundEg1 example application reads a file and displays the 
+  reduced object.<p>The BackgroundEg2 example application reads a file, reduces 
+  its size, and and creates a isosurface with the reduced mesh.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/resample/samplmod.v</i> contains the V definitions of the 
+downsample module and the DownSampleParams.</p>
+
+<p><i>xp_comm_proj/resample/samplmac.v</i> contains the V definitions of the 
+DownsampleUI, the DownsampleFunc functional macro and the downsample_mean user macros.</p>
+
+<p><i>xp_comm_proj/resample/samplapp.v</i> contains the V definition of the BackgroundEg, TexturedBackgroundEg and ColouredBackgroundEg example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>&nbsp;</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>Anja Bindrich, Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+</pre></blockquote>
+
+
+</body>
+</html>

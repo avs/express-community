@@ -1,0 +1,214 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>DVdownsize_scat - Reduces the number of points in a mesh.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>DVdownsize_scat</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reduces the number of points in a Mesh. The module does not write any cell-connectivity information. The output of this module is a Point-Mesh which can be be used as coordinates for a glyph module.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports of DVdownsize_scat macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">input field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by DVdownsize_scat macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>factor</i></td>
+<td width="75">int</td>
+<td width="300">downsize factor</td>
+<td width="125">Slider</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table summary="Ouput Ports of DVdownsize_scat macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">downsized output field</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj_out</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object of the downsized field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+The DVdownsize_scat reduces the Number of points in a point mesh. This is done copying only every n-th (n = <i>factor</i>) point of the input field into the output field. If a point is taken over to the output field its Node data is transferred as well. The cell connectivity information is not transferred to the output field.
+</blockquote>
+
+<blockquote>
+The macro includes a user interface.  The downsize factor can be controlled from the user interface panel. 
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the input field.  
+</blockquote>
+
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>factor</b></i>
+</blockquote>
+
+<blockquote>
+A member of the DVdownsize_scatParams parameter block group. This int value is used as downsize factor(n). Only every n-th point in the input mesh is transferred into the output mesh.</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the DVdownsize_scat macro. This contains the new 3D model downsized from the input field.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable object that contains the output field of the DVdownsize_scat macro. This contains a DataObject object that can be rendered by the standard data viewers. The DataObject is generated directly from the field data created from the input model.
+</blockquote>
+
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro DVdownsize_scat makes use of the Functional Macro DVdownsize_scat_func and the UI Macro DVdownsize_scat_UI.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/dvdown/dvd_mods.v</i> contains the V definitions of the DVdownsize_scat_Params parameter block and the Downsize_core module.</p>
+
+<p><i>xp_comm_proj/dvdown/dvd_macs.v</i> contains the V definitions of the DVdownsize_scat_func Functional Macro, the DVdownsize_scat_UI User Interface Macro, and the DVdownsize_scat User Macro. </p>
+
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level DVdownsize_scatMods library containing the low-level module Downsize_core does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Mario Valle
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+
+<li><a href="osl.html">Oriented Streamline</a></li>
+</li>
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>tps_unif &amp; tps_rect</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>
+<a name="tps_unif">tps_unif</a><br>
+<a name="tps_rect">tps_rect</a>
+</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Generates uniform and rectilinear fields using Thin Plate Spline.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by tps_unif or tps_rect">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>coord</i></td>
+<td width="80">float[...][2]</td>
+<td width="425">locations of 2D input points</td>
+</tr>
+
+<tr>
+<td width="100"><i>values</i></td>
+<td width="80">float[...]</td>
+<td width="425">values of input points</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by tps_unif or tps_rect">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>smooth</i></td>
+<td width="75">float</td>
+<td width="300">'smoothness' of resultant field</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>dims</i></td>
+<td width="75">int[2]</td>
+<td width="300">dimensions of uniform field</td>
+<td width="125">X &amp; Y UIsliders</td>
+</tr>
+
+<tr>
+<td width="100"><i>add_points</i></td>
+<td width="75">int</td>
+<td width="300">number of interpolated points</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Input Ports used by tps_unif or tps_rect">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="80">Field</td>
+<td width="425">uniform or rectilinear output field</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The tps_unif and tps_rect macro use the Thin Plate Spline algorithm
+to generate 2D uniform and rectilinear fields from a set of points and values.
+The interpolation calculated by the Thin Plate Spline algorithm passes exactly
+through all the input points.  However the output grid only respects the input
+points in the case of a rectilinear grid with a 'smoothness' of 0.  The tps_unif
+macro generates a uniform output field while the tps_rect macro generates a
+rectilinear output field.  A user interface is provided that allows the
+'smoothness' and detail of the resultant field data to be specified.
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>coord[..][2]</b></i>
+</blockquote>
+
+<blockquote>
+Coordinates of the points that are to be used to generate the resulting grid.  This
+float array should consist of a series of x,y coordinate pairs.  It is not possible
+to use 3D coordinates.  If a rectilinear grid is being generated and the smoothness
+is set to zero then output points will be present at all of these coordinates.
+</blockquote>
+
+<blockquote>
+<i><b>values[..]</b></i>
+</blockquote>
+
+<blockquote>
+Value of the input variable at the input coordinates.  This float array should match
+the coordinate input array. 
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>smooth</b></i>
+</blockquote>
+
+<blockquote>
+A member of the TPS_Params parameter block group, this float value is used to
+specify the 'smoothness' of the resulting surface.  If the smoothness is set to
+zero then in a rectilinear field output nodes will be present at all
+of the input points.
+</blockquote>
+
+<blockquote>
+<i><b>dims[2]</b></i>
+</blockquote>
+
+<blockquote>
+A member of the TPS_Params parameter block group, this int array is used by the 
+tps_unif macro to specify the x and y dimensions of the resultant uniform grid.
+It is not used by the tps_rect macro.
+</blockquote>
+
+<blockquote>
+<i><b>add_points</b></i>
+</blockquote>
+
+<blockquote>
+A member of the TPS_Params parameter block group, this int value is used by the 
+tps_rect macro to specify how many points should be added in between each
+of the input points.  Increasing this value will improve the accuracy of the
+resultant field.  It is not used by the tps_unif macro.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+The output field of the tps_unif and tps_rect macros.  This contains the
+interpolated grid generated from the input points and values by the Thin Plate
+Spline algorithm.  The data is represented as a AVS field.  The tps_unif macro
+generates a uniform output field, while the tps_rect macro generates a
+rectilinear output field.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output of the tps_unif and tps_rect macros. This
+contains a DataObject object that can be rendered by the standard data viewers.
+The output object will contain a uniform or rectilinear field as appropriate.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro tps_unif combines the Functional Macro TPS_unif with the
+UI Macro TPS_unifUI.  The User Macro tps_rect combines the Functional Macro
+TPS_rect with the UI Macro TPS_rectUI.  Both of the user macros also make use
+of the common parameter block TPS_Params to tie the Functional Macro and UI
+macro together.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided, TPS_uniform_Eg and TPS_rectilinear_Eg which
+generate uniform and rectilinear grids from a set of points.  In both cases the
+grid is then converted into a field and expanded into 3 dimensions by using the surf_plot
+module.  This is done to make the effect of the Thin Plate Spline easier to see.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/tpspline/tps_macs.v</I> contains the V definitions of the Functional
+Macros TPS_unif and TPS_rect, the User Macros tps_unif and tps_rect, the UI Macros
+TPS_unifUI and TPS_rectUI and the Example Applications TPS_uniform_Eg and
+TPS_rectilinear_Eg.  It also contains two base objects, TPS_baseUI and TPS_base_Eg.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ThinPlateSplineMacs library inherits its process. As this library contains no
+procedural code, the process is not important. The modules in the low-level
+ThinPlateSpline library execute under the process specified in that library,
+not the process defined in the high-level library.
+</blockquote>
+
+<blockquote>
+The Thin Plate Spline implementation is based upon the code written by
+Dave Eberly.  More information can be found on the 
+<a href="http://www.magic-software.com">Magic Software</a> home page.
+The original code can be found on the <a href="http://www.magic-software.com/gr_intp.htm">interpolation</a> page.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Mario Valle
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+TPS_Params, TPS_unif, TPS_rect, tps_unif, tps_rect, TPS_baseUI, TPS_unifUI, TPS_rectUI,
+TPS_baseEg, TPS_uniform_Eg, TPS_rectilinear_Eg.
+</blockquote>
+
+</body>
+</html>

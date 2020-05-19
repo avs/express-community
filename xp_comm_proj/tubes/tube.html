@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>tube</title>
+<meta name="GENERATOR" content=
+"Mozilla/3.0Gold (WinNT; I) [Netscape]">
+</head>
+<body bgcolor="#92BFBF">
+<h1>tube</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+<p>Converts line and polyline cell_sets to tubes.</p>
+</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+module tube &lt;build_dir="xp_comm_proj/tubes",
+             src_file="tube.cxx",
+             out_src_file="gen.cxx",
+             out_hdr_file="gen.hxx",
+             libdeps="FLD",
+             cxx_hdr_files="fld/Xfld.h",
+             process="express"&gt;
+{
+   cxxmethod+req upd(
+      .in+notify+read+req,
+      .axis+notify+read+req,
+      .xform+notify+read+req,
+      .zscale+notify+read+req,
+      .resolution+notify+read+req,
+      .normalise+read+notify+req,
+      .scale+read+notify+req,
+      .node_cell+read+notify+req,
+      .node_data_comp+read+notify+req,
+      .cell_data_comp+read+notify+req,
+      .col_data_comp+notify+read+req,
+      .out+write,
+      .err+write,
+      .err_str+write
+   );
+
+   VISmesh+IPort2 &amp;in&lt;export=2&gt;;
+   int+IPort2     axis&lt;export=2&gt;;
+   int+IPort2     xform&lt;export=2&gt;;
+   float+IPort2   zscale&lt;export=2&gt;;
+   int+IPort2     resolution&lt;export=2&gt;;
+   int+IPort2     normalise&lt;export=2&gt;;
+   float+IPort2   scale&lt;export=2&gt;;
+   int+IPort2     node_cell&lt;export=2&gt;;
+   int+IPort2     node_data_comp&lt;export=2&gt;;
+   int+IPort2     cell_data_comp&lt;export=2&gt;;
+   int+IPort2     col_data_comp&lt;export=2&gt;;
+   Field+OPort2   out&lt;export=2&gt;;
+   int+OPort2     err&lt;export=2&gt;;
+   string+OPort2  err_str&lt;export=2&gt;;
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This module takes a field with line or polyline cell_sets, and
+generates tubes for the lines, which may be coloured using
+another dataset. Each line cell is turned into a tube. All other
+cell types are ignored.</p>
+
+<p>The radii are controlled by the data. The radii may be cell-
+or node-based. Cell-based radii (i.e. from the cell_data[])
+ensure each tube has a constant radius. Node-based (i.e. from the
+node_data[]) allows the radius of the tube to vary across the
+cell. If there is no data, normalise is set and the scale value
+used.</p>
+
+<p>Similarly, the colours are based on cell- or node-data. Colour
+data is optional.</p>
+
+<p>The 2D mode is designed for use with output from modules like
+isoline. I calculate the tubes on the XY plane (by default) and
+then use the input field's xform to xform the tubes to the
+correct orientation in 3D space.</p>
+
+<p>All data must be scalar!</p>
+
+<p>Limitations:</p>
+
+<ul>
+<li>Does not handle NULL data</li>
+
+<li>Data must be scalar</li>
+
+<li>Data is type cast to float</li>
+</ul>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<p><b>in</b>: Mesh 3D/2D with either line or polyline cell_sets.
+May have node and/or cell data to define radii and colours.</p>
+
+<p><b>axis</b>: axis to project 2D data (like the output from
+isoline) perpendicular to (default is 2 = Z).</p>
+
+<p><b>xform</b>: toggle whether to copy in xform to out or not.
+This is useful for 2D datasets like isoline which are calculated
+on the XY plane and then use the xform to transform them to the
+correct position in 3D space.</p>
+
+<p><b>zscale</b>: some 2D modules (like slice_plane) don't scale
+Z with X and Y. This allows the user to scale Z manually</p>
+
+<p><b>resolution</b>: number of facets for each tube.</p>
+
+<p><b>normalise</b>: toggle for normalising: 0 - no normalising -
+uses data for radii; 1 - all radii set to scale - does not use
+data. If data is invalid (either not there or vector), this flag
+is automatically set.</p>
+
+<p><b>scale</b>: scale factor for radii.</p>
+
+<p><b>node_cell</b>: toggle for selecting whether to use cell or
+node data: 0 - use node data defined by node_data_comp; 1 - use
+cell data defined by cell_data_comp</p>
+
+<p><b>node_data_comp</b>: the data to use if node_cell == 0</p>
+
+<p><b>cell_data_comp</b>: the data to use if node_cell == 1</p>
+
+<p><b>col_data_comp</b>: the node data to use for colouring. If
+node_cell == 0, we use node data, else we use cell_data.</p>
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<p><b>out</b>: Field 3D Quad cell set</p>
+
+<p><b>err</b>: error toggle</p>
+
+<p><b>err_str</b>: error string</p>
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>Parameter Group: TubesParams</p>
+
+<p>Functional Macro: TubesFunc</p>
+
+<p>UI Macro: TubesUI</p>
+
+<p>User Macro: tubes</p>
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>TubeEg1 and TubeEg2</p>
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/tubes/tubes.v</i>, <i>
+xp_comm_proj/tubes/tubesmods.v</i>, <i>
+xp_comm_proj/tubes/tubesmacs.v</i></blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>Revisions:</p>
+
+<ul>
+<li>added 2D support, 26/08/97, JM</li>
+
+<li>added multiple cell_set support, 26/08/97, JM</li>
+
+<li>added xform for 2D, 26/08/97, JM</li>
+
+<li>fixed up checks for invalid cell and node data, 26/08/97,
+JM</li>
+
+<li>fixed up data limits, 26/07/97, JM</li>
+
+<li>changed from (OMobj_id) to .obj_id(), 19/07/99, AWD</li>
+</ul>
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Jeremy Maccelari - <a href=
+"mailto:visuals@solo.pipex.co.za">visuals@solo.pipex.co.za</a>
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Andrew Dodd
+</pre>
+</blockquote>
+
+<blockquote><pre>
+Robert Frank
+Manchester Visualization Centre
+</pre></blockquote>
+
+</body>
+</html>
+

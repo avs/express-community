@@ -1,0 +1,205 @@
+<html>
+<head>
+<title>read_gocad</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>gocad</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Imports and scales data from a GOCAD file along the x, y and z axes.
+</blockquote>
+
+<hr>
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by read_gocad">
+
+<tr>
+<td width="125"><i>none</i></td>
+
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by read_gocad">
+
+<tr>
+<td width="125"><i>x</i></td>
+<td width="150">float</td>
+<td width="300">x axis, scaling value</td>
+</tr>
+
+<tr>
+<td width="125"><i>y</i></td>
+<td width="150">float</td>
+<td width="300">y axis, scaling value</td>
+</tr>
+
+<tr>
+<td width="125"><i>z</i></td>
+<td width="150">float</td>
+<td width="300">z axis, scaling value</td>
+</tr>
+
+<tr>
+<td width="125"><i>scale</i></td>
+<td width="150">boolean</td>
+<td width="300">scaling on/off</td>
+</tr>
+
+<tr>
+<td width="125"><i>file_name</i></td>
+<td width="150">string</td>
+<td width="300">GOCAD file name</td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_gocad">
+
+<tr>
+<td width="125"><i>out_mesh</i></td>
+<td width="170">Xform+Cells+Grid</td>
+<td width="300">Scaled data from GOCAD file</td>
+</tr>
+
+<tr>
+<td width="125"><i>out_obj</i></td>
+<td width="170">DefaultObject</td>
+<td width="300">output for 2D or 3D Uviewer</td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+gocad is a data import reader module for the GOCAD (ASCII) file format. The 
+GOCAD application models, edits, and describes 3D geologic structures, 
+containing horizon surfaces, faults, and wells. The GOCAD application is 
+authored by a group in Nancy, France. Gocad reads the contents of one GOCAD 
+file, which can then be sent to a Uviewer for interactive viewing via a UI 
+Macro.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>none</b></i>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>x, y and z</b></i>
+</blockquote>
+
+<blockquote>
+Members of the GocadParams parameter block group, these float values are used to 
+scale the image.
+</blockquote>
+
+<blockquote>
+<i><b>scale</b></i>
+</blockquote>
+
+<blockquote>
+A member of the GocadParams parameter block group, this boolean value is used to 
+switch scaling on or off.
+</blockquote>
+
+<blockquote>
+<i><b>file_name</b></i>
+</blockquote>
+
+<blockquote>
+A member of the GocadParams parameter block group, this string contains the 
+input file name. GOCAD files have the extension &quot;.tsurf&quot;.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_mesh</b></i>
+</blockquote>
+
+<blockquote>
+Scaled (if enabled) data from GOCAD file, in the form of Xform+Cells+Grid.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+Output suitable for use with 2D and 3D Uviewer. This DataObject is generated 
+from the data present in the out_mesh output.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro read_gocad combines the macro Gocad (which uses the low-level
+<a href="doc_mod.html">ReadGocad</a> module) with the UI Macro GocadUI via the 
+common parameter block GocadUI.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadGocadEg is provided, which uses the file 
+worldmap.tsurf, to display a picture of the world.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/rdgocad/goc_macs.v</I> contains the Functional Macro Gocad, the User 
+Macro read_gocad, the UI Macro GocadUI and the Example Application ReadGocadEg.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The GocadMacs library inherits its process. As this library contains no 
+procedural code, the process is not important. The low-level ReadGOCAD module, 
+executes under the process specified in its library, not the process defined in 
+the high-level library.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+AVS5 version
+Ian Curington,  AVS/UNIRAS Ltd.
+
+Ported to Express by
+Justin Greenhalgh
+
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+GocadParams, <a href="doc_mod.html">ReadGOCAD</a>, Gocad and GocadUI.
+</blockquote>
+
+</body>
+</html>

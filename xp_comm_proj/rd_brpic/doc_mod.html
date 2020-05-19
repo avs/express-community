@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>ReadPicData</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ReadPicData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads a Bio-Rad PIC file and outputs the dimensions and data array.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  group ReadPicData {
+    string filename<NEportLevels={2,0}>;
+
+    file FILE {
+      name => <-.filename;
+    };
+
+    ReadPicDims ReadPicDims {
+      filename=> <-.filename;
+    };
+
+    int dims<NEportLevels={0,2}>[3] => ReadPicDims.dims;
+    byte data<NEportLevels={0,2}>[prod(dims)] => cache(file_obj(.FILE,76,1,,1));
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The ReadPicData module reads a Bio-Rad PIC file and outputs the dimensions of
+the data and an array containing the image data.  These outputs can then
+be combined using a <TT>uniform_scalar_field</TT> module to create field data that
+can then be visualized using any of the standard modules.  The dimensions
+are output as an array of integers and the data is output as an array of
+bytes.  The module will only handle 8-bit images.  16-bit and 24-bit images are
+not handled correctly.  Any notes appended to PIC files are also ignored.
+</blockquote>
+
+<blockquote>
+Bio-Rad PIC files contain 3D confocal microscope images, <I>i.e.</I> 3D
+scalar uniform fields.  However 3D confocal microscope images are usually
+anisotropic i.e. the x-y scale is different from the z scale.  In this case
+the <TT>scale</TT> module can be used to alter the scaling of the resultant
+field data.  For more information please see the <a href="NOTE">NOTE</a> file.
+</blockquote>
+
+
+<h3>Input</h3>
+
+<blockquote>
+<i><b>&amp;filename</b></i>
+</blockquote>
+
+<blockquote>
+The name of the file that should be read from. This parameter is of type string.
+The ReadPicData module does not check to ensure that the supplied file is a
+valid Bio-Rad PIC file. If the file is not valid then errors could occur.
+</blockquote>
+
+<h3>Low-Level Module</h3>
+
+<blockquote>
+<i><b>ReadPicDims</b></i>
+</blockquote>
+
+<blockquote>
+An internal module, written in C, that reads the image dimensions from the input
+file.  The read dimensions are then used to determine the amount of image data
+that should be read from the input file and to generate the uniform field. The
+dimensions are 16 bit long values.  These values are read into a variable
+of type short.  If the length of the short type on your system is not 16 bits long
+then the module may need alteration.  The <TT>ReadPicDims</TT> module also performs the
+necessary byte swapping so that the module can be used on both big and little
+endian systems.
+</blockquote>
+
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>dims[3]</b></i>
+</blockquote>
+
+<blockquote>
+This array contains the dimensions of the Bio-Rad PIC image. The array
+is of type int. The dimensions can be used directly by field mapping
+modules to help generate AVS field data. The dimensions are read by the
+<TT>ReadPicDims</TT> module and are cast from the original short values to the
+int values that AVS/Express uses.
+</blockquote>
+
+<blockquote>
+<i><b>data[]</b></i>
+</blockquote>
+
+<blockquote>
+This array contains the data read from the Bio-Rad PIC file. The array is
+of type byte. The length of the array is calculated from the dimensions read
+by the <TT>ReadPicDims</TT> module. The data is actually read by the standard
+file I/O modules present in AVS/Express.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadPicData module is used in the User Macro readBRPic.
+This module be used directly in applications. The readBRPic macro also
+uses the ReadBRPicUI UI macro. The ReadPicData module uses the ReadPicDims
+module.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadBRPicEg is provided that reads a Bio-Rad
+PIC file and produces a maximum intensity projection. A sample Bio-Rad PIC
+file flea3.pic is provided with the distribution of this module.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/rd_brpic/rdbrmods.v</I> contains the ReadPicData and
+ReadPicDims module V definitions.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ReadBRPicMods library containing the module
+ReadPicDims does not specify a process. By default the express
+process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+<A HREF="http://www.cs.uwa.edu.au/~chrisp">Chris Pudney</A>
+
+Biomedical Confocal Microscopy Research Centre
+<A HREF="http://www.pharm.uwa.edu.au">Department of Pharmacology</A>
+<A HREF="http://www.uwa.edu.au">The University of Western Australia</A>
+Nedlands, W.A. 6907
+AUSTRALIA
+
+E-mail: <A HREF="mailto:cpudney@alphapharm.pharm.uwa.edu.au">cpudney@alphapharm.pharm.uwa.edu.au</A>
+Phone, Fax: (+61 8) 9346 4571, (+618) 9346 3469
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+<a href="http://www.man.ac.uk/MVC/staff/leng">Joanna Leng</a>
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+readBRPic, ReadPicDims, ReadBRPicEg, read_BioRad_PIC (AVS5 IAC module)
+</blockquote>
+
+</body>
+</html>
+

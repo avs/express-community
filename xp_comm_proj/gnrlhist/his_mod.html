@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+    <!-- SGI_COMMENT COSMOCREATE -->
+    <!-- SGI_COMMENT VERSION NUMBER="1.0.1" -->
+    <TITLE>GeneralHistogramNodeData</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>
+GeneralHistogramNodeData</H1>
+<H3>
+Synopsis</H3>
+<BLOCKQUOTE>
+Generates a histogram of the values in the node data of a field. </BLOCKQUOTE>
+
+
+<HR>
+<BLOCKQUOTE>
+<PRE>
+    module GeneralHistogramNodeData  {
+        Node_Data &amp;in&lt;NEportLevels={2,0}&gt;;
+        GeneralHistogramParams &amp;GHParams &lt;NEportLevels={2,1}&gt;;
+        int nbins =&gt; GHParams.nbins;
+        prim ignore_min =&gt; GHParams.ignore_min;
+        prim ignore_max =&gt; GHParams.ignore_max;
+        boolean keep_range =&gt; GHParams.keep_range;
+        prim binval&lt;NEportLevels={1,2}&gt;[];
+        int binfreq&lt;NEportLevels={1,2}&gt;[];
+        omethod+notify_inst+req update&lt;src_file=&quot;genhisto.c&quot;&gt;(
+             in+read+notify+req,
+             nbins+read+notify,
+             ignore_min+read+notify+nres,
+             ignore_max+read+notify+nres,
+             keep_range+read+notify,
+             binval+write,
+             binfreq+write ) = &quot;generalhistogram&quot;;
+    };
+</PRE>
+</BLOCKQUOTE>
+<HR>
+<H3>
+Description</H3>
+<BLOCKQUOTE>
+Calculates the frequency of each individual value between two bounds in 
+the node data.</BLOCKQUOTE>
+<BLOCKQUOTE>
+For real data, it is obviously impossible to calculate frequencies for 
+each individual value so instead the values are mapped to a set of 
+ranges and frequencies calulated for each to those ranges.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The bounds between which frequencies of values are calculated can 
+either be supplied as parameters to the module or, if they are not 
+suppied, are set to be the maximum and minimum values in the node_data.</BLOCKQUOTE>
+<BLOCKQUOTE>
+Where the data is mapped to ranges (ie for real data) all ranges are of 
+equal size and the number of ranges (and hence to size of each range) 
+can be entered as a parameter. If no value is supplied, the default 
+number of 256 is used instead.</BLOCKQUOTE>
+<BLOCKQUOTE>
+When bounds are supplied, output frequencies can either be supplied for 
+the full range of data values (in which case frequencies of values 
+outside the bounds are set to zero) or can just be supplied for the 
+range of frequencies between the bounds.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The output consists of an array of integers which are the frequencies 
+and an array of primatives (which is set to the type of in input 
+node_data) which is a set of labels for the frequency values.</BLOCKQUOTE>
+<BLOCKQUOTE>
+Where the input data is integer data (Byte, Short or Integer) the value 
+of the label is that of the corresponding frequency. Where the input 
+data is real data (Float or Double) the value of the lable is the mean 
+of all the values in the node_data that are in the labels corresponding 
+range. This ensures that mean of all the node_data (between the bounds) 
+can be correctly calculated from the frequencies and labels.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The module works for Byte, Short, Integer, Float and Double datatypes.</BLOCKQUOTE>
+<H3>
+Inputs</H3>
+<BLOCKQUOTE>
+<B><I>&amp;in</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Reference to a field with Node_Data of any type. </BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>&amp;GHParams</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>
+Reference to the parameter block, which contains the real instance of 
+ignore_min, ignore_max, nbins, and keep_range values.</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>ignore_min</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Reference to the lower bound (below which values will be ignored) of 
+type primative ,which is referenced by the &amp;GHParams input. Can be 
+left unset. Must be of same type as ignore_max.</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>ignore_max</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Reference to the upper bound (above which values will be ignored) of 
+type primative, which is referenced by the &amp;GHParams input. Can be 
+left unset. Must be of same type as ignore_min.</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>nbins</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Reference to the number to ranges used of type Integer, which is 
+referenced by the &amp;GHParams input. Only used when node_data is of 
+type real.</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>keep_range</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Reference to a toggle Integer which represents either to output 
+frequencies for the full range of data, or just those value between the 
+ignore_min &amp; ignore_max bounds. Referenced by the &amp;GHParams 
+input.</BLOCKQUOTE>
+<H3>
+Outputs</H3>
+<BLOCKQUOTE>
+<B><I>binval[]</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Array of type primative which holds the labels to the frequency values</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>binfreq[]</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>
+Integer array holding the frequencies generated. </BLOCKQUOTE>
+<H3>
+Utility Macros</H3>
+<BLOCKQUOTE>
+The low level GeneralHistogramNodeData Module is used in the Functional 
+Macro GeneralHistogram and the User Macro <a href="his_umac.html">general_histogram</a>. 
+Additionally, these macros also use the GeneralHistogramParams 
+parameter block group object, as does the GeneralHsitogramUI UI Macro 
+and the <a href="stat_mod.html">GenerateStats</a> Module. </BLOCKQUOTE>
+<H3>
+Example</H3>
+<BLOCKQUOTE>
+An example application GeneralHistogramEg is provided which uses the 
+generalgraph module to display the histogram generated from the 
+AVS/Express sample data file, lobstr.fld.</BLOCKQUOTE>
+<H3>
+Files</H3>
+<BLOCKQUOTE>
+<I>xp_comm_proj/gnrlhist/his_mods.v</I> contains the 
+GeneralHistogramParams group, the <a href="stat_mod.html">GenerateStats</a> module and the 
+GeneralHistogramNodeData module V definitions.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The C code for the module is in file genhisto.c</BLOCKQUOTE>
+<H3>
+Author</H3>
+<BLOCKQUOTE>
+<PRE>
+Alex Allen.
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE>
+</BLOCKQUOTE>
+<H3>
+See Also</H3>
+<BLOCKQUOTE>
+GeneralHistogramParams, <a href="stat_mod.html">GenerateStats</a>, GeneralHistogram, 
+GeneralHistogramUI and <a href="his_umac.html">general_histogram</a>. </BLOCKQUOTE>
+<BLOCKQUOTE>
+</BLOCKQUOTE>
+</BODY>
+</HTML>

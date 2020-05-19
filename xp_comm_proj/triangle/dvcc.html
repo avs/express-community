@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>Delauney, Voronoi, Convex_Hull, Concave_Tri</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Delauney, Voronoi, Convex_Hull, Concave_Tri</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+4 macros that perform a variety of different forms of triangulation. These macros are part of a suite of modules for advanced Triangle generation and manipulation.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input ports used by triangulation macros">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="75">Mesh</td>
+<td width="425">Input data that should be triangulated.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output ports used by triangulation macros">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="75">Mesh</td>
+<td width="425">Output triangulated data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">TriObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>Delauney, Voronoi, Convex_Hull and Concave_Tri are all macros that perform various forms of triangulation.  They are higher-level macros that internally use the triangle library to do the necessary calculations.  The triangle library is a two-dimensional quality mesh generator and delaunay triangulator.  It was written by Richard Shewchuk and more information about this library, its purpose and how it can be used can be found at <a href="http://www.cs.cmu.edu/~quake/triangle.html">http://www.cs.cmu.edu/~quake/triangle.html</a>.  Details of the license that this library is distributed under can be found in the <a href="LICENSE"><code>LICENSE</code></a> file. This suite of modules has been used in a large AVS/Express project for geologic modeling.</p>
+
+<p>The 4 macros presented here provide a higher-level interface to the triangle library.  The <a href="triangle.html">triangle</a> module provides a direct, low-level interface to the library.  However using this module directly is not recommended as the interface is complex and entering incorrect data can lead to AVS/Express crashing.  These macros provide an easier to use and more reliable interface to certain parts of the triangle library.  The macros perform the following tasks:</p>
+
+<ul>
+
+<li>
+<p><code>Delauney</code></p>
+<p>Performs a Delauney triangulation of input mesh.  The input is treated as a series of points and a triangle mesh is output.</p>
+</li>
+<li>
+<p><code>Voronoi</code></p>
+<p>Performs a Voronoi triangulation of input mesh.  The input is treated as a series of points and a line mesh is output.  A voronoi triangulation can result in edges that extend to infinity.  This macro changes these edges so that they can displayed by the standard viewer.</p>
+</li>
+<li>
+<p><code>Convex_Hull</code></p>
+<p>Determines the convex hull that surrounds the input mesh.  The input is treated as a series of points and a line mesh is output.</p>
+</li>
+<li>
+<p><code>Concave_Tri</code></p>
+<p>Triangulates the polygon specified in the input mesh.  The input is treated as a polygon mesh and a triangle mesh is output.</p>
+</li>
+
+</ul>
+
+<p>More information on the tasks that are being performed by each macro can be found on the triangle library <a href="http://www.cs.cmu.edu/~quake/triangle.html">home-page</a>.  Examples of how to use the macros can be found in the example applications library.</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><i><b>in_fld</b></i></blockquote>
+
+<blockquote>
+The input mesh that is to be triangulated.  Except for the Concave_Tri macro, all the macro treat the input mesh as a simple series of points.  The Concave_Tri macro treats the input as a polygon mesh.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><i><b>out_mesh</b></i></blockquote>
+
+<blockquote>
+The output triangulated mesh generated from the input data.  This mesh can be either a triangle or line mesh.
+</blockquote>
+
+<blockquote><i><b>out_obj</b></i></blockquote>
+
+<blockquote>
+The directly renderable output of these triangulation macros.  This output contains the triangulated mesh and can be displayed in a 2D viewer.  The modes and properties of each output object are set so that each type of output mesh can be identified.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>Two utility macros are also provided along with the triangle library. These perform simpler tasks that are not done directly by the triangle library.</p>
+
+<ul>
+
+<li>
+<p><code>Triangle_Stats</code></p>
+<p>Takes an input triangle mesh and calculates the area of each triangle.  The calculated areas are placed into a cell data component.  The macro outputs a new field structure and a renderable DataObject.</p>
+</li>
+<li>
+<p><code>struct_to_fld</code></p>
+<p>Converts a struct_triangulateio group into a field structure.  The struct_triangulateio group is used by the low-level triangle module for both input and output.  This macro takes that group and converts it into a triangle mesh and node data component that can be used by other Express module.</p>
+</li>
+
+</ul>
+</blockquote>
+
+
+<h3>Examples</h3>
+
+<blockquote>
+<p>The Triangle project contains 8 example applications that provide a good illustration of what the triangle library is capable of.  Most of these example use either the ClickSketch or ContinuousSketch modules to create input data. Those that use the ClickSketch module start out with a blank window and expect the user to create a polyline.  This is done by clicking the right mouse button in the viewer window.  You should see you polyline appear in red.  Once you have completed this you should click the <i>Done</i> button.  This begins the triangulation process.  Once this has finished the results are shown in the viewer window.  The ContinuousSketch module is similar except that the user should hold and drag with the right mouse button to create a trail of points.</p>
+
+<p>The examples supplied are as follows, beginning with the ClickSketch examples.</p>
+
+<h4>ClickSketch Examples</h4>
+
+<ul>
+
+<li>
+<code>TriConcavePolygonExample</code><br>
+Triangulates the specified Concave polygon.
+</li>
+<li>
+<code>TriConvexHullExample</code><br>
+Determines the Convex Hull that surrounds the specified polygon.
+</li>
+<li>
+<code>TriDelauneyTriangulationExample</code><br>
+Performs a Delauney triangulation of the specified polygon.
+</li>
+<li>
+<code>TriPointInPolygonExample</code><br>
+Performs a Delauney triangulation of the specified polygon. If a point is picked using a <code>CTRL</code>-click the triangle containing the picked point is determined and displayed.
+</li>
+<li>
+<code>TriVoronoiExample</code><br>
+Performs a Voronoi triangulation of the specified points.
+</li>
+
+</ul>
+
+<h4>ContinuousSketch Examples</h4>
+
+<ul>
+
+<li>
+<code>TriFaultExample</code><br>
+Determines which cells are crossed by the specified fault line and triangulates the combined fault line and cell mesh.
+</li>
+<li>
+<code>TriMovingRegionExample</code><br>
+Determines which cells are crossed by the specified fault region and triangulates the combined fault region and cell mesh.
+</li>
+<li>
+<code>TriAnimatedRegionExample</code><br>
+Determines which cells are crossed by the specified fault region and triangulates the combined fault region and cell mesh.  The loop module can be used to rotate the fault region.  The output mesh is retriangulated after each move.
+</li>
+
+</ul>
+</blockquote>
+
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/triangle/trimacs.v</i> contains the V definitions of the high-level macros Delauney, Voronoi, Convex_Hull, Concave_Tri, Triangulate_Area, Triangle_Stats and struct_to_fld.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level TriangleMods library containing the low-level modules does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Dr. David Knight,
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+<a href="andrew.dodd@man.ac.uk">Andrew Dodd</a>,
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="triangle.html">triangle</a> triangulation module.</li>
+<li><a href="tri_area.html">Triangulate_Area</a> triangulation macro.</li>
+<li><a href="http:/www.cs.cmu.edu/~quake/triangle.html">Triangle</a> library home-page.</li>
+<li><a href="http:/www.cs.cmu.edu/~quake/triangle.research.html">Research references</a> used by the triangle library.</li>
+</ul>
+
+</body>
+</html>
+

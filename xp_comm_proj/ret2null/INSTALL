@@ -1,0 +1,14 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/ret2null/ret2null.v" Ret2Null;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Ret2Null.Ret2NullMods.ReturnToNull ReturnToNull;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Ret2Null.Ret2NullMacs.V_Ret2NullEg V_Ret2NullEg;
+  XP_COMM_PROJ.Ret2Null.Ret2NullMacs.C_Ret2NullEg C_Ret2NullEg;
+

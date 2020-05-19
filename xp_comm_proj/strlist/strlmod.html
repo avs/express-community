@@ -1,0 +1,167 @@
+<html>
+<head>
+<title>StringListCore</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>StringListCore</h1>
+
+<blockquote>
+<hr>
+
+<pre>flibrary StringListMods &lt;build_dir="xp_comm_proj/strlist", out_hdr_file="gen.h"&gt;
+{
+	group+OPort StringListParams{
+		int+Port2 index;
+		int+Port2 append;
+		int+Port2 insert;
+		int+Port2 delete;
+	};
+
+
+	module StringListCore&lt;src_file="strlist.c"&gt;
+	{
+
+		string+Port2 list[];
+		string+IPort2 item;
+		StringListParams+IPort2 &amp;params;
+		int+IPort2 index => params.index;
+		int+IPort2 append => params.append;
+		int+IPort2 insert => params.insert;
+		int+IPort2 delete => params.delete;
+		omethod+notify_inst+req Update(
+			.list+read+write,
+			.item+read,
+			.index+read,
+			.append+read+write+notify,
+			.insert+read+write+notify,
+			.append+read+write+notify,
+			.delete+read+write+notify
+		) = "StringListUpdate";
+	};
+};
+
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The StringListCore low level modules provides the functionality to append or insert a string into a list of strings. The append put the new string at the end of the list. The insert can either be an insert at a defined position if the index 
+is in the range of the string-array indexes or an attempt to generate a sorted list if the index parameter is outside the
+string array indexes (e.g. negative). The sorting is in ascending order from the top of the list. This sorting only works 
+properly if the list was sorted before. Additionally the StringListCore provides the functionality to delete an entry from
+the list.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>list[]</b></i>
+</blockquote>
+
+<blockquote>
+Takes the array of strings on which the action should be performed.
+</blockquote>
+
+<blockquote>
+<i><b>item</b></i>
+</blockquote>
+
+<blockquote>
+string to be inserted into the list
+</blockquote>
+
+<blockquote>
+<i><b>index</b></i>
+</blockquote>
+
+<blockquote>
+index which is used for the action.
+<blockquote>
+<table  width="100%" summary="Usage of index">
+<tr>
+<td width="20%"><b><font size="-1">Action</font></b></td>
+<td width="30%"><b><font size="-1">value of index</font></b></td>
+<td width="50%"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+<tr>
+<td width="30%"><i>append</i></td>
+<td width="20%">ignored</td>
+<td width="50%">The data element is appended as last element of the list.</td>
+</tr>
+
+<tr>
+<td rowspan=2 width="30%"><i>insert</i></td>
+<td width="20%">&lt; 0 or &ge; sizeof list[]</td>
+<td width="50%">The list is assumed to be sorted in ascending order and the data element is inserted in the position to fit the order of the list.</td>
+</tr>
+<tr>
+<td width="20%">&ge; 0 and &lt; sizeof list[]</td>
+<td width="50%">The data element is inserted in the position given by index.</td>
+</tr>
+
+<tr>
+<td width="30%"><i>append</i></td>
+<td width="20%">used</td>
+<td width="50%">The data element at the indexed position is deleted from the list.</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+</table>	
+</blockquote>
+
+</blockquote>
+
+<blockquote>
+<i><b>append</b></i>
+</blockquote>
+
+<blockquote>
+Triggers the module to append the string in item to the list. The trigger is reset by the module.
+</blockquote>
+
+<blockquote>
+<i><b>insert</b></i>
+</blockquote>
+
+<blockquote>
+Triggers the module to insert the string in item into the list. The trigger is reset by the module.
+</blockquote>
+
+<blockquote>
+<i><b>delete</b></i>
+</blockquote>
+
+<blockquote>
+Triggers the module to delete the string in the position of the index value from the list. The trigger is reset by the module.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level module StringListCore is used in the Functional Macro StringListFunc.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</A>,
+International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>
+

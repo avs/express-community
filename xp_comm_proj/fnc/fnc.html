@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>FilterNodeConnect</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>FilterNodeConnect</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module filters Node_Data values of cellsets which are not currently visible.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Inputs used by FilterNodeConnect">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="200">field</td>
+<td width="425">field of the object to be filtered</td>
+</tr>
+<tr>
+<td width="100"><i>go</i></td>
+<td width="200">int</td>
+<td width="425">must be set to start the routine</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by FilterNodeConnect">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="200">Field</td>
+<td width="425">filtered object</td>
+</tr>
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="200">DataObject</td>
+<td width="425">directly renderable object</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The FilterNodeConnect module filters the Node_Data of cellsets which are not currently visible. The Node_Data of a mesh is independent from cellsets. If a cellset is not selected its Node_Data is still visible and obscures the view to the data of interest, when the output is used for glyphing (see Figure 1). This module removes the Node_Data values for unselected cellsets (see Figure 2).
+</p>
+<table>
+<tr>
+<td>
+<img src="BridgeNoFNCsmall.png" alt="Bridge Dataset without FilterNodeConnect">
+</td>
+<td>
+<img src="BridgeFNCsmall.png" alt="Bridge Dataset using FilterNodeConnect">
+</td>
+</tr>
+<tr>
+<td>
+Figure 2: Bridge Dataset without FilterNodeConnect
+</td>
+<td>
+Figure 2: Bridge Dataset using FilterNodeConnect
+</td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockqoute></blockquote>
+<blockquote>
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>in</i></b></blockquote>
+<blockquote>Field that contains the Mesh, Cell_Data and Node_Data.</blockquote>
+
+<blockquote><b><i>active</i></b></blockquote>
+<blockquote>Integer value, that enables the the module.</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>out</i></b></blockquote>
+<blockquote>Field output of the filtered data. </blockquote>
+
+<blockquote><b><i>obj</i></b></blockquote>
+<blockquote>Directly renderable object that can be used with the UViewer3D. </blockquote>
+
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+The example application shows a cuboid consisting two cubic cells. Each cell
+includes eight nodes. if only one of the cells is selected, the filtered data
+is visible in the object editor.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/fnc/fnc.v</i> Creates the XP_COMM_PROJ.FilterNodeConnect library.</p>
+<p><i>xp_comm_proj/fnc/fnc_mods.v</i> Creates the FilterNodeMods library containing
+the low-level module FilterNodeConnectCore.</p>
+<p><i>xp_comm_proj/fnc/fnc_macs.v</i> Creates the FilterNodeMacs library containing
+the high-level macros FilterNodeConnectFunc and FilterNodeConnect.</p>
+<p><i>xp_comm_proj/fnc/fnc_apps.v</i> Creates the FilterNodeApps library containing
+the example applications FilterNodeConnectEg1 and FilterNodeConnectEg2.</p>
+</blockquote>
+
+
+<h3>Authors</h3>
+<blockquote><pre>
+Jernej Gostecnik
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>Modifications</h3>
+<blockquote><pre>
+Matthias Rast
+Manchester Visualization Centre
+
+Tobias Schiebeck
+Manchester Visualization Centre
+</pre></blockquote>
+
+</body>
+</html>

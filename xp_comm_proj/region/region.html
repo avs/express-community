@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>RegionGrow</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>RegionGrow</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module grows a region starting from a seed point. It works on 2D and 3D scalar and vector data. The region is grown by comparing the data values of seed point or the previous point with the point to check. The next point to check is one of the neighbouring points (4/9 points in 2D or 6/24 points in 3D). </blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Inputs used by RegionGrow">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_data</i></td>
+<td width="200">Mesh+Node_Data</td>
+<td width="425">input field to grow the region.</td>
+</tr>
+<tr>
+<td width="100"><i>seed</i></td>
+<td width="200">int[]</td>
+<td width="425">integer array that provides the seed point</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by RegionGrow">
+<tr>
+<td width="150"><b><font size="-1">Name</font></b></td>
+<td width="100"><b><font size="-1">Type</font></b></td>
+<td width="375"><b><font size="-1">Description</font></b></td>
+<td width="100"><b><font size="-1">Name</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="150"><i>seed</i></td>
+<td width="100">int[]</td>
+<td width="375">array of integers that provide the seed point</td>
+<td width="100"><i>Sliders</i></td>
+</tr>
+<tr>
+<td width="150"><i>out_value</i></td>
+<td width="100">int</td>
+<td width="375">data value for the output node data on points where the region is grown</td>
+<td width="100"><i>Field</i></td>
+</tr>
+<tr>
+<td width="150"><i>out_label</i></td>
+<td width="100">string</td>
+<td width="375">Text label for the output node_data</td>
+<td width="100"><i>TextField</i></td>
+</tr>
+<tr>
+<td width="150"><i>use_diagonals</i></td>
+<td width="100">int</td>
+<td width="375">toggle that decides if the region is grown using 4/6 or 9/24 neighbouring points</td>
+<td width="100"><i>Toggle Button</i></td>
+</tr>
+<tr>
+<td width="150"><i>set_null_value</i></td>
+<td width="100">int</td>
+<td width="375">toggle that decides if the output Node_Data has the NULL value set</td>
+<td width="100"><i>Toggle Button</i></td>
+</tr>
+<tr>
+<td width="150"><i>invert_region</i></td>
+<td width="100">int</td>
+<td width="375">toggle that decides if the regions is 'grown' or 'caved in' </td>
+<td width="100"><i>Toggle Button</i></td>
+</tr>
+<tr>
+<td width="150"><i>and_precedence</i></td>
+<td width="100">int</td>
+<td width="375">toggle that decides how and combined and or combined groups are combined</td>
+<td width="100"><i>Toggle Button</i></td>
+</tr>
+
+<tr>
+<td width="150"><i>combine_vec</i></td>
+<td width="100">int[]</td>
+<td width="375">list of toggle that allow to magnitude vector components</td>
+<td width="100"><i>Toggle Button</i></td>
+</tr>
+
+<tr>
+<td width="150"><i>combine_and_or</i></td>
+<td width="100">int[]</td>
+<td width="375">list of toggles that allow to combine different data components</td>
+<td width="100"><i>Toggle Button (3 state)</i></td>
+</tr>
+
+<tr>
+<td width="150"><i>delta</i></td>
+<td width="100">float[]</td>
+<td width="375">array of float values that provide the allowed difference between component value and the seed value</td>
+<td width="100"><i>Sliders</i></td>
+</tr>
+
+<tr>
+<td width="150"><i>incremental</i></td>
+<td width="100">int[]</td>
+<td width="375">list of toggles that define if the data value is compared to the seed value or to its neighbour</td>
+<td width="100"><i>Toggle Button</i></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by OrthogonalViewer">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="200">Mesh+Node_Data</td>
+<td width="425">Field that contains the input Mesh+Node_Data whith an addition al Node_Data component for the grown region</td>
+</tr>
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="200">DataObject</td>
+<td width="425">directly renderable object of out</td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The RegionGrow module provides grows a region starting from a given seed point. The module works on the node data of a 2D or 3D Mesh. The node data can contain scalar and vector components of all numerical data types. 
+</p><p>
+A region is grown by comparing the node data values of the seed point with a point to be checked. The point to be checked is stored in a list wich is generated by the algorithm. Starting from the seed point all its neighbours ar added to the list of points to be checked. When a point is used it is removed from the list. If the point belongs to the region it is marked in the new node data component and its neighbouring points are added to the list. The algorithm terminates when the list is empty. The criteria if a point belongs to the region is the difference between the point and the seed-point or, if incremental is selected, the point and its neighbour that added it to the list. 
+</p><p>
+Different node data components can be combined with AND and OR to generate more complex criteria. Vector components can be used as several independent components (ie. the x componenent is used on its own) or in their magnitude as one single component.
+</p>
+<table>
+<tr>
+<td>
+<img src="region.png" alt="Region grown from the Hydrogen data set">
+</td>
+<td>
+<img src="regioni.png" alt="Region grown from the Hydrogen data set inverting the output">
+</td>
+</tr>
+<tr>
+<td>
+Figure 1: Region grown from the Hydrogen data set
+</td>
+<td>
+Figure 2: Region grown from the Hydrogen data set inverting the output
+</td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockqoute></blockquote>
+<blockquote>
+
+<h4>Inputs</h4>
+<blockquote><b><i>in_data</i></b></blockquote>
+<blockquote>Mesh+Node_Date input that provides on which the region is grown. The mesh information is used to define the dimensions for the algorithm and parameters (ie. if the mesh is 2D the seed point will be 2D). The Node_Data can contain multiple be scalar and vector components of all data types. </blockquote>
+
+
+<blockquote><b><i>seed</i></b></blockquote>
+<blockquote>This integer array is an optional input which is connected to the seed parameter. This allows a simple usage if the seed is provided by another AVS/Express Module.</blockquote>
+
+
+<h4>Parameters</h4>
+<blockquote><b><i>seed</i></b></blockquote>
+<blockquote>This integer array defines the starting point (seed) for the region growing algorithm. The dimension of this array is defined by the dimension of the input mesh.</blockquote>
+
+<blockquote><b><i>out_value</i></b></blockquote>
+<blockquote>This integer defines the output value which is set if a point belongs (does not belong if invert_region is set) to the region. Values which are not set to out_value are set to 0 (if out_value is chosen to be 0 the other values will be set to -1).</blockquote>
+
+<blockquote><b><i>out_label</i></b></blockquote>
+<blockquote>This string is the node data label which is set for the additional node_data entry. The default label is Region_(out_value).</blockquote>
+
+<blockquote><b><i>use_diagonals</i></b></blockquote>
+<blockquote>If use_diagonals is set the algorithm is using 9 neighbouring pixel in 2D instead of 4, or 24 neighbouring voxels in 3D instead of 6.</blockquote>
+
+<blockquote><b><i>set_null_value</i></b></blockquote>
+<blockquote>This Toggle Button set the value wich is given to not grown elements (0 or -1) as the NULL value of the Node_Data.</blockquote>
+
+<blockquote><b><i>invert_region</i></b></blockquote>
+<blockquote>This Toggle Button decides if the regions is 'grown' or 'caved in'. If this toggle is set values that are in the region are set to 0 (or -1), all other values are set to out_value.</blockquote>
+
+<blockquote><b><i>and_precedence</i></b></blockquote>
+<blockquote>This toggle decides how AND combined and OR combined groups are combined. All data elements which have AND selected are combined logically 
+by AND to one group. All data elements which have OR selected are combined logically by OR. If and_precedence is selected the two groups are combined by
+AND, otherwise they are combined by or.</blockquote>
+
+<blockquote><b><i>combine_vec</i></b></blockquote>
+<blockquote>This array contains the information about all vector components in the Node_Data. The vector components can either be used in there single subcomponents for the region growing or using the magnitude of the vector. </blockquote>
+
+<blockquote><b><i>combine_and_or</i></b></blockquote>
+<blockquote>This array contains the information if an element belongs to the AND group, the OR group or neither of the two groups (in the last case the node data value is ignored during the region growing).</blockquote>
+
+<blockquote><b><i>delta</i></b></blockquote>
+<blockquote>This array contains the float values that describe allowed difference between the seed point (or neighbouring point, if incremental is selected) and the point to be checked. If the difference between the two data values is less than delta the point is part of the region, otherwise it is not.</blockquote>
+
+<blockquote><b><i>incremental</i></b></blockquote>
+<blockquote>This array contains decides if the difference is taken between the seed point and the point to be checked, or the two neighbouring points. If this toggle is set the difference is taken between the two neighbouring points.
+</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>out</i></b></blockquote>
+<blockquote>out contains the newly generated Mesh+Node_Data. The node data contains all the node_data components of in_data plus an additional component that contains the grown region.</blockquote>
+
+<blockquote><b><i>obj</i></b></blockquote>
+<blockquote>obj contains a directly renderable object produced from the out output.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>
+The RegionGrowEg example application shows the usage of the RegionGrow on the bluntfin dataset demonstrating the usage of vector components. 
+</p><p>
+The RegionGrowEg2 example application shows the usage of the RegionGrow on the hydrogen dataset. 
+</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/region/region.v</i> </p><blockquote><p>Creates the XP_COMM_PROJ.Region library.</p></blockquote>
+<p><i>xp_comm_proj/region/reg_mods.v</i> </p><blockquote><p>Creates the RegionGrowMods library containing the low-level module RegionGrowCore and the parameter group RegionGrowParams.</p></blockquote>
+<p><i>xp_comm_proj/region/reg_macs.v</i> </p><blockquote><p>Creates the RegionGrowMacs library containing the high-level macros RegionGrowFunc, RegionGrowUI and RegionGrow. It also contains the support macros copy_on_change_array, VecCompPanel, OutputPanel, SeedPanel, CombineItem, CombinePanel, DeltaPanel, region_magnitude, RegionMagnitudeFunc, AddNodeData which are used by the high level macros.</p></blockquote>
+<p><i>xp_comm_proj/region/reg_apps.v</i> </p><blockquote><p>Creates the RegionGrowApps library containing the examle applications RegionGrowEg and RegionGrowEg2.</p></blockquote>
+</blockquote>
+
+
+<h3>Authors</h3>
+<blockquote><pre>
+Tobias Schiebeck
+Manchester Visualization Centre
+
+Brian Selle, Leon Thrane
+Advanced Visual Systems, Inc.
+
+Tim Naylor 
+Manchester Visualization Centre
+</pre></blockquote>
+
+</body>
+</html>

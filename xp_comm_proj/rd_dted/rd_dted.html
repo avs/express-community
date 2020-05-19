@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>ReadDted</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ReadDted</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads DTED format GIS data sets.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by read_dted and read_dted_alt">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="350"><font size="-1"><b>Description</b></font></td>
+<td width="80"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Filename</i></td>
+<td width="75">string</td>
+<td width="350">DTED file to read from.</td>
+<td width="80">File Browser</td>
+</tr>
+
+<tr>
+<td width="100"><i>StartRow</i></td>
+<td width="75">int</td>
+<td width="350">Initial row to read</td>
+<td width="80">Field Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>StartColumn</i></td>
+<td width="75">int</td>
+<td width="350">Initial column to read</td>
+<td width="80">Field Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>NumberOfRows</i></td>
+<td width="75">int</td>
+<td width="350">
+Number of Output Rows to Write (<tt>read_dted</tt>)<br>
+Number of Input Rows to Read (<tt>read_dted_alt</tt>)
+</td>
+<td width="80">Field Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>NumberOfRows</i></td>
+<td width="75">int</td>
+<td width="350">
+Number of Output Columns to Write (<tt>read_dted</tt>)<br>
+Number of Input Columns to Read (<tt>read_dted_alt</tt>)
+</td>
+<td width="80">Field Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>XScaleFactor</i></td>
+<td width="75">float</td>
+<td width="350">Horizontal Scaling Factor</td>
+<td width="80">Field Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>YScaleFactor</i></td>
+<td width="75">float</td>
+<td width="350">Vertical Scaling Factor</td>
+<td width="80">Field Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>ActivateFlag</i></td>
+<td width="75">int</td>
+<td width="350">Specifies if output should be updated</td>
+<td width="80">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_dted and read_dted_alt">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Mesh[+Node_Data]</td>
+<td width="425">output field containing 2D uniform field</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The Digital Terrain Elevation Data (DTED) file format was developed by the National Imagery and Mapping Agency.  It stores a uniform matrix of terrain elevation values.  This can be used for basic analysis of terrain elevation, slope or surface roughness.  The modules in this project allow data in the DTED format to be read into AVS/Express.  As DTED files can be very large and can be tiled these modules allow the user to specify which portion of the DTED file should be read and an amount by which it should be scaled.  This allows AVS/Express to work solely on the significant data and provides options by which memory problems can be overcome.</p>
+
+<h4>Differences between <tt>read_dted</tt> and <tt>read_dted_alt</tt></h4>
+
+<p>The modules in this project provide two alternative ways of specifying which portions of the DTED file should be loaded.  Both of these alternatives ask the user to specify a rectangular area of the data that should be read.  This is done by specifying the start position, width and height of the rectangle.  If the rectangular area extends outside of the input data an error will be raised and no data will be loaded.  For both alternatives the start position is specified as a coordinate in the coordinate system of the input DTED file.  It should be noted that DTED files use a 1-based coordinate system.</p>
+
+<p>The way in which the height and width of the area are specified are different for each alternative macro.  The <tt>read_dted</tt> macro asks the user to specify the desired width and height of the <b>output</b> uniform scalar field.  The macro then uses the scaling factor to calculate the width and height of desired area in input file coordinates.  Conversely the <tt>read_dted_alt</tt> macro asks the user to specify the desired width and height of the area in the <b>input</b> file.  The scaling factor is then used to calculate width and height of the output uniform scalar field.</p>
+
+<p>These two alternative method are provided so that the project can be easily used in many application areas.  This project was supplied to the IAC by a third party and initially only allowed the output width and height to be specified.  Although this may appear to be a strange way of operating, in GIS applications several data tiles may have to be combined together and this is easier if the output size is fixed.  However it was felt that in other applications this way of working would be counter-intuitive.  Therefore the second, alternative method was added.</p>
+
+<p>If this system appears over-complicated a few rules should be remembered.  If no scaling is to be performed then it does not matter which method is used as the width and height of the input will equal the width and height of the output.  If the <tt>read_dted</tt> macro is used changing the scaling factors will change the amount of input data read in.  If the <tt>read_dted_alt</tt> module is used changing the scaling factors will change the size of the output field.</p>
+
+<h4>Notes on Scaling</h4>
+
+<p>The ReadDted modules do allow data to be scaled up or down.  However it should be noted that this is done very simply.  If data is scaled up values are replicated. If data is scaled down values are discarded.  No attempt is made to reduce errors by interpolating between data points.  If other forms of scaling are required the data should be read in with scaling factors of one, and an appropriate Express module should be used to scale the data.  However if memory usage is a major concern you may wish to use the ReadDted scaling.  The ReadDted module scales the data as it is read in.  Hence if data is being scaled down significant amounts of memory may be saved.</p>
+
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>Filename</i></b></blockquote>
+
+<blockquote>
+The name of the DTED format file that should be read.  The string should be the fully qualified name of the file.  AVS/Express environment variables can be used.  If the file does not have an extension of <tt>dt0</tt>, <tt>dt1</tt> or <tt>dt2</tt> then an extension of <tt>dt1</tt> is added.
+</blockquote>
+
+<blockquote><b><i>StartRow StartColumn</i></b></blockquote>
+
+<blockquote>
+These integer parameters specify the starting position of the rectangular area read from the input data.  The starting position is specified in relation to the top left of <b>input</b> data.  Since the coordinate system is one-based the origin of the input data coordinate system is at {1,1}.  If no values are specified for these parameters they will default to the origin. 
+</blockquote>
+
+<blockquote><b><i><tt>read_dted</tt> : NumberOfRows NumberOfColumns </i></b></blockquote>
+
+<blockquote>
+These integer parameters specify the width and height of the output uniform scalar field.  If no values are specified for these parameters they will be set so that all rows and columns are read from the DTED file. 
+</blockquote>
+
+<blockquote><b><i><tt>read_dted_alt</tt> : NumberOfRows NumberOfColumns </i></b></blockquote>
+
+<blockquote>
+These integer parameters specify the width and height of the rectangular area read from the input DTED file.  If no values are specified for these parameters they will be set so that all rows and columns are read from the DTED file. 
+</blockquote>
+
+<blockquote><b><i>XScaleFactor YScaleFactor</i></b></blockquote>
+
+<blockquote>
+These floating point parameters specify the amount by which the input data should be scaled to give the output field.  In both forms of the ReadDted macro the scaling factor is specified as the scaling factor from the <b>input</b> data to the <b>output</b> Express field.
+</blockquote>
+
+<blockquote><b><i>ActivateFlag</i></b></blockquote>
+
+<blockquote>
+This integer parameter allows the user to control whether the ReadDted module responds to updates.  If the parameter is set to zero the module does not respond to any changing parameters.  If the parameter is set to any other value the module responds as normal.  By using this parameter the user can setup the various positioning options without having to repeatedly reload the data file.
+</blockquote>
+
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+The output field is a 2D uniform scalar field containing node data of type short.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>
+The GDobject version of the output, suitable for direct connection to the viewer.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ReadDtedCore low-level module contains references to all the procedural code used by this project.  The ReadDtedCoreAlt low-level module is a modified version of the ReadDtedCore module that adjusts the module parameters by using V code only.  Both of these modules use the same parameter block i.e. ReadDtedParams.</p>
+
+<p>The Functional macro, Read_Dted, uses the ReadDtedCore module. The User macro, read_dted, uses this macro and the User Interface macro, Read_Dted_UI.  The alternative versions of these macros modify the originals so that they use the appropriate alternative component.  More detailed information on the structure of these macros can be found in the <i><a href="dtedmacs.v">dtedmacs.v</a></i> file.</p>  
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+The example application ReadDtedEg is provided.  This application demonstrates how to use both the read_dted and read_dted_alt macros.  The same DTED file is read by both macros and the output fields displayed in two separate windows.  By using the user interfaces of the macros the differences in behaviour of the normal and alternative macros should be visible.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ReadDtedMods library containing the low-level module ReadDtedCore does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_dted/dtedmods.v</i> contains the V definitions of the ReadDtedCore and ReadDtedCoreAlt modules, and the ReadDtedParams parameter block.</p>
+
+<p><i>xp_comm_proj/rd_dted/dtedmacs.v</i> contains the V definitions of the Read_Dted_UI and Read_Dted_UI_Alt User Interface macros, the Read_Dted and Read_Dted_Alt Functional macros, the read_dted and read_dted_alt User macros and the ReadDtedEg example application.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Steve Walker, AVS Inc.
+
+Andrew Dodd, International AVS Centre
+email: <a href="mailto:a.dodd@mcc.ac.uk">a.dodd@mcc.ac.uk</a>
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+N/A
+</blockquote>
+
+</body>
+</html>
+

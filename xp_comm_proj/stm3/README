@@ -1,0 +1,25 @@
+README for the STM3 Chemistry Visualization Toolkit
+https://github.com/avs/express-community
+===================================================
+
+	Created by Mario Valle (CSCS) based on the "See The Molecule" toolkit from Ken Flurchick, Libero Bartolotti, Theresa Windus, Mark Reed
+	(North Carolina Supercomputing Center) and the enhancements from Jean M. Favre (CSCS).
+	
+	The idea behind STM3 is not to build a replacement of well know Molecular Visualization applications, but to have a framework in which
+	specific "strange" or "advanced" visualization functionalities can be integrated.
+	
+	The functionalities are somehow specific to CSCS requirements. This means that not everything is here, but everything can be added...
+	For question or suggestion contact me at mvalle@cscs.ch
+		
+	For the main entry point to the module documentation go under the STM3 install
+	directory (xp_comm_proj/stm3) and open the file help/STM3/index.html
+	
+	The simplest method to get started with STM3 is to instantiate one of the Full Apps applications and modify it.
+	
+	More informations on STM3 and an image gallery can be found on: http://www.cscs.ch/projects/AVSChemistry.html
+	
+	The STM3 toolkit has been tested under Linux RedHat 7.2, Linux RedHat 8.0, Windows 98/2000 and SGI IRIX64 6.5
+	STM3 is built on top of AVS/Express 6.2
+	
+
+	Installation prerequisite is the catmull2 module from Community.

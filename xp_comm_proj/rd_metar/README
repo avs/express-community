@@ -1,0 +1,56 @@
+Express Community ReadMETARS Project
+https://github.com/avs/express-community
+----------------------
+
+This directory ( xp_comm_proj/rd_metar ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project 
+"ReadMETARS".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ReadMETARS project, and two single line additions to some of the xp_comm_lib/
+files (in this instance data_io.v and examples.v) to add a link to the User
+Macro and the Example Application from the new top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Users of the Developer's Edition may select the
+library XP_COMM_PROJ.ReadMETARS.ReadMETARSMods in the Templates library, and then
+perform a compile. Alternatively, you may type the following command into
+the VCP prompt; Visualization Edition users must type the following command
+to compile the project, as there is no access to the Templates library
+through the Network Editor:
+
+$compile XP_COMM_PROJ.ReadMETARS.ReadMETARSMods
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/rd_metar/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/data_io.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+rd_metar.v	Creates the XP_COMM_PROJ.ReadMETARS library.
+
+metarmod.v	Creates the ReadMETARSMods library containing the low-level
+		module ReadMETARS and the parameter group
+		ReadMETARSParams.
+
+metarmac.v	Creates the ReadMETARSMacs library containing the high-level
+		macros ReadMETARSUI, ReadMETARSFunc, and the user macro ReadMETARS.
+		
+metarapp.v	Creates the ReadMETARSApps library which contains the example
+		appplication ReadMETARS_Eg.
+		
+libMETARS/* Directory that contains the METARS library used by this Project.
+
+rd_metar.html	HTML documentation for the ReadMETARS module.
+
+README		This file.
+

@@ -1,0 +1,130 @@
+Express Community VISIT Project
+https://github.com/avs/express-community
+-----------------
+
+This directory ( xp_comm_proj/visit/ ) contains all the V code, source
+code, HTML documentation, and installation information for the
+AVS/Express modules needed to use the VISIT library.
+
+VISIT is a light-weight library for online visualization and steering
+of large-scale simulations. It provides dynamic attachment to and
+detachment from simulations and bi-directional exchange of data. The
+package includes support for AVS/Express and Perl/Tk and has C,
+Fortran, and Perl language bindings. VISIT was initially developed at
+ZAM in the Gigabit Testbed West project.
+
+This Community project contains an AVS/Express interface to the Visit library.
+In essence it is the same as the interface that is available with the
+Visit library. However a number of modifications and improvements to the
+interface have been made by the Community.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Visit project, and additions to two of the xp_comm_lib/ files (in this
+instance data_io.v and examples.v) to add links to the necessary macros
+and modules from the top-level Community library page.
+
+Before the modules and the demo applications can be used the VISIT library
+must be installed and compiled.  The VISIT library can be obtained from
+http://www.fz-juelich.de/zam/visit  Full instructions on installing and
+testing the VISIT library can also be found on this web-site. For further
+help with the installing the VISIT library please contact
+visit.zam@fz-juelich.de  If you have any suggestions, patches or enhancements
+please also send them to this address.
+
+The Visit Community project assumes that the VISIT library has been installed into
+the default directory i.e.
+
+/usr/local/visit/
+
+If this is not the case then the references to that directory in the
+visit_mods.v file will have to be modified.  The project has assumes that
+a SEAP server has been configured appropriately and is running.
+
+Once the VISIT library and the Community files have been correctly installed, the
+low-level module of the new project may be compiled. If you opt to leave the
+process unspecified, it will by default use the "express" process. Doing so
+means the module may be compiled by using one of the following commands in
+the top-level directory of your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+If you modify the project, and elect to specify the process as "user" or
+another user-defined process, then the module may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the module:
+
+        $compile XP_COMM_PROJ.Visit.VisitMods
+
+Users of the Developer's Edition may select the module in the relevant 
+Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/visit/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v,
+               xp_comm_lib/data_io.v and xp_comm_lib/examples.v files. This file should
+               not be edited as the future installation script will use
+               this file.
+
+visit.v        Creates the XP_COMM_PROJ.Visit library.
+
+visit_mods.v   Creates the VisitMods library containing the low-level modules
+
+visit_macs.v   Creates the VisitMacs library containing the Functional macro
+               VisitServerFunc, the User Interface macro VisitServerUI and the
+               User macros visitserver, visitreader, visitwriter and multiplexer.
+
+visit_apps.v   Creates the VisitApps library containing the example applications 
+               VisitSimpleEg  and VisitGoLEg.
+
+VisitServer.c  The C source code for the VisitServer low-level module.
+VisitReader.c  The C source code for the VisitReader low-level module.
+VisitWriter.c  The C source code for the VisitWriter low-level module.
+Multiplexer.c  The C source code for the Multiplexer low-level module.
+
+doc_mod*.html  HTML documentation for the low-level modules.
+
+doc_umac*.html HTML documentation for the User Macros.
+
+README         This file.
+
+
+Prerequisites
+-------------
+
+This project relies on the successful installation of the following components.
+Without them it will not function correctly.
+
+VISIT library
+
+For full instructions on installing, configuring and using the VISIT library
+please look at the Visit web-site at http://www.fz-juelich.de/zam/visit
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h                AVS/Express generated header file.
+
+VisitServer.o        Intermediate object files.
+VisitReader.o
+VisitWriter.o
+Multiplexer.o
+

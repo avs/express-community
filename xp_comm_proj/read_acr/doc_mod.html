@@ -1,0 +1,136 @@
+<html>
+<head>
+<title> read_acr_nema</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1> read_acr_nema</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads ACR NEMA file format, type SPI so the data can be put into AVS field type. The resulting field is a unifrom scalar 2D field. 
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+
+    module read_acr_nema <src_file="read_acr.c",weight=0> {
+	 string filename<NEportLevels={2,1}>;
+	 short short_array<NEportLevels={1,2}>[];
+	 int dims_out<NEportLevels={1,2}>[];
+         omethod+notify_inst+req update(
+		filename+read+notify+req,
+		short_array+write,
+		dims_out+write
+         ) = "read_acr";
+      };
+
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The read ACR-NEMA module reads ACR-NEMA SPI data files and converts them into AVS field format. SPI is a standard based on the old ACR/NEMA standard used by Siemens and Philips. SPI make use of ACR/NEMA data elements and groups. SPI store the integer in little endian format (Least Significant before Most Significant).
+</blockquote>
+
+<h3>Inputs</h3>
+
+
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+Contains the filename and path of the ACR NEMA file to be read into AVS/Express.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>short_array</b></i>
+</blockquote>
+
+<blockquote>
+An array of data values to be used in the final module to create the scalar data of the 2D scalar field. This is an array of shorts.
+</blockquote>
+
+<blockquote>
+<i><b>dims_out</b></i>
+</blockquote>
+
+<blockquote>
+A two dimensional integer array holding the dimensions of the 2D image. 
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The UI_acr_nema macro holds the User Interface for the module and the Read_acr_nema macro holds the full macro with the user interface connected to the read_acr_nema. The user interface passes the filename to read_acr_nema. The outputs of read_acr_nema are passed into a uniform_scalar_field object to produce a suitable field.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application Read_ACR_NEMA_Eg is provided, which reads in the provided acr nema file. Details of this file are given below.
+</blockquote>
+<blockquote>
+image.acr-nema:- this is a test image in ACR-NEAM SPI from Philips MR
+</blockquote>
+<blockquote>
+                This image displays a section of a Pig's Heart
+
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/read_acr/acr_mods.v</I> contains the read_acr_nema module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The module prints information about the file (scanning modality, resolution, patient information) to the standard output while the file header is being read.
+</blockquote>
+<blockquote>
+The low-level library ACR_NEMA_Mods, which needs to be compiled, does not specify a process. By default it will be set to the <tt>express</tt> process.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+        Andrea Marchetti
+        Istituto di Elaborazione dell'Informazione del CNR
+        Via S. Maria, 46 - 56100 Pisa
+        Ph. +39 50 593420  Fax +39 50 593503  
+        e-mail andrea@www-sei.iei.pi.cnr.it
+        www    http://www-sei.iei.pi.cnr.it/~andrea/home.html
+</pre></blockquote>
+
+
+<h3>Date</h3>
+<blockquote><pre>
+May. 12, 1995
+</pre></blockquote>
+
+<h3>Modifications</h3>
+<blockquote><pre>
+J. Leng April 1998
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+Read_acr_nema.
+</blockquote>
+
+
+</body>
+</html>

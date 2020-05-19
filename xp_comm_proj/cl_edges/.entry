@@ -1,0 +1,13 @@
+PNUM	P0075
+PNAME	CleanExtEdges
+DATE	16th February 2000
+DESC	Cleans duplicated edges in external_edges output.
+AUTHORS	Erik Thorvaldson, Andrew Dodd
+VERSION	1.0
+DIR	cl_edges
+TYPE	Mapper
+DOC	User Macro;CleanEdges;cl_edges.html
+!IMAGE	
+!MOVIE	
+!PREREQ	
+!NOTE	

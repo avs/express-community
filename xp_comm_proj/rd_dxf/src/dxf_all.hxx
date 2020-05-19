@@ -1,0 +1,30 @@
+
+// Composite Header file that includes all ReadDXF headers
+// Created to help order the rdxfmods.v file.
+
+#include "avsutils.hxx"
+#include "blistcpp.hxx"
+#include "dxfprim.hxx"
+#include "dxffile.hxx"
+#include "dxfarc.hxx"
+#include "dxfcir.hxx"
+#include "dxfline.hxx"
+#include "dxfface.hxx"
+#include "dxfray.hxx"
+#include "dxfpline.hxx"
+#include "dxfpoint.hxx"
+#include "dxfsolid.hxx"
+#include "dxfbody.hxx"
+#include "dxfleader.hxx"
+#include "dxfrecordblock.hxx"
+#include "dxftext.hxx"
+#include "dxfblock.hxx"
+#include "dxfinsert.hxx"
+#include "dxfellipse.hxx"
+#include "dxfdimension.hxx"
+#include "dxfmtext.hxx"
+#include "dxfmline.hxx"
+#include "dxftrace.hxx"
+#include "dxfheader.hxx"
+#include "dxfxline.hxx"
+

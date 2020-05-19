@@ -1,0 +1,198 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:12pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		 STM:See The Molecule
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="bg1x.jpg">
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+	Welcome to the STM
+	<BR>Download and Install Page</SPAN>
+</H1>
+<H2>
+	<SPAN STYLE="color:brown; font-weight:bold; font-size:18pt;">
+	Install Procedure:</SPAN>
+</H2>
+<OL>
+	<LI>Download the appropriate file from the table below.  The software is 
+		available as a Unix tar file or a Windows ZIP file.  
+		<BR>
+		<SPAN CLASS="NOTE">The Tar files and the Zip files do contain the 
+		documentation so also download the STM documentation.</SPAN>
+		<BR>
+		<TABLE ALIGN="center" BORDER=10 CELLSPACING=5>
+		<TR>
+			<TD ALIGN="center" COLSPAN=3> 
+				<SPAN STYLE="color:#008080;"> AVS/Express STM 
+				Project</SPAN>
+			</TD>
+		</TR><TR>
+			<TD ALIGN="center">UNIX</TD>
+			<TD ALIGN="center">
+				<A HREF="source/STM_XP.tar">STM Application Tar 
+				File</A>
+				<BR>
+			</TD><TD>
+				<A HREF="source/STM_doc.tar">Documentation Tar 
+				File</A> 
+				<BR>
+		</TR><TR>
+			<TD ALIGN="center">Windows</TD>
+			<TD ALIGN="center">
+				<A HREF="source/STM_XP.zip">STM Application ZIP 
+				File</A> 
+				<BR>
+			</TD><TD>
+				<A HREF="source/STM_doc.zip">Documentation Zip 
+				File</A>
+				<BR>
+			</TD>
+		</TR>
+		</TABLE>
+		<BR><BR>
+	<LI>Start AVS/Express.
+	<LI>Create a new project called <I>XPstm</I> as follows:
+		<BR>
+		<TABLE ALIGN="center" BORDER=0>
+		<TR>
+			<TD VALIGN="top">
+				Under the <I>Project</I> menu, choose the <I>Save As 
+				...</I> option.
+				<BR>
+				<IMG ALT="Project Save AS" SRC="saveAs.jpg">
+			</TD>
+			<TD VALIGN="top">
+				Enter the full path name of where you want the XPstm 
+				directory to be, in the field as requested.
+				<BR>
+				<IMG ALT="Project Save AS Select Dir" 
+					SRC="selectDir.jpg">
+			</TD>
+		</TR>
+		</TABLE>
+	<LI>Exit AVS/Express.
+	<LI>Go to <I>XPstm</I> directory.
+	<LI>Move the <B>STM</B> application tar or zip file to the newly created 
+		<I>XPstm</I> directory.
+	<LI>Untar or Unzip the file in the newly created <I>XPstm</I> directory.
+		<BR><SPAN CLASS="NOTE">Select <I>Yes To All</I> to overwrite existing 
+		files.</SPAN>
+</OL>
+<H2 ALIGN="center" CLASS="BDR">Build the Application</H2>
+<P>
+After expanding the file (unzip or untar the application) you must build the STM 
+application.  There are differences between Windows and UNIX and between different 
+shell environments under UNIX.   The process is as follows:
+</P>
+<TABLE BORDER=3 ALIGN="center">
+<TR>
+	<TD ALIGN="center">UNIX</TD>
+	<TD ALIGN="center">Windows</TD>
+</TR><TR>
+	<TD>
+		<P>
+		Edit the <B>Env</B> file and check the following variables,
+		modify for your environment:
+		</P>
+<PRE>
+MACHINE=sg6
+XP_FEATURE=VIZ_EXPRESS
+LM_LICENSE_FILE=/usr/local/flexlm/licenses/license.dat
+STMdir=/XPstm
+XPdir=/usr/local/Express
+</PRE>
+		<P>
+		For UNIX there are different shell environments select the file
+		appropriate for you:
+		</P>
+		<TABLE ALIGN="center" CELLPADDING=7 BORDER=0>
+		<TR>
+			<TD>
+				Shell: <I>sh  ksh  bash</I>
+			</TD><TD>
+				Shell: <I>csh  tcsh</I>
+			</TD>
+		</TR><TR>
+			<TD>
+                                use the Env.sh script file
+				<BR>To execute: <SPAN CLASS="NOTE">
+				Note the dot</SPAN><BR><CODE>. Env.sh</CODE>
+			</TD><TD>
+				use the Env.csh script file
+				<BR>To execute: <BR><CODE>source Env.csh</CODE>
+			</TD>
+		</TR>
+		</TABLE>
+	</TD><TD VALIGN="top">
+		<P>
+		For windows, a single batch file has been tested under 
+		Windows 95, Windows 98, and Windows NT.
+		<BR>
+		Edit the <B>Env.bat</B> file and check the following variables,
+		modify for your environment:
+		<BR>To execute, type in the command prompt window: 
+		<BR><CODE>Env.bat</CODE>
+		</P>
+<PRE>
+set MACHINE=pc
+set XP_FEATURE=VIZ_EXPRESS
+set LM_LICENSE_FILE=C:\flexlm\license.dat
+set STMdir=D:\XPstm
+set XPdir=C:\Express
+</PRE>
+	</TD>
+</TR> <TR>
+	<TD>
+		Run the <B>Build</B> script.  This will compile (Need a 
+		C Compiler) the STM modules.
+		<BR>
+		<SPAN CLASS="NOTE">This will take some time to compile 
+		and build the STM application.  Be patient!</SPAN>
+		<BR>
+		<SPAN CLASS="NOTE">This has been tested under SGI IRIX 
+		6.5.</SPAN>
+	</TD><TD>
+		Run the <B>Build.bat</B> batch file.  This will compile 
+		(Need a C Compiler) the STM modules.
+		<BR>
+		<SPAN CLASS="NOTE">This will take some time to compile 
+		and build the STM application.  Be patient!</SPAN>
+		<BR>
+		<SPAN CLASS="NOTE">This has been tested under Microsoft 
+		Visual C++ 6.0.</SPAN>
+	</TD>
+</TR>
+</TABLE>
+<P>
+If errors appear with the STM code, please contact the author. 
+<A HREF="mailto:kenf@osc.edu"><I>kenf@osc.edu</I></A>
+</P>
+</BODY>
+</HTML>

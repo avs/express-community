@@ -1,0 +1,87 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>GFAView - Quick Geometry Animation Viewing</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>GFAView</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The GFAView project provides a specialised Uviewer macros that only contains those controls necessary for viewing GFA animations.  The project also provides 3 other utility macros and applications.
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The GFAView project provides 4 macros that allow the user to quickly and easily view Geometry Animations (GFA files).  The most important of these is the GFA_Uviewer macro.  If a GFA animation is viewed in a standard viewer several of the normal controls do not function as expected.  For instance it is not possible to rotate the objects in a GFA animation independently of each other.  It is not possible to do this due to the fact that the GFA file format only stores the geometry objects present in a view.  Th GFA_Uviewer macro solves this problem by providing a specialised version of the standard Uviewer macro that removes the controls that are not necessary for viewing GFA animations.  This results in a viewer that is smaller and easier to use.
+</p>
+
+<p>
+The remaining 3 macros build upon the GFA_Uviewer macro in various ways to allow the user to more quickly and easily view GFA animations:
+</p>
+
+<h4>GFA_Viewer</h4>
+
+<blockquote>
+This macro extends the GFA_Uviewer by integrating a geom_replay module into the viewer.  This allows custom applications to quickly include a GFA viewer in their user interface.
+</blockquote>
+
+<h4>GFA_SingleWindowApp &amp; GFA_MultiWindowApp</h4>
+
+<blockquote>
+These applications replace the standard viewer with a GFA_Uviewer and include a geom_replay module.  This allows normal users to quickly view GFA animation in either of the two standard types of applications.
+</blockquote>
+
+</blockquote>
+
+
+
+<h3>Example</h3>
+
+<blockquote>
+The GFA_SingleWindowApp and GFA_MultiWindowApp applications both provide good examples of how the GFA_Uviewer component can be used.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/gfaview/gfavmacs.v</i> contains the V definitions of the GFA_Uviewer and GFA_Viewer viewers, and the GFA_SingleWindowApp and GFA_MultiWindowApp applications.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The GFAView project does not contain any procedural code and hence does not need to be compiled.</p>
+
+<p>Extensive technical notes on the operation of GFA_Uviewer macro can be found in the <i>xp_comm_proj/gfaview/gfavmacs.v</i> file.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Alfredo Vanelli
+ENI - Agip Division
+</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+AVS geom_capture, geom_replay modules.
+</blockquote>
+
+</body>
+</html>
+

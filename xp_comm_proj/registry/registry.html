@@ -1,0 +1,269 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>Registry - RegistryRead/RegistryWrite</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Registry - RegistryRead/RegistryWrite</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Two modules that read and write values in the Windows Registry, enabling persistence of behavior in an application.
+</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by RegistryRead/RegistryWrite">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>HKey</i></td>
+<td width="75">String</td>
+<td width="425">Root Registry key.</td>
+</tr>
+
+<tr>
+<td width="100"><i>KeyName</i></td>
+<td width="75">String</td>
+<td width="425">Name of Registry key.</td>
+</tr>
+
+<tr>
+<td width="100"><i>ValueName</i></td>
+<td width="75">String</td>
+<td width="425">Name of Registry value.</td>
+</tr>
+
+<tr>
+<td width="100"><i>Value</i></td>
+<td width="75">String</td>
+<td width="425">Actual string to write to Registry.</td>
+</tr>
+
+<tr>
+<td width="100"><i>DoIt</i></td>
+<td width="75">Integer</td>
+<td width="425">Trigger input that starts reading or writing.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by RegistryRead/RegistryWrite">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Value</i></td>
+<td width="75">String</td>
+<td width="425">Actual string read from Registry.</td>
+</tr>
+
+<tr>
+<td width="100"><i>ValueF</i></td>
+<td width="75">Float</td>
+<td width="425">Conversion of Value to a numerical value.</td>
+</tr>
+
+<tr>
+<td width="100"><i>ErrorCode</i></td>
+<td width="75">Integer</td>
+<td width="425">Error code generated internally by Registry functions.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+<h2>Warning</h2>
+
+<blockquote>
+The Windows Registry contains essential system information that is necessary for the operation of a Windows system.  If you do not understand the structure of the Registry or appreciate the dangers inherent in editing the Registry then it is recommended that you do not use the modules in this project. Indiscriminate use of these modules is likely to result in damage being caused to the Registry.  The International AVS Centre cannot be held liable for any damages resulting from the use of this software.
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The Registry modules allow the user to read and write values in the Microsoft Windows Registry. The Windows Registry is the central store for configuration information on all the 32-bit Windows platforms. It is organised into a series of hierarchical tree structures much like directory structures.  Three key terms describe a position in the registry.</p>
+
+<dl>
+<dt>HKey</dt>
+<dd>Specifies which registry tree should be examined.  Analagous to a file system Drive.</dd>
+
+<dt>Key</dt>
+<dd>Specifies the position of the item in the registry tree.  Analagous to a directory path.</dd>
+
+<dt>Value</dt>
+<dd>Specifies the actual name of the item in the registry tree.  Analagous to a filename.</dd>
+</dl>
+
+<p>Hence the Registry contains several HKeys, each of which contain a large number of Keys.  In turn each Key can contain a number of Values.  These modules allow the user to read from and write to a arbitrarily defined position in the registry. They may be used to add persistent behavior to an application. For example an application could store the path to the last file or directory read in, or critical parameter values that could be restored in a later session.  The two modules act as a pair, RegistryRead reads values from the registry, while RegistryWrite writes new values or updates old values.</p>
+</blockquote>
+
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>HKey</i></b></blockquote>
+
+<blockquote>
+<p>Root HKey to be read from or written to.  This parameter must be specified.  Currently the Windows Registry contains 6 root HKeys, shown below.  This string is checked to ensure that it is one of these HKeys.</p>
+
+<ul>
+<li>HKEY_LOCAL_MACHINE</li>
+<li>HKEY_USERS</li>
+<li>HKEY_CURRENT_CONFIG</li>
+<li>HKEY_CURRENT_USER</li>
+<li>HKEY_CLASSES_ROOT</li>
+<li>HKEY_DYN_DATA - Windows 95/98 only</li>
+<li>HKEY_PERFORMANCE_DATA - Windows NT/2000 only</li>
+</ul>
+
+</blockquote>
+
+<blockquote><b><i>KeyName</i></b></blockquote>
+
+<blockquote>
+Key to be read from or written to.  If no value is provided for this parameter the root key of the specified HKey is used.
+</blockquote>
+
+<blockquote><b><i>ValueName</i></b></blockquote>
+
+<blockquote>
+Value to be read from or written to.  If no value is provided for this parameter the default value of the specified key is used.
+</blockquote>
+
+<blockquote><b><i>Value</i></b> - RegistryWrite only</blockquote>
+
+<blockquote>
+String value to be written to the Registry.  A value must be provided for this parameter.
+</blockquote>
+
+<blockquote><b><i>DoIt</i></b></blockquote>
+
+<blockquote>
+Separate trigger parameter that can be used to start reading from or writing to the registry.  The modules are notified of changes to some parameters.  However to increase the ease of use of these modules this parameter is provided to allow manual triggering of registry reading or writing.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>Value</i></b> - RegistryRead only</blockquote>
+
+<blockquote>
+String value read from the registry.
+</blockquote>
+
+<blockquote><b><i>ValueF</i></b> - RegistryRead only</blockquote>
+
+<blockquote>
+Conversion of the value read from the registry to numerical format.  This output is provided to allow for the easier storage of numerical data in the registry.
+</blockquote>
+
+<blockquote><b><i>ErrorCode</i></b></blockquote>
+
+<blockquote>
+Error code generated internally by the Registry functions.  If the functions completed successfully this parameter will have a value of zero.  Normally this output will only be used if the error messages given by the module itself are not sufficient.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application, RegistryEg, is provided that creates a RegistryRead and a RegistryWrite module.  The user can then use these modules to read values from and write values to the registry.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/registry/reg_mods.v</i> contains the V definitions of the RegistryRead and RegistryWrite modules.</p>
+
+<p><i>xp_comm_proj/registry/reg_macs.v</i> contains the V definition of the RegistryEg example application.</p>
+</blockquote>
+
+
+
+<h3>
+Other Notes</h3>
+
+<blockquote>
+The Windows Registry is a very powerful store of information.  However it is complicated to use and vulnerable to damage caused by incorrectly written software.  If you use these modules you should make yourself familiar with the relevant registry documentation.  This is available form the <a href="http://msdn.microsoft.com">Microsoft Developer's Network</a>.
+</blockquote>
+
+<blockquote>These modules only work on the Windows platforms. The do not work on UNIX platforms. The modules are not defined on UNIX platforms.</blockquote>
+
+<blockquote>The low-level RegistryMods library containing the low-level modules does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>
+Authors</h3>
+
+<blockquote>
+<pre>
+Mark Ward, Advanced Visual Systems, Inc.
+
+Andrew Dodd, International AVS Centre.
+</pre>
+</blockquote>
+
+<h3>
+Contact</h3>
+
+<blockquote>
+<pre>International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+n/a
+</blockquote>
+
+</body>
+</html>
+

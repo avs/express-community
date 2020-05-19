@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>RegionResampler</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>RegionResampler</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The RegionResampler macro creates a uniform scalar field that is the same size as the input active area and sets all nodes that lie on the input polyline.</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by RegionResampler">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_points</i></td>
+<td width="75">float[][2]</td>
+<td width="425">Coordinates of polyline.</td>
+</tr>
+<tr>
+<td width="100"><i>in_dims</i></td>
+<td width="75">int[2]</td>
+<td width="425">Dimensions of the active area.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by RegionResampler">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Uniform Scalar Field</td>
+<td width="425">Output uniform mesh and Node Data component.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DefaultObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h4>Description</h4>
+
+<blockquote>
+<p>The RegionReampler macro takes the coordinates of a polyline and the dimensions of an active area and creates a uniform scalar field that covers the active area.  The output field contains a node data component.  The value for each node that lies on the input polyline is set to 1.  All other values are set to 0.  Essentially this macro converts the vector information contained in the polyline data into bitmap information.  The generated uniform field can be used for various purposes.  For instance it could be used as an overlay onto the original image segmentation.</p>
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>in_points</i></b> : float[][2]</blockquote>
+
+<blockquote>Coordinates of polyline along which pixels will be set.</blockquote>
+
+<blockquote><b><i>in_dims</i></b> : int[2]</blockquote>
+
+<blockquote>Dimension of the active area.  These dimensions are used to create the output uniform field.</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>out_fld</i></b> : Uniform Scalar Field</blockquote>
+
+<blockquote>This field output represents the generated image data.  It contains a uniform mesh with the same dimensions as the input dimensions and a single scalar node data component.  The node data is set or unset depending upon whether it lies on the polyline.</blockquote>
+
+<blockquote><b><i>out_obj</i></b> : DefaultObject</blockquote>
+
+<blockquote>This port is suitable for direct connection to a 2D viewer.  It contains the new uniform scalar field.</blockquote>
+
+
+<h4>Example</h4>
+
+<blockquote>The RegionResamplerEg example application illustrates now the RegionResampler macro can be used.  A image is read and the SuperDraw macro can be used to draw a polyline in window containing the image.  The RegionResampler macro is then be used to convert the vector polyline into bitmapped data.  This uniform data is shown in the second window.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/draw/drawmods.v</i> Creates the DrawMods library containing the low-level modules RegionResamplerCore, LineResamplerCore, SuperDrawCore and the parameter blocks DrawLineParams and LineResamplerParams.</p>
+
+<p><i>xp_comm_proj/draw/drawmacs.v</i> Creates the DrawMacs library containing the user interface macros SuperDrawUI and LineResamplerUI, the functional macros SuperDrawFunc and LineResampleFunc, and the user macros SuperDraw, LineResampler and RegionResampler.</p>
+
+<p><i>xp_comm_proj/draw/drawapps.v</i> Creates the DrawApps library containing the example applications SuperDrawEg, LineResamplerEg, and RegionResamplerEg.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level DrawMods library containing the low-level modules does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Mario Valle,
+AVS Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Anja Bindrich, Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>AVS/Express Click_Sketch macro.</li>
+</ul>
+ 
+</body>
+</html>
+

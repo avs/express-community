@@ -1,0 +1,115 @@
+Express Community ReadDbase Project
+https://github.com/avs/express-community
+---------------------
+
+This directory ( xp_comm_proj/rd_dbase/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"ReadDbase".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new project, and two additions to two of the xp_comm_lib/ files (in this instance
+data_io.v and example.v) to add a link to the Module library and the Example
+Application from the top-level Community library page.
+
+Once the files have been correctly installed, the low-level modules of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the modules may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+If you modify the project, and elect to specify the process as "user" or
+another user-defined process, then the modules may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the modules:
+
+        $compile XP_COMM_PROJ.ReadDbase.ReadDbaseMods
+
+Users of the Developer's Edition may select the module in the relevant 
+Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/rd_dbase/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v,
+               xp_comm_lib.data_io.v and xp_comm_lib/examples.v files. This file should
+               not be edited as the future installation script will use this file.
+
+rd_dbase.v     Creates the XP_COMM_PROJ.ReadDbase library.
+
+rddbmods.v     Creates the library containing the low-level modules ReadDBFDate, 
+               ReadDBFFloat, ReadDBFInteger, ReadDBFLogical, ReadDBFString,
+               ReadDBFType.
+
+rddbmacs.v     Creates the library containing the Example Application ReadDbaseEg
+               and the associated module comb_mesh_and_data.
+
+               The C and C++ source code for the module:
+dbf.cxx
+dbf.h
+dbffldds.cxx
+dbffldds.h
+dbfhdr.cxx
+dbfhdr.h
+
+dbfrddat.cxx
+dbfrdflt.cxx
+dbfrdint.cxx
+dbfrdlog.cxx
+dbfrdstr.cxx
+dbfrdtyp.cxx
+
+gsbyteu.cxx
+gsbyteu.h
+gsconst.h
+gserror.h
+gsesri.h
+
+
+DISCLAIMER     Statement of terms and conditions
+
+README         This file.
+
+doc_mod.html   HTML documentation for the suite of modules.
+
+cities.dbf     Dbase file containing Test Data for Project.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+*.o/obj               Intermediate object files.
+
+flt_gen.h             AVS/Express generated header files.
+dat_gen.h
+int_gen.h
+log_gen.h
+str_gen.h
+typ_gen.h
+
+flt_gen.cxx           AVS/Express generated source code files.
+dat_gen.cxx
+int_gen.cxx
+log_gen.cxx
+str_gen.cxx
+typ_gen.cxx
+

@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>ReadTecplot - Reads Tecplot-Data-Files.</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>ReadTecplot</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Reads Tecplot data files. Tecplot is a commercial visualization tool from  <a style="text-decoration:none" href="http://www.amtec.com/">AMTEC</a>. This reader supports ASCII and Binary files from Tecplot.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<h5>ReadTecplotParams</h5>
+
+<table summary="Parameters used by ReadTecplot">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="200">string</td>
+<td width="300">Name of the Tecplot file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by ReadTecplot">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mblock</i></td>
+<td width="200">Multi_Block</td>
+<td width="425">Multi_Block data which can contain several meshes read from the Tecplot file.</td>
+</tr>
+
+<tr>
+<td valign=top width="100"><i>out_fields</i></td>
+<td valign=top width="200">Mesh_Struct+Node_Data []</td>
+<td valign=top  width="425">Array of Structured meshes which are the parts of the Multi_Block.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This moddule reads the Tecplot data format. Tecplot is a commercial visualization tool from  <a style="text-decoration:none" href="http://www.amtec.com/">AMTEC</a>. This reader supports ASCII and Binary files from Tecplot. The data is stored in a Multi_Block data structure and a reference to the fields array is provided. This fields array can be used with the Array of fields (*_ARR) visualization modules provided by AVS/Express.</p>
+
+</blockquote>
+
+<h3>Parameters</h3>
+
+<h4>ReadTecplotParams</h4>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>String parameter that specifies which Tecplot file should be read. The filename string should contain the full path name of the file and can contain any of the AVS/Express environment variables (e.g. $XP_PATH&lt;1&gt;)</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_mblock</i></b></blockquote>
+
+<blockquote>Multi_Block data output that contains the geometries and attached data values which are contained in several blocks in the Tecplot file. The output consists of Blocks of fields containing the nodal coordinates, connectivity information and the data values per node. </blockquote>
+
+<blockquote><b><i>out_fields</i></b></blockquote>
+
+<blockquote>Array of Structured mesh + Node data fields that contain the geometry and attached data values read from the Tecplot file. Each of the output fields in this array consists of the nodal coordinates, connectivity information and the data values per node. </blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ReadTecplotFunc functional macro uses the low-level ReadTecplotCore module. The macro takes as input the parameter blocks, ReadTecplotParams. The macro outputs the data read from the Tecplot file as Multi_Block data.</p> 
+
+<p>The ReadTecplotFunc functional macro and the ReadTecplotUI user interface macro are both used by the ReadTecplot user macro. All of these macros use the ReadTecplotParams parameter block to communicate. Additional to the Multi_Block  output the ReadTecplot user macro has an output for an Array of Structured mesh + Node data which can be used with modules of the ARR DefaultObjects which can directly be rendered by the standard data viewers.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes an example application that demonstrates the use of the ReadTecplot macro. The ReadTecplotEg application uses the ReadTecplot macro to read a Tecplot file. The Example contains an isosurface_ARR, isoline_ARR and a bounds_ARR module to show the inner structure of the fields array which is read by the ReadTecplot macro. </p>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_tecpl/rdtpmods.v</i> contains the V definitions of the ReadTecplotCore module and the ReadTecplotParams parameter block.</p> 
+
+<p><i>xp_comm_proj/rd_tecpl/rdtpmacs.v</i> contains the V definitions of the ReadTecplotUI UI macro, the ReadTecplotFunc functional macro and the ReadTecplot user macro.</p>
+
+<p><i>xp_comm_proj/rd_tecpl/rdtpapps.v</i> contains the V definitions of the ReadTecplotEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadTecplotMods library containing the low-level module ReadTecplotCore does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+<blockquote><pre>
+I. Hallstein, Dr. Tomas Forkert
+DLR - Deutsches Zentrum fuer Luft- und Raumfahrt e. V.                 
+Simulations- und Softwaretechnik (SISTEC) 
+
+<b><i>Contact:</i></b>
+<blockquote>
+<a style="text-decoration:none" href="mailto:Tomas.Forkert@dlr.de">Dr. Tomas Forkert</a>
+DLR - Deutsches Zentrum fuer             
+Luft- und Raumfahrt e. V.                 
+Simulations- und Softwaretechnik (SISTEC) 
+D-51140 Koeln                             
+
+e-mail: <a style="text-decoration:none" href="mailto:Tomas.Forkert@dlr.de">Tomas.Forkert@dlr.de</a>
+voice:  ++49 2203 601 2066
+fax:    ++49 2203 601 3070
+<a style="text-decoration:none" href="http://www.sistec.dlr.de">http://www.sistec.dlr.de</a>
+</blockquote>
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>, International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+
+<li><a href="http://www.amtec.com">AMTEC Engineering, Inc.</a> home page.</li>
+</li>
+</ul>
+</body>
+</html>
+

@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>TPS_unif_core &amp; TPS_rect_core</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>
+<a name="TPS_unif_core">TPS_unif_core</a><br>
+<a name="TPS_rect_core">TPS_rect_core</a>
+</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Generates uniform and rectilinear grids using Thin Plate Spline.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module TPS_unif_core&lt;src_file="tps_unif.cpp"&gt; {
+      cxxmethod+notify_inst+req update(
+         coord+read+notify+req,
+         values+read+notify+req,
+         smooth+read+notify+req,
+	      dims+read+notify+req,
+	      out+write,
+   	   points+write
+      );
+
+      float+IPort2 coord[];
+      float+IPort2 values[];
+
+      TPS_Params+IPort2 &amp;TPS_Params;
+
+      float smooth =&gt; &lt;-.TPS_Params.smooth;
+      int  dims[2] =&gt; &lt;-.TPS_Params.dims;
+
+      float+OPort2 points[4];
+      float+OPort2 out[prod(dims)];
+   };
+</pre>
+
+<hr>
+
+<pre>
+   module TPS_rect_core&lt;src_file="tps_rect.cpp"&gt; {
+      cxxmethod+notify_inst+req update(
+         coord+read+notify+req,
+         values+read+notify+req,
+         smooth+read+notify+req,
+         add_points+read+notify+req,
+         dims+write,
+         points+write,
+         out+write
+      );
+
+      float+IPort2 coord[];
+      float+IPort2 values[];
+
+      TPS_Params+IPort2 &amp;TPS_Params;
+
+      float smooth =&gt; &lt;-.TPS_Params.smooth;
+      int   add_points =&gt; &lt;-.TPS_Params.add_points;
+
+      int+OPort2   dims[2];
+      float+OPort2 points[sum(dims)][2];
+      float+OPort2 out[prod(dims)];
+   };
+</pre>
+
+<hr>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The TPS_unif_core and TPS_rect_core modules use the Thin Plate Spline algorithm
+to generate uniform and rectilinear output grids from a set of points and values.
+The interpolation calculated by the Thin Plate Spline algorithm passes exactly
+through all the input points.  However the output grid only respects the input
+points in the case of a rectilinear grid with a 'smoothness' of 0.
+</blockquote>
+
+<blockquote>
+The output grid is represented as a number of arrays of data.  These can be input
+into the appropriate field mapper to generate uniform or rectilinear fields.  This
+is done in the Functional macros TPS_unif and TPS_rect.  In most cases it will be
+easier to use these macros than it will be to use these modules directly.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>coord[..][2]</b></i>
+</blockquote>
+
+<blockquote>
+Coordinates of the points that are to be used to generate the resulting grid.  This
+float array should consist of a series of x,y coordinate pairs.  It is not possible
+to use 3D coordinates.  If a rectilinear grid is being generated and the smoothness
+is set to zero then output points will be present at all of these coordinates.
+</blockquote>
+
+<blockquote>
+<i><b>values[..]</b></i>
+</blockquote>
+
+<blockquote>
+Value of the input variable at the input coordinates.  This float array should match
+the coordinate input array. 
+</blockquote>
+
+<blockquote>
+<i><b>&amp;TPS_Params</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the smoothness
+and dimensioning variables. 
+</blockquote>
+
+<blockquote>
+<i><b>smooth</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the 'smoothness' variable of type float, via the parameter block, which
+is referenced by the &amp;TPS_Params input.  The smoothness value specifies now smooth
+the resultant surface should be.  If the smoothness is set to zero then in a rectilinear
+grid output points will be present at all of the input points.
+</blockquote>
+
+<blockquote>
+<i><b>dims[2]</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the dims array of type int, via the parameter block, which is
+referenced by the &amp;TPS_Params input.  This parameter is used by the
+TPS_unif_core module and specifies the x and y dimensions that the resultant
+uniform grid should have.  It is not used by the TPS_rect_core module.
+</blockquote>
+
+<blockquote>
+<i><b>add_points</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the add_points variable of type int, via the parameter block, which is
+referenced by the &amp;TPS_Params input.  This parameter is used by the
+TPS_rect_core module and specifies how many points should be added in between each
+of the input points.  Increasing this value will improve the accuracy of the resultant
+mesh.  It is not used by the TPS_unif_core module.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>dims[2]</b></i>
+</blockquote>
+
+<blockquote>
+Dimensions of output rectilinear grid.  This output is not used by the TPS_unif_core
+module.
+</blockquote>
+
+<blockquote>
+<i><b>points[...][2]</b></i>
+</blockquote>
+
+<blockquote>
+Location of output grid in space.  The TPS_unif_core outputs the coordinates
+of the extreme points of the uniform grid.  The TPS_rect_core outputs the
+coordinates of the origin of each grid line in the rectilinear mesh.
+</blockquote>
+
+<blockquote>
+<i><b>out[]</b></i>
+</blockquote>
+
+<blockquote>
+Values of each node on the output grid.  The values are calculated by using
+the Thin Plate Spline algorithm to interpolate between each input point.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level TPS_unif_core module is used in the Functional Macro TPS_unif
+and the User Macro tps_unif. The low-level TPS_rect_core module is used in the
+Functional Macro TPS_rect and the User Macro tps_rect. Additionally, these
+macros also use the TPS_Params parameter block group, as do the UI macros.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided, TPS_uniform_Eg and TPS_rectilinear_Eg which
+generate uniform and rectilinear grids from a set of points.  In both cases the
+grid is then converted into a field and expanded into 3 dimensions by using the surf_plot
+module.  This is done to make the effect of the Thin Plate Spline easier to see.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/tpspline/tps_mods.v</I> contains the V definitions of the TPS_Params
+group and the TPS_unif_core and TPS_rect_core modules.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ThinPlateSplineMods library containing the modules
+TPS_unif_core and TPS_rect_core, does not specify a process. By default
+the express process will be used.
+</blockquote>
+
+<blockquote>
+The Thin Plate Spline implementation is based upon the code written by
+Dave Eberly.  More information can be found on the 
+<a href="http://www.magic-software.com">Magic Software</a> home page.
+The original code can be found on the <a href="http://www.magic-software.com/gr_intp.htm">interpolation</a> page.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Mario Valle
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+TPS_Params, TPS_unif, TPS_rect, tps_unif, tps_rect, TPS_baseUI, TPS_unifUI, TPS_rectUI,
+TPS_baseEg, TPS_uniform_Eg, TPS_rectilinear_Eg.
+</blockquote>
+
+</body>
+</html>

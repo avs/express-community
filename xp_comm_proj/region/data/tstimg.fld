@@ -1,0 +1,12 @@
+# AVS field file
+#
+ndim = 2
+dim1 = 202
+dim2 = 311
+nspace = 2
+veclen = 3
+data = byte
+field = uniform
+variable 1 file=img.rgb filetype=binary skip=0 offset=1 stride=3
+variable 2 file=img.rgb filetype=binary skip=0 offset=2 stride=3
+variable 3 file=img.rgb filetype=binary skip=0 offset=3 stride=3

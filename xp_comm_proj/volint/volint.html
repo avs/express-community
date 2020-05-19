@@ -1,0 +1,161 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.7 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>VolumeIntegral - surface area and enclosed volume from isosurface calculation</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>
+VolumeIntegral</h1>
+
+<h3>
+Synopsis</h3>
+
+<blockquote>Computes the surface area and the enclosed volume of a surface
+mesh enclosing some 3D space.</blockquote>
+
+<blockquote>
+<h4>
+Input Ports</h4>
+
+<table>
+<tr>
+<td WIDTH="125"><i>in</i></td>
+
+<td WIDTH="125">Mesh[+Node_Data]</td>
+
+<td WIDTH="300">input field with trianglar or quad 3D cell sets</td>
+</tr>
+</table>
+
+<h4>
+Parameters</h4>
+
+<table>
+<tr>
+<td WIDTH="125"><i>conversion</i></td>
+
+<td>Spatial units coordinate space conversion factor, default = 1.0</td>
+</tr>
+</table>
+
+<h4>
+Output Ports</h4>
+
+<table>
+<tr>
+<td WIDTH="125"><i>area</i></td>
+
+<td WIDTH="125">Float</td>
+
+<td WIDTH="300">resulting surface area value in units **2</td>
+</tr>
+
+<tr>
+<td WIDTH="125"><i>volume</i></td>
+
+<td WIDTH="125">Float</td>
+
+<td WIDTH="300">resulting enclosed volume value in units **3</td>
+</tr>
+</table>
+</blockquote>
+
+<h3>
+Description</h3>
+
+<blockquote>This module accepts a geometry mesh of triangle or quad cell
+sets and outputs the object's volume and surface area.&nbsp; The input
+is assumed to be a 3D connected mesh enclosing some single volume, where
+the triangle or quad cells define the surface boundary of the area. This
+is typical of the isosurface module or isovolume followed by external faces.
+If the area does not enclose a single volume, then the volume calculations
+may be incorrect, however the surface area calculation always should report
+the overall surface area described by the input mesh shape. If the geometric
+units defining the object are not the desired units, then a conversion
+factor can be entered, for instance to convert feet to meters. The internal
+volume of the shape is computed using Gauss' Theorem, rather than by explicitly
+looking at all cells in the interior. The module will report an error if
+anything other than linear triangle or quad cell sets are connected. The
+local Mesh Xform transformation matrix is applied to all coordinates prior
+to area and volume computation, so if the object is scaled this will be
+reflected in the resulting computation.
+<p>This module uses a form of Gauss' Theorem, or Greens' Theorem in Space.
+This allows a direct computation of the volume enclosed by a single valued
+continuous closed surface. All surface normals must point "outwards" for
+this operation to be correct. See notes section for details. The output
+of external faces may be used under special circumstances, such as for
+the simple one-cell test cases. If the enclosed volume can be assumed to
+contain homogeneous material of unit density, then the volume integral
+will also equal the mass. This module does not attempt to integrate node
+data, it only operates on the geometric mesh information.
+<p>This module is a re-implementation of work described in the paper:
+<p><i>"Quantitative Analysis of Reconstructed Rodent Embryos"</i> Andy
+R. Haas, Richard A. Strelitz, William S. Branham, Daniel M. Sheehan, R.O.W
+Sciences Inc., and Division of Reproductive and Developmental Toxicology,
+National Center for Toxicological Research, Jefferson Arkansas. The paper
+was presented at the International AVS User and Developer Conference, April
+1995, Boston Mass, appearing in the proceedings on page 263.
+<p>The original AVS5 module "compute volume" described in the paper is
+also available at the International AVS centre web site at:
+<br>&nbsp;&nbsp;&nbsp; http://www.iavsc.org/repository/avs5/output.html#compute_volume</blockquote>
+
+<h3>
+Input Ports</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>The input field for this module should be the direct output
+from isosurface or external_faces.</blockquote>
+
+<h3>
+Output Ports</h3>
+
+<blockquote><b><i>area, volume</i></b></blockquote>
+
+<blockquote>The output scalar values are the result of the area and volume
+calculations on the input mesh.</blockquote>
+
+<h3>
+Example</h3>
+
+<blockquote>An example application VolintegralEg is provided. The dataset
+water.fld that comes with AVS/Express is used. The values can be seen by
+float objects in the network editor. The surface mesh used to compute surface
+area and volume in this example is generated from the isosurface module.</blockquote>
+
+<h3>
+Other Notes</h3>
+
+<blockquote>This module makes some critical assumptions about the input
+triangle mesh. The surface must be closed. It must not self-intersect.
+All normals must point outwards. The surface must describe one connected
+volume. None of the triangles or quads can be hidden inside the enclosed
+volume, that is the interior must be empty. The surface is not restricted
+to a convex shape. Note that the "external faces" module cannot be relied
+apon to meet these conditions.&nbsp; If ANY of these assumptions are invalid,
+then the resulting numerical computation will be invalid.</blockquote>
+
+<h3>
+Authors</h3>
+
+<blockquote>
+<pre>Ian Curington, AVS Inc., derived from original AVS5 module by</pre>
+
+<pre>Andy R. Haas
+R.O.W. Sciences
+National Center for Toxicological Research</pre>
+
+</blockquote>
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Tobias Schiebeck,
+International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>

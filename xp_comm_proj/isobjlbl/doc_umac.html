@@ -1,0 +1,326 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>IsoObjectLabel</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>IsoObjectLabel</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A mapper macro that adds text labels to isolines. It processes the output from the isoline module and generates a DataObject that can be directly displayed.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by IsoObjectLabel">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="80">Field</td>
+<td width="425">input data from isoline module</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by IsoObjectLabel">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Active</i></td>
+<td width="75">int</td>
+<td width="300">Whether module updates.</td>
+<td width="125">-</td>
+</tr>
+
+<tr>
+<td width="100"><i>ContourFrequency</i></td>
+<td width="75">int</td>
+<td width="300">Number of contours to skip.</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>NodeFrequency</i></td>
+<td width="75">int</td>
+<td width="300">Number of nodes to skip.</td>
+<td width="125">UIslider</td>
+
+</tr>
+<tr>
+<td width="100"><i>LineIndependent</i></td>
+<td width="75">int</td>
+<td width="300">Generating labels not depending on the number of isolines.</td>
+<td width="125">UItoggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>NumberOfLabels</i></td>
+<td width="75">int</td>
+<td width="300">Number of Labels if LineIndependent is ticked.</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Format</i></td>
+<td width="75">string</td>
+<td width="300">formating specification</td>
+<td width="125">-</td>
+</tr>
+
+<tr>
+<td width="100"><i>Decimals</i></td>
+<td width="75">int</td>
+<td width="300">number of decimal points.</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by IsoObjectLabel">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="80">Field</td>
+<td width="425">locations and values of labels</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_text</i></td>
+<td width="80">string[]</td>
+<td width="425">text of labels</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The IsoObjectLabel macro generates and displays text annotation labels for isoline visualizations. It connects to the field output of the isoline module and generates Field data and an array of string values. The macro also generates a DataObject which can be viewed directly. In most cases it will only be  necessary to use the generated DataObject. However if you wish to use the raw  outputs the Field data contains the position and numerical values of the labels while the string array contains the actual label text at each point. The number of labels output and number of decimal points displayed can both be controlled through a user interface. Internally a text_glyph module is used to actually create the viewable DataObject. The text_glyph user interface is presented in the user interface so that the text display can be controlled.
+</blockquote>
+
+<blockquote>
+The module combines the IAC projects <a href="../isolabel/doc_mod.html">Isolabel</a> and <a href="../isolabel2/doc_mod.html">Isolabel2</a>.  Both of these projects have advantages and disadvantages and the functionality of both projects is available in the IsoObjectLabel project.  The label placement algorithm in the Isolabel2 project is significantly more advanced than in the Isolabel project.  The isoline project outputs the contours it generates as a mesh with a Line cell-set.  The IsoObjectLabelCore module uses the algorithm from the Isolabel2 project to reconstruct the generated contours from this Line mesh and to generate at least one isolabel on each contour.  This ensures that each contour is labeled and that the isolabel positions are relatively consistent and sensible.  As the positions are consistent these isolabels are suitable for animation.
+</blockquote>
+
+<blockquote>
+The disadvantage of this approach is that the isoline module does not always output each contour as a continuous series of lines.  If the input data is noisy then the isoline module is likely to output each contour as a series of smaller line segments.  While using the Isolabel2 algorithm the IsoObjectLabelCore module interprets each of these line segments as a separate contour.  As one label is generated per line segment this can lead to large numbers of labels being generated.  One solution to this problem is to use the ContourFrequency parameter.  This parameter allows the module to skip a certain proportion of line segments, hence reducing the number of labels generated. Moreover the Isolabel2 algorithm only works with Line type data, such as that output by the isoline module.
+</blockquote>
+
+<blockquote>
+Alternatively the algorithm from the Isolabel project can be used by the IsoObjectLabelCore module. The original Isolabel project does not reconstruct contour lines and therefore does not suffer from this problem.  It also is able to work with input data that has cell-sets other than Line. To use the algorithm from the Isolabel project the parameter LineIndependent must be greater than zero. In this case ContourFrequency parameter and the NodeFrequency parameter have no effect as they are only needed for the Isolabel2 algorithm.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>in_fld</b></i>
+</blockquote>
+
+<blockquote>
+Field data which should be used by the module to generate the text labels. The Field should consist of a Line Mesh and Node Data. Only the first set of Node data is used and that Node data must be scalar.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>Active</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies whether the module should update.  If the parameter is set to zero no updates take place.  Conversely if the parameter is not set to zero updates take place as normal.
+</blockquote>
+
+<blockquote>
+<i><b>NodeFrequency</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies how frequently labels should be generated. The parameter specifies the stride that should be taken between each node that is labelled.  Therefore a NodeFrequency of 1 implies that a label should be generated for every node.
+</blockquote>
+
+<blockquote>
+<i><b>ContourFrequency</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies how frequently labels should be generated for a contour. The parameter specifies the stride that should be taken between each contour that is processed. Therefore a ContourFrequency of 1 implies that labels should be generated for every contour.
+</blockquote>
+
+<blockquote>
+<i><b>LineIndependent</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies which algorithm is used to generate labels. If the parameter is zero labels are generated for each contour. If it is greater than zero as many labels are generated as determined by the parameter NumberOfLabels and the parameters NodeFrequency and Contout Frequency are not used.
+</blockquote>
+
+<blockquote>
+<i><b>NumberOfLabels</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies how how labels should be generated if the parameter LineIndependent is greater than zero.
+</blockquote>
+
+<blockquote>
+<i><b>Format</b></i>
+</blockquote>
+
+<blockquote>
+String parameter that is used to specify the C style formatting specification. This sets how the Node data values should be converted into text.  Normally it should not be necessary to alter this parameter and hence there is no user interface.
+</blockquote>
+
+<blockquote>
+<i><b>Decimals</b></i>
+</blockquote>
+
+<blockquote>
+Integer parameter that is used to specify the number of decimal points that each text labels should have.  Internally this parameter is used to generate the Format parameter that is actually used in the conversion of numerical values to text strings.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+Field data containing the locations and numerical values of each text label. The field data contains a Point mesh that contains the locations of each label and a single set of node data that contains the node data values at each label position. If the input mesh contains any transformation data this is copied across to the output mesh.
+</blockquote>
+
+<blockquote>
+<i><b>out_text[]</b></i>
+</blockquote>
+
+<blockquote>
+String array containing the actual label text that should be displayed.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output of the isolabel macro. This contains a DataObject object that can be rendered by the standard data viewers. The output object contains the generated text labels placed at the appropriate positions. The output object is generated internally by a text_glyph module.  If more control of the display is required the other outputs can be used.  Alternatively the Functional macro could be used directly.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro IsoObjectLabel combines the Functional Macro IsoObjectLabelFunc with the UI Macro IsolabelUI and the standard module text_glyph.  The User macro also makes use of the common parameter block IsoObjectLabelParams to tie the Functional Macro and UI macro together.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Three example applications are provided, IsoObjectLabelEg1, IsoObjectLabelEg2 and IsoObjectLabelEg3. These applications generate text labels for 2D and 3D isoline plots. They show how the numbers of generated labels can be controlled for data-sets of various sizes and types.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/isobjlbl/islblmac.v</i> Creates the IsoObjectLabelMacs library containing the Functional macro IsoObjectLabelFunc, the UI macro IsoObjectLabelUI and the User macro IsoObjectLabel.
+</blockquote>
+
+<blockquote><i>xp_comm_proj/isobjlbl/islblapp.v</i> Creates the IsoObjectLabelApps library containing the example applications IsoObjectLabelEg1, IsoObjectLabelEg2 and IsoObjectLabelEg3.				
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+Please refer to AVS documentation for more information on the isoline and text_glyph modules. This macro does not use the AG kit, and should not be confused with AGContour which also contains isoline labels.
+</blockquote>
+
+<blockquote>
+The IsoObjectLabelMacs library inherits its process. As this library contains no procedural code, the process is not important. The modules in the low-level IsoObjectLabelMods library execute under the process specified in that library, not the process defined in the high-level library.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Dr Federico Gamba
+Advanced Visual Systems, Inc.
+
+Andrew Dodd
+International AVS Centre
+
+Simone Herrmann
+Manchester Visualization Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_mod.html">IsoObjectLabelCore</a> user macro.</li>
+<li><a href="../isolabel/doc_mod.html">Isolabel</a> IAC project.</li>
+<li><a href="../isolabel2/doc_mod.html">Isolabel2</a> IAC project.</li>
+<li>isoline AVS/Express module.</li>
+<li>text_glyph AVS/Express module.</li>
+</ul>
+
+</body>
+</html>
+

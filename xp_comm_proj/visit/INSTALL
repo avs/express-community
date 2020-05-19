@@ -1,0 +1,17 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/visit/visit.v" Visit;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.Visit.VisitMacs.visitserver visitserver;
+  XP_COMM_PROJ.Visit.VisitMods.Multiplexer Multiplexer;
+  XP_COMM_PROJ.Visit.VisitMods.VisitReader VisitReader;
+  XP_COMM_PROJ.Visit.VisitMods.VisitWriter VisitWriter;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Visit.VisitApps.VisitSimpleEg VisitSimpleEg;
+  XP_COMM_PROJ.Visit.VisitApps.VisitGoLEg VisitGoLEg;
+

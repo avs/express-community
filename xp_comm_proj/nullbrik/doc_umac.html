@@ -1,0 +1,277 @@
+<html>
+<head>
+<title>null_brick</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>null_brick</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+The user macro null_brick modifies a sub-volume of node data within a uniform volume, by replacing all the values with a single given value. This value may optionally be set to be the null_value.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>&in</i></td>
+<td width="75">ilink (Mesh_Unif+Node_Data_Struct)</td>
+<td width="425">input uniform field</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block NullBrickParams, which are accessed by the module <a href="doc_mod.html">NullBrickNodeData</a> and the UI Macro NullBrickUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</font>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>xmin</i></td>
+<td width="75">int</td>
+<td width="300">sub-volume lower extent for x-axis</td>
+<td width="125">Brick Extents: xmin</td>
+</tr>
+
+<tr>
+<td width="100"><i>xmax</i></td>
+<td width="75">int</td>
+<td width="300">sub-volume upper extent for x-axis</td>
+<td width="125">Brick Extents: xmax</td>
+</tr>
+
+<tr>
+<td width="100"><i>ymin</i></td>
+<td width="75">int</td>
+<td width="300">sub-volume lower extent for y-axis</td>
+<td width="125">Brick Extents: ymin</td>
+</tr>
+
+<tr>
+<td width="100"><i>ymax</i></td>
+<td width="75">int</td>
+<td width="300">sub-volume upper extent for y-axis</td>
+<td width="125">Brick Extents: ymax</td>
+</tr>
+
+<tr>
+<td width="100"><i>zmin</i></td>
+<td width="75">int</td>
+<td width="300">sub-volume lower extent for z-axis</td>
+<td width="125">Brick Extents: zmin</td>
+</tr>
+
+<tr>
+<td width="100"><i>zmax</i></td>
+<td width="75">int</td>
+<td width="300">sub-volume upper extent for z-axis</td>
+<td width="125">Brick Extents: zmax</td>
+</tr>
+
+<tr>
+<td width="100"><i>nval</i></td>
+<td width="75">double</td>
+<td width="300">sub-volume data (null) value to replace all existing data</td>
+<td width="125">Null/Brick Value</td>
+</tr>
+
+<tr>
+<td width="100"><i>setnull</i></td>
+<td width="75">int (toggle)</td>
+<td width="300">set null_value to be nval</td>
+<td width="125">Set Null Flag</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh_Unif+Node_Data_Struct</td>
+<td width="425">output field with modified values in the sub-volume</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The user macrp null_brick inputs a uniform volume (Mesh_Unif+Node_Data_Struct) and takes a set of parameters to define a sub-volume within, and a replacement data value. All node data within the sub-volume is replaced with the given value, in all components. This allows sub-volumes to be cut away - similar to the excavate_brick module - but doesn't convert the field to an unstructured mesh, thus allowing the volume to be volume rendered.</p>
+<p>Additionally, the given value, may be specified as the null_value in the Node_Data components, and the null_flag parameter is set.</p>
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+Input for uniform node data (Node_Data_Struct), which will have a sub-volume modified as defined by the extents in the parameter block, for all components of all primitive data types.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>xmin</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume lower extent for the x-axis.
+</blockquote>
+
+<blockquote>
+<i><b>xmax</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume upper extent for the x-axis.
+</blockquote>
+
+<blockquote>
+<i><b>ymin</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume lower extent for the y-axis.
+</blockquote>
+
+<blockquote>
+<i><b>ymax</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume upper extent for the y-axis.
+</blockquote>
+
+<blockquote>
+<i><b>zmin</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume lower extent for the z-axis.
+</blockquote>
+
+<blockquote>
+<i><b>zmax</b></i>
+</blockquote>
+
+<blockquote>
+Sub-volume upper extent for the z-axis.
+</blockquote>
+
+<blockquote>
+<i><b>nval</b></i>
+</blockquote>
+
+<blockquote>
+Value (null) to be used to fill all values defined as the sub-volume.
+</blockquote>
+
+<blockquote>
+<i><b>setnull</b></i>
+</blockquote>
+
+<blockquote>
+Sets the nval parameter to be the null_value in each component, and sets the null_flag of the Node_Data.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Modified Mesh_Unif+Node Data_Struct output.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level <a href="doc_mod.html">NullBrickNodeData</a> module is used in the functional macro NullBrick and this User Macro null_brick.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications, NullBrickEg1 and NullBrickEg2 are provided, which show the null_brick macro in use with the volume_render modules and the isosurface modules respectively.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/nullbrik/nbrkdmacs.v</i> contains the null_brick User Macro, the NullBrick Functional Macro, the NullBrickUI UI Macro, and the example application NullBrickEg V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The NullBrickMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level <a href="doc_mod.html">NullBrickNodeData</a> module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Paul G. Lever
+International AVS Centre
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+NullBrickParams, NullBrickUI, NullBrick and <a href="doc_mod.html">NullBrickNodeData</a>.
+</blockquote>
+
+<blockquote>
+excavate_brick
+</blockquote>
+
+</body>
+</html>

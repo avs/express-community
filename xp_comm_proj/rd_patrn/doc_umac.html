@@ -1,0 +1,303 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>read_patran</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>read_patran</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads the contents of a PATRAN Neutral File (ASCII), into an array of fields and 
+a renderable GroupObject.
+</blockquote>
+
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by read_patran">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">PATRAN file to be read</td>
+<td width="125">Text box</td>
+</tr>
+
+<tr>
+<td width="100"><i>points_visible</i></td>
+<td width="75">int</td>
+<td width="300">Controls Visibility of Point Mesh</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>line_visible</i></td>
+<td width="75">int</td>
+<td width="300">Controls Visibility of Line Mesh</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>tri_visible</i></td>
+<td width="75">int</td>
+<td width="300">Controls Visibility of Triangular Mesh</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>quad_visible</i></td>
+<td width="75">int</td>
+<td width="300">Controls Visibility of Quad Mesh</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>tet_visible</i></td>
+<td width="75">int</td>
+<td width="300">Controls Visibility of Tetrahedron Mesh</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>patch_visible</i></td>
+<td width="75">int</td>
+<td width="300">Controls Visibility of Patches</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_patran">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="80">Mesh[]</td>
+<td width="425">array of mesh outputs</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="80">GroupObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The read_patran module is a reader for ASCII files in the PATRAN
+Neutral File format. The reader is based on the 2.5 specification of Patran. It 
+parses the input, gathers common node position lists, connectivity for common 
+element types, and builds a field data structure. Each element type is gathered 
+into a common cell set and output in an array of meshes.  A GroupObject is also 
+constructed from these meshes.  This GroupObject output can be directly 
+rendered. Not all entity types are supported. Currently the ReadPatran project 
+supports the the following entity types:
+</blockquote>
+
+<blockquote>
+<ul>
+<li>Points</li>
+<li>Lines</li>
+<li>Triangular Mesh</li>
+<li>Quad Mesh</li>
+<li>Tetrahedral Mesh</li>
+<li>Approximate Patches</li>
+</ul>
+</blockquote>
+
+<blockquote>
+Approximate patches are generated from Nurbs and Bspline patches.  Patch 
+subdivision has not been implemented and hence these patches are replaced by 
+approximated quads and polygons.  The User Interface allows a PATRAN file to be 
+selected.  Once the file has been read two lines of descriptive text are shown.  
+These are taken from the header of the PATRAN file.  Toggle controls are also 
+present in the User Interface.  These allow the display of the various element 
+types present in the file to be controlled.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+(none)
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ReadPatranParams parameter block group, this string value 
+specifies the name of the PATRAN file that should be read from. The filename 
+should specify the full path name of the file.
+</blockquote>
+
+<blockquote>
+<i><b>points_visible, line_visible, tri_visible, quad_visible, tet_visible, patch_visible</b></i>
+</blockquote>
+
+<blockquote>
+All of these parameters are members of the ReadPatranParams parameter block 
+group and they  specify the visibility of the appropriate entity type in the 
+GroupObject output. All of these parameters are of integer type. It should be 
+noted that these parameters only specify the visibility of the entity type in 
+the output object generated by read_patran. They do not specify if an entity 
+type should be read or whether a mesh should be generated for an entity type.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out_mesh[]</b></i>
+</blockquote>
+
+<blockquote>
+Array of meshes containing the data read from the PATRAN file. Each entity type 
+is represented as a separate element in the array. The contents of each element 
+are listed below.
+</blockquote>
+
+<blockquote>
+<ul>
+<li>out_mesh[0] - Points</li>
+<li>out_mesh[1] - Lines</li>
+<li>out_mesh[2] - Triangular Mesh</li>
+<li>out_mesh[3] - Quad Mesh</li>
+<li>out_mesh[4] - Tetrahedral Mesh</li>
+<li>out_mesh[5] - Approximate Patches</li>
+</ul>
+</blockquote>
+
+<blockquote>
+Please see the example application for an illustration of now to use this array 
+of meshes. If a given entity type is not present then the relevant element of 
+the array will be empty.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output of the read_patran macro. This
+contains a GroupObject object that contains the model geometry of all entity 
+types and can be rendered by the standard data viewers. The visibility of the 
+entity types can be controlled through the User Interface. This GroupObject 
+output is intended to provide a simple way to quickly view the model.  Most 
+applications will require the out_mesh array to be used. 
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro read_patran uses the functional macro ReadPatran and the UI macro 
+ReadPatranUI.  The ReadPatran functional macro uses the low-level module
+ReadPatranCore.  All these macros and modules also use the Common Parameter 
+groups ReadPatranParams and neutral_output.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadPatranEg is provided that reads a PATRAN file and 
+renders two views of the data. The first view shows the GroupObject output and 
+can be controlled through the UI. The second view shows how the out_mesh output 
+can be used as the input to visualization modules. The external_edges module is 
+used to reduce the size of the triangle mesh while the shrink_cells module is 
+used to allow the structure of the tetrahedral mesh to be viewed. A sample 
+PATRAN file, ex01.out, is provided with the distribution of this project. 
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rd_patrn/pat_macs.v</i> contains the V definitions of the ReadPatran 
+Functional Macro, read_patran User Macro, the ReadPatranUI UI Macro, and the 
+example application ReadPatranEg.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+MSC/Patran is a product of MacNeal-Schwendler Corporation.
+</blockquote>
+
+<blockquote>
+The ReadPatranMacs library inherits its process. As this library contains
+no procedural code, the process is not important.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+David Laidlaw, John Stephens, Steve Larkin, Ian Curington
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+
+<a HREF="mailto:ianc@avs.com">ianc@avs.com</a>
+</pre>
+</blockquote>
+
+<blockquote><pre>
+Andrew Dodd
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="doc_mod.html">ReadPatranCore</a>, ReadPatran, ReadPatranUI, 
+ReadPatranParams, neutral_output, ReadPatranEg, Read UCD, Mesh Mappers
+</blockquote>
+
+</body>
+</html>

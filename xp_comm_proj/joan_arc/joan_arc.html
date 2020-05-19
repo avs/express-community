@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta name="Author" content="Ian Curington">
+   <title>JoanArc</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>JoanArc</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Generates a set of sinusoidal polyline arcs connecting arrays of start and end points. The maximum vertical height of each arc is controlled by a third array.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by joan_arc">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>start</i></td>
+<td width="75">float[][3]</td>
+<td width="425">starting coordinates of arcs</td>
+</tr>
+
+<tr>
+<td width="100"><i>end</i></td>
+<td width="75">float[][3]</td>
+<td width="425">ending coordinates of arcs</td>
+</tr>
+
+<tr>
+<td width="100"><i>vert</i></td>
+<td width="75">float[]</td>
+<td width="425">maximum vertical height of arcs</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by joan_arc">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>nseg</i></td>
+<td width="75">int</td>
+<td width="300">Number of segments to use for each arc</td>
+<td width="125"></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by joan_arc">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Polyline Mesh</td>
+<td width="425">Generated arcs</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>This module generates arcs (using a sine function) between two sets of start and end points. These points can be anywhere in 3D space.  Each arc always describes a vertical path, with the height controlled in the Z axis. Three simple floating point arrays are used as input.  These are arrays for the start, end and vertical scale values for each arc.  A segment parameter controls how many steps are made to generate each arc.  The module generates a polyline cell set that contains all the arcs.  This is output both as a Field and as a renderable object.</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>start[n][3]</i></b></blockquote>
+
+<blockquote>
+Floating point array that specifies the starting points for each of the arcs.  The starting coordinates must be specified in 3 dimensions.
+</blockquote>
+
+<blockquote><b><i>end[n][3]</i></b></blockquote>
+
+<blockquote>
+Floating point array that specifies the ending points for each of the arcs.  The ending coordinates must be specified in 3 dimensions and there should be the same number of ending coordinates as there are starting coordinates.
+</blockquote>
+
+<blockquote><b><i>vert[n]</i></b></blockquote>
+
+<blockquote>
+Floating point array that specifies the vertical scaling factor for each of the arcs.  There should be a scaling factor for each pair of staring and ending coordinates.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>nseg</i></b></blockquote>
+
+<blockquote>
+Integer parameter that specifies the number of segments that should be used for each arc.  Each arc must consist of at least 2 segments.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>
+Output field containing polyline cell sets that represent the generated arcs.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the <tt>out_fld</tt> output, suitable for direct connection to a viewer.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The functional macro JoanArcFunc uses the low-level module JoanArcCore.  The user macro joan_arc uses this functional macro and the user interface macro JoanArcUI.  No parameter block is used.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>Two example applications are provided.  The JoanArcEg1 application shows how a series of arcs can be generated from static arrays of start, end and vertical scale values.  The JoanArcEg2 application uses orthoslice modules to generate start, end and scale data from the hydrogen data set.  A Loop module is also included so that the resulting visualization can be animated.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/joan_arc/jarcmods.v</i> contains the V definition of the JoanArcCore module.</p>
+
+<p><i>xp_comm_proj/joan_arc/jarcmacs.v</i> contains the V definitions of the JoanArcUI UI macro, the JoanArcFunc functional macro and the joan_arc user macros.</p>
+
+<p><i>xp_comm_proj/joan_arc/jarcapps.v</i> contains the V definitions of the JoanArcEg1 and JoanArcEg2 example applications.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level JoanArcMods library containing the JoanArcCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>David Goughnnour, Ian Curington</pre>
+
+<pre>Advanced Visual Systems, Inc.</pre>
+</blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd, International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>
+

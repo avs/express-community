@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>FindStringInArray</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>FindStringInArray</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Search for a string within the given array of strings.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>in[]</i></td>
+<td width="125">string array</td>
+<td width="300">input array of strings to be searched</td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>active</i></td>
+<td width="125">integer</td>
+<td width="300">(Currently unused) sets module active/inactive</td>
+</tr>
+
+<tr>
+<td width="125"><i>ignore_whitespace</i></td>
+<td width="125">integer</td>
+<td width="300">sets Ignore Whitespace feature active/inactive</td>
+</tr>
+
+<tr>
+<td width="125"><i>search_string</i></td>
+<td width="125">string</td>
+<td width="300">string to be found in the given string array</td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>out</i></td>
+<td width="125">integer</td>
+<td width="300">output value specifying array element matching search string</td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The FindStringInArray macro searches the given string array for the search string value and returns the array element matching the search string value. The macro also includes a UI Macro to provide a simple interface via a Text box to edit the search string, and Toggle button to enable/disable the Ignore Whitespace feature. The Ignore Whitespace feature is used to ignore whitespace padding at the beginning and end of the search string and array of strings.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+The input string array for the FindStringInArray macro. The C++ function 'update' is used, inside the Functional Macro FindStringInArrayFunc, to search the string array for the given string.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>active</b></i>
+</blockquote>
+
+<blockquote>
+(Currently unused) A member of the paramter block group (params), this integer value is used to activate/de-activate the module.
+</blockquote>
+
+<blockquote>
+<i><b>ignore_whitespace</b></i>
+</blockquote>
+
+<blockquote>
+A member of the parameter block group (params), this integer value is used to enable/disable the Ignore Whitespace feature.
+</blockquote>
+
+<blockquote>
+<i><b>search_string</b></i>
+</blockquote>
+
+<blockquote>
+A member of the parameter block group (params), this string value is used to search the given string array for a matching value.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output value (out) specifies the array index which matches the given search string. This value is unset if the given search string is not found.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro FindStringInArray combines the functional macro FindStringInArrayFunc with the UI macro FindStringInArrayUI. The use of the common parameter block (params) provides a usable macro in the visualization library.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application FindStringInArrayEg is provided.  There is an Input and an Output module attached to the main module.  The input module contains a string array, and a UI module network which displays the list of strings in the array.  The output module contains an integer primitive, and a UI module network which displays the output integer.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/fstrarr/fsa_macs.v</I> contains the Functional Macro FindStringInArrayFunc, the User Macro FindStringInArray, the UI Macro FindStringInArrayUI and the Example Application FindStringEg.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The FindStringInArrayMacs library inherits its process. As this library contains no procedural code, the process is not important.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Jon P. Davies
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+FindStringInArrayCore
+</blockquote>
+
+</body>
+</html>

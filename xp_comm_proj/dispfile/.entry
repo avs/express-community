@@ -1,0 +1,13 @@
+PNUM	P0071
+PNAME	DisplaySplitFilename
+DATE	10th January 2000
+DESC	A module that splits a full filename into path and actual filename.
+AUTHORS	Mark Ward, AVS Inc., Andrew Dodd
+VERSION	1.0
+DIR	dispfile
+TYPE	Misc
+DOC	User Macro;display_split_filename;dispfile.htm
+!IMAGE	
+!MOVIE	
+!PREREQ	
+!NOTE	

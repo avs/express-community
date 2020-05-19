@@ -1,0 +1,32 @@
+Building the AVS/Express MERL project for WindowsNT
+---------------------------------------------------
+
+1) Install the latest VolPro software from Mitsubishi.  By default the setup 
+program will install it in "c:\program files\volpro".  For description 
+purposes, these notes assume will this location.
+
+2) If you installed the VolPro software in a directory other than the default,
+you must edit the link_file property in the Express "V" code to reflect the 
+current VolPro directory.  At the top of "v\merlren.v" update the following
+statements to the current Volpro install location:
+
+  cxx_hdr_files="c:\\progra~1\\VolumePro\\inc\\vli.h",
+  link_files="c:\\progra~1\\VolumePro\\lib\\vli.lib"
+
+3) Set an environmental variable called "XP_ROOT" to the Express install 
+directory (e.g. "c:\Express" ) -or- update the "avsenv" file to reflect 
+the current Express project and install directories.
+
+4) Compile the project.  From the "MERL" project directory type:
+"base -gen_proc express -exit". 
+
+5) Create a new Express executable. From the "MERL" project directory type:
+"make -f express.mk".
+
+6) Run/Test. From the "MERL" project directory type: "bin\pc\express".
+
+   For simple how-to programs load:
+	a) "apps\read_volume.v", 
+     	b) "apps\read_volume_crop.v", 
+	c) "apps\read_volume_crop_slice.v", or
+     	d) "apps\read_volume_cursor.v"

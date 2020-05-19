@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>AntiAlias - downsamples and filters full-color byte images</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>AntiAlias</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The anti_alias macro performs full-color antialias filtering
+and 2:1 size reduction on full colour ARGB byte images.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by anti_alias">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">original image that should be downsampled.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by anti_alias">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_image</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">downsampled and smoothed image.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The anti_alias macro downsamples an image using a Gaussian 3x3 convolution filter. This produces an antialiasing effect, reducing jagged edges. It also produces an output image that is half the size of the input image in each dimension. For instance a 512x512 image becomes a 256x256 image after antialiasing. There are no parameters associated with this module, and hence no user interface.</p>
+
+<p>This module is a conversion of the AVS5 "antialias" module. The module implementation is now in C++. The low-level code operates on simple byte arrays rather than fields.</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>Full colour 2D image that is to be filtered by the module.  The image should be a 2D uniform grid of type Image_ARGB.  The read_image module outputs data of this type.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_image</i></b></blockquote>
+
+<blockquote>Full colour 2D image after filtering by the module.  The modified image also as a type of Image_ARGB.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to the viewer. A 2D viewer is recommended.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The anti_alias macro makes use of the AntiAliasCore low-level module.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The AntiAlias project provides two example applications.  Both of these read and filter the 'mandrill' image.  The AntiAliasEg1 application displays the original and filtered images in the same scene so that the effect of the downsampling can be examined.  The AntiAliasEg2 application displays the original and filtered images in different scenes so that the effect of the filtering can be examined.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/a_alias/ant_mods.v</i> contains the V definition of the AntiAliasCore module.</p>
+
+<p><i>xp_comm_proj/a_alias/ant_macs.v</i> contains the V definitions of the anti_alias user macro and the AntiAliasEg1 and AntiAliasEg2 example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level AntiAliasMods library containing the module does
+not specify a process. By default the <tt>express</tt> process will be
+used.</blockquote>
+
+<h3>
+Authors</h3>
+
+<blockquote><pre>
+Sabreen Vig, Larry Gelberg, Ian Curington
+Advanced Visual Systems, Inc.
+
+Andrew Dodd
+International AVS Centre
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+See the AVS5 antialias module, from which this one is derived.
+</blockquote>
+
+</body>
+</html>
+

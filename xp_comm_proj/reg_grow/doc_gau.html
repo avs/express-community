@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html version="2.0">
+
+<head>
+<title>GenerateGaussianProbs</title>
+</head>
+
+<body bgcolor="#92bfbf">
+
+<h1>GenerateGaussianProbs</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A module that generates a set of probabilities for values, which follow a Guassian distribution curve or the sum of several Guassian distribution curves.
+</blockquote>
+
+<blockquote>
+<hr>
+<pre>
+    module GenerateGuassianProbs {
+       float+IPort2 mean_min;
+       float+IPort2 mean_max;
+       float+IPort2 stddev;
+       int+IPort2   max;
+
+       omethod+notify_inst+req update&lt;src_file="genguas.c"&gt;(
+             mean_min+read+notify+req,
+             mean_max+read+notify+req,
+             stddev+read+notify+req,
+             max+read+notify+req,
+             probs+write
+       ) = "generate_gausian";
+
+       float+OPort2 probs[];
+    };
+</pre>
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The module uses a guassian distribution curve, or the average of several guassian distribution curves, as the basis for allocating probability values to a range of values.  The module can be used in two ways. Firstly a single value can be supplied. This will cause the module to generate the probability curve for that particular value.  Alternatively a range of values can be specified.  This will cause the module to generate a series of probability curves within the specified range and calculate the average of these.  The number of curves generated can altered by changing the N_ITERATION definition in the <tt>genguas.c</tt> file.
+</blockquote>
+
+<blockquote>
+The generated output is intended for use with the <a href="doc_reg.html">Region Growing module</a>.  Due to this the output generated is not particularly flexible.  In particular two points should be noted.  Firstly probability values are only generated for integer values between 0 and the maximum number specified.  Secondly the generated probability values are normalized so that the maximum value is always 1.  These restrictions were necessary for the efficient functioning of the region growing algorithm.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>mean_min</i></b></blockquote>
+
+<blockquote>
+If the module is generating a single guassian distribution this parameter specifies the mean value of the generated distribution.  Alternatively if the module is calculating the average of a range of distributions this parameter specifies the minimum mean of that range of distributions.
+</blockquote>
+
+<blockquote><b><i>mean_max</i></b></blockquote>
+
+<blockquote>
+If this parameter is not specified or is equal to the <tt>mean_min</tt> parameter then the module will generate a single guassian distribution with the mean value specified by <tt>mean_min</tt>.  If this is not the case then this parameter specifies the maximum mean of the range of distributions that is used to calculate an average distribution.
+</blockquote>
+
+<blockquote><b><i>stddev</i></b></blockquote>
+
+<blockquote>
+This parameter specifies the Standard Deviation of the generated guassian distributions.  If a range of distributions is being calculated then the same standard deviation is used for all of them.
+</blockquote>
+
+<blockquote><b><i>max</i></b></blockquote>
+
+<blockquote>
+The maximum integer value to generate a probability value for.  Probability values are generated for all integer values between 0 and this parameter.  This parameter also specifies the size of the output array.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out[]</i></b></blockquote>
+
+<blockquote>
+Floating point array of size <tt>max</tt> that contains the generated probability distribution.  The probability values in this array are normalized so that the maximum value is always 1. 
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level GenerateGaussianProbs module is used in the RegionGrow Functional macro.  This macro is in turn used by the region_grow User macro.  The GenerateGaussianProbs module does not use a dedicated parameter block.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+There is no dedicated example application for the GenerateGaussianProbs module.  However this module is used in both of the Region Growing example applications, RegionGrowEg and AccumulateRegionsEg.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/reg_grow/rg_mods.v</i> contains the V definition of the GenerateGaussianProbs module.  It also contains the definitions of the RegionGrowCore and AccumulateCore modules.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The RegionGrowCore modules uses the probability values calculated by this module as coherance values for the region growing algorithm.  The AccumulateCore module is used separately to composite several grown regions into a single overall field that can be displayed or further processed.
+</blockquote>
+
+<blockquote>
+The low-level RegionGrowMods library containing the module GenerateGaussianProbs does not specify a process. By default the <TT>express</TT> process will be used.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Alex Allen &amp; Joanna Leng.
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL.
+
+Andrew Dodd
+International AVS Centre
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="doc_reg.html">RegionGrowCore</a>,
+<a href="doc_acc.html">AccumulateCore</a>
+</blockquote>
+
+</body>
+</html>
+

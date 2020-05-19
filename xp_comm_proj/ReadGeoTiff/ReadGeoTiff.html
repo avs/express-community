@@ -1,0 +1,305 @@
+<html>
+<head>
+<title>ReadGeoTiff</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ReadGeoTiff</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module is designed to permit the extraction and parsing of the
+"GeoTIFF" Key entries from the TIFF image file.
+</blockquote>
+
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Filename</i></td>
+<td width="75">string</td>
+<td width="300">The filename of the input image.</td>
+<td width="125">FileDialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>InputMode</i></td>
+<td width="75">enum</td>
+<td width="300">The mode of Data input.</td>
+<td width="125">Menu</td>
+</tr>
+
+<tr>
+<td width="100"><i>ChipStartRow</i></td>
+<td width="75">int</td>
+<td width="300">The starting position of clipping in row direction.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>ChipStartColumn</i></td>
+<td width="75">int</td>
+<td width="300">The starting position of clipping in row direction.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>ChipNumberOfRows</i></td>
+<td width="75">int</td>
+<td width="300">The number of rows for clipping.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>ChipNumberOfColumns</i></td>
+<td width="75">int</td>
+<td width="300">The number of columns for clipping.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>ChipSouthLatitude</i></td>
+<td width="75">int</td>
+<td width="300">The latitude of clipping in south.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>ChipNorthLatitude</i></td>
+<td width="75">int</td>
+<td width="300">The latitude of clipping in north.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>ChipWestLongitude</i></td>
+<td width="75">int</td>
+<td width="300">The longitude of clipping in west.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>ChipEastLongitude</i></td>
+<td width="75">int</td>
+<td width="300">The longitude of clipping in east.</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>FileSouthLatitude</i></td>
+<td width="75">int</td>
+<td width="300">The longitude of image boundary in south (read&nbsp;only).</td>
+<td width="125">Field</td>
+</tr>
+<tr>
+<td width="100"><i>FileWestLongitude</i></td>
+<td width="75">int</td>
+<td width="300">The longitude of image boundary in west (read&nbsp;only).</td>
+<td width="125">Field</td>
+</tr>
+<tr>
+<td width="100"><i>FileNorthLatitude</i></td>
+<td width="75">int</td>
+<td width="300">The longitude of image boundary in north (read&nbsp;only).</td>
+<td width="125">Field</td>
+</tr>
+<tr>
+<td width="100"><i>FileEastLongitude</i></td>
+<td width="75">int</td>
+<td width="300">The longitude of image boundary in east (read&nbsp;only).</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>FileLongitudeResolution</i></td>
+<td width="75">int</td>
+<td width="300">The resolution of image file in longitude direction (read&nbsp;only).</td>
+<td width="125">Field</td>
+</tr>
+<tr>
+<td width="100"><i>FileLatitudeResolution</i></td>
+<td width="75">int</td>
+<td width="300">The resolution of image file in latitude direction (read&nbsp;only).</td>
+<td width="125">Field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field of 2D image.</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+ReadGeoTiff is used to extract the "GeoTIFF" key entry from a tiff image file and visualizes the geometrical information by rendering image with different colors to represent different height levels.
+The original tiff image is grey and output image is chromatic. 
+</blockquote>
+
+<blockquote>
+The macro includes a user interface.  The clipping rectangle can be controlled from the user interface panel. The user interface also gives the information about the dimemsion and resolution of geometry.
+</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>ChipStartRow; ChipStartColumn; ChipNumberOfRows; ChipNumberOfColumns</b></i>
+</blockquote>
+
+<blockquote>
+The clipping rectangle defined by these four parameters.
+</blockquote>
+
+<blockquote>
+<i><b>ChipSouthLatitude; ChipNorthLatitude; ChipWestLongitude; ChipEastLongitude</b></i>
+</blockquote>
+
+<blockquote>
+Another way for defining the clipping rectangle.
+</blockquote>
+
+<blockquote>
+<i><b>FileSouthLatitude; FileWestLongitude; FileNorthLatitude; FileEastLongitude</b></i>
+</blockquote>
+
+<blockquote>
+The dimension of image boundary. it is read-only.
+</blockquote>
+
+<blockquote>
+<i><b>FileLongitudeResolution; FileLatitudeResolution</b></i>
+</blockquote>
+
+<blockquote>
+The resolution of geometrical information both in longitude and latitude direction. it is also read-only.
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field of the ReadGeoTiff macro is a 2D field data of colour image.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The output of the ReadGeoTiff macro as a directly renderable object which can be used with the UViewer.
+</blockquote>
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro ReadGeoTiff makes use of the Functional Macro ReadGeoTiffFunc and the UI Macro ReadGeoTiffUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadGeoTiff_Eg is provided, which uses the tiff image file, to display a 2D color image with geometrical information.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/ReadGeoTiff/ReadGeoTiff_mods.v</i> contains the V definitions of the ReadGeoTiffParams parameter block and the ReadGeoTiff module.</p>
+
+<p><i>xp_comm_proj/ReadGeoTiff/ReadGeoTiff_macs.v</i> contains the V definitions of the ReadGeoTiffFunc Functional Macro, the ReadGeoTiffUI User Interface Macro, and the ReadGeoTiff User Macro. </p>
+
+<p><i>xp_comm_proj/ReadGeoTiff/ReadGeoTiff_apps.v</i> contains the V definition of the example application ReadGeoTiff_Eg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+<blockquote>
+<p>
+This module uses a open-source library (LIBTIFF) to read and write the tiff image files. The latest version of libtiff may be found at:
+
+   <a href="ftp://ftp.sgi.com/graphics/tiff">ftp://ftp.sgi.com/graphics/tiff</a>
+   
+and is in compressed tar format. This module use the part of source code of this library to minimize the module size.
+</p>
+<p>
+The library is embedded in the project and is compiled automatically when the project is compiled. Therefore it is necessary to have the complete path of the 
+IAC-directory in the avsenv file. The standard avsenv file is not sufficient for this project as it only has a&nbsp;`.' as project directory.
+</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Niles D. Ritter
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+MA YingLiang
+Manchester Visualization Centre
+</pre></blockquote>
+
+
+</body>
+</html>

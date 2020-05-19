@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:10pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META  HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		 STM:See The Molecule
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="bg1x.jpg">
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+	STM: Design</SPAN>
+</H1>
+<H1 ALIGN="center">Introduction</H1>
+<P>
+The STM codes are  a suite of application codes and AVS modules 
+available to display both geometric structure and electronic 
+properties.   Electronic and geometrical structural information  
+is obtained from either Density Functional Theory (DFT) or 
+Schr&ouml;dinger Theory, using a variety of computational or 
+experimental approaches. 
+</P>
+<P>
+The STM codes are  a suite of <A HREF="STM_xp.html">AVS/Express 
+modules</A> and <A HREF="STM_Cave.html">Immersadesk<SUP>TM</SUP> 
+applications</A>.  STM can display <A HREF="STM_geom.html"> 
+geometric structure</A> and <A HREF="STM_elec.html">electronic 
+properties</A> of molecules and the results of 
+<A HREF="STM_md.html">Molecular Dynamics simulations</A>.
+</P>
+<P>
+A set of functions to read the various file formats are in a library called 
+<B>libSTM</B>.  These library routines pass information from the different 
+files to the STM codes.  
+<UL TYPE="square">
+	<LI>A set of  file reader functions whose names begin with  
+		<I>fgets...</I>. There is a reader for
+		<OL TYPE="i">
+			<LI><A HREF="header.html#pcoord">Plain XYZ Coordinates</A> 
+				called <I>PlainCoord</I>.  Atom types are specified by 
+				the numerical entry in periodic table.
+			<LI><A HREF="header.html#coord">XYZ Coordinates</A> called 
+				<I>coord</I>.  Atom types specified by atomic name as a 
+				 character string.
+			<LI><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP>
+				Cube Files</A> called <I>Cube</I>.
+			<LI><A HREF="header.html#pdb">Brookhaven Protein Data 
+				Bank</A> called <I>pdb</I>.
+			<LI><A HREF="header.html#pgamess">GAMESS Coordinates via a 
+				PERL script</A> called <I>PGamess</I>.
+			<LI><A HREF="header.html#cgamess">GAMESS Plotting Option</A> 
+				called <I>Gamess Cube</I>.
+			<LI><A HREF="header.html#dcar">MSI DCAR</A> called 
+				<I>Dcar</I>.
+			<LI><A HREF="header.html#dmol">DMOL XYZ</A> called 
+				<I>DMOL_XYZ</I>.
+			<LI><A HREF="header.html#esp">Mopac Electrostatic 
+				Potential</A> called <I>Mopac ESP</I>.
+			<LI><A HREF="header.html#mopac_xyz">Mopac coordinates</A> 
+				called <I>Mopac XYZ</I>.
+			<LI><A HREF="header.html#mol2">MOL2</A> called <I>mol2</I>.
+			<LI><A HREF="header.html#mol">MOL</A> called <I>mol</I>.
+			<LI><A HREF="header.html#chem3d">CHEM3D</A> called 
+				<I>Chem3d</I>.
+			<LI><A HREF="header.html#mm3">Molecular Mechanics Code MM3</A> 
+				called <I>mm3</I>.
+		</OL>
+	<LI>Utility functions are also in <B>libSTM</B>:
+		<OL TYPE="i">
+			<LI><B>makebonds</B> - computes distances and checks if 
+				distance is less than the threshold and creates a bond 
+				accordingly.
+			<LI><B>makeatomtype</B> - determines atomic color and 
+				weight from the atom name string.  This string is also 
+				available to display atom names in the AVS/Express 
+				version.
+			<LI><B>makeaminchain  makeatomamin makeatomtyp_prot</B> -
+				make chains of protein residues from pdb file.
+		</OL>
+</UL>
+<H2 ALIGN="center">AVS/Express Module Design</H2>
+<P>
+The AVS/Express modules output data arrays objects and uses the mesh 
+mappers and data mappers to construct AVS Fields from the data array
+objects.  Other array objects, such as the atom name string array object,
+connects to a text glyph module to display atom names.  The user interface 
+is constructed separately and appears when the application is loaded. These 
+modules have been tested on SGI Octane running IRIX 6.5, and on W95 SR2 
+and Windows NT 4.0 SR3 using AVS/Express version 5.0.
+</P>
+<H2 ALIGN="center">Immersadesk Application Design</H2>
+<P>
+Similar to the AVS/Express approach, create data arrays, but these arrays
+connect to OpenGL functions linked to the shared memory controlled by the
+CAVE libraries.  These applications have been developed on an SGI Onyx
+system running IRIX 6.5 with version 2.6 of the CAVE libraries and track 
+daemon.
+</P>
+</BODY>
+</HTML>

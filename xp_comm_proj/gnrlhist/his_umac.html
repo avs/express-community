@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+    <!-- SGI_COMMENT COSMOCREATE -->
+    <!-- SGI_COMMENT VERSION NUMBER="1.0.1" -->
+    <TITLE>general_histogram</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>
+general_histogram</H1>
+<H3>
+Synopsis</H3>
+<BLOCKQUOTE>
+Calculates the data for a histogram of the values in the node data of 
+the input field.</BLOCKQUOTE>
+<BLOCKQUOTE>
+Also generate the mean and standard deviation of those values.</BLOCKQUOTE>
+<H4>
+Input Ports</H4>
+<BLOCKQUOTE>
+<TABLE BORDER="0">
+    <TR>
+        <TD WIDTH="125">in</TD>
+        <TD WIDTH="125">Mesh + Node_Data</TD>
+        <TD WIDTH="300">input field</TD>
+    </TR>
+</TABLE>
+</BLOCKQUOTE>
+<H4>
+Parameters</H4>
+<BLOCKQUOTE>
+<TABLE>
+    <TR>
+        <TD WIDTH="125">ignore_min</TD>
+        <TD WIDTH="125">prim</TD>
+        <TD WIDTH="300">Lower bound of values not to ignore.</TD>
+    </TR>
+    <TR>
+        <TD>ignore_max</TD>
+        <TD>prim</TD>
+        <TD>Upper bound of values not to ignore</TD>
+    </TR>
+    <TR>
+        <TD>keep_range</TD>
+        <TD>int</TD>
+        <TD>Toggle whether or not to see whole range.</TD>
+    </TR>
+    <TR>
+        <TD>nbins</TD>
+        <TD>int</TD>
+        <TD>Number of ranges to use (real data only).</TD>
+    </TR>
+</TABLE>
+</BLOCKQUOTE>
+<H4>
+Output Ports</H4>
+<BLOCKQUOTE>
+<TABLE>
+    <TR>
+        <TD WIDTH="125">bin_freq</TD>
+        <TD WIDTH="125">int[]</TD>
+        <TD WIDTH="300">Array of frequencies</TD>
+    </TR>
+    <TR>
+        <TD>bin_val</TD>
+        <TD>prim[]</TD>
+        <TD>Array of labels of the frequencies</TD>
+    </TR>
+    <TR>
+        <TD>mean</TD>
+        <TD>double</TD>
+        <TD>Mean of values in input data</TD>
+    </TR>
+    <TR>
+        <TD>std_deviation</TD>
+        <TD>double</TD>
+        <TD>Standard Deviation of values in input data</TD>
+    </TR>
+</TABLE>
+</BLOCKQUOTE>
+<H3>
+Description</H3>
+<BLOCKQUOTE>
+Calculates the frequency of each individual value between two bounds in 
+the node data.</BLOCKQUOTE>
+<BLOCKQUOTE>
+For real data, it is obviously impossible to calculate frequencies for 
+each individual value so instead the values are mapped to a set of 
+ranges and frequencies calulated for each to those ranges.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The bounds between which frequencies of values are calculated can 
+either be supplied as parameters to the module or, if they are not 
+suppied, are set to be the maximum and minimum values in the node_data.</BLOCKQUOTE>
+<BLOCKQUOTE>
+Where the data is mapped to ranges (ie for real data) all ranges are of 
+equal size and the number of ranges (and hence to size of each range) 
+can be entered as a parameter. If no value is supplied, the default 
+number of 256 is used instead.</BLOCKQUOTE>
+<BLOCKQUOTE>
+When bounds are supplied, output frequencies can either be supplied for 
+the full range of data values (in which case frequencies of values 
+outside the bounds are set to zero) or can just be supplied for the 
+range of frequencies between the bounds.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The output consists of an array of integers which are the frequencies 
+and an array of primatives (which is set to the type of in input 
+node_data) which is a set of labels for the frequency values.</BLOCKQUOTE>
+<BLOCKQUOTE>
+Where the input data is integer data (Byte, Short or Integer) the value 
+of the label is that of the corresponding frequency. Where the input 
+data is real data (Float or Double) the value of the lable is the mean 
+of all the values in the node_data that are in the labels corresponding 
+range. This ensures that mean of all the node_data (between the bounds) 
+can be correctly calculated from the frequencies and labels.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The mean and standard deviation are calculated from the frequency and 
+label value.</BLOCKQUOTE>
+<BLOCKQUOTE>
+The module works for Byte, Short, Integer, Float and Double datatypes.</BLOCKQUOTE>
+<H3>
+Input Ports</H3>
+<BLOCKQUOTE>
+<B><I>in</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+An AVS field containing node data. </BLOCKQUOTE>
+<H3>
+Parameters</H3>
+<BLOCKQUOTE>
+<B><I>ignore_min</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+ The lower bound (below which values will be ignored) of type 
+primative. Can be left unset. Must be of same type as ignore_max.</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>ignore_max</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+The upper bound (above which values will be ignored) of type primative. 
+Can be left unset. Must be of same type as ignore_min.</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>nbins</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+The number to ranges to the data values to be divided into. Only used 
+when node_data is of type real.</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>keep_range</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+A toggle which represents either to output frequencies for the full 
+range of data, or just those value between the ignore_min &amp; 
+ignore_max bounds.</BLOCKQUOTE>
+<H3>
+Output Ports</H3>
+<BLOCKQUOTE>
+<B><I>binval[]</I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Array of type primative which holds the labels to the frequency values</BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>binfreq[]</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>
+Integer array holding the frequencies generated. </BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>mean</I></B> </BLOCKQUOTE>
+<BLOCKQUOTE>
+Double precision floating point values, holding the mean of the input 
+data. </BLOCKQUOTE>
+<BLOCKQUOTE>
+<B><I>std_deviation </I></B></BLOCKQUOTE>
+<BLOCKQUOTE>
+Double precision floating point values, holding the standard deviation 
+of the input data.</BLOCKQUOTE>
+<H3>
+Utility Macros</H3>
+<BLOCKQUOTE>
+The User Macro general_histogram combines the Functional Macro 
+GeneralHistogram with the UI Macro GeneralHistogramUI, via the use of 
+the common parameter block  GeneralHistogramParams, to provide a usable 
+macro in the visualization library. </BLOCKQUOTE>
+<H3>
+Example</H3>
+<BLOCKQUOTE>
+An example application GeneralHistogramEg is provided which uses the 
+generalgraph module to display the histogram generated from the 
+AVS/Express sample data file, lobstr.fld.</BLOCKQUOTE>
+<H3>
+Files</H3>
+<BLOCKQUOTE>
+<I>xp_comm_proj/gnrlhist/his_macs.v</I> contains the Functional Macro 
+GeneralHistogram, the User Macro general_histogram, the UI Macro 
+GeneralHistogramUI and the Example Application GeneralHistogramEg.</BLOCKQUOTE>
+<H3>
+Author</H3>
+<BLOCKQUOTE>
+<PRE>
+Alex Allen.
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE>
+</BLOCKQUOTE>
+<H3>
+See Also</H3>
+<BLOCKQUOTE>
+<a href="his_mod.html">GeneralHistogramNodeData</a>, GeneralHistogramParams, <a href="stat_mod.html">GenerateStats</a>, 
+GeneralHistogram and GeneralHistogramUI.</BLOCKQUOTE>
+<BLOCKQUOTE>
+</BLOCKQUOTE>
+</BODY>
+</HTML>

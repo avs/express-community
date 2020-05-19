@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+   <title>Multiplexer</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Multiplexer</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A multiplexer for integer numbers.  Uses an input number to trigger a single output port.
+</blockquote>
+
+<blockquote>
+<hr><pre>
+module Multiplexer&lt;src_file="Multiplexer.c"&gt; {
+   int+IPort2 Inval;
+
+   omethod+req Multiplex(
+      Inval+read+notify+req,
+      Out1+write,
+      Out2+write,
+      Out3+write,
+      Out4+write,
+      Out5+write,
+      Out6+write,
+      Out7+write,
+      Out9+write,
+      Out10+write
+   ) = "Multiplex";
+
+   int+OPort2 Out1;
+   int+OPort2 Out2;
+   int+OPort2 Out3;
+   int+OPort2 Out4;
+   int+OPort2 Out5;
+   int+OPort2 Out6;
+   int+OPort2 Out7;
+   int+OPort2 Out8;
+   int+OPort2 Out9;
+   int+OPort2 Out10;
+};
+</pre><hr>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This simple module is used to trigger one of its output ports whenever it receives something on its input port.  If an integer &lt;<i>num</i>&gt; between 1 and 10 arrives at <code>Inval</code>, it is passed to the output Port <code>Out&lt;<i>num</i>&gt;</code>.</p>
+
+<p>This module is particularly important within the Visit interface project because it allows the IDs output by the <a href="doc_umacServer.html">visitserver</a> macro to trigger the appropriate reader or writer modules. If your application requires more than 10 IDs you can use multiple <code>Multiplexer</code> modules and specify the connection to the <code>VisitServer</code> with <code>'Trigger - 10'</code> (or similar).  The <code>Multiplexer</code> will then act on trigger values 11 to 20.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>Inval</i></b></blockquote>
+
+<blockquote>This integer input port gives the index number which indicates which output port should be activated.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>Out1 ... Out10</i></b></blockquote>
+
+<blockquote>Depending on the value of the input port <code>Inval</code> one of these output ports will be activated.</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>The low-level Multiplexer module is used in the Functional Macro multiplexer.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>Examples of the use of this module can be found in the VisitSimpleEg and VisitGoLEg example applications.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/visit/visit_mods.v</i> contains the V definition of the Multiplexer module.</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>By default the low-level library visit_mods, which needs to be compiled, has the process set to express.  Therefore express must not be running while this project is compiled.</p>
+
+<p>Before the Visit project can be compiled the VISIT library must be installed, configured and compiled.  For full instructions please see the <a href="http://www.fz-juelich.de/zam/visit">VISIT</a> library web-site.</p>
+
+<p>The Visit IAC project assumes that the VISIT library has been installed into the default directory i.e.</p>
+
+<p><code>/usr/local/visit/</code></p>
+
+<p>If this is not the case then the references to that directory in the visit_mods.v file will have to be modified.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Wolfgang Frings
+Central Institute for Applied Mathematics
+Research Center Juelich
+D-52425 Juelich
+Germany
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umacServer.html">visitserver</a> user macro.</li>
+<li><a href="doc_umacReader.html">visitreader</a> user macro.</li>
+<li><a href="doc_umacWriter.html">visitwriter</a> user macro.</li>
+<li><a href="doc_umacMulti.html">multiplexer</a> user macro.</li>
+<li><a href="doc_modServer.html">VisitServer</a> module.</li>
+<li><a href="doc_modReader.html">VisitReader</a> module.</li>
+<li><a href="doc_modWriter.html">VisitWriter</a> module.</li>
+<li><a href="http://www.fz-juelich.de/zam/visit">VISIT</a> library web-site.</li>
+</ul>
+
+</body>
+</html>
+

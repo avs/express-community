@@ -1,0 +1,285 @@
+<html>
+<head>
+<title>print_field</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>print_field</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+Dump extensive information about the contents of the input Field to an HTML file, and write a simple summary to a string output (user interface parameter.)
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">Mesh+ Node_Data</td>
+<td width="425">input field for print_field to dump contents</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block PrintFieldParams, which are accessed by the module PrintField and the UI Macro PrintFieldUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</font>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">output HTML filename</td>
+<td width="125">PrintField File Name</td>
+</tr>
+
+<tr>
+<td width="100"><i>gridout</i></td>
+<td width="75">int</td>
+<td width="300">toggle grid information in the output file</td>
+<td width="125">Grid Data</td>
+</tr>
+
+<tr>
+<td width="100"><i>cellout</i></td>
+<td width="75">int</td>
+<td width="300">toggle cell information in the output file</td>
+<td width="125">Cell Data</td>
+</tr>
+
+<tr>
+<td width="100"><i>xformout</i></td>
+<td width="75">int</td>
+<td width="300">toggle xform information in the output file</td>
+<td width="125">Xform Data</td>
+</tr>
+
+<tr>
+<td width="100"><i>nodesout</i></td>
+<td width="75">int</td>
+<td width="300">toggle node information in the output file</td>
+<td width="125">Nodes Data</td>
+</tr>
+
+<tr>
+<td width="100"><i>htmlout</i></td>
+<td width="75">int</td>
+<td width="300">toggle HTML formatting in the output file</td>
+<td width="125">Print HTML File</td>
+</tr>
+
+<tr>
+<td width="100"><i>allout</i></td>
+<td width="75">int</td>
+<td width="300">toggle points array information in the output file</td>
+<td width="125">Print All Point</td>
+</tr>
+
+<tr>
+<td width="100"><i>trigger</i></td>
+<td width="75">int</td>
+<td width="300">trigger the start of printing</td>
+<td width="125">Click to Start Printing</td>
+</tr>
+
+<tr>
+<td width="100"><i>message</i></td>
+<td width="75">string</td>
+<td width="300">status message about printing</td>
+<td width="125">Printing Status</td>
+</tr>
+
+<tr>
+<td width="100"><i>notes</i></td>
+<td width="75">string</td>
+<td width="300">summary information about field</td>
+<td width="125">Node/Cell Data Attributes</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+PrintField accepts any type of Field for input and dumps extensive selectable information about the Grid, Cell, Node, Xform and Point data to a plain text or HTML formatted file. Additionally a summary of the information is written to a string parameter, which is displayed by the UI macro.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to a field containing Mesh+Node_Data.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+Contains the filename and path of the HTML file to write the contents of the field to.
+</blockquote>
+
+<blockquote>
+<i><b>gridout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if the Grid information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>cellout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if the Cell information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>xformout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if the Xform information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>nodesout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if the Nodes information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>allout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if all the Point information in the field should be included in the HTML file dump.
+</blockquote>
+
+<blockquote>
+<i><b>htmlout</b></i>
+</blockquote>
+
+<blockquote>
+Toggle to select if output contains HTML formatting. If turned off, the file only contains a purely textual dump of the same information.
+</blockquote>
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+Used to trigger the actual printing (dumping) of the information to the selected file.
+</blockquote>
+
+<blockquote>
+<i><b>message</b></i>
+</blockquote>
+
+<blockquote>
+Used to hold status of the printing.
+</blockquote>
+
+<blockquote>
+<i><b>notes</b></i>
+</blockquote>
+
+<blockquote>
+When HTML file is dumped, this multi-line string is filled with a simple summary of the field contents.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level PrintField module is used in this User Macro print_field. Note that there is no Functional Macro. Additionally, this User Macro also uses the PrintFieldParams parameter block group object, as does the PrintFieldUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application PrintFieldEg is provided, which uses the AVS/Express sample data file hydrogen.fld, to display or dump the contents of that field.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/printfld/pfldmacs.v</i> contains the print_field User Macro, the PrintFieldUI UI Macro, and the example application PrintFieldEg V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The Print_FieldMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level PrintField module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<blockquote>
+Note that if "Print All Point" is selected then the output file may become very large!
+</blockquote>
+
+<blockquote>
+The filename specified as the output HTML file may only be written to once; any attempt to do so will result in an error message in the error dialog window.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Phil Chen
+Connie Farb
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+PrintFieldParams, PrintFieldUI and PrintField.
+</blockquote>
+
+<blockquote>
+print_field in AVS/Express version 3.4.
+</blockquote>
+
+</body>
+</html>

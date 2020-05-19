@@ -1,0 +1,187 @@
+<html>
+<head>
+<title>View3DMinimal, View2DMinimal, ViewMinimal</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>View3DMinimal, View2DMinimal, ViewMinimal</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+</blockquote>
+Produces a rendered view that must be connected to a UIShell, UIframe or UIpanel to make it visible. The view is not interactive but will always Reset, Normalize and Centre any new object.
+<blockquote>
+<h4>Input Ports</h4>
+
+<h5>For the "View3DMinimal"</h5>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>Top</i></td>
+<td width="75">child_obj</td>
+<td width="425">a renderable 3D object</td>
+</tr>
+
+<tr>
+<td width="100"><i>parent</i></td>
+<td width="85">UIconnection</td>
+<td width="425">connects the rendered view to a UI object so it can be displayed.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h5>For the "View2DMinimal"</h5>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>Top</i></td>
+<td width="75">child_obj</td>
+<td width="425">a renderable 2D object</td>
+</tr>
+
+<tr>
+<td width="100"><i>parent</i></td>
+<td width="85">UIconnection</td>
+<td width="425">connects the rendered view to a UI object so it can be displayed.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h5>For the "View2DMinimal"</h5>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>Top</i></td>
+<td width="75">child_obj</td>
+<td width="425">a renderable 3D object</td>
+</tr>
+
+<tr>
+<td width="100"><i>Top2D</i></td>
+<td width="75">child_obj</td>
+<td width="425">a renderable 2D object</td>
+</tr>
+
+<tr>
+<td width="100"><i>parent</i></td>
+<td width="85">UIconnection</td>
+<td width="425">connects the rendered view to a UI object so it can be displayed.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>Reducing the object count of an application is the thing most likely to speed up the loading and running of an application. This is one of a library of utility macros designed to reduce the object count.</p> 
+
+<p>These are all AVS/Express macros which as such require no compilation. Most applications are produced with AVS/Express Developers Edition and these macros also require  AVS/Express Developers Edition. They contain no UI so that the developer has as much freedom as possible.</p>
+
+
+
+<p>Any Viewer has a high object count because it has a high level of functionality. If the functionality is reduced to the minimum requirement then the object count is kept as low as possible. This is a minimal viewer that just displays the rendered object with no interactivity. The settings of the viewer may be customised by hand before it is used.</p>
+
+<p>The size of the scene is altered by altering the values width and height in the subobject UIrenderView, this can be done with absolute values or relative values written in v.</p>
+  
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>As above</b></i>
+</blockquote>
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+This macro can be connected into the AVS/Express standard macros DataObject, DataObjectNoTexture and DataObjectLite as well as the other altered DataObject given in this utility library. 
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>An example application EgViewLite is provided, which shows a minimal viewer being used to show orthoslices (with a HotMetal Datamap) which are also being manipulated in other views.</p> 
+
+<p>This example also demonstrates the use of DataObjects altered to have a set  Datamap and how ViewersLite can be used.</p>
+ 
+</blockquote>
+
+<h3>Files</h3>
+<blockquote>
+<i>xp_comm_proj/viewlite/vl_macs.v</i> contains all of the minimal viewers
+(View3DMinimal, View2DMinimal, ViewMinimal) as well as all the DataObject macros (eg DO_GreyScale), DO_Dmap_Switch, DO_NT_Dmap_Switch, DO_LITE_Dmap_Switch, View3D_TrackObj, View3D_TrackAll3, View2D_TrackObj, View2D_TrackAll3, View_TrackObj, View_TrackAll3 and an example EgViewLite.  
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The macros can be acessed through the XP_COMM_PROJ library in the Templates library or through one of four libraries DataObjects_apps, Views3DLite, Views2DLite and UViewsLite all of which are in the Misc sub-library IAC library area.</p>
+
+<p>The example EgViewLite can also be acessed through the IAC library but is located in the Examples sub-library.</P>  
+
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+J Leng
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+DataObject, the DataObjects "DO_", "DO_NT_" and "DO_LITE_", the DataObjects "_Dmap_Switch", and the viewers  lite 3D, 2D and Universal "Minimal", "_TrackObj" and "_TrackAll3".
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+</body>
+</html>

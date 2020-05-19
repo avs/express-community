@@ -1,0 +1,243 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta name="Author" content="Ian Curington">
+   <title>read_6DOF &amp; sequence_6DOF trajectory animation modules</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>read_6DOF, sequence_6DOF</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>read_6DOF reads a 6-degree-of-freedom (6DOF) trajectory
+file and outputs 6 arrays of data.  sequence_6DOF animates the motion of an object along the path represented by that data.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by read_6dof &amp; sequence_6dof">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="350"><font size="-1"><b>Description</b></font></td>
+<td width="100"><font size="-1"><b>Module</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_xform</i></td>
+<td width="75">Xform</td>
+<td width="350">Transformation that is to be altered.</td>
+<td width="100">sequence_6DOF</td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="350">Name of 6DOF file to read.</td>
+<td width="100">both</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<p>The sequence_6DOF macro uses the loop module internally.  Please see the AVS/Express documentation for a full description of the parameters of the loop module.  The read_6DOF macro does not use any parameters.</p>
+
+<table summary="Parameters used by sequence_6DOF">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="100"><font size="-1"><b>Module</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>scale</i></td>
+<td width="75">float</td>
+<td width="300">Specifies the transform scaling factor.</td>
+<td width="100">sequence_6DOF</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_6DOF">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="350"><font size="-1"><b>Description</b></font></td>
+<td width="100"><font size="-1"><b>Module</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>x_comp</i></td>
+<td width="75">float[]</td>
+<td width="350">X component of the trajectory translation.</td>
+<td width="100">read_6dof</td>
+</tr>
+
+<tr>
+<td width="100"><i>y_comp</i></td>
+<td width="75">float[]</td>
+<td width="350">Y component of the trajectory translation.</td>
+<td width="100">read_6dof</td>
+</tr>
+
+<tr>
+<td width="100"><i>z_comp</i></td>
+<td width="75">float[]</td>
+<td width="350">Z component of the trajectory translation.</td>
+<td width="100">read_6dof</td>
+</tr>
+
+<tr>
+<td width="100"><i>pitch</i></td>
+<td width="75">float[]</td>
+<td width="350">pitch component of the trajectory rotation.</td>
+<td width="100">read_6dof</td>
+</tr>
+
+<tr>
+<td width="100"><i>roll</i></td>
+<td width="75">float[]</td>
+<td width="350">roll component of the trajectory rotation.</td>
+<td width="100">read_6dof</td>
+</tr>
+
+<tr>
+<td width="100"><i>yaw</i></td>
+<td width="75">float[]</td>
+<td width="350">yaw component of the trajectory rotation.</td>
+<td width="100">read_6dof</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The two user macros in the Read6DOF project are used to read a trajectory data file and animate an object along that trajectory.</p>  
+
+<p>The <b>read_6DOF</b> macro is used to read a 6-channel ASCII file that contains position and rotation values for an object over a number of time steps.  The format of the ASCII file is straightforward.  It contains 6 columns of data which are separated by tab characters.  The columns of data represent:</p>
+
+<ol>
+<li>X translation</li>
+<li>Y translation</li>
+<li>Z translation</li>
+<li>Pitch</li>
+<li>Roll</li>
+<li>Yaw</li>
+</ol>
+
+<p>The <b>sequence_6DOF</b> macro extends the functionality of the read_6DOF of macro by modifying a transform matrix that is being used to control an object.  It also allows the time steps contained in the trajectory data to be looped through.  The macro does this by using the read_6DOF macro, the GD_xform_edit module and the loop module.  The read_6DOF macro reads in a trajectory data file.  The GD_xform_edit module generates a transform matrix from a single time step of the trajectory data and the loop module cycles through the time steps contained in the data.</p>
+
+<p>The transform matrix that is modified of the sequence_6DOF macro can be found by exporting the Xform block from any standard module (i.e. Read_Geom) or DataObject.  The example application shows how this can be done.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_xform</i></b></blockquote>
+
+<blockquote>The transform matrix that is to be modified by the sequence_6DOF macro.</blockquote>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>This string input specifies the name of the file containing the 6DOF data.  Standard AVS/Express environment variables can be used.  Both of the user macros provide this input.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>scale</i></b></blockquote>
+
+<blockquote>Floating point parameter that specifies the scaling factor that is to be applied to the modified transformation.</blockquote>
+
+<blockquote><b><i>Loop Controls</i></b></blockquote>
+
+<blockquote>The sequence_6DOF macro uses the standard loop module to cycle through the trajectory data.  Please see the AVS/Express documentation for a full description of the parameters of the loop module.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>x_comp[] y_comp[] z_comp[]</i></b></blockquote>
+
+<blockquote>Floating point arrays that contain the X, Y and Z translations for each time step in the trajectory data.  These can be directly input into the GD_xform_edit module to generate a standard Xform block that can be used to transform field data or geometry.</blockquote>
+
+<blockquote><b><i>pitch[] roll[] yaw[]</i></b></blockquote>
+
+<blockquote>Floating point arrays that contain the pitch, roll and yaw rotations for each time step in the trajectory data.  These can be directly input into the GD_xform_edit module to generate a standard Xform block that can be used to transform field data or geometry.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The read_6DOF macro uses the Read_6DOF_UI user interface macro.  The sequence_6DOF macro uses the read_6DOF macro.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The Read_6DOF_Eg example application reads in the standard Teapot geometry and animates it through a flight path specified by the trajectory contained in the "6dof.dat" data file.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_6dof/6dofmacs.v</i> contains the V definitions of the Read_6DOF_UI UI macro, the read_6DOF and sequence_6DOF user macros and the Read_6DOF_Eg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>This reader does not use external C or C++ code.  It uses the FILE object to read the data file directly from V code.  The cache() function is used so that data persists in memory and does not have to be reloaded.  This project provides a good example that could be used for developing other FILE object based readers.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Leigh Grundy, Ian Curington
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+International AVS Centre
+</pre></blockquote>
+
+
+</body>
+</html>
+

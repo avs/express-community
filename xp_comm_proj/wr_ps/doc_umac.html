@@ -1,0 +1,136 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>writePostscript</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>writePostscript</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Writes the contents of a 2D image field, to a raster color
+postscript file format.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>image_in</i></td>
+<td width="75">Image+ARGB</td>
+<td width="425">image to be written to PS file</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The writePostscript module takes an image field, and writes
+an ASCII raster color postscript file suitable for printing. The file to
+be written can be selected through a user interface. This is different
+from the vector postscript module (Output VPS) in that it only writes
+a raster pixel oriented version of the picture to a file, without polygon
+and line edge information. Using the Output Field module connected to a
+viewer, an image of any size can be created. This image could be larger than
+screen resolution if needed.
+</blockquote>
+
+<blockquote>
+This module can be more flexible that the Output VPS module as it only deals with the writing of an image to a file.  The conversion of the scene or data source into an image is performed by other modules.  Hence this module can output a more varied selection of images.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<b><i>&amp;image_in</i></b>
+</blockquote>
+
+<blockquote>
+Reference to a Image+ARGB input containing the image that should be written to the colour postscript file.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<b><i>(none)</i></b>
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro writePostscript uses the low-level macro WritePsCore. It also makes use of the WritePsUI UI macro.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application WritePostscriptEg is provided, which loads a geometry file and allows that data to be manipulated and the resultant image to be written to a colour postscript file.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/wr_ps/wrpsmacs.v</i> contains the writePostscript User Macro,
+the WritePsUI UI Macro, and the example application WritePostscriptEg V definitions.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The WritePsMacs library inherits its process. As this library contains
+no procedural code, the process is not important.
+</blockquote>
+
+<blockquote>
+The best way to use this module is to output data in both VPS and colour Postscript forms and compare results. The format that that gives the best picture or smallest file size can then be choosen. The results that will be achieved will depend on the contents of your scene.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<pre>
+Ian Curington
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+</pre>
+
+<pre><a HREF="mailto:ianc@avs.com">ianc@avs.com</a></pre>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+writePostscript, WritePsUI, WritePostscriptEg, Output VPS, Output Field, Write Image
+</blockquote>
+
+</body>
+</html>

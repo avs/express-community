@@ -1,0 +1,247 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:10pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META  HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		 STM:See The Molecule
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="bg1x.jpg">
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+	<A NAME="geom">STM Express Modules</A></SPAN>
+</H1>
+<H1 ALIGN="center">
+	<A NAME="geom">Introduction</A>
+</H1>
+<P>
+The STM codes are a suite of application codes and AVS modules 
+to display both geometric structure and electronic properties.   
+Electronic and geometrical structural information  is obtained 
+from either Density Functional Theory (DFT) or Schr&ouml;dinger 
+Theory, using a variety of computational or experimental 
+approaches.  For more information see the original
+<A HREF="STM_AVS97.html">paper</A> presented at the AVS97 User
+meeting.
+</P>
+<H1 ALIGN="center">
+	<A NAME="geom">Geometric Structure</A>
+</H1>
+<P>
+Geometric structures are read from data files which contain either 
+experimental or computed structure information.  The STM codes can 
+read structural information from:
+</P>
+<OL TYPE="i">
+	<LI><A HREF="header.html#pcoord">Plain XYZ Coordinates</A> called 
+		<I>PlainCoord</I>.  Atom types specified by numerical entry in 
+		periodic table.
+	<LI><A HREF="header.html#coord">XYZ Coordinates</A> called 
+		<I>coord</I>.  Atom types specified by atomic name as a 
+		 character string.
+	<LI><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> Cube 
+		Files</A> called <I>Cube</I>.
+	<LI><A HREF="header.html#pdb">Brookhaven Protein Data Bank</A> 
+		called <I>pdb</I>.
+	<LI><A HREF="header.html#pgamess">GAMESS Coordinates via a 
+		PERL script</A> called <I>PGamess</I>.
+	<LI><A HREF="header.html#cgamess">GAMESS Plotting Option</A> 
+		called <I>Gamess Cube</I>.
+	<LI><A HREF="header.html#dcar">MSI DCAR</A> called <I>Dcar</I>.
+	<LI><A HREF="header.html#dmol">DMOL XYZ</A> called <I>DMOL_XYZ</I>.
+	<LI><A HREF="header.html#esp">Mopac Electrostatic Potential</A> 
+		called <I>Mopac ESP</I>.
+	<LI><A HREF="header.html#mopac_xyz">Mopac coordinates</A> called 
+		<I>Mopac XYZ</I>.
+	<LI><A HREF="header.html#mol2">MOL2</A> called <I>mol2</I>.
+	<LI><A HREF="header.html#mol">MOL</A> called <I>mol</I>.
+	<LI><A HREF="header.html#chem3d">CHEM3D</A> called <I>Chem3d</I>.
+	<LI><A HREF="header.html#mm3">Molecular Mechanics Code MM3</A> 
+		called <I>mm3</I>.
+</OL>
+<P>
+The geometric structure reader is called <CODE><B>mol_c</B></CODE>
+<IMG ALIGN="middle" ALT="Module MOL_C" SRC="molcModule.jpg">.  The User
+Interface for this module is in two parts:
+</P>
+<TABLE ALIGN="center" BORDER="0">
+<TR>
+	<TD VALIGN="center">
+		<IMG ALT="XP Mol C UI" SRC="MolUI.jpg">
+	</TD><TD>
+		<P>INPUT - The parameters that controls how the data is read. 
+		<OL>
+			<LI><B>Pause</B> the display.  This pauses the module from 
+				processing and allows the user to set the input correctly 
+				(<B>Select File Type</B> and <B>Units</B>).
+			<LI>Select the type of file to read.
+			<LI>Select a value for the type of units. 
+				<SPAN STYLE="NOTE">Note that for some displays
+				the default atom-atom bond or hydrogen-atom bond values 
+				are not correct.  Sliders <B>Set Bond Scale Factor</B> 
+				and <B>Set Hydrogen Bond Scale Factor</B> allow for scaling
+				the display.</SPAN>
+			<LI>Select a file to read.
+			<LI>Uncheck the <B>Pause</B>.
+				<BR>
+				<SPAN STYLE="NOTE">Note, when initially starting the 
+				application, you may also have to press the start button.
+				This is due to how AVS/Express will save the application.
+				</SPAN>
+		</OL>
+		<P>OUTPUT
+		<OL>
+			<LI>Select the type of display.  
+				The display options are:
+			<OL TYPE="i">
+				<LI>Select to <B>show</B> or <B>hide</B> the hydrogen atoms.
+				<LI>The <B>Set Sphere Size</B> type-in allows the user to 
+					scale the size of the atom spheres.
+				<LI><B>ball and stick</B> display spheres connected by single 
+					lines.  The bonds are determined by two atoms being close 
+					(within a cutoff) specified in the module.  The atoms are 
+					colored by type.
+				<LI><B>cpk</B> also known as space-filling model.  The radii 
+					of the atoms are the van der Waals radii also specified 
+					in the module.  
+				<LI><B>colored stick</B> is also just the bond structure 
+					colored by atom type.
+				<LI><B>colored residue</B> is a residue based display, and 
+					each residue is colored differently.
+			</OL>
+		</OL>
+	</TD>
+</TR>
+</TABLE>
+<P>
+A partial list of the atom type colors.
+<P>
+<TABLE ALIGN="center" BORDER="5" CELLSPACING="2">
+<TR>
+	<TD VALIGN="center" ALIGN="center">
+		<SPAN STYLE="color:darkblue;">
+		Atom Type</SPAN><BR>&nbsp;
+	</TD><TD VALIGN="center" ALIGN="center">
+		<SPAN STYLE="color:darkblue;">
+		Color</FONT><BR>&nbsp;
+	</TD>
+</TR><TR>
+	<TD ALIGN="center" BGCOLOR="white">Hydrogen</TD>
+	<TD ALIGN="center" BGCOLOR="white">White</TD>
+</TR><TR>
+	<TD ALIGN="center" BGCOLOR="green">Carbon</TD>
+	<TD ALIGN="center" BGCOLOR="green">Green</TD>
+</TR> <TR>
+	<TD ALIGN="center" BGCOLOR="red">Oxygen</TD>
+	<TD ALIGN="center" BGCOLOR="red">Red</TD>
+</TR><TR>
+	<TD ALIGN="center" BGCOLOR="yellow">Sulfur</TD>
+	<TD ALIGN="center" BGCOLOR="yellow">Yellow</TD>
+</TR><TR>
+	<TD ALIGN="center" BGCOLOR="blue"><B>Nitrogen</B></TD>
+	<TD ALIGN="center" BGCOLOR="blue"><B>Blue</B></TD>
+</TR><TR>
+	<TD ALIGN="center" BGCOLOR="silver">Heavy Atoms</TD>
+	<TD ALIGN="center" BGCOLOR="silver">Gray or purple</TD>
+</TR>
+</TABLE>
+<P>
+An example network using <CODE><B>mol_c</B></CODE> is shown below.  
+The main connection for <CODE><B>mol_c</B></CODE> is to the  
+<CODE><B>SingleWindowApp</B></CODE> UViewer3D module.
+<DIV ALIGN="center">
+	<IMG ALIGN="middle" HSPACE="10" ALT="MolDisplay1.gif" SRC="MolDisplayNet1.gif">
+	<IMG ALIGN="middle" ALT="MolDisplay2.gif" SRC="MolDisplaynet2.gif">
+	<BR><BR>
+	<IMG ALIGN="middle" ALT="view.jpg" SRC="caffine_title.jpg">
+</DIV>
+
+<H1 ALIGN="center">
+	<A NAME="elec">Electronic Structure</A>
+</H1>
+<P>
+The STM AVS Express modules will read data from either the Gaussian 
+Cube Option or a plot file from GAMESS.  Electron densities are obtained 
+from Density Functional Theory (DFT) via the Kohn-Sham (KS) orbital-density 
+equations or from wave function functional via the Schr&ouml;dinger equation.
+<UL TYPE="disk">
+	<LI>Input of the data into <B>AVS Express</B> is accomplished using 
+			different input data readers which were specifically designed to 
+			read data from Gamess 
+			<IMG ALT="Read Gamess Cube Module" SRC="readCGModule.jpg">
+			or Gaussian CUBE files
+			<IMG ALT="Read G94 Cube module" SRC="readCubeModule.jpg">
+	<LI>Combining these modules with the reader 
+			<B>mol_c</B>
+			<IMG ALIGN="middle" ALT="Module MOL_C" SRC="molcModule.jpg"> 
+			and <B>AVS Express</B> built-in functions, additional molecular 
+			properties can be computed and displayed.  
+	<LI>Mapping these properties onto an isodensity surface, which 
+			is overlayed onto the geometric structure shows how the 
+			electronic properties relate to chemical activity.
+</UL>
+<H2 ALIGN="center"> 
+	<I>Gaussian Cube Reader</I> 
+</H2>
+<P>
+The <I>Gaussian Cube Reader</I> module reads the Gaussian Cube file output.  
+The cube output in the example below is denoted (commonly) with a 
+<CODE><B>.grd</B></CODE> for the <I>density</I>, <I>HOMO</I> and <I>ESP</I> 
+properties, respectively.
+</P>
+<P>
+The module is used in the following example network:
+<DIV ALIGN="center">
+	<IMG ALIGN="center" ALT="G94_net.gif" SRC="cubeNet.jpg">
+</DIV>
+<P>
+To give the following display:
+</P>
+<DIV ALIGN="center">
+	<IMG ALIGN="middle" ALT="G94Display.gif" SRC="tryp_den.jpg">
+	<BR><BR><BR>
+	<IMG ALIGN="middle" ALT="G94_slice.gif" SRC="tryp_pot.jpg">
+</DIV>
+<H2 ALIGN="center"><I>GAMESS output</I> </H2>
+<P>
+The <I>GAMESS Plot file reader</I>module reads the <CODE><B>.F33</B></CODE> 
+file output from GAMESS. <SPAN CLASS="NOTE">The file can have any extension.
+</SPAN>
+</P>
+<P>
+The module is used in the following example network:
+<P>
+<DIV ALIGN="center">
+	<IMG ALIGN="middle" ALT="gamess_net.gif" SRC="gamessCubeNet.jpg">
+</DIV>
+<P>
+To give the following display:
+<DIV ALIGN="center">
+	<IMG ALIGN="middle" ALT="gamess_pic.gif" SRC="gamessCubeDisp.jpg">
+</DIV>
+</BODY>
+</HTML>

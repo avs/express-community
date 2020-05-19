@@ -1,0 +1,202 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>WriteUCD - Write AVS UCD format files</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>
+<b>WriteUCD</b></h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Writes the contents of a field to an AVS UCD (Unstructured Cell Data) file.</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by write_ucd">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="75">Mesh+Node_Data</td>
+<td width="425">Field data that should be written to the output.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by write_ucd">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">String</td>
+<td width="300">Name of file to create.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>name</i></td>
+<td width="75">String</td>
+<td width="300">Field name to insert into UCD file.</td>
+<td width="125">-</td>
+</tr>
+
+<tr>
+<td width="100"><i>binary</i></td>
+<td width="75">int</td>
+<td width="300">ASCII or binary format.</td>
+<td width="125">Radio Box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The <tt>write_ucd</tt> macro parses an AVS/Express field structure and then creates an UCD file in either ASCII or binary format.  The Unstructured Cell Data or UCD file format was created by AVS to allow arbitrary field data to be stored.  Node coordinates, cell connectivity, node data and cell data can all be stored in a UCD file.  The format has also been extended to support time-dependent data.  By default AVS/Express is able to read UCD files but is not able to write to them.</p>
+
+<p>This IAC module allows field data to be written to UCD files from AVS/Express.  However it does not currently support all of the features of the UCD file format.  In particular it does not output time dependent data.  It is able to output node coordinates, multiple components of node data with varying vector lengths and the following types of cell sets:</p>
+
+<ul>
+<li>Line</li>
+<li>Polyline</li>
+<li>Triangle</li>
+<li>Polytristrip</li>
+<li>Quad</li>
+<li>Tetrahedral</li>
+<li>Prism</li>
+<li>Pyramid</li>
+<li>Hexagonal</li>
+</ul>
+
+<p>The UCD file format does not support Polyline or Polytristrip cell sets so these cell types are converting into Line and Triangle cell sets.  This conversion code is <i>not</i> enabled by default.  To enable it, you must define the symbol OUTPUT_POLY_TEST and recompile (this can be done by editing the source code). The ASCII UCD format also does not appear to support the storage of maximum and minimum data values.  This can result in the data map appearing to be incorrect when a UCD file is read back into AVS/Express.  The binary UCD format does support maximum and minimum data values, but the AVS/Express UCD reader does not appear to utilize the node data maximum and minimum.  Currently the only work around for this problem is to use the set_minmax module to manually set the maximum and minimum data values.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>&amp;in_fld</i></b></blockquote>
+
+<blockquote>
+Reference to a Field that contains the Mesh, Cell_Set, Cell_Data and Node_Data information that should be written to the specified UCD file.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>
+String parameter that contains the fully specified pathname of UCD file that should be created by the write_ucd macro.  This string can contain AVS/Express environment variables (i.e. $XP_ROOT, $XP_PATH<1>).
+</blockquote>
+
+<blockquote><b><i>name</i></b></blockquote>
+
+<blockquote>
+String parameter that contains the field name that should be written to the UCD file.  This parameter can normally be ignored as the AVS/Express Read_UCD module ignores field names in UCD files.  By default this parameter has the value <tt>"default_avs_field"</tt>
+</blockquote>
+
+<blockquote><b><i>binary</i></b></blockquote>
+
+<blockquote>
+integer parameter that determines the format of the UCD file to be written.  0 (the default) means ASCII, 1 means binary.</tt>
+</blockquote>
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The write_ucd user macro makes use of the WriteUCDUI user interface macro and the WriteUCDCore low-level module.  No parameter block or functional macro are used.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>Four example applications are provided with this project.  The WriteUCDEg application creates an isosurface and writes that field to a UCD file.  The WriteUCDTest application creates a field with complex node data components and illustrates that this information can be successfully written to a file.  The WriteUCD_ARR_Eg application illustrates writing an array of fields to a UCD file.  See <i><a href="#Other_Notes">Other Notes</a></i> for further details.  Finally the ReadUCDEg application reads UCD files, hence providing a quick way of testing if UCD files have been written correctly.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/wr_ucd/wucdmods.v</i> contains the V definition of the WriteUCDCore module.</p>
+
+<p><i>xp_comm_proj/wr_ucd/wucdmacs.v</i> contains the V definitions of the WriteUCDUI UI macro and the write_ucd and write_ucd_ARR user macros.</p>
+
+<p><i>xp_comm_proj/wr_ucd/wucdapps.v</i> contains the V definitions of the WriteUCDEg, WriteUCDTest, WriteUCD_ARR_Eg and ReadUCDEg example applications.</p>
+</blockquote>
+
+
+<h3><a name="Other_Notes">Other Notes</a></h3>
+
+<blockquote>
+<p>The low-level module code also supports the writing of an array of fields to a single UCD file.  The write_ucd_ARR macro exposes this functionality.  However the UCD file format normally only allows a single field to be written to each file.  Hence this ability may initially seem redundant.  In reality it is intended for future expansions of the module.  The output of arrays of fields could provide the basis of the output of time dependent UCD data or an extended form of the UCD file format.</p>
+
+<p>The low-level WriteUCDMods library containing the low-level module WriteUCDCore does not specify a process. By default the <tt>express</tt> process will be used.</p>
+
+<p>Documentation for the UCD format can be found on the AVS FTP site.</p>
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Ian Curington
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+<a href="mailto:ianc@avs.com">ianc@avs.com</a>
+
+<a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>, International AVS Centre
+
+<a href="mailto:sudhir@avs.com">Sudhir Sangappa</a>, AVS Inc.
+</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>AVS/Express Read_UCD module.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#writestl">WriteSTL</a> IAC project.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#wr_vgf">WriteVGF</a> IAC project.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#wr_pov">WritePOV</a> IAC project.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#wr_maya">WriteMaya</a> IAC project.</li>
+</ul>
+
+</body>
+</html>
+

@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+ <title>LEA Flow Textures</title>
+
+ <meta name="author" content="Mario Valle">
+</head>
+ <body bgcolor="#92bfbf">
+
+<h1>LEA Flow Textures</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote> This module provides an implementation of the "Lagrangian-Eulerian
+ Advection for Unsteady Flow Visualization" algorithm to visualize 2D unsteady
+ vector fields.</blockquote>
+
+ <blockquote>
+ <h4>Input Ports</h4>
+
+ <table summary="Inputs used by LEA Textures">
+  <tbody>
+  <tr>
+  <td width="100"><b><font size="-1">Name</font></b></td>
+  <td width="200"><b><font size="-1">Type</font></b></td>
+  <td width="425"><b><font size="-1">Description</font></b></td>
+  </tr>
+  <tr>
+  <td colspan="3">
+  <hr></td>
+  </tr>
+  <tr>
+  <td width="100"><i>Vector_Field</i></td>
+  <td width="200">Mesh_Struct+Node_Data</td>
+  <td width="425">Field with 2D vector node data.</td>
+  </tr>
+  <tr>
+  <td colspan="3">
+  <hr></td>
+  </tr>
+
+ </tbody>
+ </table>
+
+ <h4>Parameters</h4>
+
+ <table summary="Parameters used by LEA Textures">
+  <tbody>
+  <tr>
+  <td width="150"><b><font size="-1">Name</font></b></td>
+  <td width="100"><b><font size="-1">Type</font></b></td>
+  <td width="375"><b><font size="-1">Description</font></b></td>
+  <td width="100"><b><font size="-1">Name</font></b></td>
+  </tr>
+  <tr>
+  <td colspan="4">
+  <hr></td>
+  </tr>
+  <tr>
+  <td width="150"><i>nx, ny</i></td>
+  <td width="100">int</td>
+  <td width="375">output texture resolution</td>
+  <td width="100"><i>Field</i>s<br></td>
+  </tr>
+  <tr>
+  <td width="150"><i>integrationStep</i></td>
+  <td width="100">int</td>
+  <td width="375">integration step size</td>
+  <td width="100"><i>Slider</i></td>
+  </tr>
+  <tr>
+  <td width="150"><i>blendCoef</i></td>
+  <td width="100">float<br></td>
+  <td width="375">temporal blending</td>
+  <td width="100"><i>Slider</i></td>
+  </tr>
+  <tr>
+  <td width="150"><i>licOn</i></td>
+  <td width="100">int</td>
+  <td width="375">enables LIC computation</td>
+  <td width="100"><i>Toggle Button</i></td>
+  </tr>
+  <tr>
+  <td width="150"><i>normalizationOn</i></td>
+  <td width="100">int</td>
+  <td width="375"> LIC vector field normalization</td>
+  <td width="100"><i>Toggle Button</i></td>
+  </tr>
+  <tr>
+  <td width="150"><i>intensityCorrectionOn</i></td>
+  <td width="100">int</td>
+  <td width="375">LIC intensity correction</td>
+  <td width="100"><i>Toggle Button</i></td>
+  </tr>
+  <tr>
+  <td width="150"><i>kernelLength</i></td>
+  <td width="100">int</td>
+  <td width="375">LIC kernel length</td>
+  <td width="100"><i>Slider</i></td>
+  </tr>
+  <tr>
+  <td valign="Top"><i>maskOn</i></td>
+  <td valign="Top">int</td>
+  <td valign="Top">enable mask</td>
+  <td valign="Top"><i>Toggle Button</i></td>
+  </tr>
+  <tr>
+  <td valign="Top"><i>alphaOn</i></td>
+  <td valign="Top">int</td>
+  <td valign="Top">transparency</td>
+  <td valign="Top"><i>Toggle Button</i></td>
+  </tr>
+  <tr>
+  <td valign="Top"><i>velocityMaskVersion</i></td>
+  <td valign="Top">int</td>
+  <td valign="Top">contrast<br></td>
+  <td valign="Top"><i>Slider</i></td>
+  </tr>
+  <tr>
+  <td valign="Top"><i>nInitialSteps</i></td>
+  <td valign="Top">int</td>
+  <td valign="Top">number of initial steps</td>
+  <td valign="Top"><i>Field</i></td>
+  </tr>
+  <tr>
+  <td valign="Top"><i>nStepsAtOnce</i></td>
+  <td valign="Top">int</td>
+  <td valign="Top">number of steps at once</td>
+  <td valign="Top"><i>Field</i></td>
+  </tr>
+  <tr>
+  <td valign="Top"><i>trigger</i></td>
+  <td valign="Top">int</td>
+  <td valign="Top">automatic update (1); continuous run (2)</td>
+  <td valign="Top"><i>Toggle Button</i></td>
+  </tr>
+  <tr>
+  <td colspan="4">
+  <hr></td>
+  </tr>
+
+ </tbody>
+ </table>
+
+ <h4>Output Ports</h4>
+
+ <table summary="Output Ports used by LEA Textures">
+  <tbody>
+  <tr>
+  <td width="100"><b><font size="-1">Name</font></b></td>
+  <td width="200"><b><font size="-1">Type</font></b></td>
+  <td width="425"><b><font size="-1">Description</font></b></td>
+  </tr>
+  <tr>
+  <td colspan="3">
+  <hr></td>
+  </tr>
+  <tr>
+  <td width="100"><i>lea_img</i></td>
+  <td width="200">IPfld</td>
+  <td width="425">the computed LEA texture</td>
+  </tr>
+  <tr>
+  <td width="100"><i>obj</i></td>
+  <td width="200">DefaultObject</td>
+  <td width="425">renderable version of lea_img</td>
+  </tr>
+  <tr>
+  <td valign="Top"><i>textured_obj</i></td>
+  <td valign="Top">DefaultObject</td>
+  <td valign="Top">textured input field</td>
+  </tr>
+  <tr>
+  <td colspan="3">
+  <hr></td>
+  </tr>
+
+ </tbody>
+ </table>
+ </blockquote>
+
+ <h3>Description</h3>
+
+<blockquote>
+<p>This module provides an implementation of the "Lagrangian-Eulerian
+Advection for Unsteady Flow Visualization" algorithm to visualize 2D
+unsteady vector fields.</p>
+
+<p>Vector fields are represented as grayscale textures, spatially correlated
+ along the flow. This technique produces still images of a steady
+ vector field, but is mainly intended to depict the dynamic behavior of
+unsteady vector fields. In this case, a series of subsequent textures
+will display the path of thousands of particles in a comprehensive and
+intuitive manner. These particles follow pathlines in time while any
+single texture shows the instantaneous structure of the flow.</p>
+</blockquote>
+
+<h3>Parameters</h3>
+<blockquote>
+<h4>Inputs</h4>
+
+<blockquote><b><i>Vector_Field</i></b></blockquote>
+
+<blockquote>The vector field to be visualized. Must be a 2D field
+with either two scalar components or one component with veclen = 2.
+When vector field values change, the computation of a new texture is
+triggered. This is the way to produce <strong>unsteady </strong>flow
+animations. Note that subsequent vector fields must change smoothly
+in order to produce smooth animations. It may be useful feed this module
+with interpolated intermediate vector fields for optimal results.</blockquote>
+
+<h4>Parameters</h4>
+
+<blockquote><b><i>nx, ny</i></b></blockquote>
+
+<blockquote>These parameters set the resulting output texture
+resolution. The image dimensions are forced to respect the input vector
+field aspect ratio.<br>
+</blockquote>
+
+<blockquote><b><i>integrationStep</i></b></blockquote>
+
+<blockquote>Set the integration step size for the advector
+calculation. This integration step size specifies the maximum distance
+the texel property will be advected between two computations. The size,
+in texels, is relative to the output texture resolution. If you double
+<em>nx</em> and <em>ny</em>, do not forget to double
+the <em>integrationStep</em> to produce higher resolution animation
+of the same phenomenon.</blockquote>
+
+<blockquote><b><i>blendCoef</i></b></blockquote>
+
+<blockquote>Specifies the temporal blending coefficient.
+This coefficient controls a long time exposure photography effect enabling
+spatial correlation in the resulting image. A typical value for <em>
+blendCoef</em> is 0.9. If <em>blendCoef</em> = 0, there is no blending
+and the output texture shows the instantaneous distribution of particle
+properties.</blockquote>
+
+<blockquote><b><i>licOn</i></b></blockquote>
+
+<blockquote>If set enables LIC filter computation.
+This filter enhances the resulting texture by fading out the high frequencies
+along the flow.</blockquote>
+
+<blockquote><b><i>normalizationOn</i></b></blockquote>
+
+<blockquote>LIC vector field normalization.<br>
+<br>
+<i><b>intensityCorrectionOn</b></i><br>
+<br>
+The LIC filters correct the resulting texture image luminosity based
+on the local velocity magnitude.<br>
+<br>
+<i><b>kernelLength</b></i><br>
+<br>
+LIC filter kernel length. A typical range for this parameter is between
+<em>integrationStep</em> and <em>2*integrationStep</em>
+.<br>
+<br>
+<i><b>maskOn</b></i><br>
+<br>
+If set applies a mask to the resulting image to remove noise from areas
+with low velocity.<br>
+<br>
+<i><b>alphaOn</b></i><br>
+<br>
+The image transparency is set depending on the local velocity magnitude.<br>
+<br>
+<i><b>velocityMaskVersion</b></i><br>
+<br>
+This parameter sets the mask contrast value. On the user interface this
+slider is called <i>Contrast.</i><br>
+<br>
+<i><b>nInitialSteps</b></i><br>
+<br>
+Displays the first image after <em>nInitialSteps</em> advection steps.
+This is necessary to have a well correlated first image. A good value
+for <em>nInitialSteps</em> is 15 to 30.<br>
+<br>
+<i><b>nStepsAtOnce</b></i><br>
+<br>
+Number of computation steps between generated images. Allows to advect
+property over a longer distance without changing the <em>integrationStep</em>
+.<br>
+<br>
+<i><b>trigger</b></i><br>
+<br>
+Sets the automatic computation behavior:
+<ul>
+
+<li>0: The output is not recomputed on
+parameter change</li>
+
+<li>1: The output is automatically updated
+on parameters change</li>
+
+<li>2: The computation automatically runs</li>
+
+</ul>
+On the user interface this parameter is computed from the setting of
+the two toggle buttons <i>Automatic Update</i> and <i>run</i>.<br>
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>lea_img</i></b><br>
+<br>
+The computed texture image.
+</blockquote>
+
+<blockquote><b><i>obj</i></b></blockquote>
+
+
+<blockquote>Renderable version of <i>lea_img.</i><br>
+<br>
+<i><b>textured_obj</b></i><br>
+<br>
+The computed LEA image textured on a quadrilateral with the same aspect
+ratio of the input vector field.<br>
+</blockquote>
+</blockquote>
+
+
+<h3>Example</h3>
+
+
+<blockquote>The LEA_Example application display LEA Flow Textures on a slice of
+the wind.fld demo dataset.
+Push the run toggle to see the flow of the vector field.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+
+<p><i>xp_comm_proj/lea/lea.v</i></p>
+
+
+<blockquote>
+
+<p>Creates the XP_COMM_PROJ.LEA library.</p>
+</blockquote>
+
+
+<p><i>xp_comm_proj/lea/lea_advector.v</i></p>
+
+<blockquote>
+
+<p>End user module for The LEA Flow Texture routines.</p>
+</blockquote>
+
+
+<p><i>xp_comm_proj/lea/lea_example.v</i></p>
+
+
+<blockquote>
+
+
+<p>LEA example application.</p>
+</blockquote>
+
+
+<p><i>xp_comm_proj/lea/lea_lib-1.0</i></p>
+
+
+<blockquote>
+
+
+<p>The computation routines for the LEA algorithm. This directory is included as is received from the author.<br>
+</p>
+</blockquote>
+
+
+<p><i>xp_comm_proj/lea/lea_mod.v
+ and xp_comm_proj/lea/lea_mod.cxx</i></p>
+
+
+<blockquote>Interface module to the LEA library.<br>
+</blockquote>
+</blockquote>
+
+
+<h3>Special compilation instructions</h3>
+
+<blockquote>Before compiling the Express project the LEA library must be rebuilt.
+Go to the lea_lib-1.0 directory and follow the INSTALL instructions, or simply execute the Makefile provided.
+The library and the project itself have been tested only on Linux.<br>
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+
+
+<pre>Bruno Jobard <br>CSCS, Swiss Center for Scientific Computing <br></pre>
+</blockquote>
+</blockqoute>
+
+
+<h3>Modifications</h3>
+
+
+<blockquote>
+
+
+<pre>Mario Valle<br>CSCS, Swiss Center for Scientific Computing <br></pre>
+</blockquote>
+
+
+<h3> Contact</h3>
+
+
+<blockquote>
+
+
+<pre>International AVS Centre<br>Manchester Visualization Centre<br>Kilburn Building<br>University of Manchester<br>Oxford Road<br>Manchester<br>United Kingdom<br>M13 9PL</pre>
+<pre>Bruno Jobard
+bjobard@univ-pau.fr
+LIUPPA, Universit&eacute; de Pau, BP 1155,
+64013 PAU Cedex, France
+</pre>
+</blockquote>
+
+<h3> See Also</h3>
+
+
+<blockquote>The LEA algorithm is described in the paper "Lagrangian-Eulerian Advection for Unsteady Flow Visualization" written by Bruno Jobard, Gordon Erlebacher
+and M.Y. Hussaini. Other related papers are:
+<ol>
+
+<li>Bruno Jobard, Gordon Erlebacher and Youssuf Hussaini,
+<b><a href=" http://www.cscs.ch/~bjobard/Research/Publications/Transactions2002/LeaNoiseDye.htm">Lagrangian-Eulerian Advection of Noise and Dye Textures
+for Unsteady Flow Visualization</a></b>, in <i>IEEE Transactions on Visualization and Computer Graphics 8(3): 211-222 July-September 2002.</i></li>
+
+<li>Youssuf M. Hussaini, Gordon Erlebacher and Bruno Jobard, <b>Real-Time
+ Visualization of Unsteady Vector Fields</b>, to appear in journal of
+<i>American Institute for Aerospace and Aeronautics.</i></li>
+
+<li>Bruno Jobard and Jean M. Favre, <b>Advanced Flow Representations Applied
+ to Wind Visualization</b>. In proceeding of the <i>8th Workshop on Meteorological Operational Systems</i>, ECMWF in Reading (UK), November 12-16, 2001. </li>
+
+<li>Bruno Jobard, Gordon Erlebacher and Youssuf Hussaini,
+<b><a href="http://www.cscs.ch/~bjobard/Research/Publications/vis2001/lea_paper.htm"> Lagrangian-Eulerian Advection for Unsteady Flow Visualization</a>
+</b>, In proceedings of <i>IEEE Visualization'2001</i>, San Diego, California, October 2001.</li>
+
+</ol>
+Paper and videos can be downloaded also from: <a href="http://www.cscs.ch/%7Ebjobard/Research/Publications/vis2001/lea_paper.htm">http://www.cscs.ch/~bjobard/Research/Publications/vis2001/lea_paper.htm</a>
+</blockquote>
+
+</body>
+</html>

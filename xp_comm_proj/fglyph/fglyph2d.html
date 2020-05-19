@@ -1,0 +1,296 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>fast_glyph_2D - Fast 2D Mesh Glyph Macro</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>fast_glyph_2D</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Fast 2D Mesh glyph mapper macro, that efficiently replicates glyph
+geometry at given coordinates, with optional angle control.</blockquote>
+
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by fast_glyph_2D">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>glyph_fld</i></td>
+<td width="80">Mesh</td>
+<td width="425">geometry that should be placed at coordinates.</td>
+</tr>
+
+<tr>
+<td width="100"><i>coords</i></td>
+<td width="80">float[][2]</td>
+<td width="425">coordinate position list.</td>
+</tr>
+
+<tr>
+<td width="100"><i>angles</i></td>
+<td width="80">float[]</td>
+<td width="425">rotation angle for each coordinate.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<table summary="Parameters used by fast_glyph_2D">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>scale</i></td>
+<td width="75">float</td>
+<td width="300">scaling factor for each glyph.</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>a_offset</i></td>
+<td width="75">float</td>
+<td width="300">degrees to offset each glyph rotation</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>a_multipler</i></td>
+<td width="75">float</td>
+<td width="300">scaling factor for each glyph rotation</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by fast_glyph_2D">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="80">Mesh</td>
+<td width="425">output mesh containing the replicated glyphs.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The fast_glyph_2D macro takes a list of 2D coordinate positions and a glyph shape, and replicates that glyph at all coordinate positions.  Optionally an array of angles can be supplied so that each glyph can be individually rotated. The macro outputs a 2D mesh and a directly renderable DataObject.
+</p>
+<p>
+The fast_glyph_2D macro and the low-level FastGlyph2DCore module were originally designed for large scale 2D map marker applications.  To achieve the performance necessary for these applications a number of limitations were introduced that are not present in the standard glyph module.  The most important and obvious of these is that the module is only able to deal with and output 2D data.  It expects that the coordinates are supplied as a series of x-y pairs.  It also discards any z coordinates that the supplied glyph might have.  The advantage of these limitations is that the fast_glyph_2D macro is approximately 4 times faster than the standard glyph macro.
+</p>
+
+<p>
+<a name="angle_desc">
+Two parameters allow the angular rotation of glyphs to be modified.  By using these parameters an arbitrary series of scalar values can be adjusted to give a series of suitable angles.  Note that if an array of angles is not provided these parameters have no effect.  The action of the parameters is best described by a linear expression:
+</a>
+</p>
+
+<ul>
+<li>a'(degrees) = (input value) * a_multiplier + a_offset</li>
+</ul>
+
+<p>
+Normally the angle of zero points horizontal to the right, with positive angles causing anti-clockwise rotation.  Therefore the a_offset parameters adjusts the angle of the zero point and the a_multiplier parameter adjusts the rotation direction and the angular value scaling.
+</p>
+
+</blockquote>
+
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>glyph_fld</i></b></blockquote>
+
+<blockquote>Connection to the glyph geometry that should be replicated at each supplied point.  It is assumed that the glyph is 2D, has no node data and has a single cell set.  If this is not the case, z coordinates and node data will be discarded by the module and only the first cell set will be used for the output glyphs.
+</blockquote>
+
+<blockquote><b><i>coords[][2]</i></b></blockquote>
+
+<blockquote>Connection to a float array containing the 2D positions of each point. Examples of how to construct this array from arrays of x and y coordinates and from Field data can be seen in the example applications.</blockquote>
+
+<blockquote><b><i>angles[]</i></b></blockquote>
+
+<blockquote>Connection to an optional float array containing the rotation angles that should be used for each individual glyph. If an array is supplied there must be an angle for each glyph. If an array is not supplied no rotation will be performed and the module will run faster.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>scale</i></b></blockquote>
+
+<blockquote>Floating point parameter that specifies how much the glyphs should be scaled by.  This parameter applies globally to the glyphs generated and will mostly be used to size the glyphs appropriately for the data set.
+</blockquote>
+
+<blockquote><b><i>a_offset</i></b></blockquote>
+
+<blockquote>Floating point parameter that globally specifies an offset for each glyph rotation.  If no angle array is specified this parameter has no effect. See <a href="#angle_desc">above</a> for a complete description of the use of this parameter.
+</blockquote>
+
+<blockquote><b><i>a_multiplier</i></b></blockquote>
+
+<blockquote>Floating point parameter that globally specifies how much each glyph rotation should be scaled by.  If no angle array is specified this parameter has no effect. See <a href="#angle_desc">above</a> for a complete description of the use of this parameter.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_mesh</i></b></blockquote>
+
+<blockquote>Mesh containing the replicated glyph geometry.  This mesh will only contain a single cell set and no node data or cell data.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>
+The directly renderable output of the fast_glyph_2D macro.  The DataObject contained within this output is generated from the same data as that output by <tt>out_mesh</tt>.  This renderable output is the output that will normally be used.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The fast_glyph_2D use macro makes use of the FastGlyph2D functional macro, the FastGlyph2D user interface macro and the FastGlyph2DParams parameter block.  The FastGlyph2D functional macro is a wrapper around the FastGlyph2DCore low-level module.  This module contains all the C++ code necessary for this macro.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided, FastGlyph2D_AngleEg and FastGlyph2D_SizeEg. The FastGlyph2D_AngleEg application demonstrates how 3 arrays containing x coordinates, y coordinates and rotation angles can be input into the fast_glyph_2D macro to generate 4 arrow glyphs rotated by different angles. The FastGlyph2D_SizeEg application demonstrates the fast_glyph_2D macro generating a large number of diamond glyphs. The hydrogen data-set is read, a slice taken and a glyph drawn at each node point on a 64x64 grid. 
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/fglyph/fgmods.v</i> contains the V definitions of the FastGlyph2DCore module and the FastGlyph2DParams parameter block.</blockquote>
+
+<blockquote><i>xp_comm_proj/fglyph/fgmacs.v</i> contains the V definitions of the FastGlyph2D Functional macro, the FastGlyph2DUI UI macro, the fast_glyph_2D user macro and the example applications.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>
+To gain the extra performance necessary this macro makes a number of assumptions and is less general than the original glyph module.  The important assumptions are mentioned above.  A complete list of assumptions is shown below:
+</p>
+
+<ul>
+<li>The input is a raw coordinate array rather than a field.</li>
+<li>The input coordinate array is assumed to be 2D (x-y) pairs.</li>
+<li>Only one glyph shape is drawn at each node. The module does not deal with multiple glyphs, such as in the geo_glyph module.</li>
+<li>It only processes the first cell set of the glyph. If the glyph has several cell sets, such as lines and quads, it will only use the first one in the list.</li>
+<li>The output is a Mesh with only one cell set. This is very efficient for
+rendering speed.</li>
+<li>All node data is ignored, if present on the input field (coordinates) or
+the glyph field. This module only processes geometry.</li>
+<li>When using the Developer's edition of AVS/Express the renderable output is a light-weight DataObject designed to go into a 2D viewer.  This object is not available in the Visualization edition.</li>
+<li>The module does not handle NULL data.</li>
+<li>Scale is global and all glyphs are scaled by the same value, rather than on
+individual glyph basis.</li>
+<li>Rotation is controlled (optionally) by a scalar angle array, rather than
+a vector field.</li>
+<li>Output dimensioning is done at instance time rather than each time the
+module updates. This reduces malloc/free operations.</li>
+<li>If the input coord array is zero length, the output array is also cleared,
+rather than being left in a previous state.</li>
+<li>The module minimizes calls to the OM.</li>
+</ul>
+
+<p>The module is written in C++, uses simple arrays for input/output. The algorithm is very simple and can be extended to perform different tasks.</p>
+
+<p>The low-level FastGlyphMods library containing the module FastGlyph2DCore does not specify a process. By default the <tt>express</tt> process will be used.</p>
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Mark Lambert, Ian Curington
+Advanced Visual Systems, Inc.
+</pre>
+
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Andrew Dodd
+International AVS Centre
+</pre>
+</blockquote>
+
+<h3>
+Contact</h3>
+
+<blockquote>
+<pre>International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL</pre>
+</blockquote>
+
+</body>
+</html>
+

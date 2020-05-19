@@ -1,0 +1,73 @@
+Express Community ViewersLite Project
+https://github.com/avs/express-community
+-----------------------
+
+This directory ( xp_comm_proj/viewlite/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"ViewersLite".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ViewersLite project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+This project is a small library of utility functions to aid production of lite
+applications. These macros require no compilation and once installed correctly
+can be used straight away.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/viewlite/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+viewlite.v	Creates the XP_COMM_PROJ.ViewersLite library.
+
+
+vl_macs.v	Creates the ViewersLiteMacs library containing all the utility 
+		macros provided (DO_GreyScale, DO_VolumeRender, DO_HotMetal, 
+		DO_CyanYellowRed, DO_DefaultStep, DO_FilterDatamap, 
+		DO_NT_GreyScale, DO_NT_VolumeRender, DO_NT_HotMetal, 
+		DO_NT_CyanYellowRed, DO_NT_DefaultStep, DO_NT_FilterDatamap, 
+		DO_LITE_GreyScale, DO_LITE_VolumeRender, DO_LITE_HotMetal, 
+		DO_LITE_CyanYellowRed, DO_LITE_DefaultStep, 
+		DO_LITE_FilterDatamap, Datamap_Switch, DO_Dmap_Switch, 
+		DO_NT_Dmap_Switch, DO_LITE_Dmap_Switch, View3DMinimal, 
+		View3D_TrackObj, View3D_TrackAll3, View2DMinimal, 
+		View2D_TrackObj, View2D_TrackAll3, ViewMinimal, View_TrackObj, 
+		View_TrackAll3 ).
+
+doc_DOs.html	HTML documentation for the macros based on a different weight 
+		DataObjects.
+
+doc_swit.html	HTML documentation for the macro that can switch between 
+		Datamaps.
+
+doc_DOsw.html	HTML documentation for the macros that can switch between 
+		Datamaps for each of the different weight DataObjects.
+
+doc_Vmin.html	HTML documentation for the macros producing the litest viewers 
+		the minimal ones with no interactivity.
+
+doc_Vtra.html	HTML documentation for the macros producing the  viewers with 
+		a small amount on interactivity (manipulation of the Top 
+		object and RNC).
+
+doc_V3.html	HTML documentation for the macros producing the viewers with a 
+		some more interactivity (manipulation of the Top object, RNC 
+		and selection of Top, camera or lights to be manipulated).
+
+README		This file.
+
+
+Generated Files
+---------------
+
+No files are created because this project is not compiled.

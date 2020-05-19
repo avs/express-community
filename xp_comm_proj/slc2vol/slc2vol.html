@@ -1,0 +1,245 @@
+<html>
+<head>
+<title>Slice_to_Volume</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Slice_to_Volume</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Inserts a slice of data_values into a volume of data.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by Slice_to_Volume">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>In_Slice</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">Slice to be inserted into the volume</td>
+</tr>
+
+<tr>
+<td width="100"><i>Ref_Volume</i></td>
+<td width="75">Mesh</td>
+<td width="425">Reference volume which provides the size of the output volume</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Slice_to_Volume">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>axis</i></td>
+<td width="75">int</td>
+<td width="300">specifies the constant dimension of the plane to be inserted</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Slice</i></td>
+<td width="75">float</td>
+<td width="300">specifies the location where the plane is inserted</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>use_value</i></td>
+<td width="75">boolean</td>
+<td width="300">use an different value than the node data component</td>
+<td width="125">UItoggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>value</i></td>
+<td width="75">integer</td>
+<td width="300">value to be inserted for non "NULL" values</td>
+<td width="125">UIoptionBoxLabel</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</blockquote>
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Slice_to_Volume">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field of modified 3D volume.</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">GDObject</td>
+<td width="425">Directly renderable object of the output field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+Slice_to_Volume replaces all data values of a given reference volume by the data values of a given slice. The slice dimensions have to be the same as the x and y dimension of the reference volume. The reference volume input is used to provide the dimensions of the output volume. The input volume can be used to initialize the output volume. If there is no input volume provided the Output volume is initialized with 0 values. Either way the reference volume must be provided to define the dimensions of the output volume.
+</blockquote>
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>In_Slice</b></i>
+</blockquote>
+
+<blockquote>
+Reference to a 2D input field (the slice to be inserted into the volume). 
+</blockquote>
+
+<blockquote>
+<i><b>Ref_Volume</b></i>
+</blockquote>
+
+<blockquote>
+Reference Volume (3D field) that provides the dimensions of the output field. 
+</blockquote>
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>axis</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the constant dimension of the plane to be inserted by the Slice_to_Volume macro.
+</blockquote>
+
+<blockquote>
+<i><b>Slice</b></i>
+</blockquote>
+
+<blockquote>
+Position of the slice in the new volume.
+</blockquote>
+
+<blockquote>
+<i><b>use_value</b></i>
+</blockquote>
+
+<blockquote>
+Toggle that decides if the data is replaced by a given value. 
+</blockquote>
+
+<blockquote>
+<i><b>value</b></i>
+</blockquote>
+
+<blockquote>
+Value that is inserted in the new volume if the slice value is not the NULL value on the slice.
+</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field of the Slice_to_Volume macro.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+Directly renderable GDobject of the output field of the Slice_to_Volume module that can be displayed in a 3D viewer.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application Slice_to_Volume_Eg is provided, which uses the AVS/Express sample data file hydrogen.fld. This Application uses the orthoslice module to select a plane of the hydrogen.fld file to be inserted as slice into the same Volume. Using the Select_Slice module the user can select where to insert the slice in the volume.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/slc2vol/s2v_mods.v</i> Creates the Slice_to_Volume_Mods library containing the parameter block Slice_to_Volume_Params and the low-level Slice_to_Volume_Core.</p>
+
+<p><i>xp_comm_proj/slc2vol/s2v_macs.v</i> Creates the Slice_to_Volume_Macs library containing the functional macro Slice_to_Volume_FUNC, the user interface macro Slice_to_Volume_UI and the high-level user macro Slice_to_Volume.</p>
+
+<p><i>xp_comm_proj/slc2vol/s2v_apps.v</i> reates the Slice_to_Volume_Apps library containing and the example appplication Slice_to_Volume_Eg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Dave Goughnour
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+
+</body>
+</html>

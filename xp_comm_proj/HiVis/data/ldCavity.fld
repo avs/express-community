@@ -1,0 +1,17 @@
+# AVS
+# Vector field in NAST ASCII-File
+ndim=3
+dim1=20
+dim2=20
+dim3=20
+nspace=3
+veclen=6
+data=double
+field=uniform
+label=VelocityX VelocityY VelocityZ Velocity Pressure Shape
+variable 1 file=ldCavity.txt filetype=ascii skip=1 offset=0 stride=6
+variable 2 file=ldCavity.txt filetype=ascii skip=1 offset=1 stride=6
+variable 3 file=ldCavity.txt filetype=ascii skip=1 offset=2 stride=6
+variable 4 file=ldCavity.txt filetype=ascii skip=1 offset=3 stride=6
+variable 5 file=ldCavity.txt filetype=ascii skip=1 offset=4 stride=6
+variable 6 file=ldCavity.txt filetype=ascii skip=1 offset=5 stride=6

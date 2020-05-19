@@ -1,0 +1,268 @@
+<html>
+<head>
+<title>animfilename</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>animfilename</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Outputs a filename string which includes a sequence number within user specifiable text, which may be looped according to the given parameters.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+No inputs.
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<p>
+These parameters are found within the parameter group AnimLoopParams.
+</p>
+
+<table>
+
+<tr>
+<td width="125"><i>reset</i></td>
+<td width="125">boolean</td>
+<td width="300">reset the output sequence number to the start value</td>
+</tr>
+
+<tr>
+<td width="125"><i>run</i></td>
+<td width="125">boolean</td>
+<td width="300">start/stop the sequence loop</td>
+</tr>
+
+<tr>
+<td width="125"><i>cycle</i></td>
+<td width="125">boolean</td>
+<td width="300">allow the sequence to cycle</td>
+</tr>
+
+<tr>
+<td width="125"><i>start_val</i></td>
+<td width="125">integer</td>
+<td width="300">the first nunber in the sequence</td>
+</tr>
+
+<tr>
+<td width="125"><i>end_val</i></td>
+<td width="125">integer</td>
+<td width="300">the last number in the sequence</td>
+</tr>
+
+<tr>
+<td width="125"><i>incr</i></td>
+<td width="125">integer</td>
+<td width="300">amount to increment on each turn</td>
+</tr>
+
+</table>
+
+<p>
+These parameters are found within the parameter group AnimFilenameParams.
+</p>
+
+<table>
+
+<tr>
+<td width="125"><i>pre</i></td>
+<td width="125">string</td>
+<td width="300">text placed before the sequence number</td>
+</tr>
+
+<tr>
+<td width="125"><i>post</i></td>
+<td width="125">string</td>
+<td width="300">text placed after the sequence number</td>
+</tr>
+
+<tr>
+<td width="125"><i>precision</i></td>
+<td width="125">integer</td>
+<td width="300">miniumum number of digits used for sequence number</td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>output</i></td>
+<td width="125">string</td>
+<td width="300">looped output filename string</td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The User Macro animfilename allows the user to generate a sequence of filenames, which may be passed to other modules and macros, allowing a set of files to be read from disk. The generated filename string has a naming scheme that incorporates a simple sequence of numbers. animfilename will generate a sequence of filename strings on its output, each time the macro executes a step, when the user has selected the macro to run its loop, until either the loop reaches its end value and is not cycled, or the user stops the execution.
+</blockquote>
+<blockquote>
+The parameters allow text to be included in the output filename string, that occurs both before and after the number. Additionally, the number may have a precision attached to it. A start and end value for the number is required, and optionally the increment value may be altered.
+</blockquote>
+</blockquote>
+The AnimFilenameUI UI Macro incorporates a user interface for both the AnimFilenameGen and AnimFilenameLoop modules, via the Functional Macro, AnimFilename.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+No Inputs.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>Pre-number text</b></i>
+</blockquote>
+
+<blockquote>
+Text which is placed before the sequence number in the output filename string, i.e., &lt;pre&gt;000.tif.
+</blockquote>
+
+<blockquote>
+<i><b>Post-number text</b></i>
+</blockquote>
+
+<blockquote>
+Text which is placed after the sequence number in the output filename string, .i.e., myfile000&lt;post&gt;.
+</blockquote>
+
+<blockquote>
+<i><b>File number precision</b></i>
+</blockquote>
+
+<blockquote>
+The sequence number precision to be used in the generation of the output filename string. This allows the number of digits used for the sequence number to be fixed to at least the value of precision given, e.g., precision=1, produces output of the form &lt;pre&gt;0&lt;post&gt;, whereas precision=3, forces it to &lt;pre&gt;000&lt;post&gt;. If the numer of digits exceeds the precision, then the required number of digits will be present, e.g., precision=3, when the sequence number has reached 1234, will result in output of the form &lt;pre&gt;1234&lt;post&gt;.
+</blockquote>
+
+<blockquote>
+<i><b>reset</b></i>
+</blockquote>
+
+<blockquote>
+Reset the sequence number back to the start value. This will produce an output filename string of the form &lt;pre&gt;&lt;start_val&gt;&lt;post&gt;, where &lt;start_val&gt; has the minimum number of digits as specified by the precision parameter.
+</blockquote>
+
+<blockquote>
+<i><b>run</b></i>
+</blockquote>
+
+<blockquote>
+This will start and stop the sequence generation, repeatedly outputting the filename string with the current sequence number. 
+</blockquote>
+
+<blockquote>
+<i><b>cycle</b></i>
+</blockquote>
+
+<blockquote>
+Selecting this will allow the sequence to cycle continuously through the specified loop, until either the sequence is stopped by turning off the run parameter, or if cycle is deselected, and the sequence subsequently reaches the end value.
+</blockquote>
+
+<blockquote>
+<i><b>start value</b></i>
+</blockquote>
+
+<blockquote>
+The first number to be used in the sequence generation.
+</blockquote>
+
+<blockquote>
+<i><b>end value</b></i>
+</blockquote>
+
+<blockquote>
+The last number to be used in the sequence generation. The value of the increment parameter may result in this value not being reached; in this instance the numbers generated will not exceed this end value.
+</blockquote>
+
+<blockquote>
+<i><b>increment</b></i>
+</blockquote>
+
+<blockquote>
+The amount to increment the sequence number each time the loop executes.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>output</b></i>
+</blockquote>
+
+<blockquote>
+The output filename string, which contains the string based on the pre- and post-text, with the current sequence number inserted according to the specified precision.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+
+
+The low-level AnimFilenameGen module is used in conjunction with the AnimFilenameLoop module (which is a variation of the AVS/Express loop module), and used in the Functional Macro AnimFilename, and the User Macro animfilename. Additionally these macros also use the AnimFilenameParams and AnimLoopParams parameter block group objects, as does the AnimFilenameUI UI Macro.
+
+The User Macro animfilename combines the Functional Macro AnimFilename with the UI Macro AnimFilename UI, via the use of the common parameter blocks AnimFilenameParams and AnimLoopParams, to provide a usable macro in the visualization library.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application is not provided, however the use is very simple. For example, typing "myfile" into pre-text, ".tif" into post-text, setting precision to 3, and using start and end values of 0 and 10 respectively, with an increment of 1, will produce the sequence "myfile000.tif", "myfile001.tif", and so on upto "myfile010.tif".
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/animfile/afn_macs.v</I> contains the Functional Macro AnimFilename, the User Macro animfilename, and the UI Macro AnimFilenameUI.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The AnimFilenameGen and AnimFilenameLoop modules do not require any compilation.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever
+
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+AnimFilenameParams, AnimLoopParams, AnimFilenameGen, AnimFilenameLoop, AnimFilename, and AnimFilenameUI.
+
+</blockquote>
+
+<blockquote>
+Loop, loop
+</blockquote>
+
+</body>
+</html>

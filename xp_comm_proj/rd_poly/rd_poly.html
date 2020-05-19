@@ -1,0 +1,154 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>ReadPolygon</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ReadPolygon</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Reads a polygon format geometry files and creates mesh output.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by ReadPolygon">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">Name of poly file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by ReadPolygon">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">3D Mesh and node data</td>
+<td width="425">Geometry data read from file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DefaultObject</td>
+<td width="425">Directly Renderable Output Object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The <tt>ReadPolygon</tt> user macro reads polygon format data from the specified ASCII file and outputs a mesh based on the data read. A poly file contains multiple cell sets, each set contains the number of vertices, the coordinates of each node, the colour, the number of connections and the connectivity data.</p>
+<p>The data read by the ReadPolygon module is stored as a coordinate array and several cell sets. This data is mapped to a mesh using either triangle faces or quad faces, usually triangular. The type of face used is specified in the polygon file. The colour data stored in the polygon file is output as Node_Data. </p>
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>
+String parameter that contains the name of the polygon file that should be read.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out</i></b></blockquote>
+
+<blockquote>
+Mesh+Node_Data output that contains the geometry data read from the polygon file with the colour information stored as Node_Data.  The output consists of the nodal coordinates and multiple cell sets describing the data read.
+</blockquote>
+
+<blockquote><i><b>obj</b></i></blockquote>
+
+<blockquote>
+The directly renderable output of the ReadPolygon macro. This output contains the geometry data read from the polygon file in a form that can be rendered by the standard data viewers.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The ReadPolygonFunc functional macro uses the ReadPolygonCore low-level module.  The ReadPolygon user macro uses this functional macro and the ReadPolygonUI user interface macro.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application is included named ReadPolygonEg, this should quickly allow a user to check that the ReadPolygon Macro works.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_poly/rdp_mods.v</i> contains the V definition of the ReadPolygonCore module.</p>
+
+<p><i>xp_comm_proj/rd_poly/rdp_macs.v</i> contains the V definitions of the ReadPolygonUI UI macro, the ReadPolygonFunc functional macro and the ReadPolygon user macro.</p>
+
+<p><i>xp_comm_proj/rd_poly/rdp_apps.v</i> contains the V definition of the ReadPolygonEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadPolygonMods library containing the low-level ReadPolygonCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Jonathan F Harden,
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+
+</body>
+</html>
+

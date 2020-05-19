@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module ThresholdCharge documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Threshold Charge</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Threshold Charge</h1>
+
+<h2>Description</h2>
+<p>Select atoms whose charge value meets various criterias.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">min</td>
+	<td class="c2">slider</td>
+	<td class="c3">Minimum value of the charge value.</td>
+</tr>
+<tr>
+	<td class="c1">max</td>
+	<td class="c2">slider</td>
+	<td class="c3">Maximum value of the charge value.</td>
+</tr>
+<tr>
+	<td class="c1">Threshold operation</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">Select the kind of threshold:
+	<dl>
+	<dt>below min</dt>
+		<dd>Pass to output only the atoms whose charge value is below <b>min</b></dd>
+	<dt>below or equal min</dt>
+		<dd>Pass to output only the atoms whose charge value is equal or below <b>min</b></dd>
+	<dt>between min and max</dt>
+		<dd>Pass to output only the atoms whose charge value is between <b>min</b> and <b>max</b> included</dd>
+	<dt>proper between min and max</dt>
+		<dd>Pass to output only the atoms whose charge value is between <b>min</b> and <b>max</b> excluded</dd>
+	<dt>above max</dt>
+		<dd>Pass to output only the atoms whose charge value is above <b>max</b></dd>
+	<dt>above or equal max</dt>
+		<dd>Pass to output only the atoms whose charge value is equal or above <b>max</b></dd>
+	<dt>exactly equal max</dt>
+		<dd>Pass to output only the atoms whose charge value is exactly equal to <b>max</b></dd>
+	</dl></td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_out</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Selected molecular data.</td>
+</tr>
+</table>
+
+</body></html>

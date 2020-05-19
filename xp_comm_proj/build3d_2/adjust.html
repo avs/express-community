@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>adjust_slice_spacing</title>
+</head>
+<body bgcolor="#92bfbf">
+<h1>adjust_slice_spacing</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The adjust_slice_spacing user macro takes a 3D uniform field, changes the spacing of the specified axis and converts it into a 3D rectilinear field.  This macro can be used to irregularly space the uniform output of the <a href="doc_umac.html">build3d_2</a> user macro.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by adjust_slice_spacing">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="75">Field</td>
+<td width="425">3D Uniform field data that is to be irregularly spaced.</td>
+</tr>
+
+<tr>
+<td width="100"><i>slice_position</i></td>
+<td width="75">float[]</td>
+<td width="425">Position of each slice on the specified axis.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by adjust_slice_spacing">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>spacing_axis</i></td>
+<td width="75">int</td>
+<td width="425">Specifies which axis spacing should be adjusted.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by adjust_slice_spacing">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_field</i></td>
+<td width="75">Field</td>
+<td width="425">Output 3D Rectilinear field data.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>When gathering data it is quite common to find situations where data is evenly spaced in two dimensions but is irregularly spaced in the third dimension.  One example of this is medical imaging where several techniques involve taking a number of cross-sectional images of a body.  Each of these individual cross-sectional images can be high resolution.  However setting up the imaging equipment to acquire each image is a time consuming and expensive process.  Therefore relatively few images and taken and they are distributed so that they are concentrated around the region of interest.</p>
+
+<p>Data volumes built from these irregularly spaced images are called rectilinear fields within AVS/Express.  Rectilinear fields can have irregularly spaced axes in all three dimensions.  To create a rectilinear field the spacing for each axes has to be specified.  This can be difficult and time-consuming.  The adjust_slice_spacing user macro aims to solve this problem by automating the create of a rectilinear field.</p>
+
+<p>The adjust_slice_spacing macro takes a 3D uniform field and a floating point array as input.  The floating point array specifies the position that each slice on the specified axis should take.  The macro creates the necessary spacing data for each axis and outputs a complete rectilinear field.  The axis that should be irregularly spacing can be specified.  By default the spacing of the Z axis is adjusted.</p> 
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><i><b>in_fld</b></i></blockquote>
+
+<blockquote>
+<p>Uniform 3D field that is to be irregularly spaced.  The input field must have 3 dimensions and must be uniform.  It can contain node data components.  These will be copied into the output rectilinear field.</p>
+</blockquote>
+
+
+<blockquote><i><b>slice_position[]</b></i></blockquote>
+
+<blockquote>
+<p>Floating point array that specifies the position of each slice on the selected axis.  The array must have one value for each position on specified axis.  The module will raise an error if this is not the case.  Note that this array specifies slice <b>position</b> not slice spacing.  Hence to evenly space 4 slices at unit intervals the necessary array would be <code>{0, 1, 2, 3}</code>.  The values for this array can either be entered manually or could be read from a data file that was created when the data was originally acquired.</p>
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>spacing_axis</i></b></blockquote>
+
+<blockquote>
+<p>Integer parameter that specifies which axis should be irregularly spaced.  This parameter must be either 0, 1 or 2.  These values refer to the X, Y and Z axes respectively.  By default the axis that is changed is the Z axis.</p>
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><i><b>out_fld</b></i></blockquote>
+
+<blockquote>The output 3D rectilinear field.  The output field contains the generated rectilinear mesh and any node data components that are present on the input.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The low-level AdjustSliceSpacingCore module is used in the User Macro adjust_slice_spacing.  No parameter block is used.</p>
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Four example applications are provided. The Build3D_2_Eg application loads a series of 30 TIFF images, builds a 3D volume from these and displays the volume using an orthoslice and a bounding box.  The AdjustSliceSpacingEg application similarly loads a series of TIFF images.  However this application also uses the adjust_slice_spacing user macro to irregularly space the image slices.  You should be able to see that the orthoslice does not now move up and down in uniform steps.</p>
+
+<p>The NodeARGBDataEg and NodeColorDataEg example applications illustrate how colour from images can be used to colour a final visualization.  The NodeARGBDataEg application reads a small set of colour images and displays an orthoslice of the volume.  This orthoslice has the same colouring as the original images.  No 3D fields are coloured as Express does not support using ARGB data to colour 3D fields.  In a similar way the NodeColorDataEg application reads the set of colour images.  However it displays both a coloured orthoslice and a coloured isosurface.  This illustrates that it is possible to use image data to colour 3D fields.</p>
+
+<!--
+<p>The CreateImageSlicesEg application uses an orthoslice module, a 2D viewer and a write_image module to create TIFF images that represent slices from a volume field.  These slices can later be rebuilt into a volume by the build3D_2 macro.  This application is unlikely to have any practical usage.  Instead it is intended to generate images that build3d_2 can be tested with.</p>
+-->
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/build3d_2/bl3dmods.v</i> contains the V definitions of the Build3D_2_Params parameter group and the Build3D_2_Core and AdjustSliceSpacingCore low-level modules.</p>
+
+<p><i>xp_comm_proj/build3d_2/bl3dmacs.v</i> contains the V definitions of the Build3D_2_UI UI Macro, the Build3D_2_Func, node_2_argb_data and node_2_color_data Functional Macros and the build3d_2 and adjust_slice_spacing User Macros.</p>
+
+<p><i>xp_comm_proj/build3d_2/bl3dapps.v</i> contains the V definitions of the Build3D_2_Eg, AdjustSliceSpacingEg, NodeARGBDataEg and NodeColorDataEg example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level Build3D_2_Mods library containing the low-level Build3D_2_Core and AdjustSliceSpacingCore modules does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_mod.html">Build3D_2_Core</a> IAC low-level module.</li>
+<li><a href="doc_umac.html">build3d_2</a> IAC user macro.</li>
+</ul>
+
+</body>
+</html>
+

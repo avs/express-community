@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module Select_Atoms documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Select Atoms</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Select Atoms</h1>
+
+<h2>Description</h2>
+<p>Select specific atoms (pass, remove, pass similar, remove similar).</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Select atoms</td>
+	<td class="c2">multi select list</td>
+	<td class="c3">The list of atoms contained in the molecule.</td>
+</tr>
+<tr>
+	<td class="c1">Deselect All</td>
+	<td class="c2">button</td>
+	<td class="c3">Deselect all the entries in the <i>Select atoms</i> list.</td>
+</tr>
+<tr>
+	<td class="c1">Select All</td>
+	<td class="c2">button</td>
+	<td class="c3">Select all the entries in the <i>Select atoms</i> list.</td>
+</tr>
+<tr>
+	<td class="c1">Selection type</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">Select the kind of operation:
+	<dl>
+	<dt>pass all selected</dt>
+		<dd>Pass to output only the atoms selected in the list</dd>
+	<dt>remove all selected</dt>
+		<dd>Remove from the molecule only the atoms selected in the list</dd>
+	<dt>pass all similar</dt>
+		<dd>Pass to output the atoms with names that starts like to the ones selected in the list</dd>
+	<dt>remove all similar</dt>
+		<dd>Remove from the molecule the atoms with names that starts like to the ones selected in the list</dd>
+	</dl></td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">out</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Selected molecular data.</td>
+</tr>
+</table>
+
+</body></html>

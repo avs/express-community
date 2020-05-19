@@ -1,0 +1,9 @@
+Applications.ModuleStack
+   {
+   -isosurface;
+   };
+assist0.assist1
+   {
+   -transp_slider;
+   !frames[0]{old=0;};
+};

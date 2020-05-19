@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>CutPolylines</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>CutPolylines</h1>
+<h3>Synopsis</h3>
+<p>
+A mapper module that cuts a 3D polyline Mesh on an importet cut-plane. This
+allows to cut a bouding Box of an object with the object inside.
+</p>
+<p>
+<h4>Input Ports</h4>
+<table class="parameters" summary="Input Ports of the CutPolylines macro">
+<tr>
+<td width="100"><b>Name</b></td>
+<td width="75"><b>Type</b></td>
+<td width="425"><b>Description</b></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in_cut</i></td>
+<td width="75">&cut_plane</td>
+<td width="425">reference to a cut_plane module. This cut plane module provides
+the location of the cuting plane.</td>
+</tr>
+<tr>
+<td width="100"><i>in_polyline</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">polyline Mesh that is to be cut on the plane provieded by
+in_cut.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</p>
+<p>
+<h4>Output Ports</h4>
+<table class="parameters" summary="Ouput Ports of cylinder_cut macro">
+<tr>
+<td width="100"><b>Name</b></td>
+<td width="75"><b>Type</b></td>
+<td width="425"><b>Description</b></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field after cutting</td>
+</tr>
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</p>
+<h3>Description</h3>
+<p>
+The CutPolylines macro crops a 3D Polyline Mesh according to the parameters of
+anoter cut_plane module. The module itself does not provide a user interface as all necessary parameters are taken from the provided cut_plane. this allows to allign the cut of ie. a Bounding Box of a given object with the cut of the object itself. The CutPolylines macro needs a reference to the cut_plane module itself as input rather than one of its outputs. This allows to use additional internal parameters such as the distance to the cutting plane for cutting the Polyline Mesh. A simple Network to use the module could look:
+</p>
+<center>
+<table>
+<tr><td>
+<img src="source/mappers/polycut/pc_network.png" alt="Network for CutPolylines"></img>
+</td>
+</tr>
+
+</table>
+</center>
+</p>
+<h4>Inputs</h4>
+<p>
+<i><b>in_cut</b></i>
+</p>
+<p>
+Reference to the field input that is to be cropped.  The field should contain at least a Mesh component.  If Node data or Cell data components are present then the user interface can be used to specify which of these should be copied across to the output.
+</p>
+<p>
+<i><b>in_polyline</b></i>
+</p>
+<p>
+Reference to the polyline field input that is to be cropped.  
+</p>
+
+<h4>Outputs</h4>
+<p>
+<i><b>out</b></i>
+</p>
+<p>
+The most primitive output field of the CutPolylines macro. This contains the new 3D Polyline Mesh model generated from the model present on the input, cropped using the plane specified by the module connected to in_cut.
+</p>
+<p>
+<i><b>obj</b></i>
+</p>
+<p>
+The directly renderable output field of the CutPolylines macro. This contains a DataObject object that can be rendered by the standard data viewers. The Data Object is generated directly from the field data created from the input model.
+</p>
+<h3>Utility Modules</h3>
+<p>
+The User Macro CutPolylines makes use of the CutPolylinesCore module.
+</p>
+<h3>Example</h3>
+<p>
+An example application CutPolylinesEg is provided, which loads an Example field file and and cuts the bounding box on the same plane as the isosurface of the object.
+</p>
+<h3>Files</h3>
+<p><i>xp_comm_proj/polycut/polycut.v</i> Creates the XP_COMM_PROJ.CutPolylines library.</p>
+<p><i>xp_comm_proj/polycut/pc_mods.v</i> Creates the CutPolylinesMods library containing the low-level module CutPolylinesCore and CutPolylinesTest.</p>
+<p><i>xp_comm_proj/polycut/pc_macs.v</i> Creates the CutPolylinesMacs library containing the high-level macro CutPolylines.</p>
+<p><i>xp_comm_proj/polycut/pc_apps.v</i> Creates the CutPolylinesApps library containing the example applications CutPolylinesEg.</p>
+<h3>Authors</h3>
+<p>
+</p><pre>Dr Joanna Leng
+Manchester Visualization Centre
+</pre>
+<p></p>
+<h3>Modifications</h3>
+<p>
+</p><pre>Tobias Schiebeck
+Manchester Visualization Centre
+</pre>
+<p></p>
+</body>
+</html>

@@ -1,0 +1,12 @@
+-----
+Apr 28 1998	node_sum()
+
+Changed to use of doubles for sum variable rather than float, to
+improve accuracy.  Also affects functions that call node_sum() as it
+now returns an array of doubles.
+
+-----
+Apr 23 1998	node_sum()
+
+Fixed summation of byte/char fields now that data_field routines use
+unsigned chars.

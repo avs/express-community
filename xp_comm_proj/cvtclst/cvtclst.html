@@ -1,0 +1,178 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>ConvertConnectList</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ConvertConnectList</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+
+Converts from an AVS5 style poly connect list to an AVS/Express style poly connect list. 
+The AVS5 list is broken up into two lists - one which contains the header
+information and the other contains the data.
+
+
+<h4>Input Ports</h4>
+<table summary="Input Ports used by ConvertConnectList">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+
+<tr>
+<td width="110"><i>input</i></td>
+<td width="165">int []</td>
+<td width="425">Array of the AVS 5 style poly connect list.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+<table summary="Output Ports used by ConvertConnectList">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+
+<tr>
+<td width="110"><i>poly_nodes</i></td>
+<td width="165">int[]</td>
+<td width="425">Array header information.</td>
+</tr>
+
+<tr>
+<td width="110"><i>connect_list</i></td>
+<td width="165">int[]</td>
+<td width="425">Contents of array.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This project contains a definition of a module which converts
+an AVS 5 style poly connect list to an AVS/Express style list. An
+AVS 5 poly connect list looks like:
+
+<center>
+
+<table cellpadding=20> <tr><td><img SRC="avs5c.png" alt="| Size (i.e. 4) | 1 | 2 | 3 | 4 | Size (i.e. 3) | 1 | 2 | 3 | Size | . . . |"></td></tr></table>
+</center>
+
+where the header information and contents are all contained in the
+same array.  </p>
+
+<p> In AVS/Express poly connect lists are split into two. One list contains the poly_nodes - the header information:
+
+<center>
+<table cellpadding=20> <tr><td><img SRC="express1.png" alt="| 4 | 3 | . . . |"></td></tr></table>
+</center>
+
+and the second list contains the connect list or data:
+
+<center>
+<table cellpadding=20> <tr><td><img SRC="express2.png" alt="| 1 | 2 | 3 | 4 | 1 | 2 | 3 | . . . |"></td></tr></table>
+</center>
+
+At the same time the indexing is changed from 1 based to 0 based for the connect values.
+So the new connect list will look like:
+
+<center>
+<table cellpadding=20> <tr><td><img SRC="express2b.png" alt="| 0 | 1 | 2 | 3 | 0 | 1 | 2 | . . . |" ></td></tr></table>
+</center>
+
+</p>
+
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>input</i></b></blockquote>
+
+<blockquote>
+An integer array which contains the AVS5 style poly connect list as described above.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>poly_nodes</i></b></blockquote>
+
+<blockquote>
+An integer array which contains the details i.e., sizes of the connect_list data arrays.
+</blockquote>
+
+<blockquote><i><b>connect_list</b></i></blockquote>
+
+<blockquote>
+An integer array which contains the data points of the poly connect list.
+</blockquote>
+
+<h3>Utility Macros</h3>
+                                                                                  
+<blockquote>
+The ConvertConnectListFunc functional macro uses the ConvertConnectListCore low-level module.  The ConvertConnectList user macro uses this functional macro.  
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/cvtclst/clst_mods.v</i> contains the V definitions of the ConvertConnectListCore module.</p>
+
+<p><i>xp_comm_proj/cvtclst/clst_macs.v</i> contains the V definitions of the ConvertConnectListFunc functional macro and the ConvertConnectList user macro.</p>
+
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Dave Goughnour
+Advanced Visual Systems
+</pre></blockquote>
+
+<h3>Modification</h3>
+
+<blockquote>
+<pre>
+Mary McDerby,
+Manchester Visualization Centre
+
+Tobias Schiebeck,
+International AVS Centre
+</pre>
+</blockquote>
+
+
+</body>
+</html>
+

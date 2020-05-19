@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML VERSION="2.0">
+<HEAD>
+<!-- WEBMAGIC VERSION NUMBER="2.0.2" -->
+<!-- WEBMAGIC TRANSLATION NAME="ServerRoot" SRC="/var/www/htdocs/" DST="/" -->
+<!-- WEBMAGIC TRANSLATION NAME="ProjectRoot" SRC="./" DST="" -->
+<TITLE>crop_coordinate</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>crop_coordinate</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>Receives data from mouse actions and from the UI via the crop_control and
+cropdata modules so all the information is coordinated and the crop values
+are finally produced as an array of minimum and maximum values.</BLOCKQUOTE>
+<HR>
+<PRE>
+      module crop_coordinate&lt;build_dir=&quot;xp_comm_proj/drawcrop/cordcrop&quot;,out_hdr_file=&quot;gen.h&quot;, out_src_file=&quot;gen.cxx&quot;&gt; {
+         int set_coord&lt;NEportLevels={2,1}&gt;;
+         int dims_in&lt;NEportLevels={2,1}&gt;[];
+         float z_scale&lt;NEportLevels={2,1}&gt;;
+         float min_vec_axis2&lt;NEportLevels={2,1}&gt;[];
+         float min_vec_axis1&lt;NEportLevels={2,1}&gt;[];
+         float min_vec_axis0&lt;NEportLevels={2,1}&gt;[];
+         float max_vec_axis2&lt;NEportLevels={2,1}&gt;[];
+         float max_vec_axis1&lt;NEportLevels={2,1}&gt;[];
+         float max_vec_axis0&lt;NEportLevels={2,1}&gt;[];
+         int stored[];
+         int mins_store[];
+         int maxs_store[];
+         int mins&lt;NEportLevels={1,2}&gt;[];
+         int maxs&lt;NEportLevels={1,2}&gt;[];
+         float xlate1_axis2&lt;NEportLevels={1,2}&gt;[][];
+         float xlate2_axis2&lt;NEportLevels={1,2}&gt;[][];
+         float xlate1_axis1&lt;NEportLevels={1,2}&gt;[][];
+         float xlate2_axis1&lt;NEportLevels={1,2}&gt;[][];
+         float xlate1_axis0&lt;NEportLevels={1,2}&gt;[][];
+         float xlate2_axis0&lt;NEportLevels={1,2}&gt;[][];
+         omethod+notify_inst+req update1&lt;src_file=&quot;corcrop1.c&quot;,weight=1&gt;(
+            set_coord+read+notify+req,
+            dims_in+read+notify+req,
+            z_scale+read+notify+req,
+            min_vec_axis2+read+notify+req,
+            max_vec_axis2+read+notify+req,
+            stored+write,
+            mins_store+write,
+            maxs_store+write,
+            xlate1_axis2+write,
+            xlate2_axis2+write,
+            xlate1_axis1+write,
+            xlate2_axis1+write,
+            xlate1_axis0+write,
+            xlate2_axis0+write
+         ) = &quot;coordcrop1&quot;;
+         omethod+notify_inst+req update2&lt;src_file=&quot;corcrop2.c&quot;,weight=2&gt;(
+            set_coord+read+notify+req,
+            dims_in+read+notify+req,
+            z_scale+read+notify+req,
+            min_vec_axis1+read+notify+req,
+            max_vec_axis1+read+notify+req,
+            stored+read+notify+req,
+            mins_store+write,
+            maxs_store+write,
+            xlate1_axis1+write,
+            xlate2_axis1+write,
+            xlate1_axis0+write,
+            xlate2_axis0+write
+         ) = &quot;coordcrop2&quot;;
+         omethod+notify_inst+req update3&lt;src_file=&quot;corcrop3.c&quot;,weight=3&gt;(
+            set_coord+read+notify+req,
+            dims_in+read+notify+req,
+            z_scale+read+notify+req,
+            min_vec_axis0+read+notify+req,
+            max_vec_axis0+read+notify+req,
+            stored+read+notify+req,
+            mins_store+write,
+            maxs_store+write,
+            xlate1_axis1+write,
+            xlate2_axis1+write,
+            xlate1_axis0+write,
+            xlate2_axis0+write
+         ) = &quot;coordcrop3&quot;;
+         omethod+notify_inst+req update4&lt;src_file=&quot;corcrop4.c&quot;,weight=4&gt;(
+            set_coord+read+notify+req,
+            mins_store+read,
+            maxs_store+read,
+            mins+write,
+            maxs+write
+         ) = &quot;coordcrop4&quot;;
+         omethod+notify_inst+req update5&lt;src_file=&quot;corcrop5.c&quot;,weight=5&gt;(
+            set_coord+read+notify+req,
+            dims_in+read+notify+req,
+            z_scale+read+notify+req,
+            stored+write,
+            mins_store+write,
+            maxs_store+write,
+            xlate1_axis2+write,
+            xlate2_axis2+write,
+            xlate1_axis1+write,
+            xlate2_axis1+write,
+            xlate1_axis0+write,
+            xlate2_axis0+write
+         ) = &quot;coordcrop5&quot;;
+      };
+
+</PRE>
+<HR>
+<H3>Description</H3>
+<BLOCKQUOTE>The cropdata module takes in a number of mouse actions from the Uviewer2D
+interprets them and coordinates these values with the UI, the integer value
+&quot;set_coord&quot; from the crop_control module so that the cropping action coordinates
+with that of the mouse, User Interface and the selection of a new data file. </BLOCKQUOTE>
+<H3>Inputs</H3>
+<P><B><I>dims_in</I></B></P>
+<BLOCKQUOTE>Contains the dimensions of the input data field, this is required for the
+original coordinate space of the data volume is.</BLOCKQUOTE>
+<P><B><I>set_coord</I></B></P>
+<BLOCKQUOTE>Connects to the module cropdata so this module will always trigger after
+cropdata. This value originates form the UI and allows the module to coordinate
+with the user specified function. </BLOCKQUOTE>
+<P><B><I>z-scale</I></B></P>
+<P>This is the value which alters the z-axis (axis 2) scaling value so that
+the data looks like it has been stretched along this axis and so corresponds
+to real space. This module was designed to work with medical scan data which
+may have lower resolution along the z-axis.</P>
+<P><B><I>min_vec_axis2</I></B></P>
+<BLOCKQUOTE>Connected to the ContinuousSketch module to give the two minimum values
+on the corner of the box drawn by the mouse for the orthoslice View with
+an axis set to 2.</BLOCKQUOTE>
+<P><B><I>max_vec_axis2</I></B></P>
+<BLOCKQUOTE>Connected to the ContinuousSketch module to give the two maximum values
+on the corner of the box drawn by the mouse for the orthoslice View with
+an axis set to 2.</BLOCKQUOTE>
+<P><B><I>min_vec_axis1</I></B></P>
+<BLOCKQUOTE>Connected to the ContinuousSketch module to give the two minimum values
+on the corner of the box drawn by the mouse for the orthoslice View with
+an axis set to 1.</BLOCKQUOTE>
+<P><B><I>max_vec_axis1</I></B></P>
+<BLOCKQUOTE>Connected to the ContinuousSketch module to give the two maximum values
+on the corner of the box drawn by the mouse for the orthoslice View with
+an axis set to 1.</BLOCKQUOTE>
+<P><B><I>min_vec_axis0</I></B></P>
+<BLOCKQUOTE>Connected to the ContinuousSketch module to give the two minimum values
+on the corner of the box drawn by the mouse for the orthoslice View with
+an axis set to 0.</BLOCKQUOTE>
+<P><B><I>max_vec_axis0</I></B></P>
+<BLOCKQUOTE>Connected to the ContinuousSketch module to give the two maximum values
+on the corner of the box drawn by the mouse for the orthoslice View with
+an axis set to 0.</BLOCKQUOTE>
+<H3>Outputs</H3>
+<P><B><I>mins</I></B></P>
+<BLOCKQUOTE>This is an array of the three minimum crop values, for the x, y and z axis. </BLOCKQUOTE>
+<P><B><I>maxs</I></B></P>
+<BLOCKQUOTE>This is an array of the three maximum crop values, for the x, y and z axis. </BLOCKQUOTE>
+<P><B><I>xlate1_axis2</I></B></P>
+<BLOCKQUOTE>The output value from this is the coordinate array required to create half
+of the white box that bounds the crop region for the orthoslice with an
+axis value of 2. </BLOCKQUOTE>
+<P><B><I>xlate2_axis2</I></B></P>
+<BLOCKQUOTE>The output value from this is the coordinate array required to create half
+of the white box that bounds the crop region for the orthoslice with an
+axis value of 2. </BLOCKQUOTE>
+<P><B><I>xlate1_axis1</I></B></P>
+<BLOCKQUOTE>The output value from this is the coordinate array required to create half
+of the white box that bounds the crop region for the orthoslice with an
+axis value of 1. </BLOCKQUOTE>
+<P><B><I>xlate2_axis1</I></B></P>
+<BLOCKQUOTE>The output value from this is the coordinate array required to create half
+of the white box that bounds the crop region for the orthoslice with an
+axis value of 1.</BLOCKQUOTE>
+<P><B><I>xlate1_axis0</I></B></P>
+<BLOCKQUOTE>The output value from this is the coordinate array required to create half
+of the white box that bounds the crop region for the orthoslice with an
+axis value of 0. </BLOCKQUOTE>
+<P><B><I>xlate2_axis0</I></B></P>
+<BLOCKQUOTE>The output value from this is the coordinate array required to create half
+of the white box that bounds the crop region for the orthoslice with an
+axis value of 0. </BLOCKQUOTE>
+<H3>Utility Macros</H3>
+<BLOCKQUOTE>The macroDrawCrop holds this module as well as all the other main functional
+parts of the module. </BLOCKQUOTE>
+<H3>Example</H3>
+<BLOCKQUOTE>An example application DrawCrop_Eg is provided, this shows how the module
+must be connected into an application. </BLOCKQUOTE>
+<H3>Files</H3>
+<BLOCKQUOTE><I>xp_comm_proj/drawcrop/cropmod.v</I> contains the module V definitions for cropcont, cropdata, cropmous and
+cordcrop. </BLOCKQUOTE>
+<H3>Other Notes</H3>
+<P>compile with:</P>
+<PRE>
+$base -comp_proc express -exit
+</PRE>
+<H3>Author</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+        Joanna Leng
+        Manchester Visualization Centre
+        Manchester Computing
+        University of Manchester
+        Oxford Road
+        Manchester
+        UK
+        M13 9PL
+
+        Phone  +44 161  275 6252   Fax +44 161 275 6800  
+        email  j.leng@mcc.ac.uk
+        www    http://www.man.ac.uk/MVC/staff/leng
+</PRE>
+<H3>Date</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+J. Leng August 1998
+</PRE>
+<H3>Contact</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE>
+<H3>See Also</H3>
+<BLOCKQUOTE>All other DrawCrop modules and macros.</BLOCKQUOTE>
+</BODY>
+</HTML>

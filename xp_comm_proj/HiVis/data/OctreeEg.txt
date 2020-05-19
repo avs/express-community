@@ -1,0 +1,5 @@
+# Octree example file (depth first is default)
+# File format: Identifier, Structure, [Data]
+# Supported Identifier: { n-Tree | Quadtree | Octree } where 0 < n
+Octree
+(1000(00(0000000(0000000(0000000(0000000(0000000(00000001))))))00000)000)

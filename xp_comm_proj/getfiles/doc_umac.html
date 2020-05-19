@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>MultiFileShell &amp; Multiple_File_Select</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>MultiFileShell &amp; Multiple_File_Select</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>MultiFileShell is a user macro that allows the user to search for and select files in a separate window.  Multiple_File_Select allows the user to select a range of files in a MultiFileShell window and select one of those in a standard Module UI.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by MultiFileShell &amp; Multiple_File_Select">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>directory</i></td>
+<td width="75">string</td>
+<td width="300">Directory to search for files.</td>
+<td width="125">Text Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>extension</i></td>
+<td width="75">string</td>
+<td width="300">File extension to search for.</td>
+<td width="125">Text Box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by MultiFileShell &amp; Multiple_File_Select">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filenames</i></td>
+<td width="75">string[]</td>
+<td width="425">Files found with specified extension.</td>
+</tr>
+
+<tr>
+<td width="100"><i>filenames_with_dir</i></td>
+<td width="75">string[]</td>
+<td width="425">Full path of filenames.</td>
+</tr>
+
+<tr>
+<td width="100"><i>selected_filename</i></td>
+<td width="75">string</td>
+<td width="425">Currently selected filename.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The user macros in the GetFiles project provide UI components that allow the user to search for files and select one or more of them.  The selected filenames are output and could then be used to specify which data file or files should be read.  Two user macros are provided, MultiFileShell and Multiple_File_Select.  The MultiFileShell macro provides a separate window that operates much like a standard File Dialog box.  The user can specify a directory and a file extension to search for and the results of the search will be displayed in a list box.  The user can then select one or more files and either confirm or cancel their decision.</p>
+
+<p>The Multiple_File_Select macro provides a standard Module UI panel.  Within this panel are a list box and a <tt>Select</tt> button.  Pressing the <tt>Select</tt> button launches a MultiFileShell window and allows the user to select a number of files.  These selected files are then displayed in the Multiple_File_Select list box.  The user can then choose one file from this secondary list.  An array of filenames and the finally selected filename are both output.  The Multiple_File_Select macro can be of particular use when the user wishes to regularly swap between certain data sets.</p>
+
+<p>It should be noted that these macros are not intended as replacements for the standard File Dialog component.  In normal situations the standard File Dialog will provide the the easiest and most convenient solution.  However the File Dialog component does not allow multiple files to be selected and it cannot be modified.  In this situation the GetFiles macros can be of use.  It should also be noted that the two user macros provided with this project are not intended to be the final, definitive way to use the <a href="doc_mod.html">GetFilesCore</a> module.  They were designed to solve one set of problems.  It should be possible to modify these macros to solve other problems.</p>
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>directory</b></i>
+</blockquote>
+
+<blockquote>
+String parameter that specifies which directory should be searched for files.  AVS/Express environment variables(e.g. <tt>$XP_PATH&lt;1&gt;</tt>) can be used in this directory string.
+</blockquote>
+
+<blockquote>
+<i><b>extension</b></i>
+</blockquote>
+
+<blockquote>
+String parameter that specifies which file extension should be searched for.  This string should <b>not</b> contain a preceding <tt>'.'</tt> character.  The file extension can contain a search specification.  Therefore if the file extension is set to <tt>'h*'</tt> all files that have extensions that begin with <tt>'h'</tt> are listed.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>filenames[]</i></b></blockquote>
+
+<blockquote>
+Array of strings that contains the names of all the files that match the specified criteria and have been selected by the user.  This array is only output by the MultiFileShell macro.
+</blockquote>
+
+<blockquote><b><i>filenames_with_dir[]</i></b></blockquote>
+
+<blockquote>
+Array of strings that contains the full specified filename of all the files that match the specified criteria and have been selected by the user.  This array is output by both the Multiple_File_Select and MultiFileShell macros.
+</blockquote>
+
+<blockquote><b><i>selected_filenames</i></b></blockquote>
+
+<blockquote>
+String output that contains the fully specified filename of the selected file in the Multiple_File_Select Module Panel.  This array is only output by the Multiple_File_Select macro.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The MultiFileShell user macro uses the low-level GetFilesCore module.  This user macro is used by the Multiple_File_Select user macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided.  The GetFilesEg1 application gets all the files in the current project directory and allows the user to select one or more of these files.  This application could be used as the basis for a full file access application.  The GetFilesEg2 application gets a list of all the geometry files in the <tt>express/data/geom</tt> directory and allows the user to select one of these files.  This geometry file is then read and displayed.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/getfiles/getfmods.v</i> contains the V definitions of 
+the GetFilesCore module.</p>
+
+<p><i>xp_comm_proj/getfiles/getfmacs.v</i> contains the V definitions of the MultiFileShell and Multiple_File_Select user macros.</p>
+
+<p><i>xp_comm_proj/getfiles/getfapps.v</i> contains the V definitions of the GetFilesEg1 and GetFilesEg2 example applications.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level GetFilesMods library containing the low-level GetFilesCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Jeremy Maccelari,
+Visual Numerics
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_mod.html">GetFilesCore</a> low-level module.</li>
+</ul>
+ 
+</body>
+</html>
+

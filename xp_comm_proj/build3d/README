@@ -1,0 +1,59 @@
+Express Community Build3D Project
+https://github.com/avs/express-community
+------------------
+
+This directory ( xp_comm_proj/build3d/ ) contains all the V code, HTML
+documentation, and installation information for the Community project "Build3D".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Build3D project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+No modules within the project contain procedural code so the project does not
+have to be compiled.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/build3d/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+build3d.v	Creates the XP_COMM_PROJ.Build3D library.
+
+bl3dmods.v	Creates the Build3DMods library containing the low-level
+		modules Build3DMakeDims, Build3DExtractScalar, Build3DAssemble
+		and the parameter group Build3DImageParams.
+
+bl3dmacs.v	Creates the Build3DMacs library containing the high-level
+		macros Build3DUI, Build3DAssemble, Build3D, build3D, and the
+		example application Build3DEg.
+
+bl3dapps.v	Creates the Build3DApps library containing the example
+		applications Build3DEg and CreateImageSlicesEg.
+
+doc_mod.html	HTML documentation for the Build3DAssemble macro.
+
+doc_umac.html	HTML documentation for the build3D User Macro.
+
+README		This file.
+
+
+Prerequisites
+-------------
+
+This project relies on the successful installation of the following components.
+Without them it will not function correctly.
+
+AVS/Express Developer's Edition
+
+Common Project
+

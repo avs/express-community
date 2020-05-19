@@ -1,0 +1,211 @@
+<html>
+<head>
+<title>DO_GreyScale, DO_VolumeRender, DO_HotMetal, DO_CyanYellowRed, DO_DefaultStep, DO_FilterDatamap, DO_NT_GreyScale, DO_NT_VolumeRender, DO_NT_HotMetal, DO_NT_CyanYellowRed, DO_NT_DefaultStep, DO_NT_FilterDatamap, DO_LITE_GreyScale, DO_LITE_VolumeRender, DO_LITE_HotMetal, DO_LITE_CyanYellowRed, DO_LITE_DefaultStep, DO_LITE_FilterDatamap</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>DO_GreyScale, DO_VolumeRender, DO_HotMetal, DO_CyanYellowRed, DO_DefaultStep, DO_FilterDatamap, DO_NT_GreyScale, DO_NT_VolumeRender, DO_NT_HotMetal, DO_NT_CyanYellowRed, DO_NT_DefaultStep, DO_NT_FilterDatamap, DO_LITE_GreyScale, DO_LITE_VolumeRender, DO_LITE_HotMetal, DO_LITE_CyanYellowRed, DO_LITE_DefaultStep, DO_LITE_FilterDatamap</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+<P>Any DataObject produces a renderable object that contains data as well as attributes for rendering.</p>
+
+<p>All DataObject's have a relatively high object count, various strategies were suggested in the "White Paper" to reduce the object count of an application.These DataObjects are all pre-made macros of DataObject's, DataObjectNoTexture's and DataObjectLite's that can be used to build lite applications. These macros require Developers Edition of AVS/Express and come with no user interface.</p>
+
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<h5>For the "DO_" objects (DataObject)</h5>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">...</td>
+<td width="425">The data to be rendered. This can be any group that includes the following subobjects:
+
+<p>GDxform_templ xform;             // Transform.</p>
+<p>method render;                    // Render method</p>
+</td>
+</tr>
+
+<tr>
+<td width="100"><i>texture_in</i></td>
+<td width="75">...</td>
+<td width="425">...</td>
+</tr>
+
+<tr>
+<td width="100"><i>texture_col_in</i></td>
+<td width="75">...</td>
+<td width="425">Optional input to the DefaultTexture object. texture_in is the texture-map data. texture_col_in is a colormap, which you include when the 
+texture-map data is byte data rather than RGB.
+</td>
+</tr>
+
+<tr>
+<td width="100"><i>child_objs</i></td>
+<td width="75">...</td>
+<td width="425">Optionally one or more objects to be children of this object. Multi-level object hierarchies can be built in this manner.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h5>For the "DO_NT_" and "DO_LITE_" objects (DataObjectNoTexture and DataObjectLite)</h5>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">...</td>
+<td width="425">The data to be rendered. This can be any group that includes the following subobjects:
+
+
+<tr>
+<td width="100"><i>child_objs</i></td>
+<td width="75">...</td>
+<td width="425">Optionally one or more objects to be children of this object. Multi-level object hierarchies can be built in this manner.
+</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h3>Description</h3>
+<blockquote>
+<p>Reducing the object count of an application is the thing most likely to speed up the loading and running of an application. This is one of a library of utility macros designed to reduce the object count.</p> 
+
+<p>These are all AVS/Express macros which as such require no compilation. Most applications are produced with AVS/Express Developers Edition and these macros also require  AVS/Express Developers Edition. They contain no UI so that the developer has as much freedom as possible.</p>
+
+<p>A DataObject has a high object count and this is a utility library of DataObject's with Datamaps that can be used to reduce the object count, either directly or by allowing the use of a ViewersLite macro.</p>
+  
+<p>Many modules have a DataObject module if this occurs just before a viewer
+then by altering the datamap here the colour of the final image can be 
+specified. The Data Object can be pared down removing unwanted functions in a
+variety of ways and the appropriate data map added directly or a selection 
+of data maps added to the Data Object.</p>
+
+<p>DataObject's are all prefixed with  "DO_"</p>
+
+<p>DataObject_NoTexture's are all prefixed with "DO_NT_"</p>
+
+<p>DataObject_Lite's are all prefixed with "DO_LITE_"</p>
+
+<p>Of these the DataObject have the highest object count, then the 
+DataObject_NoTexture and the DataObject_Lite has the lowest count.</p>
+
+
+
+
+<p>Many other properties of an object can be altered through the DataObject rather than through the view or scene, this again will reduce the size of the 
+application. For example the object can be removed from a scene by putting a 
+toggle on the parameter DataObject.Obj.visible  and the transparency can be 
+altered by connecting DataObject.Props.trans  to a slider.</p>
+
+<p>These techniques remove the necessity of the user having to select any of the objects in the viewer to be the current select object to alter the Datamap.</p>
+
+
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>As above.</b></i>
+</blockquote>
+
+
+
+
+
+<h3>Output Ports</h3>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The renderable object that can be connected directly to a Graphics Display Kit viewer.
+</blockquote>
+
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+These macros are all variations of the AVS/Express standard macros DataObject, DataObjectNoTexture and DataObjectLite.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>An example application EgViewLite is provided, which shows how some of these DataObjects have been used in conjunction with the module templates DVorthoslice_unif and DViso to produce a renderable object with selected datamap.</p>
+
+<p>This example also demonstrates the use of DataObjects altered so the Datamap can be selected and ViewersLite.</p>
+
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/viewlite/vl_macs.v</i> contains all the DataObject macros discussed here as well as the macros Datamap_Switch, DO_Dmap_Switch, DO_NT_Dmap_Switch, DO_LITE_Dmap_Switch, View3DMinimal, View3D_TrackObj, View3D_TrackAll3, View2DMinimal, View2D_TrackObj, View2D_TrackAll3, ViewMinimal, View_TrackObj, View_TrackAll3 and an example EgViewLite.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The macros can be acessed through the XP_COMM_PROJ library in the Templates library or through one of four libraries DataObjects_apps, Views3DLite, Views2DLite and UViewsLite all of which are in the Misc sub-library IAC library area.</p>
+
+<p>The example EgViewLite can also be acessed through the IAC library but is located in the Examples sub-library.</P>  
+
+
+
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+J Leng
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+DataObject, Datamap_Switch, the DataObjects "_Dmap_Switch", and the viewers  lite 3D, 2D and Universal "Minimal", "_TrackObj" and "_TrackAll3".
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+</body>
+</html>

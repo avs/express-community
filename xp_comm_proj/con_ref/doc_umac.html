@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>ConnectRefToArray</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ConnectRefToArray</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Select reference from array of references depending on slider value.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>&Parms</i></td>
+<td width="125">Parms data</td>
+<td width="300">Reference to Parms group</td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>value</i></td>
+<td width="125">int</td>
+<td width="300">Array Index</td>
+</tr>
+
+</table>
+
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Finds the reference of an array references which is set by the slider bar.  A link to the referenced group is set and an output of the reference is set.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&Param</b></i>
+</blockquote>
+
+<blockquote>
+The input for the ConnectRefUI macro.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>value</b></i>
+</blockquote>
+
+<blockquote>
+Value is the array index at which the user wants to link.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro Connect combines the Functional Macro ConnectRefToArrayMember with the UI Macro ConnectRefUI.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+The example application ConnectRefToArrayEg provided, shows the linking of group references.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/con_ref/con_macs.v</i> contains the functional macro ConnectRefToArrayFunc, the user interfaces macro ConnectRefToArrayUI, and the user macro ConnectRefToArray. 
+
+<i>xp_comm_proj/con_ref/con_apps.v</i> contains the example application ConnectRefToArrayEg.
+</blockquote>
+
+<h3>Other Notes</h3>
+<blockquote>
+The ConnectRefToArrayMacs library inherits its process. As this library contains no procedural code, the process is not important.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle
+Leon Thrane 
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ian Guthrie
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_mod.html">ConnectRefToArrayCore</a> module.</li>
+</ul>
+
+</body>
+</html>

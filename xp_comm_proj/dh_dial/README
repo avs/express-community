@@ -1,0 +1,48 @@
+Express Community DashDial Project
+https://github.com/avs/express-community
+--------------------
+
+This directory ( xp_comm_proj/dh_dial/ ) contains all the V code, HTML
+documentation, and installation information for the Community project
+"DashDial".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new DashDial project, and additions to one or more of files in the
+xp_comm_lib/ directory, to link appropriate objects to the top-level Community library
+page.
+
+This project contains no source code, and hence does not require compilation.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/dh_dial/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+dhdial.v	Creates the XP_COMM_PROJ.DashDial library.
+
+dhd_macs.v	Creates the DashDialMacs library containing the V definitions
+		of the low level macros dash_camera, mk_dashtic and mk_dashtext
+		as well as the high level User Interface Macro DashDial.
+			
+
+dhd_apps.v	Creates the DashDialApps library containing the V definition 
+		of the example application DashDialArrayEg.
+		
+DashDial.html	HTML documentation for the DashDial high level User Interface
+		Macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+There are no generated files as this project does not contain any source code.

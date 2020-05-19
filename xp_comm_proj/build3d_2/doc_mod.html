@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Build3D_2_Core</title>
+</head>
+<body bgcolor="#92bfbf">
+<h1>Build3D_2_Core</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The Build3D_2_Core low-level module reads a series of image files and outputs this data as a volume field.  The source image files can be of any the formats supported by AVS/Express.  The output contains a single node data component.  This component can be either a 4 byte vector containing the full ARGB data, a 3 float vector containing the RGB data, a single byte containing the value of a single channel or a single float containing the luminance of each pixel.</blockquote>
+
+<blockquote>
+<hr><pre>
+module Build3D_2_Core &lt;src_file="build3d_2.c"&gt; {
+   string+IPort2  filename;
+   int+IPort2     format;
+   int+IPort2     start;
+   int+IPort2     end;
+   int+IPort2     out_format;
+
+   omethod+notify_inst+req update&lt;status=1&gt; (
+      .filename+read+notify+req,
+      .format+read+notify+opt,
+      .start+read+notify+req,
+      .end+read+notify+req,
+      .out_format+read+notify+req,
+      .info+write,
+      .out+write
+   ) = "Build3D_2_Core_update";
+
+   string+OPort2 info;
+   Mesh_Unif+Dim3+Space3+Node_Data+OPort2 out;
+};
+</pre><hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The Build3D_2_Core low-level module reads in a series of image file slices, builds these slices into a 3D volume and then outputs this data as a 3D uniform field.  The format of the input image files can be explicitly specified or can be automatically detected.  The format of the output data can also be specified.  The module can output node data that for each node contains either a 4 byte vector containing the full-colour ARGB image data, a 3 float vector containing the RGB image data, a single byte containing a single channel of the image data or a single float containing the luminance of the pixel.</p>
+
+<p>The series of image files to read is specified by a C style formatting string, a starting index and an ending index.  Internally these parameters are used to generate filenames that are read in by the image libraries contained within AVS/Express.  The sequence of filenames generated proceeds from the start index to the end index.  The sequence <b>includes</b> the image file with the ending index number.  The module ensures that all the specified image files exist, are of the same format and are the same size.  If they are not the module stops with an error.  The read image data is translated as necessary and stored into a single slice of the output 3D volume.</p>
+
+<p>It should be noted that this module outputs a uniform field and hence it assumes that all the input slices are evenly spaced.  If this not the case then
+the <a href="adjust.html">adjust_slice_spacing</a> macro can be used to convert the uniform field into a rectilinear field with specified positions for each slice.</p>
+
+<p>This module can be useful in a wide variety of situations.  For instance in microscopy a series of images can be taken at different depths.  The build3D_2 module can take these separate images and build them into a 3D volume that can be visualized as a whole.  The example applications illustrates this and also illustrates now the image data can be used to colour AVS/Express fields.  This could be used, for instance to realistically colour an isosurface visualization of a body.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><i><b>filename</b></i></blockquote>
+
+<blockquote>
+<p>C style formatting string that is used to construct the series of image filenames.  The formatting string should contain one decimal format specification.  It should contain no other format specifications.  The filename specification can be either relative or absolute and it can contain AVS/Express environment variables (i.e. $XP_ROOT, $XP_PATH&lt;1&gt;).</p>
+
+<p>As example we can consider a series of image files of the form <code>pic001.tif</code>.  If these files are stored in the data directory of the current project directory then our filename specification string would be:</p>
+
+<p>"<code>$XP_PATH&lt;1&gt;/data/pic%03d.tif</code>"</p>
+
+<p>More information on C style formatting strings can be found in any C textbook or reference.  Information should also be available on the <code>printf</code> man page.</p>
+</blockquote>
+
+
+<blockquote><i><b>format</b></i></blockquote>
+
+<blockquote><p>Integer parameter that specifies the format of the image files that are been read.  If the format is not known then no value or a value of 0 can be given.  This indicates that the module should automatically detect the format of the image files.</p>
+
+<p>The following values are valid for this parameter:</p>
+		
+<ol start=0>
+<li>Automatically determine format from file.</li>
+<li>AVS .x format</li>
+<li>Microsoft BMP format</li>
+<li>Graphics Interchange Format (GIF)</li>
+<li>JPEG File Interchange Format</li>
+<li>Portable Bitmap Utilities (PBM)</li>
+<li>SGI Image format</li>
+<li>Sun Raster File format</li>
+<li>Tag Image File Format (TIFF)</li>
+</ol>
+</blockquote>
+
+
+<blockquote><i><b>start</b></i></blockquote>
+
+<blockquote>Integer parameter that specifies the index number of the first image that should be read.  This parameter must be less than the end parameter.</blockquote>
+
+<blockquote><i><b>end</b></i></blockquote>
+
+<blockquote>Integer parameter that specifies the index number of the last image that should be read.  This parameter must be greater than the start parameter.</blockquote>
+
+
+<blockquote><i><b>out_format</b></i></blockquote>
+
+<blockquote><p>Integer parameter that specifies the format of the output node data.  Along with the uniform mesh the Build3D_2_Core module outputs a single node data component.  This node data component can contain one of several different types of data.  This parameter specifies what data should be output for each node.  The following values are valid for this parameter:</p>
+		
+<ol start=0>
+<li>4 byte vector containing full colour ARGB values.</li>
+<li>1 byte scalar containing alpha channel values.</li>
+<li>1 byte scalar containing red channel values.</li>
+<li>1 byte scalar containing green channel values.</li>
+<li>1 byte scalar containing blue channel values.</li>
+<li>1 float scalar containing luminance values.</li>
+<li>3 float vector containing RGB values.</li>
+</ol>
+
+<p>The floating point luminance values are calculated by the following formula and are scaled so that all values lie in the range 0 to 1.</p>
+
+<blockquote>luminance = (red*0.299) + (green*0.587) + (blue*0.114)</blockquote>
+
+<p>The formats of the 4 byte ARGB and 3 float RGB outputs where chosen so that they would directly map to special forms of node data used by AVS/Express.  If certain node data ID numbers are specified Express will use the output node data to directly colour the mesh that it renders.  Hence the colours in the input images can be used to render the final visualization.  Unfortunately due to a problem with Express the required node data IDs cannot be set by the Build3D_2_Core module.  Instead the <a href="#utility">node_2_argb_data</a> and <a href="#utility">node_2_color_data</a> modules have to be used instead.  It should be noted that Express will only use 4 byte ARGB data to colour 2D fields such as orthoslices.</p>
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><i><b>out</b></i></blockquote>
+
+<blockquote>The output uniform volume field.  The output field contains a uniform mesh and a single component of node data.  The dimensions of the mesh are set by the width and height of the images and the number of image slices read.  The node data component can contain a 4 byte vector, a 3 float vector, a single byte scalar or a single float scalar depending upon which output option is choose.</blockquote>
+
+<h3><a name="utility">Utility Macros</a></h3>
+
+<blockquote>
+<p>The low-level Build3D_2_Core module is used in the Functional Macro Build3D_2_Func which is in turn used in the User Macro build3d_2. Additionally, this macro also uses the Build3D_2_Params parameter block group object, as does the Build3D_2_UI UI Macro.</p>
+
+<p>The <a href="adjust.html">adjust_slice_spacing</a> utility macro is provided.  This macro enables the slice spacing of a uniform volume to be adjusted.  A rectilinear field is then output.  If the input image slices were taken at an irregular spacing this macro enables the spacing of the build3d_2 output to be corrected.</p>
+
+<p>The node_2_argb_data and node_2_color_data modules are also provided.  These modules take an input field and sets the appropriate node data ID so that Express can use the colour data to directly render the output mesh.  The node_2_argb_data module sets the node data ID to <code>GD_RGB_DATA_ID</code> and the node_2_color_data module sets the node data ID to <code>GD_COLOR_DATA_ID</code>.  Both of these modules should be placed at the end of the visualization pipeline immediately before the viewer component.  Examples of their use can be seen in the NodeARGBDataEg and NodeColorDataEg example applications.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Four example applications are provided. The Build3D_2_Eg application loads a series of 30 TIFF images, builds a 3D volume from these and displays the volume using an orthoslice and a bounding box.  The AdjustSliceSpacingEg application similarly loads a series of TIFF images.  However this application also uses the adjust_slice_spacing user macro to irregularly space the image slices.  You should be able to see that the orthoslice does not now move up and down in uniform steps.</p>
+
+<p>The NodeARGBDataEg and NodeColorDataEg example applications illustrate how colour from images can be used to colour a final visualization.  The NodeARGBDataEg application reads a small set of colour images and displays an orthoslice of the volume.  This orthoslice has the same colouring as the original images.  No 3D fields are coloured as Express does not support using ARGB data to colour 3D fields.  In a similar way the NodeColorDataEg application reads the set of colour images.  However it displays both a coloured orthoslice and a coloured isosurface.  This illustrates that it is possible to use image data to colour 3D fields.</p>
+
+<!--
+<p>The CreateImageSlicesEg application uses an orthoslice module, a 2D viewer and a write_image module to create TIFF images that represent slices from a volume field.  These slices can later be rebuilt into a volume by the build3D_2 macro.  This application is unlikely to have any practical usage.  Instead it is intended to generate images that build3d_2 can be tested with.</p>
+-->
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/build3d_2/bl3dmods.v</i> contains the V definitions of the Build3D_2_Params parameter group and the Build3D_2_Core and AdjustSliceSpacingCore low-level modules.</p>
+
+<p><i>xp_comm_proj/build3d_2/bl3dmacs.v</i> contains the V definitions of the Build3D_2_UI UI Macro, the Build3D_2_Func, node_2_argb_data and node_2_color_data Functional Macros and the build3d_2 and adjust_slice_spacing User Macros.</p>
+
+<p><i>xp_comm_proj/build3d_2/bl3dapps.v</i> contains the V definitions of the Build3D_2_Eg, AdjustSliceSpacingEg, NodeARGBDataEg and NodeColorDataEg example applications.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level Build3D_2_Mods library containing the low-level Build3D_2_Core and AdjustSliceSpacingCore modules does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umac.html">build3d_2</a> IAC user macro.</li>
+<li><a href="adjust.html">adjust_slice_spacing</a> IAC user macro.</li>
+</ul>
+
+</body>
+</html>
+

@@ -1,0 +1,210 @@
+
+<html>
+<head>
+<title>Nurbs_To_Mesh - Displays NURBS control mesh.</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>Nurbs_To_Mesh</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Displays the control mesh of a NURBS data object.
+</blockquote>
+
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by Nurbs_To_Mesh">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>nurbs_in</i></td>
+<td width="200">nurbs_type (ptr)</td>
+<td width="425">Takes a pointer to the Nurbs data as input.</td>
+</tr>
+
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Nurbs_To_Mesh">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>do</i></td>
+<td width="200">int</td>
+<td width="300">Toggles if the NURBS control mesh is shown or not</td>
+<td width="125">Toggle Button</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Nurbs_To_Mesh">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td valign=top width="100"><i>mesh_out</i></td>
+<td valign=top width="200">Mesh_Struct+Node_Data</td>
+<td valign=top  width="425">Structured mesh for further processing.</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj_out</i></td>
+<td width="200">DataObject</td>
+<td width="425">Data object for rendering in 3D viewer.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The module displays the control mesh of the NURBS data. The NURBS data can be obtained using the Load_Nurbs module which generates a suitable input for this module. The Nurbs_to_Mesh module outputs a Structured Mesh which can be used for further processing and also a data object which can be rendered directly using any standared data viewer.</p>
+
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>nurbs_in</i></b>
+<blockquote>pointer to the Nurbs data which can be obtained from a Nurbs data file using the <a style="text-decoration:none" href="doc_load.html">Load_Nurbs</a> module.</blockquote>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<h4>Mesh_Params</h4>
+
+<blockquote><b><i>do</i></b></blockquote>
+
+<blockquote>Allows control over the displaying on NURBS data control mesh.  </blockquote>
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>mesh_out</i></b>
+<blockquote>Structured mesh + Node data that contains the geometry and attached data values which can be used for further processing.</blockquote>
+
+
+<b><i>obj_out</i></b>
+
+<blockquote>Ouputs a DataObject, which can be rendered directly using the AVS/Express standard 3D viewer.</blockquote>
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<h4>Nurbs_to_Mesh_func</h4>
+
+<blockquote>
+<p>The Nurbs_to_Mesh_func functional macro uses the low-level nurbs_crtl_to_mesh module. The macro takes as input the pointer to the Nurbs data and the parameter block Mesh_Params. It macro outputs the Structured mesh + Node data that contains the geometry and attached data values.  
+
+</blockquote>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes an example application that demonstrates the use of the NURBS marcos. The application contains the nurbs file loader (<i>Load_Nurbs</i>) plus the <i>Nurbs_To_Mesh</i> and the <i>Nurbs_To_Field</i> modules. These allow the viewing of the supplied NURBS data files in the 3D viewer. </p>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/nurbs/nurbs_mod.v</i> contains the V definitions of the Nurbs_crtl_to_mesh module and the Mesh_Params parameter block.</p> 
+
+<p><i>xp_comm_proj/nurbs/nurbsmacs.v</i> contains the V definitions of the Nurbs_to_Mesh_UI user interface macro, the Nurbs_to_Mesh_func functional macro and the Nurbs_to_Mesh user macro.</p>
+
+</blockquote>
+
+
+
+
+<h3>Author</h3>
+<blockquote><pre>
+
+<b><i>Contact:</i></b>
+<blockquote>
+    Fenqiang Lin, W T Hewitt
+    Computer Graphics Unit
+    Manchester Computing
+    University of Manchester
+    Manchester M13 9PL
+
+    eMail: cgu-info@mcc.ac.uk
+    tel:    0161 275 6095
+    fax:    0161 275 6040    
+    
+</blockquote>
+</pre></blockquote>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ian Guthrie
+Manchester Visualization Centre
+
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a style="text-decoration:none" href="doc_load.html">Load_Nurbs</a> module (Nurbs data file loader)</li>
+<li><a style="text-decoration:none" href="doc_field.html">Nurbs_To_Field</a> module (displays NURBS image)</li>
+</ul>
+
+</body>
+</html>
+

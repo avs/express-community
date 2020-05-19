@@ -1,0 +1,70 @@
+Express Community Revolve Example Project
+https://github.com/avs/express-community
+---------------------------
+
+This directory ( xp_comm_proj/revolve/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community Revolve
+Example project "Revolve".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Revolve project, and two single line additions to some of the 
+xp_comm_lib/ files (in this instance mappers.v and examples.v) to add a link to
+the User Macro and the Example Application from the new top-level Community library
+ page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Users of the Developer's Edition may select the
+library XP_COMM_PROJ.Revolve.RevolveMods in the Templates library,
+and then perform a compile. Alternatively, you may type the following command
+into the VCP prompt; Visualization Edition users must type the following 
+command to compile the project, as there is no access to the Templates library
+through the Network Editor:
+
+$compile XP_COMM_PROJ.Revolve.RevolveMods
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/revolve/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ data_io.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+revolve.v	Creates the XP_COMM_PROJ.Revolve library.
+
+rev_mods.v	Creates the RevolveMods library containing the low-level
+		module revolve and the parameter group RevolveParams.
+
+rev_macs.v	Creates the RevolveMacs library containing the high-level
+		macros RevolveUI, RevolveFunc and the user macro
+		revolve 
+
+rev_app.v	Creates the RevolveApps library containing the example
+		appplication RevolveEg.
+
+revolve.cxx	The C++ source code for the revolve module.
+
+revolve.html	HTML documentation for the revolve module.
+
+
+README		This file.
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h	AVS/Express generated header file.
+
+gen.cxx	AVS/Express generated source code.
+
+revolve.o	Intermediate object file.

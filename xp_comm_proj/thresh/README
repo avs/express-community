@@ -1,0 +1,68 @@
+Express Community Threshold Example Project
+https://github.com/avs/express-community
+-----------------------------
+
+This directory ( xp_comm_proj/thresh/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community Threshold
+Example project "Threshold".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Threshold project, and two single line additions to some of the xp_comm_lib/
+files (in this instance filters.v and examples.v) to add a link to the User
+Macro and the Example Application from the new top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Users of the Developer's Edition may select the
+library XP_COMM_PROJ.Threshold.ThresholdMods in the Templates library, and then
+perform a compile. Alternatively, you may type the following command into
+the VCP prompt; Visualization Edition users must type the following command
+to compile the project, as there is no access to the Templates library
+through the Network Editor:
+
+$compile XP_COMM_PROJ.Threshold.ThresholdMods
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/thresh/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ filters.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+thresh.v	Creates the XP_COMM_PROJ.Threshold library.
+
+thr_mods.v	Creates the ThresholdMods library containing the low-level
+		module ThresholdNodeData and the parameter group
+		ThresholdParams.
+
+thr_macs.v	Creates the ThresholdMacs library containing the high-level
+		macros ThresholdUI, Threshold, threshold and the example
+		appplication ThresholdEg.
+
+thresh.c	The C source code for the ThresholdNodeData module.
+
+doc_mod.html	HTML documentation for the ThresholdNodeData module.
+
+doc_umac.html	HTML documentation for the threshold User Macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+thr_gen.h	AVS/Express generated header file.
+
+thr_gen.cxx	AVS/Express generated source code.
+
+thresh.o	Intermediate object file.

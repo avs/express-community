@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>volume_render2</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>volume_render2</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Modified version of standard volume_render that allows the user to select the range of values that the datamap is applied to.
+</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by volume_render2">
+
+<tr>
+<td width="125"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>in_mesh</i></td>
+<td width="125">Mesh_Unif+Node_Data</td>
+<td width="300">Uniform field to volume render</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<p>Those used by the standard volume_render macro plus:</p>
+
+<table summary="Parameters used by volume_render2">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Ranges Min</i></td>
+<td width="75">float</td>
+<td width="300">The minimum data value that you want the datamap applied to.</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Ranges Max</i></td>
+<td width="75">float</td>
+<td width="300">The maximum data value that you want the datamap applied to.</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>Alternative Object</i></td>
+<td width="75">boolean</td>
+<td width="300">Toggle alternative object.</td>
+<td width="125">UItoggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by volume_render2">
+
+<tr>
+<td width="125"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>obj</i></td>
+<td width="125">DefaultObject</td>
+<td width="300">Directly renderable object output.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The volume renderer supplied with AVS/Express can only handle unsigned 8 bit (values 0>255), unsigned 12 bit (values 0>4095) or signed 16 bit (values  -32768 > 32767) data by default, and chooses which one on these datatype ranges to render your data with depending on the node_data's minimum and maximum values. This system works correctly provided that your data fills the majority of the assigned data range.  In this case the datamap used will be appropriate for your data.  However if your data fills only a portion of the datatype range the datamap used will not be at all suitable.  For instance assume that you have data that ranges from -1024 to +1024.  The volume renderer will assume that this is signed 16 bit data.  Hence a datamap with a range of -32768 to +32767 will be used.  The result of this is that the final rendering only uses a very small portion of the datamap and the displayed colour does not vary with the range position.  In this case it would only be possible to see 'green blobs' being displayed.</p>
+
+<p>A possible solution to this problem is to use the data_math module to remap the data to a more appropriate range, for instance unsigned 12 bit data.  However this solution duplicates the data and can cause memory overhead problems.  The VolRender2 project provides a better solution.  It modifies the original volume_render macro and allows the user to specify the range that should be used for the datamap.  Hence, in the above example, a range of -1024 to +1024 could be specified for the datamap and the full range of colours would be displayed in the volume rendering.</p>
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in_mesh</b></i>
+</blockquote>
+
+<blockquote>
+A 3D uniform volume.  Please read the original documentation of the volume_render macro for a full description of this input.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>Ranges_Min/Ranges_Max</b></i>
+</blockquote>
+
+<blockquote>
+The minimum and maximum values of the data your want the datamap to be applied to. Changing these values also changes the minimum and maximum values of the range position slider.  This makes the volume_render2 macro much more user friendly.
+</blockquote>
+
+<blockquote>
+<i><b>Alternative Object</b></i>
+</blockquote>
+
+<blockquote>
+The standard volume_render macro does not specify an alternate object that can be rendered interactively.  For most applications this is not particularly useful.  Hence the ability to specify that a bounding box should be used as the alternative object for interactive manipulation was added to the volume_render2 macro.  This option is enabled by default and can be toggled through the user interface.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+Directly renderable GDobject that can be displayed in a 3D viewer.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The volume_render2 user macro uses the replacement DataObject VolRender2DataObject instead of the original DataObject.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/volren2/vr2_macs.v</i> contains the V definitions of the replacement DataObject VolRender2DataObject, the volume_render2 user macro and the VolRender2Eg example application.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The VolRender2Eg example application shows the improvement that can be achieved with the volume_render2 macro.  The application uses the data_math module to shift a unsigned 8 bit volume into a small portion of the signed 16 bit data range.  In this case values range from -1024 to +1024.  With the original volume_render macro the resulting volume rendering is always green.  However with the range correctly set in the volume_render2 macro the full range of colours can be seen in the second volume rendering.</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>This project relies on the successful installation of the following components. Without them it will not function correctly.</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The volume_render2 macro is based upon and modifies the standard volume_render macro.  Please see the original volume_render documentation for full instructions on the use of the volume rendering provided with AVS/Express.  Unfortunately due to the fact that original Express modules have been modified this project will only work with AVS/Express Developer's Edition.</p>
+
+<p>This project does not contain any procedural code and hence does not require compiling.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+James S Perrin
+Manchester Visualization Centre,
+Manchester Computing,
+The University,
+Manchester
+M13 9PL
+UK
+
+j.perrin@mcc.ac.uk
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+volume_render
+</blockquote>
+
+</body>
+</html>
+

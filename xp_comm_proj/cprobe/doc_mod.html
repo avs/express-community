@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>ClusterProbeCreate</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ClusterProbeCreate</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The ClusterProbeCreate module inputs two glyphs and replicates the second glyph at each of the coordinates in the first grid, using that point as the origin of each instance of the second glyph.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module ClusterProbeCreate &lt;src_file="cprobe.cxx"&gt; {
+  Grid+Xform &in_base &lt;NEportLevels={2,0}&gt;;
+  Grid+Xform &in_glyph &lt;NEportLevels={2,0}&gt;;
+
+  Mesh+Xform out &lt;NEportLevels={0,2}&gt; {
+    nspace = 3;
+    ncell_sets = 1;
+    Cell_Set+Point cell_set[ncell_sets] {
+      ncells =&gt; &lt;-.nnodes;
+      node_connect_list =&gt; init_array( ncells, 0, (ncells-1));
+    };
+    &xform =&gt; &lt;-.in_base.xform;
+  };
+
+  cxxmethod+notify_inst+req update (
+    in_base+read+notify+req,
+    in_glyph+read+notify+req,
+    out+write );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>Inputs two Grids and Xforms (glyphs) and replicates the second glyph at each coordinate of the first glyph. This allows clustered probes (glyphs) to be generated and used as a single input to modules such as streamlines and advect.</p>
+<p>The xform of the second glyph is applied to each coordinate of the second glyph, so that it can be transformed (usually scaled) relative to the base (first) glyph. For example this allows a box glyph to replicated at each point on a plane object, producing an array of boxes, or a sphere glyph  could be repeated along a multi-segment line object. Such clustered glyphs can be used as probes for use with modules such as streamlines and advect. The module also generates a Point mesh, so that each point may be rendered.</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&in_base</b></i>
+</blockquote>
+
+<blockquote>
+Input of Grid (coordinates) and a corresponding Xform, to be used as the base (origin) for all instances of the replicated second glyph.
+</blockquote>
+
+<blockquote>
+<i><b>&in_glyph</b></i>
+</blockquote>
+
+<blockquote>
+Input of Grid (coordinates) and a corresponding Xform, to be used as the glyph to be replicated.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Output field containing all the coordinates and a Point Mesh.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The ClusterProbeCreate low-level module is used within the User Macros <a href="doc_umac.html">cluster_probe</a> and <a href="doc_umac.html">cluster_probe_edit</a>.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ClusterProbeEg is provided, which shows a Plane and a Box glyph combined to form a single probe. The Box glyph is replicated at each point within Plane. The example uses the <a href="doc_umac.html">cluster_probe_edit</a> user macro which includes the Transformation Editor UI, and the scale of the Box has been set to 0.05.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cprobe/cprbmods.v</I> contains the ClusterProbeMerge module V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ClusterProbeMods library containing the module ClusterProbeMerge does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+<a href="doc_umac.html">cluster_probe</a>, <a href="doc_umac.html">cluster_probe_edit</a> and ClusterProbeUI.
+</blockquote>
+
+</body>
+</html>

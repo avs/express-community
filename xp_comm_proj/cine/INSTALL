@@ -1,0 +1,14 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/cine/cine.v" Cine;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Cine.CineMacs.CineInteract CineInteract;
+  XP_COMM_PROJ.Cine.CineMacs.CineLoop CineLoop;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Cine.CineApps.CineInteractEg CineInteractEg;
+  XP_COMM_PROJ.Cine.CineApps.CineLoopEg CineLoopEg;

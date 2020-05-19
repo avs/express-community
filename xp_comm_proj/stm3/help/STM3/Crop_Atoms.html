@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module Crop_Atoms documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Crop Atoms</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Crop Atoms</h1>
+
+<h2>Description</h2>
+<p>Crop the molecule inside a box, cylinder or sphere.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Crop type</td>
+	<td class="c2">list</td>
+	<td class="c3">Select the kind of cropping:
+	<dl>
+	<dt>block</dt>
+		<dd>An axys oriented brick.</dd>
+	<dt>cylinder x</dt>
+		<dd>A cylinder oriented along the X axys.</dd>
+	<dt>cylinder y</dt>
+		<dd>A cylinder oriented along the Y axys.</dd>
+	<dt>cylinder z</dt>
+		<dd>A cylinder oriented along the Z axys.</dd>
+	<dt>sphere</dt>
+		<dd>A sphere.</dd>
+	</dt></td>
+</tr>
+<tr>
+	<td class="c1">reverse</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Reverse inside and outside.</td>
+</tr>
+<tr>
+	<td class="c1">show geometry</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Make visible the geometry on the <i>geometry</i> output.</td>
+</tr>
+<tr>
+	<td class="c1">add cross bonds</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Add atoms just outside the geometry that have bonds with selected atoms.</td>
+</tr>
+<tr>
+	<td class="c1">Geometry</td>
+	<td class="c2">various fields</td>
+	<td class="c3">Set the geometry parameters specific for each shape.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">inside</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Selected molecular data inside the geometry.</td>
+</tr>
+<tr>
+	<td class="c1">outside</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Selected molecular data outside the geometry.</td>
+</tr>
+<tr>
+	<td class="c1">geometry</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The cropping geometry.</td>
+</tr>
+</table>
+
+</body></html>

@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>ReadNastran</title>
+</head>
+<body bgcolor="#92bfbf">
+<h1>ReadNastran</h1>
+<h3>Synopsis</h3>
+<p>Reads the geometries stored in a NASTRAN file.</p>
+<p>
+<h4>Parameters</h4>
+<table class="parameters" summary="Parameters used by ReadNastran">
+<tr>
+<td width="100"><b>Name</b></td>
+<td width="75"><b>Type</b></td>
+<td width="300"><b>Description</b></td>
+<td width="125"><b>UI Control</b></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">Name of Nastran file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+<tr>
+<td width="100"><i>ColourMode</i></td>
+<td width="75">enum</td>
+<td width="300">Mode for the colour representation</td>
+<td width="125">OptionBox</td>
+</tr>
+<tr>
+<td width="100"><i>SurfaceMode</i></td>
+<td width="75">enum</td>
+<td width="300">Mode for the surface representation</td>
+<td width="125">OptionBox</td>
+</tr>
+<tr>
+<td width="100"><i>WireframeMode</i></td>
+<td width="75">enum</td>
+<td width="300">Mode for the edge representation</td>
+<td width="125">OptionBox</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+<h4>Output Ports</h4>
+<table class="parameters" summary="Output Ports used by ReadNastran">
+<tr>
+<td width="100"><b>Name</b></td>
+<td width="75"><b>Type</b></td>
+<td width="425"><b>Description</b></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="75">3D Field</td>
+<td width="425">Geometries read from the Nastran file.</td>
+</tr>
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DefaultObject</td>
+<td width="425">Directly Renderable Object.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</p>
+<h3>Description</h3>
+<p>The <tt>ReadNastran</tt> user macro reads a Nastran file with a given filename. It currently only imports the following cell types:
+<ul>
+<li>GRID (nodes)</li>
+<li>PSOLID(a way to specify 3D materials)</li>
+<li>CORD2R e  CORD2C (coordinate systems, cartesian & cilindrical)</li>
+<li>COMMENT (everything that start wth $)</li>
+<li>TRIAX6 (2D 2nd order tris with 6 nodes)</li>
+<li>TETRA (3D tetraedral with 4 nodes)</li>
+<li>HEXA8 (3D esaedral with 8 nodes)</li>
+<li>HEXA20 (3D 2nd order esaedral, with 20 nodes)</li>
+<li>PENTA6 (3D piramids with penta base with 6 nodes)</li>
+<li>PENTA15 (3D 2nd order piramids with penta base with 15 nodes)</li>
+</ul>
+These objects are converted to the unstructured AVS Field which is passed back to AVS/Express. The DataObject which is part of the user macro converts this AVS/Field into a Directly renderable object which can be rendered by a standard Uviewer.
+</p>
+<h3>Parameters</h3>
+<p><b><i>filename</i></b></p>
+<p>
+String parameter that contains the name of the Nastran file that should be read.
+</p>
+<p><b><i>ColourMode</i></b></p>
+<p>
+This enum ("By Node","By Material") parameter defines the colouring of the surface. The information can either be taken from the Node_data or the material number defined in the Nastran file.</p>
+
+<p><b><i>SurfaceMode</i></b></p>
+<p>
+This enum ("None","No Lighting","Flat Shading","Gouraud Shading) parameter defines if the edge blending of the surface. If Gouraud Shading is chosen the Nastran reader will generate the neccessary normals.</p>
+
+<p><b><i>WireframeMode</i></b></p>
+<p>
+This enum ("none", "regular") parameter defines if the edges of the Mesh should be shown or not.</p>
+
+<h3>Outputs</h3>
+<p><b><i>out_mesh</i></b></p>
+<p>
+AVS/Express Field output that contains the geometries and data read from the Nastran file.
+</p>
+<p><i><b>out_obj</b></i></p>
+<p>
+The directly renderable output of the ReadNastran macro. This output contains the geometries and data read from the Nastran file in a form that can be rendered by the standard data viewers.</p>
+
+<h3>Example</h3>
+<p>
+An example application ReadNastranEg is provided whith the project. 
+</p>
+<h3>Files</h3>
+<p><i>xp_comm_proj/rd_nastr/nas_mods.v</i> Creates the ReadNastranMods library containing the parameter blocks ReadNastranParams and nastran_output and the low-level module ReadNastranCore.   
+</p>
+<p><i>xp_comm_proj/rd_nastr/nas_macs.v</i> Creates the ReadVRMLMacs library containing the UI macro ReadNastranUI the functional macro ReadNastranFunc, the user macro ReadNastran and the example applications ReadVRMLEg.</p>
+
+<h3>Authors</h3>
+<p>
+<pre>
+Dr Federico GAMBA, Vittorio Bertocci
+AVS Italy
+</pre>
+</p>
+</body>
+</html>

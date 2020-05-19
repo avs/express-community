@@ -1,0 +1,12 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/rd_help/rd_help.v" ReadHelp;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.ReadHelp.ReadHelpMacs.ReadHelp ReadHelp;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ReadHelp.ReadHelpApps.ReadHelpEg ReadHelpEg;

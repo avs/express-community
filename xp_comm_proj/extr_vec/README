@@ -1,0 +1,48 @@
+Express Community ExtractVector Project
+https://github.com/avs/express-community
+-------------------------
+
+This directory ( xp_comm_proj/extr_vec/ ) contains all the V code, HTML
+documentation, and installation information for the Community project
+"ExtractVector".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ExtractVector project, and additions to one or more of files in the
+xp_comm_lib/ directory, to link appropriate objects to the top-level Community library
+page.
+
+This project contains no source code, and hence does not require compilation.
+Please not however that this project uses the Developer Edition DVextr_vec
+module; therefore Visualization Edition users will not be able to use this
+project.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/extr_vec/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+extr_vec.v	Creates the XP_COMM_PROJ.ExtractVector library.
+
+xvecmods.v	Creates the ExtractVectorMods library containing the
+		parameter group ExtractVectorParams.
+
+xvecmacs.v	Creates the ExtractVectorMacs library containing the high-level
+		macros ExtractVectorUI, ExtractVector, extract_vector.
+
+doc_umac.html	HTML documentation for the extract_vector User Macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+There are no generated files as this project does not contain any source code.

@@ -1,0 +1,27 @@
+Changes from Version 1.1 to 1.2
+-------------------------------
+
+Added conditional inclusion of link_files="-lm" property.  This allows
+project to compile properly on the Windows platform.
+
+Added explicit sizing of User Interface panel.  This allows the panel
+to be seen properly on the Windows platform.
+
+Moved example applications into SphereSurfaceApps library.
+
+Updated the project INSTALL file to correctly reference the example
+applications for the main IAC library page. Please update the
+xp_comm_lib/examples.v file.
+
+Andrew Dodd - 27th October 2000
+
+
+Changes from Version 1.0 to 1.1
+-------------------------------
+
+Updated the project INSTALL file to correctly reference the high-level
+visualization macros for the main IAC library page. Please update the
+xp_comm_lib/misc.v file.
+
+Paul G. Lever - 18th May 1998
+

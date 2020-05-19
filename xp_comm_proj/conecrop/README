@@ -1,0 +1,42 @@
+Express Community ConeCrop Project
+https://github.com/avs/express-community
+-----------------------
+
+This directory ( xp_comm_proj/conecrop/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"ConeCrop".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new project, and additions to two of the files in the xp_comm_lib/ directory
+to add links to the User Macro and Example Applications to the top-level
+Community library page.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/conecrop/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/mappers.v and xp_comm_lib/examples.v files. This file
+               should not be edited as the future installation script will
+               use this file.
+
+conecrop.v	   Creates the XP_COMM_PROJ.ConeCrop library.
+
+ccrpmacs.v     Creates the ConeCropMacs library containing the UI macro
+               ConeCropUI the functional macro ConeCropFunc and the
+               macro ConeCrop.
+			   
+ccrpapps.v     Creates the ConeCropApps library containing the example 
+               applications ConeCropEg.
+
+conecrop.html  HTML documentation for the user macro.
+
+README         This file.
+

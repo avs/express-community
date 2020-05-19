@@ -1,0 +1,209 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>ReadPatranCore</title>
+</head>
+<body text="#000000" bgcolor="#92BFBF" link="#0000EE" vlink="#551A8B"  alink="#FF0000">
+
+<h1>ReadPatranCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads the contents of an ASCII Patran Neutral File, and outputs a group 
+structure containing nodes and connectivity.
+</blockquote>
+
+<blockquote><hr>
+<pre>
+   module ReadPatranCore &lt;src_file="rd_patrn.cxx",
+                          cxx_src_files = "patran.cxx",
+                          cxx_hdr_files = "patran.hxx",
+                          c_hdr_files = "pneutral.h rnum.h",
+                          c_src_files = "rnum.c",
+                          cxx_members= "load_neutral loadN;"&gt; {
+
+      ReadPatranParams+req+IPort2 &amp;ReadPatranParams;
+      string+req+read+notify filename =&gt; &lt;-.ReadPatranParams.filename;
+
+      neutral_output+write+OPort2 &amp;neutral_output;
+
+      cxxmethod+notify_inst+req update;
+   };
+</pre>
+<hr></blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The low-level ReadPatranCore module takes an input file, in PATRAN neutral
+file format. The reader is based on the 2.5 specification of Patran. The input 
+stream is parsed, and primitive arrays and scalars are obtained and an output 
+structure is populated. The output structure contains the data necessary to form 
+AVS/Express mesh structures which can be used by other visualization components. 
+Not all entity types present in the PATRAN neutral format are supported. 
+Currently the ReadPatranCore module supports the the following entity types:
+</blockquote>
+
+<blockquote>
+<ul>
+<li>Points</li>
+<li>Lines</li>
+<li>Triangular Mesh</li>
+<li>Quad Mesh</li>
+<li>Tetrahedral Mesh</li>
+<li>Approximate Patches</li>
+</ul>
+</blockquote>
+
+<blockquote>
+Approximate patches are generated from Nurbs and Bspline patches.  Patch 
+subdivision has not been implemented and hence these patches are replaced by 
+flat polygons.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;ReadPatranParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the 
+parameters for the ReadPatran modules and macros. The ReadPatranCore module only 
+makes use of the filename parameter.  All other parameters are ignored.
+</blockquote>
+
+<blockquote>
+<b><i>filename</i></b>
+</blockquote>
+
+<blockquote>
+The name of the file that should be read from. The parameter is of type string.
+The filename should specify the full path name of the file. Normally the value 
+of this parameter is found by referring to the parameter block, which is
+referenced by the &amp;ReadPatranParams input.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<b><i>neutral_output</i></b>
+</blockquote>
+
+<blockquote>
+A group object containing the structure of the input PATRAN neutral file. The 
+neutral_output group contains a variety of variables.  These can be separated 
+into 3 categories:
+
+<h4>Descriptive Header Text</h4>
+
+<blockquote>
+The Header of the PATRAN neutral file contains two lines of text. These are read
+into the string variables title1 and title2.
+</blockquote>
+
+<h4>Node Data</h4>
+
+<blockquote>
+The vertexes contained within the PATRAN file can described by two variables. 
+n_nodes specifies how many nodes the model contains and xyz[n_nodes][3] is an 
+array of coordinates describing the nodes.
+</blockquote>
+
+<h4>Connectivity Data</h4>
+
+<blockquote>
+The connectivity defining the various entity types is described by a series of 
+pairs of variables. In the case of the triangular mesh, n_tri specifies how many 
+triangles there are in the mesh and tri_conn[n_tri*3] describes which nodes form 
+each of the triangles. If a entity type is not present in the input file then 
+the relevant variables are set to 0. Please note that some of the connectivity 
+variables are currently unused.
+</blockquote>
+
+The node and connectivity data is used by mesh mapping modules in the ReadPatran 
+functional macro to form mesh data structures that can be used by other 
+visualization components.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The low-level ReadPatranCore module is used in the Functional Macro
+ReadPatran.  This Functional Macro is used within the User Macro read_patran. 
+The low-level ReadPatranCore module also makes use of the ReadPatranParams and 
+neutral_output common parameter blocks.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadPatranEg is provided that reads a PATRAN file and 
+renders two views of the data. The first view shows the GroupObject output and 
+can be controlled through the UI. The second view shows how the out_mesh output 
+can be used as the input to visualization modules. The external_edges module is 
+used to reduce the size of the triangle mesh while the shrink_cells module is 
+used to allow the structure of the tetrahedral mesh to be viewed. A sample 
+PATRAN file, ex01.out, is provided with the distribution of this project. 
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rd_patrn/pat_mods.v</i> contains the V definitions of the 
+ReadPatranCore module and the ReadPatranParams and neutral_output parameter 
+blocks.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+If required the number of data packets buffered by the ReadPatranCore module can 
+be changed by editing the patran.hxx file and changing the constants at the top 
+of that file. These are all start with <tt>PN_</tt>. Comments describe the 
+function of each of these constants.
+</blockquote>
+
+<blockquote>
+The low-level ReadPatranMods library containing the module ReadPatranCore does 
+not specify a process. By default the express process will be used.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+David Laidlaw, John Stephens, Steve Larkin, Ian Curington
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+
+<a HREF="mailto:ianc@avs.com">ianc@avs.com</a>
+</pre>
+</blockquote>
+
+<blockquote><pre>
+Andrew Dodd
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadPatran, ReadPatranUI, <a href="doc_umac.html">read_patran</a>,  
+ReadPatranParams, neutral_output, ReadPatranEg, Read UCD, Mesh Mappers
+</blockquote>
+
+</body>
+</html>

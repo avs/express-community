@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="Generator" content="Microsoft Word 97">
+<title>readAiff</title>
+</head>
+
+<body link="#0000ff" vlink="#800080" bgcolor="#92bfbf">
+
+<h1>readAiff</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Reads in an AIFF file and outputs the data as a short 
+array.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<blockquote>The following lists all of the parameters found in
+the parameter block ReadAiffParams, which are accessed by the
+functional macro ReadAiff and the UI Macro
+ReadAiffUI.</blockquote>
+
+
+<table summary="Parameters used by readAiff">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>file_name</i></td>
+<td width="75">string</td>
+<td width="300">name of the AIFF file to be loaded</td>
+<td width="125">UIfiledialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>Num_Channels</i></td>
+<td width="75">int</td>
+<td width="300">number of channels in AIFF file</td>
+<td width="125">UItext</td>
+</tr>
+
+<tr>
+<td width="100"><i>Sample_Size</i></td>
+<td width="75">int</td>
+<td width="300">size of each individual sample in bytes</td>
+<td width="125">UItext</td>
+</tr>
+
+<tr>
+<td width="100"><i>Num_Samples</i></td>
+<td width="75">int</td>
+<td width="300">number of individual samples in AIFF file</td>
+<td width="125">UItext</td>
+</tr>
+
+<tr>
+<td width="100"><i>Sample_Rate</i></td>
+<td width="75">double</td>
+<td width="300">number of samples per second</td>
+<td width="125">UItext</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Port</h4>
+
+<table summary="Output Ports used by isolabel">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_data</i></td>
+<td width="80">short[]</td>
+<td width="425">output array containing the sampled waveform.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+
+<h3>Description</h3>
+
+<blockquote>The readAiff macro reads in an uncompressed AIFF file and outputs 
+an array of short values representing the samples that make up the waveform. 
+The amplitude of the samples is represented by a single short value, where 0 is 
+silence, and 32767 and -32768 represent the extensions of the speaker toward 
+and away from the listener. It also sets a number of parameters within the 
+parameter block it references. These describe the format of the sample that it 
+has loaded.  This macro is not able to read compressed AIFF audio files and 
+will give an error message if this is tried. The AIFF file to be read can also 
+be chosen through the user interface.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>file_name</i></b></blockquote>
+
+<blockquote>A member of the ReadAiffParams parameter block group,
+this string value is used to specify the name of the AIFF file
+that should be loaded. This is the only input parameter to the
+readAiff function, all the other parameters are set depending
+upon data in the AIFF file.</blockquote>
+
+<blockquote><b><i>Num_Channels</i></b></blockquote>
+
+<blockquote>A member of the ReadAiffParams parameter block group,
+this int value is used to output the number of channels that are
+present in the AIFF file. This parameter is set by the function
+and is not used for input.</blockquote>
+
+<blockquote><b><i>Sample_Size</i></b></blockquote>
+
+<blockquote>A member of the ReadAiffParams parameter block group,
+this int value is used to output the size of each individual
+sample in bytes. The readAiff module can only cope with sample
+sizes of 8 and 16 bytes. This parameter is set by the function
+and is not used for input.</blockquote>
+
+<blockquote><b><i>Num_Samples</i></b></blockquote>
+
+<blockquote>A member of the ReadAiffParams parameter block group,
+this int value is used to output the number of samples that are
+present in the AIFF file. This parameter is set by the function
+and is not used for input.</blockquote>
+
+<blockquote><b><i>Sample_Rate</i></b></blockquote>
+
+<blockquote>A member of the ReadAiffParams parameter block group,
+this double value is used to output the number of samples per
+second that were used to record the waveform. This parameter is
+set by the function and is not used for input.</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote><b><i>out_data</i></b></blockquote>
+
+<blockquote>The only output of the readAiff macro. This array contains the 
+waveform represented as a series of short values. Each short values contains a 
+single sample of audio data, where 0 is quiet, and 32767 and -32768 represent 
+the extensions of the speaker toward and away from the listener.  If the input 
+audio has a sample size of 8 bits then each byte is expanded so that it fills 
+the full range of values.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The User Macro readAiff combines the Functional Macro
+ReadAiff with the UI Macro ReadAiffUI, via the use of the common
+parameter block ReadAiffParams, to provide a easily usable macro.</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>An example application ReadAiffEg is provided, which
+displays AIFF files on screen using the AGGraph set of graphing
+components.</blockquote>
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/rd_aiff/aiffmacs.v</i> contains the
+readAiff User Macro, the ReadAiff Functional Macro, the
+ReadAiffUI UI Macro, and the example application ReadAiffEg V
+definitions.</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The ReadAiffMacs library inherits its process. As
+this library contains no procedural code, the process is not
+important. The low-level ReadAiffData module, executes under the
+process specified in its library, not the process defined in the
+high-level library.</blockquote>
+
+<h3>Authors</h3>
+
+<pre>
+Paul G. Lever
+Andrew Dodd
+</pre>
+
+<h3>See Also</h3>
+
+<blockquote>ReadAiffParams, ReadAiffUI, ReadAiffEg, ReadAiff and ReadAiffData.</blockquote>
+</blockquote>
+</body>
+</html>
+

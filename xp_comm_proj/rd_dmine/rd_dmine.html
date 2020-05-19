@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>read_datamine - Reads datamine (.dm) format files.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>read_datamine</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The read_datamine macro reads datamine (.dm) format files.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by read_datamine">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>dir</i></td>
+<td width="75">string</td>
+<td width="425">Directory containing datamine files</td>
+</tr>
+
+<tr>
+<td width="100"><i>filenames</i></td>
+<td width="75">string[]</td>
+<td width="425">Array of datamine filenames</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by read_datamine">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>model_as_point</i></td>
+<td width="75">boolean</td>
+<td width="300">Output points or hex boxes.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>model_scale</i></td>
+<td width="75">float</td>
+<td width="300">Specifies scale of hex boxes.</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by read_datamine">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_flds</i></td>
+<td width="75">Field[]</td>
+<td width="425">Array of fields read from datamine files.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The read_datamine macro allows a number of datamine (.dm) files to be read and outputs an array of fields containing the read data.  The datamine file format was developed by Datamine International Ltd of the UK for their <a href="http://www.datamine.co.uk">Datamine</a> product.  Further information on the Datamine International and their Datamine series of products can be found on their web-sites at <a href="http://www.datamine.co.uk">www.datamine.co.uk</a> or <a href="http://www.earthworks.com.au">www.earthworks.com.au</a> . Alternatively Datamine International can be contacted at the following address.</p>
+
+<blockquote><pre>
+DATAMINE International
+The Old Deanery Stables
+Cathedral Green
+Wells
+Somerset BA5 2UE
+UK
+Tel.              +44 1749 670097
+Fax.              +44 1749 670086
+<a href="mailto:info@datamine.co.uk">mailto:info@datamine.co.uk</a>
+</pre></blockquote>
+
+<p>Many thanks go to Ben Heather and Derk Erkelens of Datamine for providing the file format specification and example data files used in the development of this project.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>dir</i></b></blockquote>
+
+<blockquote>Name of the directory that the datamine files should be read from.  The directory string should <i>not</i> end with a path separator (i.e. \ or /).  The directory name can contain AVS/Express environment strings such as $XP_PATH&lt;0&gt;.</blockquote>
+
+<blockquote><b><i>filenames[]</i></b></blockquote>
+
+<blockquote>Array of strings containing the names of the datamine files that should be read.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>model_as_point</i></b></blockquote>
+
+<blockquote>Boolean parameter that specifies if 'blockmodel' type data should be output as points or as hex blocks.  If the parameter is true point data will be output.  This parameter is provided because datamine files can contain hundreds of thousands of blocks.  Outputting these is points will greatly reduce the time taken to read and process the data.</blockquote>
+
+<blockquote><b><i>model_scale</i></b></blockquote>
+
+<blockquote>Floating point parameter that specifies how hex blocks should be scaled.  A value of 1 implies that the blocks should not be scaled.  If the file does not contain 'blockmodel' type data or the data is being read as points this parameter does not have any effect.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_flds[]</i></b></blockquote>
+
+<blockquote>Array of fields containing the data read from the specified datamine files.  Each datamine file is read into a single field in a single element of the array.  If a single field is required for visualization the extract_field macro can be used to select a single field from the array.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to the viewer.  It contains the array of fields present on the out_flds output port.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ReadDatamineFunc functional macro uses the low-level ReadDatamineCore module.  This functional macro and the ReadDatamineUI user interface macro are used by the read_datamine user macro.  All of these macros use the ReadDatamineParams parameter block to communicate data.</p>
+
+<p>The extract_field utility macro is also provided.  This macro allows a single field to be extracted from the array of fields output by the the read_datamine macro.  An example of the use of this macro can be seen in the ReadDatamineEg example application.</p>
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes one example application that demonstrates the use of the read_datamine macro.  The ReadDatamineEg application uses the read_datamine macro to read 4 datamine format files.  These are output as an array of fields.  extract_field and extract_component macros are used to extract a field containing a single set of node data from this array.  This field is then displayed in the normal way.</p>
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_dmine/rd_dmods.v</i> contains the V definitions of the ReadDatamineCore module and the ReadDatamineParams parameter block.</p>
+
+<p><i>xp_comm_proj/rd_dmine/rd_dmacs.v</i> contains the V definitions of the ReadDatamineUI UI macro, the ReadDatamineFunc functional macro, the extract_field utility macro and the read_datamine user macro.</p>
+
+<p><i>xp_comm_proj/rd_dmine/rd_dapps.v</i> contains the V definition of the ReadDatamineEg example application.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadDatamineMods library containing the low-level ReadDatamineCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>Jeremy Maccelari,
+Visual Numerics</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>Andrew Dodd,
+International AVS Centre</pre>
+</blockquote>
+
+
+</body>
+</html>
+

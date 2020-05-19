@@ -1,0 +1,6 @@
+Known bugs
+
+  o After loading examples that use the modules Generate_Octree or
+    Generate_SparseGrid you have to manual update the modules by selecting
+    different parameters like 'Max tree level' or epsilon values.
+

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module NCAC_Tube documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>NCAC Tube</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>NCAC Tube</h1>
+
+<h2>Description</h2>
+<p>Compute the N-CA-C tube. The tube selects the atoms marked <b>CA</b> but pass only through the ones placed between a <b>N</b> and a <b>C</b> atoms.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Points added</td>
+	<td class="c2">slider</td>
+	<td class="c3">Points added between two CA intersection nodes.</td>
+</tr>
+<tr>
+	<td class="c1">Smoothness</td>
+	<td class="c2">slider</td>
+	<td class="c3">"Tension" parameter of the interpolating spline: a value of 0 creates stright tube segment between nodes; 1 is the normal value
+	and more accentuate curvature.</td>
+</tr>
+<tr>
+	<td class="c1">Tube scale</td>
+	<td class="c2">slider</td>
+	<td class="c3">Radius of the tube.</td>
+</tr>
+<tr>
+	<td class="c1">Tube facets</td>
+	<td class="c2">slider</td>
+	<td class="c3">Number of sides composing the tube wall.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">fld</td>
+	<td class="c2">Mesh</td>
+	<td class="c3">The tube itself.</td>
+</tr>
+<tr>
+	<td class="c1">obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of fld.</td>
+</tr>
+</table>
+
+</body></html>

@@ -1,0 +1,53 @@
+Express Community Animate Filename Project
+https://github.com/avs/express-community
+----------------------------
+
+This directory ( xp_comm_proj/animfile/ ) contains all the V code, HTML
+documentation, and installation information for the Community Animate Filename
+project "AnimFilename".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new AnimFilename project, and a single line addition to xp_comm_lib/ data_io.v
+file, to add a link to the User Macro from the new top-level Community library page.
+
+Once the files have been correctly installed, the new project should be ready
+to use - there are no low-level modules that require compilation.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/animfile/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/data_io.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+animfile.v	Creates the XP_COMM_PROJ.AnimFilename library.
+
+afn_mods.v	Creates the AnimFilenameMods library containing the low-level
+		module AnimFilenameGen, a variation of the AVS/Express loop
+		module called AnimFilenameLoop, and the parameter groups
+		AnimFilenameParams and AnimLoopParams.
+
+afn_macs.v	Creates the AnimFilenameMacs library containing the high-level
+		macros AnimFilenameUI, AnimFilename and animfilename. There
+		is no example application with this project.
+
+doc_mod.html	HTML documentation for the AnimFilenameGen and
+		AnimFilenameLoop modules.
+
+doc_umac.html	HTML documentation for the animfilename User Macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+This project requires no compilation, and hence does not generate any other
+files.

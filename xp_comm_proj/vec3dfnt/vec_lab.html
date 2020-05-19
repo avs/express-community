@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>Vector3dFonts</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>Vector3dFonts</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module produces labels that are geometries of full 3D stroke text with optional 3D shaded polygon extrusions based on the Hershey font system. They can be scaled, rotated, and translated. Other geometric operators work as well, such as colour, perspective, and material properties.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Vector3dFonts">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>label</i></td>
+<td width="200">string</td>
+<td width="300">label to be converted into geometry</td>
+<td width="125">Text</td>
+</tr>
+
+<tr>
+<td width="100"><i>kerning</i></td>
+<td width="200">float</td>
+<td width="300">spacing between characters</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>stroke_width</i></td>
+<td width="200">float</td>
+<td width="300">width for strokes in Stroke mode or depth in 3D extrusion mode</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>font</i></td>
+<td width="200">int</td>
+<td width="300">font used for the label</td>
+<td width="125">Radio Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>linestyle</i></td>
+<td width="200">int</td>
+<td width="300">style of the label (Lines, Stroke Lines or 3D Extrusions)</td>
+<td width="125">Radio Box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Vector3dFonts">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="200">Mesh+Node_Data</td>
+<td width="425">contains the geometry</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="200">DataObject</td>
+<td width="425">directly renderable object</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The module converts a special label to a geometry. It can be altered by the following parameters:
+<ul>
+<li>Label - defines the text, which should be converted and it can be altered through editing a UIText-field.
+</ul>
+
+<ul>
+<li>Kerning - defines the space between the characters</li>
+<li>Stroke Width - defines the width of the strokes in Stroke mode and the depth in 3D extrusion mode respectively.</li>
+</ul>
+Both of these parameters can be altered through sliders.
+
+<ul>
+<li>Font - defines the font for the label (Selection between 13 different fonts is possible)</li>
+<li>Line Style - defines the style for the label (Selection between "Lines","Stroke Lines" and "3D Extrusions" is possible)</li>
+</ul>
+These paramters can be altered through Radio-Buttons.<br><br>
+The module outputs a mesh "out" containing the geometry and a DataObject that can directly be rendered using the UViewer3D.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>Label</i></b></blockquote>
+<blockquote>text to be converted</blockquote>
+
+<blockquote><b><i>Kerning</i></b></blockquote>
+<blockquote>Value specifying the spacing between the characters in a range from 0.0 to 3.0</blockquote>
+
+<blockquote><b><i>Stroke_Width</i></b></blockquote>
+<blockquote>Value specifying the width of the strokes in Stroke-mode and the depth in 3D-Extrusions-mode respectively in a range from 0.1 to 1.0</blockquote>
+
+<blockquote><b><i>Font</i></b></blockquote>
+<blockquote>Value specifying the font used for the label. Choice between the following fonts is possible:
+<ul>
+<li>Roman Plain (= 0)</li>
+<li>Roman Simplex (= 1)</li>
+<li>Roman Duplex (= 2)</li>
+<li>Roman Triplex (= 3)</li>
+<li>Roman Complex (= 4)</li>
+<li>Script Simplex (= 5)</li>
+<li>Script Complex (= 6)</li>
+<li>Italics Complex (= 7)</li>
+<li>Italics Triplex (= 8)</li>
+<li>Gothic English (= 9)</li>
+<li>Greek Plain (= 10)</li>
+<li>Greek Simple (= 11)</li>
+<li>Greek Complex (= 12)</li>
+</ul>
+</blockquote>
+
+<blockquote><b><i>LineStyle</i></b></blockquote>
+<blockquote>Value specifying the style used for the label. Choice between the following styles is possible:
+<ul>
+<li>Lines (= 0)</li>
+<li>Stroke Lines (= 1)</li>
+<li>3d Extrusions (= 2)</li>
+</ul>
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>out</i></b></blockquote>
+<blockquote>Mesh and NodeData containing the geometry and colour information. </blockquote>
+
+<blockquote><b><i>obj</i></b></blockquote>
+<blockquote>Directly renderable object that can be used with the UViewer. </blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+The example contains the Vec3dFonts user module and an Uviewer3D. The user module provides a panel to change all parameters.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/vec3dfnt/vec3dfnt.v</i> Creates the XP_COMM_PROJ.Vector3dFonts library.</p> 
+<p><i>xp_comm_proj/vec3dfnt/v3f_mods.v</i> Creates the Vector3dFontsMods library containing the low-level module Vector3dFontsCore and the parameter block</p>
+<p><i>xp_comm_proj/vec3dfnt/v3f_macs.v</i> Creates the Vector3dFontsMacs library containing the high-level functional macro Vector3dFontsFunc, user interface macro Vector3dFontsUI and the user macro Vector3dFonts.</p>
+<p><i>xp_comm_proj/vec3dfnt/v3f_apps.v</i> Creates the Vector3dFontsApps library containing the example application Vector3dFontsEg.</p>
+</blockquote>
+
+
+<h3>Authors</h3>
+<blockquote><pre>
+Ian Curington, Chas Williams
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+<blockquote><pre>
+Antje Niederlein
+Manchester Visualization Centre
+</pre></blockquote>
+
+</body>
+</html>

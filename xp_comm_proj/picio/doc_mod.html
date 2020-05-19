@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+   <TITLE>read_PIC_core</TITLE>
+   <META NAME="GENERATOR" CONTENT="Mozilla/3.01Gold (X11; I; OSF1 V4.0 alpha) [Netscape]">
+   <META NAME="Author" CONTENT="Chris Pudney <cpudney@alphapharm.pharm.uwa.edu.au>">
+</HEAD>
+<BODY BGCOLOR="#92BFBF">
+
+<H1>read_PIC_core</H1>
+
+<H3>Synopsis</H3>
+
+<BLOCKQUOTE>
+Reads a Bio-Rad PIC file and outputs the dimensions and data array.
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+<HR>
+
+<PRE>
+  module Read_PIC_core&lt;data_import_module=1&gt; {
+    file+IPort2 &amp;FILE;
+
+    int bytes[6] =&gt; cache(file_obj_bin(.FILE,0,0));
+    int+OPort2 dims[3]  =&gt; { 
+                             (bytes[0] + bytes[1]*256),
+                             (bytes[2] + bytes[3]*256),
+                             (bytes[4] + bytes[5]*256)
+                           };
+
+    byte+OPort2 data[prod(dims)] =&gt; cache(file_obj_bin(.FILE,76,0));
+  };
+</PRE>
+
+<HR>
+</BLOCKQUOTE>
+
+<H3>Description</H3>
+
+<BLOCKQUOTE>
+This module reads a Bio-Rad PIC file and outputs its dimensions and field data. 
+Bio-Rad PIC files contain 3D confocal microscope images, <I>i.e.</I> 3D scalar 
+uniform fields. read_PIC outputs the dimensions of the field as an array of 
+integers and the values of the field as an array of bytes. The outputs can be 
+combined using uniform_scalar_field to produce a 3D&nbsp;uniform scalar field 
+that can be visualized.  This is done in the Read_Biorad_PIC functional macro.
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+This module performs the byte reordering necessary for it to work correctly on 
+either big or little endian platforms.
+</BLOCKQUOTE>
+
+
+<H3>Inputs</H3>
+
+<BLOCKQUOTE>
+<B><I>FILE</I></B>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+The file object corresponding to the Bio-Rad PIC file that should be read.
+</BLOCKQUOTE>
+
+
+<H3>Outputs</H3>
+
+<BLOCKQUOTE>
+<B><I>dims</I></B>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+An array of three integers corresponding to the <I>x</I>-, <I>y</I>-
+and <I>z</I>-dimensions of the field.
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+<B><I>data</I></B>
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+An array of bytes corresponding to the field values.
+</BLOCKQUOTE>
+
+
+<H3>Utility Macros</H3>
+
+<BLOCKQUOTE>
+read_PIC_core is used in the Functional Macro, Read_BioRad_PIC.  This macro 
+is in turn used by the User Macro, read_Biorad_PIC.
+</BLOCKQUOTE>
+
+
+<H3>Example</H3>
+
+<BLOCKQUOTE>
+An example application Read_BioRad_PIC_Eg is provided that reads a Bio-Rad
+PIC file and produces a maximum intensity projection.  A sample Bio-Rad
+PIC file, flea3.pic, is provided with the distribution of this module.
+</BLOCKQUOTE>
+
+
+<H3>Files</H3>
+
+<BLOCKQUOTE>
+<I>xp_comm_proj/picio/pio_mods.v</I> contains the read_PIC_core module V 
+definition.
+</BLOCKQUOTE>
+
+
+<H3>Other Notes</H3>
+
+<BLOCKQUOTE>
+This module does not check that the file specified by the user is a
+valid Bio-Rad PIC file. If it is not then errors can occur.
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+Notes, which are sometimes appended to PIC files, are ignored.
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+This module will only handle 8-bit images. 16-bit and 24-bit images are
+not handled correctly.
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+The AVS5 module read_BioRad_PIC (available from the IAC) can also be
+used to read Bio-Rad PIC files.
+</BLOCKQUOTE>
+
+<BLOCKQUOTE>
+This module does not contain any C or Fortran code and hence does not need to 
+be compiled.
+</BLOCKQUOTE>
+
+
+<H3>Author</H3>
+
+<BLOCKQUOTE>
+<pre>
+<A HREF="http://www.cs.uwa.edu.au/~chrisp">Chris Pudney</A>
+
+Biomedical Confocal Microscopy Research Centre
+<A HREF="http://www.pharm.uwa.edu.au">Department of Pharmacology</A>
+<A HREF="http://www.uwa.edu.au">The University of Western Australia</A>
+Nedlands, W.A. 6907
+AUSTRALIA
+
+E-mail:<A HREF="mailto:cpudney@alphapharm.pharm.uwa.edu.au">cpudney@alphapharm.pharm.uwa.edu.au</A>
+Phone, Fax: (+61 8) 9346 4571, (+618) 9346 3469
+</pre>
+</BLOCKQUOTE>
+
+<H3>Modifications</H3>
+
+<blockquote>
+<pre>
+Rob Fletcher, Andrew Dodd
+</pre>
+</blockquote>
+

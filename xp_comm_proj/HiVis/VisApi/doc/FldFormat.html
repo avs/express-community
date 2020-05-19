@@ -1,0 +1,265 @@
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (X11; I; Linux 2.0.36 i586) [Netscape]">
+   <title>VisApi FldFormat</title>
+</head>
+<body bgcolor="#FFFFFF">
+
+<h2>
+
+<b>VisApi fld-format draft specification</b></h2> This is an internal document
+decribing the VisApi fld format. It is based on the AVS/Express Field
+format. The documentation is a modified copy of the original documentation in
+AVS/Express 3.4 section 2.4. It has to be rewritten before being published! The
+format will be supported for input and output in VisApi version 2.0.
+
+<ul>
+<li>
+<b>dim = value (required)</b></li>
+
+<br>The number of computational dimensions in the field. E.g. for an image,
+ndim = 2 and for a volume, ndim = 3.
+<br><b><font color="#009900">Extended</font><font color="#000000">:</font></b>Maybe
+any value greater 0!
+<li>
+<b>dimX = value (required)</b></li>
+
+<br>Size of field in computational dimension X (0 &lt; X &lt;= dim).
+<li>
+<b>nspace = value (required)</b></li>
+
+<br>The dimensionality of the physical space that corresponds to the computational
+space (number of physical coordinates per field element). In many cases,
+the values of nspace and ndim are the same - the physical and computational
+spaces have the same dimensionality. But you might embed a 2D computational
+field in 3D physical space to define a manifold; or you might embed a 1D
+computational field in 3D physical space to define an arbitrary set of
+points (a "scatter").
+<li>
+<b>veclen = value (required)</b></li>
+
+<br>The number of data values for each field element. All the data values
+must be of the same primitive type (for example, integer), so that the
+collection of values is conceptually a veclen-dimensional vector. If veclen=1,
+the single data value is, effectively, a scalar. Thus, the term scalar
+field is often used to describe such a field.
+<li>
+<b>data = { byte | integer | float | double } (required)</b></li>
+
+<br>The primitive data type of all the data values.&nbsp; xdr_integer,
+sdr_float, and xdr_double may also be specified.&nbsp; If Auto is selected
+on input, read_field will examine the data= field.&nbsp; If the specification
+is unqualified, it assumes the file is written in the native format for
+the platform ("big-endian" vs "little-endian").&nbsp; If it is xdr_value,
+it will read it as Sun MicroSystems' external data format (XDR) and translate
+it into the native format.&nbsp; If Portable is selected, it assumes XDR
+format no matter what is placed here.
+<br><b><font color="#FF0000">Restricted</font><font color="#000000">: </font></b><font color="#000000">No
+xdr_value support. See filetype option!</font>
+<li>
+<b>field = { uniform | rectilinear | irregular | adaptivegrid | sparsegrid
+| octree } (required)</b></li>
+
+<br>The field type. A uniform, adaptivegrid, sparsegrid and octree field
+has no computational-to-physical space mapping. The field implicitly takes
+its mapping from the organization of the computational array of field elements.
+<br>For a rectilinear field, each array index in each dimension of the
+computational space is mapped to a physical coordinate. This produces a
+physical space whose axes are orthogonal, but the spacing among elements
+is not necessarily equal.
+<br>For an irregular field, there is no restriction on the correspondence
+between computational space and physical space. Each element in the computational
+space is assigned its own physical coordinates.
+<br><b><font color="#009900">Extended</font><font color="#000000">:</font></b><font color="#000000">
+Adaptivegrid, sparsegrid and octree field type added.</font>
+<br><b><font color="#FF0000">Restricted</font><font color="#000000">: </font></b><font color="#000000">No
+rectilinear field type support since this is considered to be not so important
+for the first versions!</font>
+<li>
+<b>min_ext = x-value [y-value] [z-value]... (optional)</b></li>
+
+<li>
+<b>max_ext = x-value [y-value] [z-value]... (optional)</b></li>
+
+<br>The minimum and maximum coordinate value that any member data point
+occupies in space, for each axis in the data. If you do not supply this
+value, Read_Field calculates it and stores it in the output AVS/Express
+field data structure. This value can be used by modules downstream to,
+for example, size the volume bounds drawn around the data in the Geometry
+Viewer or put minimum and maximum values on coordinate parameter manipulator
+dials (probe). Values can be separated by blanks and/or commas. If you
+do not know the extents, don't guess - let Read_Field calculate them. Most
+downstream modules use whatever values are supplied, without checking their
+validity. If the wrong numbers are specified, incorrect results will be
+computed.
+<li>
+a<b>ttributes = value (optional)</b></li>
+
+<br>The number of attributes. By default the number of attributes is equal
+to veclen and each attribute is a scalar attribute.&nbsp; See attrDimX!
+<br><b><font color="#009900">Added!</font></b>
+<li>
+<b>attrdimX = value (optional)</b></li>
+
+<br>The dimension of attribute X (0 &lt; X &lt;= attributes). The data
+values are mapped to the attribute values. The first attrDim1 data values
+are mapped to attribute1, attribute2 has attrDim2 values that consist of
+the data values with startindex attrDim1 + 1 and endindex attrDim1 + attrDim2
+and so on.
+<br><b><font color="#009900">Added!</font></b>
+<li>
+<b><font color="#000000">dataloc = { cell | node } (optional)</font></b></li>
+
+<br><font color="#000000">Only suppported for uniform and adaptivegrid
+field types!</font>
+<br><b><font color="#009900">Added!</font></b>
+<li>
+<b>label = string1 [string2] [string3]... (optional)</b></li>
+
+<br>Allows you to title the individual attributes in a vector of values.
+These labels are stored in the output AVS/Express field data structure.
+Subsequent modules that work on the individual vector elements (for example,
+extract scalar) will label their parameter widgets with the strings provided
+here instead of the default "Channel 0, Channel 1...", and so on. You can
+either use one label line as shown here, or separate label lines as shown
+in the example above. In either case, the labels are applied to the attributes
+in the order encountered. Any alphanumeric string is acceptable. You can
+separate strings with blanks and/or commas.
+<li>
+<b>unit = string1 [string2] [string3]... (optional)</b></li>
+
+<br>Allows you to specify a string that describes the unit of measurement
+for each attribute. You can either use one unit line as shown here, or
+separate unit lines as shown in the example above. In either case, the
+unit specifications are applied to the attributes in the order encountered.
+Any alphanumeric string is acceptable. You can separate strings with blanks
+and/or commas.
+<li>
+<b>min_val = value [value] [value]... (optional)</b></li>
+
+<li>
+<b>max_val = value [value] [value]... (optional)</b></li>
+
+<br>For each data element in a scalar or vector field, allows you to specify
+the minimum and maximum data values. These values are stored in the output
+AVS/Express field data structure. This is used by subsequent modules that
+need to normalize the data. Values can be separated by blanks and/or commas.
+<br>Read_Field does not calculate these values if you do not supply them
+(unlike min_ext and max_ext). If you do not know these values, don't guess
+- just leave these optional lines out. In this case, the write field module
+can, at your instruction, compute these values when it creates an AVS field
+file. Most downstream modules use whatever values are supplied, without
+checking their validity. If the wrong numbers are specified, incorrect
+results will be computed.
+<li>
+<b>variable n file=filespec filetype=type skip=n offset=m stride=p</b></li>
+
+<li>
+<b>coord n file=filespec filetype=type skip=n offset=m stride=p</b></li>
+
+<li>
+<b>structure n file=filespec filetype=type skip=n offset=m stride=p</b></li>
+
+<br>(All of these specifications must be on a single line. There is no
+support for continuation characters.) variable specifies where to find
+data information, its type, and how to read it. coord specifies where to
+find coordinate information, its type, and how to read it. It is used when
+the data is rectilinear or irregular. structure specifies the where to
+find the coordinate information for the hierarchical adaptive field types
+like adaptivegrid, sparsegrid and octree.
+<br><b><font color="#009900">Extended</font><font color="#000000">:</font></b><font color="#000000">
+structure specification added for adaptivegrid, sparsegrid and octree field types.</font>
+<p>The individual parameters are interpreted as follows:
+<ul>
+<li>
+<b>n</b> - An integer value that specifies which element of a data vector
+or which coordinate (1 for x, 2 for y, 3 for z, and so on) the subsequent
+read instructions apply to. n does not default to 1 and must be specified.</li>
+
+<li>
+<b>file = filespec</b> - The name of the file containing the data or coordinates.
+The filespec can be an absolute full pathname to a file, or it can be a
+filespec relative to the directory that contains the field ASCII header.&nbsp;
+For example, an absolute pathname might be /home/myuserid/experiment/data.&nbsp;
+In a relative pathname specification, if the ASCII file of field parsing
+instructions exists in the file /home/myuserid/experiment/readit.fld and
+the data and coordinates file are in the subdirectory /home/myuserid/experiment/data,
+you can name these files as xdata/xyzs and data/values.&nbsp; The advantage
+of this second approach is that you can move the directories containing
+your data around without having to change the contents of the ASCII parsing
+instruction file.</li>
+
+<li>
+<b>filetype = ascii</b> - ascii means that the data or coordinate information
+is in an ASCII file. In ASCII files, float data can be specified in either
+real (0.1) or scientific notation (1.00000e-01) format interchangeably.</li>
+
+<li>
+<b>filetype = unformatted</b> - the file is written in FORTRAN unformatted
+format.&nbsp; (FORTRAN unformatted data is binary data with additional
+words written at the beginning and end of each data block stating the number
+of bytes or words in the data block.)&nbsp; In general, Read_Field can
+read unformatted files where all variables of one type (for example, all
+the X coordinates) were output as one "record" in a single write statement.&nbsp;
+This is usually the case.</li>
+
+<br><b><font color="#FF0000">Restricted</font><font color="#000000">:</font></b><font color="#000000">No
+unformatted filetype support!</font>
+<li>
+<b>filetype = binary</b> - the file is written in straight binary format,
+such as that produced by UNIX output routines, write and fwrite. See the
+warning on binary compatibility among different hardware platforms in&nbsp;
+Section 5.73, Read_Field. In each case, Read_Field will use the data type
+specified in the earlier data={byte,float,integer,double} statement when
+it interprets the file.</li>
+
+<br><b><font color="#FF0000">Restricted</font><font color="#000000">:</font></b><font color="#000000">No
+binary filetype support!</font>
+<li>
+<b>skip = n</b> - For ascii files, skip specifies the number of lines to
+skip over before starting to read the data. Lines are demarked by newline
+characters. For binary or unformatted files, skip specifies the number
+of bytes to skip over before starting to read the data. There are two motivations
+for skip. First, data files often include header information irrelevant
+to the AVS/Express field data type. Second, if the file contains, for example,
+all X data values, then all Y data values, skip provides a way to space
+across the irrelevant data to the correct starting point. You can only
+use skip once at the start of the file. There is no way to skip, read,
+stride, then skip again. You must simply know what value to use for skip
+based on your knowledge of the software that produced the original data
+file, the number of data elements, and the type (byte, float, double, integer,
+etc.) skip defaults to 0.</li>
+
+<li>
+<b>offset = m</b> - offset is only relevant to ASCII files; it is ignored
+for binary&nbsp; and unformatted files. offset specifies the number of
+columns to space over before starting to read the first datum. (The stride
+specification determines how subsequent data are read.) Hence, to read
+the fourth column of numbers in an ASCII file, use offset=3. In ASCII files,
+columns must be separated by one or more blank characters. Commas, semicolons,
+TAB characters, and so on, are not recognized as delimiters. If necessary,
+edit ASCII files to meet this restriction. offset defaults to 0 (the first
+column, no columns spaced over).</li>
+
+<li>
+<b>stride = p</b> - stride assumes you are "standing on" the data value
+just read. stride specifies how many "strides" must be taken to get to
+the next data value. In ASCII files, stride means stride forward p delimited
+items. In binary and unformatted files, stride means stride forward p times
+the size of the data type (byte, float, double, integer). In a file where
+the data or coordinate values are sequential, one after the other, the
+stride would be 1. Note that this presumes homogeneous data in binary and
+unformatted files - double-precision values could not be intermixed with
+single precision values. stride defaults to 1. The stride value will be
+repeatedly used until the number of data items indicated by the product
+of the dimensions (for example, dim1 * dim2 *&nbsp; dim3) have been read.</li>
+</ul>
+</ul>
+
+<hr WIDTH="100%">
+<br>Peter Breitling (breitling@acm.org) - 03/11/99
+<br>&nbsp;
+<br>&nbsp;
+</body>
+</html>

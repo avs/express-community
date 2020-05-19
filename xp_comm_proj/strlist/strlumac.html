@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>UIStringList</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>UIStringList</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module is an example macro for the use of the StringListCore module which allows one to insert, add and delete strings in a list of strings. </blockquote>
+
+<blockquote>
+<h4>Inputs</h4>
+
+<table summary="Inputs used by UIStringList">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>visible</i></td>
+<td width="200">int</td>
+<td width="425">defines if the user interface is visible</td>
+</tr>
+
+<tr>
+<td width="100"><i>parent</i></td>
+<td width="200">UIconnection</td>
+<td width="425">parent window of the user interface</td>
+</tr>
+
+<tr>
+<td width="100"><i>strings[]</i></td>
+<td width="200">string[]</td>
+<td width="425">list of strings in the listbox</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<h5>ReadTecplotParams</h5>
+
+<table summary="Parameters used by CombineCoordiateIndex">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>add</i></td>
+<td width="200">int</td>
+<td width="300">triggers to append the item to the list</td>
+<td width="125">button</td>
+</tr>
+
+<tr>
+<td width="100"><i>delete</i></td>
+<td width="200">int</td>
+<td width="300">triggers to delete the selected item from the list</td>
+<td width="125">button</td>
+</tr>
+
+<tr>
+<td width="100"><i>index</i></td>
+<td width="200">int</td>
+<td width="300">selected item.</td>
+<td width="125">listbox</td>
+</tr>
+
+<tr>
+<td width="100"><i>item</i></td>
+<td width="200">string</td>
+<td width="300">text to add</td>
+<td width="125">textfield</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by CombineCoordiateIndex">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>selectedItem</i></td>
+<td width="200">int</td>
+<td width="425">Index of the selected item in the listbox</td>
+</tr>
+
+<tr>
+<td width="100"><i>selectedText</i></td>
+<td width="200">string</td>
+<td width="425">Content string of the selected item in the listbox</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+This module provides a user interface Element that enables the user to add items into and delete items from a listbox. It consists of the listbox that contains the list of strings, an input field to type in new items and two buttons for 
+adding the text in the input field into the list and deleting the selected item 
+from the list. 
+
+The main purpose of this module is to demonstrate the usage of the low level module StringListCore which is also provided in this package.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/strlist/strlist.v</i> defines the library</p> 
+<p><i>xp_comm_proj/strlist/strlmods.v</i> module definition</p>
+<p><i>xp_comm_proj/strlist/strlmacs.v</i> macro definition</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</A>,
+International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>

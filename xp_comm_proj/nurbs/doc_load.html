@@ -1,0 +1,165 @@
+<html>
+<head>
+<title>Load_Nurbs - Nurbs data file loader for AVS/Express</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>Load_Nurbs</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads Nurbs data files and outputs a pointer to the Nurbs data.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Load_Nurbs">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Filename</i></td>
+<td width="200">string</td>
+<td width="300">Filename to load</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Load_Nurbs">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="200">nurbs_type (ptr)</td>
+<td width="425">Outputs a pointer to the Nurbs data.</td>
+</tr>
+
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This module reads a NURBS data file and outputs a pointer to the Nurbs data. This pointer can be used with the Nurbs_To_Field and Nurbs_To_Mesh modules.</p>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>filename</i></b>
+
+<blockquote>
+String parameter that specifies which Nurbs data file should be read. The filename string should contain the full path name of the file.
+</blockquote>
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out</i></b>
+
+<blockquote>Pointer to the NURBS data.</blockquote>
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<h4>Load_Nurbs_func</h4>
+
+<blockquote>
+<p>The <i>Load_Nurbs_func</i> functional macro uses the low-level <i>rd_nurbs</i> module. The macro takes a file name as an input from the <i>Load_Params</i> paramerter block. The macro outputs the data read from the NURBS data file as a pointer to the NURBS-data.</p>
+
+<p>The <i>Load_Nurbs_func</i> functional macro and the <i>Load_Nurbs_UI</i> user interface macro are both used by the <i>Load_Nurbs</i> user macro. All of these macros use the <i>Load_Params</i> parameter block to communicate.</p>
+<p>The output from this module cannot directly be viewed in the 3D viewer.</p>
+</blockquote>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes an example application that demonstrates the use of the NURBS marcos. The application contains the nurbs file loader (<i>Load_Nurbs</i>) plus the <i>Nurbs_To_Mesh</i> and the <i>Nurbs_To_Field</i> modules. These allow the viewing of the supplied NURBS data files in the 3D viewer. </p>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/nurbs/nurbsmod.v</i> contains the V definitions of the rd_nurbs, nurbs_to_field, nurbs_ctrl_to_mesh, and the nurbs_utilities module. It also contains the parameter blocks Load_Params, Field_Params, and Mesh_Params.</p> 
+
+<p><i>xp_comm_proj/nurbs/nurbsmac.v</i> contains the V definitions of the Load_Nurbs_UI user interface macro, the Load_Nurbs_func functional macro and the Load_Nurbs user macro.</p>
+
+</blockquote>
+
+<h3>Authors</h3>
+<blockquote><pre>
+
+<b><i>Contact:</i></b>
+<blockquote>
+    Fenqiang Lin, W T Hewitt
+    Computer Graphics Unit
+    Manchester Computing
+    University of Manchester
+    Manchester M13 9PL
+
+    eMail: cgu-info@mcc.ac.uk
+    tel:    0161 275 6095
+    fax:    0161 275 6040    
+
+</pre></blockquote>
+
+</blockquote>
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ian Guthrie
+Manchester Visualization Centre
+
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a style="text-decoration:none" href="doc_mesh.html">Nurbs_To_Mesh</a> module (displays NURBS control mesh)</li>
+<li><a style="text-decoration:none" href="doc_field.html">Nurbs_To_Field</a> module (displays NURBS image)</li>
+</ul>
+
+</body>
+</html>
+

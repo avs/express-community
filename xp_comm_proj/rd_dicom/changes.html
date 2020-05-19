@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>Read DICOM v3 Changes</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>Read DICOM Changes</h1>
+<blockquote>
+With this release (to be refered to as Version 3) of the ReadDICOM project there have been many fixes/changes and restructuring of files. They are listed here (as many as I can remember anyway).
+
+<ul>
+  <li>uses Papyrus 3.71 which is completely integrated in the Project</li>
+  <li>location of Papyrus libs and includes changed</li>
+  <li>project name changed from readDicom to ReadDICOM with sublibraries ReadDICOMData, ReadDICOMMods and ReadDICOMMacs</li>
+  <li>module read_dicom changed to read_dicom_files</li>
+  <li>macro readDicom changed to ReadDICOM</li>
+  <li>added read_DCMLIST module to manage DICOM files</li>
+  <li>added easy point'n'click selection of DICOM series</li>
+  <li>group Images_Header changed to DICOM_Header</li>
+  <li>group Image_Data changed to DICOM_Volume</li>
+  <li>new file rddidat.v contains the definitions of DICOM_Header and DICOM_Volume</li>
+  <li>images are correctly transposed to create correct volume reconstruction</li>
+  <li>DICOM_Header subgroup UI's overhauled</li>
+  <li>Requires StringArraySubset IAC project</li>
+  <li>Determines slice spacing for CT</li>
+</ul>  
+James S Perrin (MVC)
+</blockquote>
+
+</body>
+</html>
+

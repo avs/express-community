@@ -1,0 +1,158 @@
+<HTML><HEAD><TITLE>visGrid Class</TITLE></HEAD>
+<BODY bgcolor="#ffffff">
+
+<H1>visGrid Class Reference</H1>
+<p>
+[<A HREF="index.html">VisAPI Index</A>] [<A HREF="hier.html">VisAPI Hierarchy</A>]
+</p>
+<HR>
+<P>  <a href="#short">More...</a></P>
+<P>
+<code>
+	#include &lt;<a href="VisApi-VisApi-h.html">VisApi/VisApi.h</a>&gt;
+</code>
+
+</P>
+
+<P>
+Inherits: <a href="visObject.html">visObject</a>
+<P>
+<H2>Public Members</H2>
+<UL>
+<LI>virtual bool <b><a name="ref0">instanceOf</a></b> (visClassId id) 
+</LI>
+<LI>static visGrid *<b><a name="ref1">readField</a></b> (istream &amp;in) 
+</LI>
+<LI>bool <b><a name="ref2">writeField</a></b> (ostream &amp;out) 
+</LI>
+<LI><b><a name="ref3">visGrid</a></b> () 
+</LI>
+<LI>virtual <b><a name="ref4">~visGrid</a></b> () 
+</LI>
+<LI>virtual bool <b><a name="ref5">allocate</a></b> (int dim, int *size,			int attrCount, visAttributeFactory** factory,
+			visProperties *properties = NULL) 
+</LI>
+<LI>virtual void <b><a name="ref6">deallocate</a></b> () 
+</LI>
+<LI>inline unsigned int <b><a href="#ref7">getDim</a></b> () 
+</LI>
+<LI>inline unsigned int <b><a href="#ref8">getSize</a></b> (unsigned int i) 
+</LI>
+<LI>void <b><a href="#ref9">getSize</a></b> (int *d) 
+</LI>
+<LI>inline int <b><a href="#ref10">getAttributes</a></b> () 
+</LI>
+<LI>virtual int <b><a href="#ref11">getCellTypes</a></b> () 
+</LI>
+<LI>virtual int <b><a href="#ref12">getCellDim</a></b> () 
+</LI>
+<LI>virtual int <b><a href="#ref13">getCellNodes</a></b> () 
+</LI>
+<LI>virtual void <b><a href="#ref14">setCursor</a></b> (const int *p) 
+</LI>
+<LI>virtual int <b><a href="#ref15">getCursor</a></b> (unsigned int i) 
+</LI>
+<LI>void <b><a href="#ref16">getCursor</a></b> (int *p) 
+</LI>
+<LI>virtual const char *<b><a href="#ref17">getAttrName</a></b> (int t) 
+</LI>
+<LI>virtual const visAttribute* <b><a name="ref18">getMinAttribute</a></b> (int t) 
+</LI>
+<LI>virtual const visAttribute* <b><a name="ref19">getMaxAttribute</a></b> (int t) 
+</LI>
+<LI>virtual int <b><a href="#ref20">getCells</a></b> () 
+</LI>
+<LI>virtual int <b><a href="#ref21">getNodes</a></b> () 
+</LI>
+<LI>visAttributeFactory* <b><a name="ref22">getAttrFactory</a></b> (int t) 
+</LI>
+<LI>virtual visAttribute* <b><a href="#ref23">getCellAttribute</a></b> (int t) 
+</LI>
+<LI>virtual void <b><a href="#ref24">getCellAttribute</a></b> (int t, visAttribute* attr) 
+</LI>
+<LI>virtual visAttribute *<b><a name="ref25">getNodeAttribute</a></b> (int t, int n) 
+</LI>
+<LI>virtual void <b><a name="ref26">getNodeAttribute</a></b> (int t, visAttribute *attr, int n) 
+</LI>
+<LI>virtual void <b><a name="ref27">getNodePos</a></b> (float *p, int n) 
+</LI>
+</UL>
+
+<H2>Protected Members</H2>
+<UL>
+<LI>  int <b><a name="ref28">myDim</a></b>
+</LI>
+<LI>  int *<b><a name="ref29">mySize</a></b>
+</LI>
+<LI>  int <b><a name="ref30">myAttrCount</a></b>
+</LI>
+<LI>  visAttributeFactory **<b><a name="ref31">myAttrFactory</a></b>
+</LI>
+<LI>  visProperties *<b><a name="ref32">myProperties</a></b>
+</LI>
+</UL>
+<HR>
+<H2>inline unsigned int <a name="ref7"></a><a name="getDim">getDim</a>()  </H2>
+<p>Return field dimension.
+</p>
+<H2>inline unsigned int <a name="ref8"></a><a name="getSize">getSize</a>(unsigned int i)  </H2>
+<p>Return field size in dimension i.
+</p><p>
+PRE: 0 <= i < this->getDim()
+</p>
+<H2>void <a name="ref9"></a><a name="getSize">getSize</a>(int *d)  </H2>
+<p>Get size of field in array d.
+</p><p>
+PRE: d must be allocated as array of size this->getDim()
+</p>
+<H2>inline int <a name="ref10"></a><a name="getAttributes">getAttributes</a>()  </H2>
+<p>Return number of attributes of this field. May be 0.
+</p>
+<H2>virtual int <a name="ref11"></a><a name="getCellTypes">getCellTypes</a>()  </H2>
+<p>Return number of cell types.
+</p>
+<H2>virtual int <a name="ref12"></a><a name="getCellDim">getCellDim</a>()  </H2>
+<p>Return cell dimension of cell type c.
+</p>
+<H2>virtual int <a name="ref13"></a><a name="getCellNodes">getCellNodes</a>()  </H2>
+<p>Return number of nodes of cell type c.
+</p>
+<H2>virtual void <a name="ref14"></a><a name="setCursor">setCursor</a>(const int *p)  </H2>
+<p>Set cursor to position p. 
+</p><p>
+PRE: 0 <= p[i] < this->getSize(i), 0 <= i < this->getDim()
+</p>
+<H2>virtual int <a name="ref15"></a><a name="getCursor">getCursor</a>(unsigned int i)  </H2>
+<p>Get position of cursor.
+</p><p>
+PRE: 0 <= i < this->getDim()
+</p>
+<H2>void <a name="ref16"></a><a name="getCursor">getCursor</a>(int *p)  </H2>
+<p>Get position of cursor in array p.
+</p><p>
+PRE: p must be allocated as array of size this->getDim()
+</p>
+<H2>virtual const char *<a name="ref17"></a><a name="getAttrName">getAttrName</a>(int t)  </H2>
+<p>Return cell renderer
+</p>
+<H2>virtual int <a name="ref20"></a><a name="getCells">getCells</a>()  </H2>
+<p>Return number of cells in the grid.
+</p>
+<H2>virtual int <a name="ref21"></a><a name="getNodes">getNodes</a>()  </H2>
+<p>Return number of nodes in the grid.
+</p>
+<H2>virtual <a href="visAttribute.html">visAttribute</a>* <a name="ref23"></a><a name="getCellAttribute">getCellAttribute</a>(int t)  </H2>
+<p>Return attribute i of actual cursor pos.
+</p>
+<H2>virtual void <a name="ref24"></a><a name="getCellAttribute">getCellAttribute</a>(int t, <a href="visAttribute.html">visAttribute</a>* attr)  </H2>
+<p>Write attribute t to attr.
+</p>
+<HR>
+<TABLE WIDTH="100%"><TR><TD ALIGN="left" VALIGN="top">
+<address>Documentation generated by breitlip@atzenger10 on Mon Jan 17 19:29:23 CET 2000
+<address>
+</TD><TD ALIGN="RIGHT" VALIGN="TOP">
+<b>K</b><i>doc</i>
+</TD>
+</TR></TABLE></BODY></HTML>
+

@@ -1,0 +1,15 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+   "../xp_comm_proj/getfiles/getfiles.v" GetFiles;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+   XP_COMM_PROJ.GetFiles.GetFilesMacs.MultiFileShell MultiFileShell;
+   XP_COMM_PROJ.GetFiles.GetFilesMacs.Multiple_File_Select Multiple_File_Select;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+    XP_COMM_PROJ.GetFiles.GetFilesApps.GetFilesEg1 GetFilesEg1;
+    XP_COMM_PROJ.GetFiles.GetFilesApps.GetFilesEg2 GetFilesEg2;
+

@@ -1,0 +1,214 @@
+<html>
+<head>
+<title>readBRPic</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>readBRPic</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+The readBRPic user macro reads a Bio-Rad PIC data file and outputs
+a uniform scalar field. It performs byte-swapping so that it works
+correctly on both little and big endian platforms.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters used by the readBRPic user macro.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">name of Bio-Rad PIC file to read</td>
+<td width="125">Filename text box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">uniform scalar field</td>
+<td width="425">read 3D volume</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The readBRPic macro reads a Bio-Rad PIC file and outputs a uniform
+scalar field representing the data. The field data can then be
+visualized using any of the standard modules. The uniform scalar field
+has the dimensions specified in the Bio-Rad PIC file and the data is
+represented as 8 bit node data. The module will only handle 8-bit
+images. 16-bit and 24-bit images are not handled correctly. Any notes
+appended to PIC files are also ignored.
+</blockquote>
+
+<blockquote>
+Bio-Rad PIC files contain 3D confocal microscope images, <I>i.e.</I> 3D
+scalar uniform fields.  However 3D confocal microscope images are usually
+anisotropic i.e. the x-y scale is different from the z scale.  In this case
+the <TT>scale</TT> module can be used to alter the scaling of the resultant
+field data.  For more information please see the <a href="NOTE">NOTE</a> file.
+</blockquote>
+
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+The name of the file that should be read from. This parameter is of type
+string and can be specified through either a text-box or a file browser.
+The ReadPicData module does not check to ensure that the supplied file
+is a valid Bio-Rad PIC file. If the file is not valid then errors could
+occur.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the readBRPic macro. This contains
+the generated 3D volume in the form of a uniform scalar field with the
+dimensions specified in the Bio-Rad PIC file. The data present in the
+file is stored as node data within the field.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the readBRPic macro. This
+contains a DataObject object that can be rendered by the standard data
+viewers. The DataObject is generated directly from the field data
+created from the Bio-Rad PIC file.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro readBRPic uses the low-level module ReadPicData which in turn
+uses the low-level module ReadPicDims.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadBRPicEg is provided, which loads Bio-Rad PIC
+files and visualizes them using the volume renderer.  An example data file
+<tt>flea3.pic</tt> is provided so that the macro can be tested.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rd_brpic/rdbrmacs.v</i> contains the readBRPic User Macro, the
+ReadBRPicUI UI Macro, and the example application ReadBRPicEg V definitions.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ReadBRPicMacs library inherits its process. As this library contains
+no procedural code, the process is not important.
+</blockquote>
+
+<blockquote>
+The ReadPicDims module assumes that the short variable type is 16 bits
+long. If this is not the case then the dimensions read may not be
+correct and the macro will not work.  Correcting this problem will require
+alterations to the <tt>rd_brpic.c</tt> source code file.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+<A HREF="http://www.cs.uwa.edu.au/~chrisp">Chris Pudney</A>
+
+Biomedical Confocal Microscopy Research Centre
+<A HREF="http://www.pharm.uwa.edu.au">Department of Pharmacology</A>
+<A HREF="http://www.uwa.edu.au">The University of Western Australia</A>
+Nedlands, W.A. 6907
+AUSTRALIA
+
+E-mail: <A HREF="mailto:cpudney@alphapharm.pharm.uwa.edu.au">cpudney@alphapharm.pharm.uwa.edu.au</A>
+Phone, Fax: (+61 8) 9346 4571, (+618) 9346 3469
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+<a href="http://www.man.ac.uk/MVC/staff/leng">Joanna Leng</a>
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadPicData, ReadPicDims, ReadBRPicUI and ReadBRPicEg.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+</body>
+</html>

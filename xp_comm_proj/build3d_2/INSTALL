@@ -1,0 +1,19 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/build3d_2/build3d_2.v" Build3D_2;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.Build3D_2.Build3D_2_Macs.build3d_2 build3d_2;
+  XP_COMM_PROJ.Build3D_2.Build3D_2_Macs.adjust_slice_spacing adjust_slice_spacing;
+  XP_COMM_PROJ.Build3D_2.Build3D_2_Macs.node_2_argb_data node_2_argb_data;
+  XP_COMM_PROJ.Build3D_2.Build3D_2_Macs.node_2_color_data node_2_color_data;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Build3D_2.Build3D_2_Apps.Build3D_2_Eg Build3D_2_Eg;
+  XP_COMM_PROJ.Build3D_2.Build3D_2_Apps.AdjustSliceSpacingEg AdjustSliceSpacingEg;
+  XP_COMM_PROJ.Build3D_2.Build3D_2_Apps.NodeARGBDataEg NodeARGBDataEg;
+  XP_COMM_PROJ.Build3D_2.Build3D_2_Apps.NodeColorDataEg NodeColorDataEg;
+

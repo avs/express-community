@@ -1,0 +1,204 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>Isolabel</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Isolabel_core</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A mapper module that adds text labels to isolines. The module processes
+the input field data and generates a Point mesh and a list of
+text labels. These can be displayed by the text_glyph module.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module Isolabel_core &lt;src_file="isolabel.c"&gt; {
+
+      omethod+req update (
+                          .in+read+notify+req,
+                          .in.nnodes+req,
+                          .num_labels+read+notify+req,
+                          .format+read+notify+req,
+                          .out+write,
+                          .string_vals+write
+      ) = "isolabel_update";
+
+      Mesh+Node_Data+IPort2  &amp;in;
+      int+IPort2             num_labels;
+      string+IPort2          format;
+
+      Mesh+OPort2 out {
+         ncell_sets = 1;
+         Point cell_set {
+            ncells =&gt; &lt;-.nnodes;
+            node_connect_list =&gt; init_array(ncells, 0, ncells-1);
+         };
+      };
+
+      string+OPort2 string_vals[];
+   };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The Isolabel_core module generates text annotation labels for isoline
+displays. It connects to the field output of the isoline module and generates
+a Point mesh and an array of string values. The Point mesh contains the position
+of the labels while the string array contains the actual label text at each
+point. These outputs can be directly connected to the text_glyph module, which
+will then display the labels. The number of labels output and the format of the
+label text can both be controlled.  The module is designed to work best when
+used with an isoline module, however it can be used to generate text labels for
+any Mesh with a matching set of scalar Node data.
+</blockquote>
+
+<blockquote>
+The label placement algorithm is quite simple and works best in a 2D isoline
+context.  The module subsamples the input node list at even intervals. This
+will generate a series of nodes that are regularly spaced throughout the input
+data.  Provided the input nodes are distributed evenly in space the output
+nodes should also be evenly distributed.  Although this method works acceptably
+in most contexts it should be noted that it is not suitable for animation. Due
+to the way the algorithm works the labels move around unpredictably as 
+parameters are changed. Hence, for example, recording a moving othroslice with
+labels would not be possible.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to a set of Field data which should be used by the module to generate
+the text labels. The Field should consist of a Mesh and Node Data. Only the
+first set of Node data is used and that Node data must be scalar.
+</blockquote>
+
+<blockquote>
+<i><b>num_labels</b></i>
+</blockquote>
+
+<blockquote>
+Number of text labels that should be generated. This is an integer parameter.
+</blockquote>
+
+<blockquote>
+<a name="format">
+<i><b>format</b></i>
+</a>
+</blockquote>
+
+<blockquote>
+C style formatting specification string that sets how the Node data values
+should be converted into text. By altering this format string the exact format 
+of the output labels can be controlled.  Internally the format string is used
+in a call to the sprintf function to perform the necessary conversion.  It 
+should be noted that the User macro <a href="doc_umac.html">isolabel</a> does
+not expose this parameter. Instead it constructs the format string automatically 
+from a UI control.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Point mesh containing the locations of each text label. This output can be
+directly input into the text_glyph module to display the generated labels.
+If the input mesh contains any transformation data this is copied across to
+the output mesh.
+</blockquote>
+
+<blockquote>
+<i><b>stringvals[]</b></i>
+</blockquote>
+
+<blockquote>
+String array containing the actual label text that should be displayed. This
+output can be directly input into the text_glyph module to display the
+generated labels.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level Isolabel_core module is used in the Functional Macro Isolabel
+and the User Macro isolabel. Additionally, these macros also use the
+Isolabel_Params parameter block group, as do the UI macros.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided, IsolabelEg1 and IsolabelEg2. These
+applications generate text labels for 2D and 3D isoline plots.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/isolabel/isl_mods.v</i> contains the V definitions of 
+the Isolabel_Params group and the Isolabel_core module.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+Please refer to AVS documentation for more information on the isoline and 
+text_glyph modules. This module does not use the AG kit, and should not be
+confused with AGContour which also contains isoline labels.
+</blockquote>
+
+<blockquote>
+The low-level IsolabelMods library containing the module Isolabel_core does not
+specify a process. By default the express process will be used.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+John Sheehan, <a href="mailto:ianc@avs.com">Ian Curington</a>
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey, Surrey, UK
+KT16 9JX
+</pre>
+</blockquote>
+
+<blockquote><pre>
+Andrew Dodd
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+Isolabel_Params, Isolabel, IsolabelUI, <a href="doc_umac.html">isolabel</a>,
+IsolabelEg1, IsolabelEg2.
+</blockquote>
+
+</body>
+</html>

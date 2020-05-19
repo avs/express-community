@@ -1,0 +1,29 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/common/common.v" Common;
+# In the following xp_comm_lib file
+common.v
+# insert the following line
+  NElink UIWidgets => Templates.XP_COMM_PROJ.Common.UIWidgets;
+# In the following xp_comm_lib file
+common.v
+# insert the following line
+   NElink IOWidgets => Templates.XP_COMM_PROJ.Common.IOWidgets;
+# In the following xp_comm_lib file
+common.v
+# insert the following line
+   NElink NetworkWidgets => Templates.XP_COMM_PROJ.Common.NetworkWidgets;
+# In the following xp_comm_lib file
+common.v
+# insert the following line
+   NElink LogicWidgets => Templates.XP_COMM_PROJ.Common.LogicWidgets;
+# In the following xp_comm_lib file
+common.v
+# insert the following line
+   NElink MiscWidgets => Templates.XP_COMM_PROJ.Common.MiscWidgets;
+# In the following xp_comm_lib file
+common.v
+# insert the following line
+   NElink CommonMods => Templates.XP_COMM_PROJ.Common.CommonMods;
+

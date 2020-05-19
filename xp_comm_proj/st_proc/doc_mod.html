@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>StartProcessFunc</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>StartProcessFunc</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Executes a new program based on an AVS string and returns the error code produced by that program.
+</blockquote>
+
+<blockquote><hr>
+<pre>
+   module StartProcessFunc &lt;src_file="st_proc.cxx"&gt;
+   {
+      StartProcessParams+IPort2 &amp;params;
+
+      int trigger =&gt; params.trigger;
+      int wait_on_exit =&gt; params.wait_on_exit;
+      string command =&gt; params.command;
+
+      cxxmethod+req update (
+         trigger+read+req+notify,
+         wait_on_exit+read+req,
+         command+read+req
+      );
+
+      int+OPort2 result;
+   };
+</pre>
+<hr></blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The StartProcessFunc module allows the user to easily start an external program and receive information from that program through the error code that it outputs.  The error code is a number that is output by most programs that is intended to indicate the programs status and which errors, if any have occurred.  In C and C++ programs the error code is specified through either using the exit() function or by returning a value from the main() function.  Normally a value of 0 indicates that the program has completed successfully.</p>
+
+<p>Using the StartProcessFunc module is a two step process.  First the user sets the command line that should be executed and specifies whether AVS/Express should wait for the program to exit.  Then the command line is executed by changing the trigger parameter.  The module will run the command line and then either return immediately or wait for the program to exit.  If the module waits for the program to exit it will output the error code that the program returns.</p>
+
+<p>The StartProcess project could have many applications.  Some of these are shown in the example macros that are supplied with the project.  The module could also be used to automatically log events, start data conversion or simulation programs or start any other task which is external to AVS.</p>
+</blockquote>
+
+<h3>Limitations</h3>
+
+<blockquote>
+<p>If a console program is started then a new console window will not be created to run it.  On the Windows platform the existing <i>AVS Express Console</i> window will be used for input to and output from the program.  On other platforms the same console will be used as that which started AVS/Express.  In most cases this will not be a problem.  However in both of these cases the same console is also used for the V Command Processor(<i>VCP</i>).  You should be aware that this can be a problem, particularly when an input is required.  If a console program is started and the module is instructed not to wait for the program to finish it will be impossible for the system to determine which program should receive any input.</p>
+
+<p>When the module is set to wait for a program to exit before returning no updates will occur to any part of Express.  This includes the User Interface.  Whilst the module is waiting Express will appear to have hung completely. This usual and not something to worry about.  This behaviour is an unavoidable consequence of the single-threaded design of Express.</p>
+
+<p>On the UNIX platform the <code>system()</code> function is used to execute the input command line.  The shell that the <code>system()</code> function uses the execute the command is not explicitly defined.  Therefore the exact results of a given command line will vary between different operating systems.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;StartProcessParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the
+parameters used in the StartProcessFunc module.
+</blockquote>
+
+<blockquote>
+<i><b>command</b></i>
+</blockquote>
+
+<blockquote>
+The command line that should be executed. The parameter is of type string. The command line is executed exactly as if it was typed into a normal shell. Therefore on a UNIX machine the command <code>more readme</code> would display the readme file.  Similarly on Windows machines the command <code>notepad readme</code> would display the readme file.  On UNIX systems the command line should not contain a trailing ampersand.  This will be automatically added should it be necessary.  Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;StartProcessParams input.
+</blockquote>
+
+<blockquote>
+<i><b>wait_on_exit</b></i>
+</blockquote>
+
+<blockquote>
+Whether the module should wait for the executed program to finish before returning control on AVS/Express.  The parameter is of type int.  If the parameter is false the specified command line is executed in parallel with AVS/Express and the result output is not updated.  If the parameter is true the module will wait for the specified command line to complete before updating the result output and returning control to AVS/Express.
+</blockquote>
+
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+The trigger parameter that is used to execute the specified process.  The
+parameter is of type int.  Whenever this parameter is changed the 
+StartProcessFunc module attempts to execute the specified command line. If
+the command line parameter has not been entered then the module will fail
+and return normally.
+</blockquote>
+
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>result</i></b></blockquote>
+
+<blockquote>
+The integer value that is returned by the executed process.  This output is only updated after the module has waited for the process to finish.
+</blockquote>
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level StartProcessFunc module is used in the Functional Macros
+SingleParamProcess, EditFile and ViewFile which are in turn used in the
+User Macro EditFile_ViewFile.  The RunProcess User Macro also uses the StartProcessFunc module.  Additionally, all of these macros also use the
+StartProcessParams parameter block.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The StartProcessEg example application is provided.  This application is a ModuleStack that creates instances of both of the user macros.  The EditFile_ViewFile macro allows the user to select a file and then edit or view it without leaving AVS.</p>
+
+<p>The RunProcess macro allows the user to run a program and see the returned result value.  By default the RunProcess macro runs the following program:</p> 
+
+<p><code>xp_comm_proj/st_proc/test/rand_ret.c</code></p>
+
+<p>This program generates a random number and returns it as an error code.  This is displayed to the user through the RunProcess macro.  The program is only supplied as source code and must be compiled before it can be executed.  To do this you should change to the appropriate directory and execute one of the following commands.</p>
+
+<p>Windows : <code>cl rand_ret.c</code></p> 
+
+<p>UNIX : <code>cc rand_ret.c -o rand_ret</code></p> 
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/st_proc/stpcmods.v</i> contains the V definitions of the StartProcessParams parameter block and the StartProcessFunc module.</p>
+
+<p><i>xp_comm_proj/st_proc/stpcmacs.v</i> contains the V definitions of the SingleParamProcess, EditFile and ViewFile functional macros, the EditFile_ViewFile and RunProcess user macros and the StartProcessEg example application.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project relies on the successful installation of the following components. Without them it will not function correctly.
+</blockquote>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#common">Common</a> Project</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level StartProcessMods library containing the module StartProcessFunc does not specify a process. By default the express process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+David Knight
+Andrew Dodd
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+StartProcessParams, SingleParamProcess, EditFile, ViewFile, Editfile_ViewFile, RunProcess, $shell V command
+</blockquote>
+
+</body>
+</html>
+

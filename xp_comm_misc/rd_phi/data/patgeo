@@ -1,0 +1,25 @@
+ GR OU X 1; GR OU X M; GR OU Y 1; GR OU Y M
+ * SOUTH
+ GR OU Y     1 X     1    10 Z     1     1 COL     2
+ * MOVE
+ GR OU Y    11 X     1    10 Z     1     1 COL     3
+ * WEST
+ GR OU X     1 Y     1    10 Z     1     1 COL     4
+ * EAST
+ GR OU X    11 Y     1    10 Z     1     1 COL     5
+ * FIXPRESS
+ GR OU X     6 Y     5     5 Z     1     1 COL     6
+ GR OU X     5 Y     5     5 Z     1     1 COL     6
+ GR OU Y     6 X     5     5 Z     1     1 COL     6
+ GR OU Y     5 X     5     5 Z     1     1 COL     6
+ * MIDX
+ * GR OU X     6 Y     1    10 Z     1     1 COL     7
+ * GR OU X     5 Y     1    10 Z     1     1 COL     7
+ * GR OU Y    11 X     5     5 Z     1     1 COL     7
+ * GR OU Y     1 X     5     5 Z     1     1 COL     7
+ * MAP
+ * GR OU X    11 Y     1    10 Z     1     1 COL     8
+ * GR OU X     1 Y     1    10 Z     1     1 COL     8
+ * GR OU Y    11 X     1    10 Z     1     1 COL     8
+ * GR OU Y     1 X     1    10 Z     1     1 COL     8
+

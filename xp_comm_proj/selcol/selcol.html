@@ -1,0 +1,182 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>Select Column</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Select Column</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Select Column module which allows you to choose a column of data to visualize.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by Select Column">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="110"><i>Colums_In</i></td>
+<td width="165">Data_Array</td>
+<td width="425">Columns to select</td>
+</tr>
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Select Column">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="110"><i>labels</i></td>
+<td width="165">string</td>
+<td width="300">Name of Column.</td>
+<td width="125"> Field </td>
+</tr>
+<tr>
+<td width="110"><i>selected</i></td>
+<td width="165">int</td>
+<td width="300">Flag depicting selected column.</td>
+<td width="125">Radio Box</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Select Column">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="110"><i>Columns Out</i></td>
+<td width="165">Data Array</td>
+<td width="425">Selected Columns are output.</td>
+</tr>
+
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This project contains a definition of a module which allows
+the user to select columns of data. The input data for this module is a table
+</p>
+
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>Columns_In</i></b></blockquote>
+
+<blockquote>
+Data_Array that provides the columns to select from. This Data_Array can be provided by the Read_Column_File module.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>labels</i></b></blockquote>
+
+<blockquote>
+String parameter which specifies the title of the column of data selected.
+</blockquote>
+
+<blockquote><b><i>selected</i></b></blockquote>
+
+<blockquote>
+Integer parameter that specifies which column of data has been selected.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>Columns Out</i></b></blockquote>
+
+<blockquote>
+Integer output specifying the columns that the user has selected.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The SelectColumnFunc functional macro uses the SelectColumnCore low-level module.  The SelectColumn user macro uses this functional macro and the SelectColumnUI user interface macro.  All of these macros use the SelectColumnParams parameter block to communicate parameters between themselves.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+One example application is provided with the SelectColumn project.  The SelectColumnApps example application reads in a data file and allows the user to select various columns.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/selcol/scolmods.v</i> Creates the SelectColumnMods library containing the low-level SelectColumnCore module and the SelectColumnParams parameter block.</p>
+
+<p><i>xp_comm_proj/selcol/scolmacs.v</i> Creates the SelectColumnMacs library containing the user interface macro SelectColumnUI, The functional macro SelectColumnFunc and the high-level user macro SelectColumn.</p>
+
+<p><i>xp_comm_proj/selcol/scolapps.v</i> Creates the SelectColumnApps library containing the example application SelectColumnEg.</p>
+
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Mary McDerby,
+Manchester Visualization Centre
+
+Tobias Schiebeck,
+Manchester Visualization Centre
+</pre>
+</blockquote>
+
+
+</body>
+</html>
+

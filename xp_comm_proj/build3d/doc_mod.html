@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>Build3DAssemble</title>
+</head>
+<body bgcolor="#92bfbf">
+<h1>Build3DAssemble</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Reads a image file, and places this data into a specified
+slice of a uniform vector field.  ARGB data is stored as vector node data.</blockquote>
+
+<blockquote>
+<hr><pre>
+macro Build3DAssemble {
+   ilink filename;
+   ilink index;
+
+   Build3DImageParams &amp;ImageParams&lt;export=1,NEportLevels={2,1}&gt;;
+
+   Build3DMakeDims Build3DMakeDims {
+      &amp;ImageParams =&gt; &lt;-.ImageParams;
+   };
+
+   DVM.DVread_image DVread_image {
+      filename =&gt; &lt;-.filename;
+      flip = 0;
+   };
+
+   XP_COMM_PROJ.Build3D.Build3DMods.Build3DExtractScalar extract_scalar {
+      in_field =&gt; &lt;-.DVread_image.out;
+      component =&gt; &lt;-.ImageParams.component;
+   };
+
+   int+OPort  in_data_dims[2] =&gt; {4, (Build3DMakeDims.dims[0] * Build3DMakeDims.dims[1] * Build3DMakeDims.dims[2])};
+   char+OPort in_data&lt;export=1&gt;[in_data_dims[1]][in_data_dims[0]];
+
+   FLD_MAP.uniform_vector_field uniform_vector_field {
+      mesh {
+         in_dims =&gt; &lt;-.&lt;-.Build3DMakeDims.dims;
+      };
+      data {
+         in_data =&gt; &lt;-.&lt;-.in_data;
+         dims+IPort3 =&gt; &lt;-.&lt;-.in_data_dims;
+      };
+   };
+
+   DVM.DVset_slice_data DVset_slice_data {
+      inField =&gt; &lt;-.uniform_vector_field.out;
+      sliceField =&gt; &lt;-.DVread_image.out;
+      slice =&gt; &lt;-.index;
+   };
+
+   olink out =&gt; .DVset_slice_data.inField;
+};
+</pre><hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The Build3D project consists of a set of macros that build up a 3D model from a set of 2D slices or layers. The 2D layers can be represented by any of the image file formats that AVS/Express supports. The purpose of the Build3DAssemble macro is to perform the low-level task of reading in a single image file and placing that data into the appropriate slice within a uniform vector field. It should be noted that due to the use of a uniform mesh, best results will be obtained when all slices are evenly spaced. This is a limitation of the current macro. In the future it maybe possible to use a rectlinear mesh and thereby allow unevenly spaced layers.</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><i><b>&amp;filename</b></i></blockquote>
+
+<blockquote>Reference to a string containing the path and
+filename of the layer to be loaded.</blockquote>
+
+<blockquote><i><b>&amp;index</b></i></blockquote>
+
+<blockquote>Reference to an integer specifying the slice of the 3D uniform scalar field that the image file should be read into. To build a complete set of data the index and filename should be changed together so that each image file is read into the appropriate position in the field data. The index number is used to directly index the data array and therefore it should be in the range <tt>0</tt> to the <tt>(number of layers - 1)</tt>, and not in the range <tt>start_layer</tt> to <tt>end_layer</tt>. Typically this will require an adjustment to be performed on the loop counter in the calling macro.</blockquote>
+
+<blockquote><i><b>&amp;ImageParams</b></i></blockquote>
+
+<blockquote>Reference to the parameter block, which contains real instances of the parameters for the Build3DAssemble macro.</blockquote>
+
+<blockquote><i><b>resx</b></i></blockquote>
+
+<blockquote>The horizontal resolution of the image file. The parameter is of type int. This has to be the same for each layer of the 3D volume. To increase performance the resolution of each file is not determined, instead it is assumed that the supplied value is correct. The actual resolution can be extracted from a single image at a higher level. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;ImageParams input.</blockquote>
+
+<blockquote><i><b>resy</b></i></blockquote>
+
+<blockquote>The vertical resolution of the image file. The parameter is of type int. The resolution has to be the same for each layer of the 3D volume. To increase performance the resolution of each file is not determined, instead it is assumed that the supplied value is correct. The actual resolution can be extracted from a single image at a higher level. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;ImageParams input.</blockquote>
+
+<blockquote><i><b>start_layer</b></i></blockquote>
+
+<blockquote>The index number of the first layer that the 3D model should be built up from. The parameter is of type int. The indices of the start and end layers are required so that the storage array for the resulting node data can be completely specified. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;ImageParams input.</blockquote>
+
+<blockquote><i><b>end_layer</b></i></blockquote>
+
+<blockquote>The index number of the last layer that the 3D model should be built up from. The parameter is of type int. The indices of the start and end layers are required so that the storage array for the resulting node data can be completely specified. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;ImageParams input.</blockquote>
+
+<blockquote><i><b>component</b></i></blockquote>
+
+<blockquote>The colour component that should be extracted from the image data and placed in the 3D model. This parameter is not used by the Build3DAssemble macro.  Instead the macro outputs vector data containing the alpha, red, blue and green components.  The specified component is extracted later.  This method enables the colour component to be changed without forcing all the image data to be reread. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;ImageParams input.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><i><b>out</b></i></blockquote>
+
+<blockquote>The generated 3D block in the form of a uniform vector field with the dimensions specified in the parameter block (i.e. [resx][resy][layers]). The image data for the present layer is stored as a 4 byte vector of node data at each point within the current horizontal layer. The field data will also contain any other image layers that have been previously read. Therefore as each layer is read the field data will change and updates will ripple through the network. If the visualization being performed is lengthy then this is likely to be undesirable and the network should be disconnected while images are being read in. A method of performing this is shown in the Build3DFunc functional macro.</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>The low-level Build3DAssemble module is used in the Functional Macro Build3DFunc which is in turn used in the User Macro build3D. Additionally, this macro also uses the Build3dImageParams parameter block group object, as does the Build3DUI UI Macro.</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Two example applications are provided. The Build3DEg application loads four BMP files that are 4x4 pixels in size, builds a 3D volume from these and displays the volume using an isosurface and a bounding box.</p>
+
+<p>The CreateImageSlicesEg application uses an orthoslice module, a 2D viewer and a write_image module to create TIFF images that represent slices from a volume field.  These slices can later be rebuilt into a volume by the build3D macro.  This application is unlikely to have any practical usage.  Instead it is intended to generate images that build3D can be tested with.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/build3d/bl3dmods.v</i> contains the Build3DImageParams group and the Build3DMakeDims, Build3DExtractScalar and Build3DAssemble module V definitions.</p>
+
+<p><i>xp_comm_proj/build3d/bl3dmacs.v</i> contains the build3D User Macro, the Build3DFunc Functional Macro and the Build3DUI UI Macro.</p>
+
+<p><i>xp_comm_proj/build3d/bl3dapps.v</i> contains the Build3DEg and CreateImageSlicesEg example application V definitions.</p>
+</blockquote>
+
+<h3>Prerequisites</h3>
+
+<blockquote>This project relies on the successful installation of the following components. Without them it will not function correctly.</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#common">Common</a> project</li>
+</ul>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level Build3DMods library inherits its process. As this library contains no procedural code, the process is not important.</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Steve Larkin
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Jimmy Schumm
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umac.html">build3D</a> IAC user macro.</li>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#common">Common</a> IAC project.</li>
+<li>DVset_slice_data AVS/Express module.</li>
+</ul>
+
+</body>
+</html>
+

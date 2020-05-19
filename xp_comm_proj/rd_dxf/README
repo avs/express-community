@@ -1,0 +1,90 @@
+Express Community ReadDXF Project
+https://github.com/avs/express-community
+-------------------
+
+The directories ( xp_comm_proj/rd_dxf/ ) contain all the V code, source code,
+documentation, and installation information for the new Community project "ReadDXF".
+
+The directories should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ReadDXF project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level modules of the
+new project may be compiled. The "express" process is specified by the 
+project. The project may be compiled by using one of the following commands
+in the top-level directory of your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+        Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+
+Prerequisites
+-------------
+
+This project relies on the successful installation of the following components.
+Without them it will not function correctly.
+
+ExtractObjects Project
+
+CatCellSets Project
+
+
+Files
+-----
+
+The following files are included within the xp_comm_proj/rd_dxf/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+rd_dxf.v	Creates the XP_COMM_PROJ.ReadDXF library.
+
+rdxfmods.v	Creates the ReadDXFMods library containing the low-level
+		module ReadDXFCore and the parameter block ReadDXFParams.
+
+rdxfmacs.v	Creates the ReadDXFMacs library containing the user interface
+		macro ReadDXF_UI, the functional macro ReadDXFFunc and the
+		user macro readDXF.
+
+rdxfusup.v	Creates the ReadDXFUnsupported library containing two
+		unsupported user macros.
+
+rdxfapps.v	Creates the ReadDXFApps library containing the example
+		applications ReadDXFEg and ReadDXFExtractEg.
+
+rd_dxf.cxx	C++ source code for the ReadDXFCore module.
+
+src/*.cxx	C++ source files for the objects used by rd_dxf.cxx
+
+src/*.hxx	C++ header files for the objects used by rd_dxf.cxx.
+
+rd_dxf.html	HTML documentation for the read_datamine macro, and modules.
+
+change.log	History of changes made to project.
+
+README		This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.hxx		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+*.o/obj		Intermediate object files.
+

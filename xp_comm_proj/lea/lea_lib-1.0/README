@@ -1,0 +1,43 @@
+This  is the  LEA lib  (Lagrangian Eulerian  Advection Library)  to compute
+https://github.com/avs/express-community
+texture-based representations of 2D unsteady vector field.
+
+GENERAL
+------
+
+This library is  an implementation of the algorithm  described in the paper
+"Lagrangian-Eulerian Advection for  Unsteady Flow Visualization" written by
+Bruno Jobard, Gordon Erlebacher and M.Y.  Hussaini. Paper and videos can be
+downloaded here:
+http://www.cscs.ch/~bjobard/Research/Publications/vis2001/lea_paper.htm
+
+The distribution comes with the library source code (in the directory src/)
+and with an interactive demonstration program (src_demo/) called leaflow.
+
+
+DEMO
+----
+
+To demonstrate  the fast computation of  LEA textures, the  leaflow demo is
+based  on  an  interactive  vector   field  generation  done  by  Jos  Stam
+http://www.dgp.utoronto.ca/people/stam/reality/Research/StableFluids/ 
+
+The  vector field generation  requires the  Fast Fourier  Transform library
+FFTW that can be downloaded here: http://www.fftw.org/download.html
+However, the LEA library can be compiled without the FFTW library.
+
+To  use the  demo, launch  src_demo/leaflow and  drag your  mouse  into the
+window. Change parameters via the right mouse button or keyboard.
+
+
+INSTALLATION
+------------
+
+See the INSTALL file
+
+
+CONTACTS
+--------
+
+Please  send your  requests, bug  reports and  suggestions to  Bruno Jobard
+bjobard@cscs.ch

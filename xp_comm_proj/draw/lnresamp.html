@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>LineResampler</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>LineResampler</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>LineResamper takes a polyline and outputs a given number of equispaced points along this line. The points can be clipped inside a given area and they can not be less than the number of input points.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by LineResampler">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_points</i></td>
+<td width="75">float[][2]</td>
+<td width="425">Coordinates of polyline.</td>
+</tr>
+<tr>
+<td width="100"><i>in_dims</i></td>
+<td width="75">int[2]</td>
+<td width="425">Dimensions of the active area.</td>
+</tr>
+<tr>
+<td width="100"><i>parent</i></td>
+<td width="75">UIconnection</td>
+<td width="425">Connection to the user interface.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by LineResampler">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Num. Points</i></td>
+<td width="75">int</td>
+<td width="300">Number of points to be output.</td>
+<td width="125">Field Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>Clip points</i></td>
+<td width="75">int</td>
+<td width="300">Specifies if resulting points must be inside active area.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by LineResampler">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="75">Point Mesh</td>
+<td width="425">Points and cell data that represent the data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DefaultObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h4>Description</h4>
+
+<blockquote>
+<p>The LineReampler takes the coordinates of a polyline and generates a specified number of equispaced points along the polyline.  The specified number of output points must be at least the number of input points.  If a lower number of points is specified the number of input points is used instead. If the option `Clip points' is set, the calculated points have to be inside of the active area given by the input dimensions. If points are outside of this area they are clipped to the border.</p>
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>in_points</i></b> : float[][2]</blockquote>
+
+<blockquote>Coordinates of polyline along which equispaced points are to be calculated.</blockquote>
+
+<blockquote><b><i>in_dims</i></b> : int[2]</blockquote>
+
+<blockquote>Dimension of the active area. If `clip points' is set the points outside of this area are clipped to the border of the area.</blockquote>
+
+<blockquote><b><i>parent</i></b> : UIconnection</blockquote>
+
+<blockquote>This is the port that automatically connects the user interface of the module to the user interface of AVS/express.</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote><b><i>Num. Points</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies the number of points to be calculated. It can not be smaller than the number of points in the polyline.  If it is smaller then the output will have the same number of points as the input.</blockquote>
+
+<blockquote><b><i>Clip points</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies whether all points which are outside of the active area should be clipped to the border of the active area.  The active area is specified by the in_dims input.</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>out_mesh</i></b> : Point Mesh</blockquote>
+
+<blockquote>This mesh output represents the calculated points. It can be used for further processing of the points.</blockquote>
+
+<blockquote><b><i>out_obj</i></b> : DefaultObject</blockquote>
+
+<blockquote>This port is suitable for direct connection to a 2D viewer. It contains the coordinates and cell set for the calculated points.</blockquote>
+
+
+<h4>Example</h4>
+
+<blockquote>The LineResamplerEg example application illustrates how to use the LineResampler macro.  A image is read and the SuperDraw macro can be used to draw a polyline as normal.  The LineResampler macro can be then be used to increase the number of output points.  Each output point is shown be a cross.</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/draw/drawmods.v</i> Creates the DrawMods library containing the low-level modules RegionResamplerCore, LineResamplerCore, SuperDrawCore and the parameter blocks DrawLineParams and LineResamplerParams.</p>
+
+<p><i>xp_comm_proj/draw/drawmacs.v</i> Creates the DrawMacs library containing the user interface macros SuperDrawUI and LineResamplerUI, the functional macros SuperDrawFunc and LineResampleFunc, and the user macros SuperDraw, LineResampler and RegionResampler.</p>
+
+<p><i>xp_comm_proj/draw/drawapps.v</i> Creates the DrawApps library containing the example applications SuperDrawEg, LineResamplerEg, and RegionResamplerEg.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level DrawMods library containing the low-level modules does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Mario Valle,
+AVS Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Anja Bindrich, Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>AVS/Express Click_Sketch macro.</li>
+</ul>
+ 
+</body>
+</html>
+

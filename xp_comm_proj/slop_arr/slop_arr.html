@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>slice_orthoplane_ARR</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>slice_orthoplane_ARR</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module is an implementation of the orthoslice module for arrays of structured and unstructured fields. It combines the functionality of the slice_orthoplane and slice_plane_ARR module.
+</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by slice_orthoplane_ARR">
+
+<tr>
+<td width="125"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>in_field[]</i></td>
+<td width="125">Field[]</td>
+<td width="300">Array of structured and/or unstructured fields</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by slice_orthoplane_ARR">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>axis</i></td>
+<td width="75">int</td>
+<td width="300">specifies the constant dimension</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>plane</i></td>
+<td width="75">float</td>
+<td width="300">specifies the location of the slice plane</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="100"><i>map_components</i></td>
+<td width="75">boolean</td>
+<td width="300">node data components to output</td>
+<td width="125">UIoptionBoxLabel</td>
+</tr>
+
+<tr>
+<td width="100"><i>map_cell_data</i></td>
+<td width="75">boolean</td>
+<td width="300">cell data components to output</td>
+<td width="125">UIoptionBoxLabel</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by slice_orthoplane_ARR">
+
+<tr>
+<td width="125"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>plane_out</i></td>
+<td width="125">Plane_Mesh</td>
+<td width="300">Field of the slice plane.</td>
+</tr>
+
+<tr>
+<td width="125"><i>plane_obj</i></td>
+<td width="125">DefaultObject</td>
+<td width="300">Directly renderable object output of the slice plane.</td>
+</tr>
+
+<tr>
+<td width="125"><i>out_fld</i></td>
+<td width="125">Mesh+Node_Data+Cell_Data[]</td>
+<td width="300">Output Array of the slice plane modules.</td>
+</tr>
+
+<tr>
+<td width="125"><i>out_obj</i></td>
+<td width="125">DefaultObject</td>
+<td width="300">Directly renderable object of the output array of fields.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This module is an implementation of the orthoslice module for arrays of structured and unstructured fields. It combines the functionality of the slice_orthoplane and slice_plane_ARR module.</p>
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in_field[]</b></i>
+</blockquote>
+
+<blockquote>
+Array of structured and unstructured fields. Structured and unstructured fields can be mixed when using this module. There is a problem however that the module throws error messages when fields are disconnected from the input port. However, these error messages do not interfere with the functioning of the module.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>axis</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the constant dimension of the slice plane to be used int slice_orthoplane_ARR.
+</blockquote>
+
+<blockquote>
+<i><b>plane</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the location of the slice plane to be used int slice_orthoplane_ARR.
+</blockquote>
+
+<blockquote>
+<i><b>map_components</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the node data components which are transferred to the output data.
+</blockquote>
+
+<blockquote>
+<i><b>map_cell_data</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the cell data components which are transferred to the output data.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>plane_out</b></i>
+</blockquote>
+
+<blockquote>
+Output of the slice plane used for slice_orthoplane_ARR.
+</blockquote>
+
+
+<blockquote>
+<i><b>plane_obj</b></i>
+</blockquote>
+
+<blockquote>
+Directly renderable GDobject of the slice plane that can be displayed in a 3D viewer.
+</blockquote>
+
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+Array of output fields from slice_orthoplane_ARR which can be used for further processing.
+</blockquote>
+
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+Directly renderable GDobject of the output fields that can be displayed in a 3D viewer.
+</blockquote>
+
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/slop_arr/slpa_mac.v</i> Creates the slice_orthoplane_ARRmacs library containing the parameter block slice_orthoplane_ARR_params, the functional macro slice_orthoplane_ARR_func, the user interface macro slice_orthoplane_ARR_UI and the high-level user slice_orthoplane_ARR.</p>
+			
+<p><i>slpa_app.v</i>Creates the slice_orthoplane_ARRapps library containing the example application slice_orthoplane_ARREg.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The slice_orthoplane_ARREg example application shows the usage of the slice_orthoplane_ARR module.
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>This project relies on the successful installation of the following components. Without them it will not function correctly.</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The slice_orthoplane_ARR macro is using components of the slice_plane_ARR module. Unfortunately due to the fact that original Express modules have been modified this project will only work with AVS/Express Developer's Edition.</p>
+
+<p>This project does not contain any procedural code and hence does not require compiling.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Stephan Ebersbach
+Manchester Visualization Centre
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Tobias Schiebeck
+International AVS Centre
+</pre>
+</blockquote>
+
+</body>
+</html>
+

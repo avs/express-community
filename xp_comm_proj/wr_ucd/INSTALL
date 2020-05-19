@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/wr_ucd/wr_ucd.v" WriteUCD;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+    XP_COMM_PROJ.WriteUCD.WriteUCDMacs.write_ucd write_ucd;
+    XP_COMM_PROJ.WriteUCD.WriteUCDMacs.write_ucd_ARR write_ucd_ARR;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+    XP_COMM_PROJ.WriteUCD.WriteUCDApps.WriteUCDEg WriteUCDEg;
+    XP_COMM_PROJ.WriteUCD.WriteUCDApps.WriteUCDTest WriteUCDTest;
+    XP_COMM_PROJ.WriteUCD.WriteUCDApps.WriteUCD_ARR_Eg WriteUCD_ARR_Eg;
+    XP_COMM_PROJ.WriteUCD.WriteUCDApps.ReadUCDEg ReadUCDEg;

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module ReadMolecule documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,PDB">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Read Molecule</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Read Molecule</h1>
+
+<h2>Description</h2>
+<p>Read a molecule structure.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">None</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">file format</td>
+	<td class="c2">list</td>
+	<td class="c3">Select the format of the sequence to be read. The available formats are:
+	<dl>
+		<dt>Plain Coordinates</dt>
+			<dd>The PlainCoord option is to process a simple file of X-Y-Z
+			coordinates with the atom type designated by the entry in the periodic
+			table. This format is nearly identical to the DmolXYZ file format.</dd>
+		<dt>Plain Coordinates plus displacement</dt>
+			<dd>Same as before plus a displacement vector for each atom: it is available as the <i>offset_lst</i> field in the molecule data
+			structure and is used by a special visualization technique (not available in STM3) to show atom vibration around its equilibrium position.</dd>
+		<dt>Gaussian Cube</dt>
+			<dd>Output format of Gaussian. Only the atomic structure is extracted, not the electron density data.
+			This format contains unit cell information.</dd>
+		<dt>PDB</dt>
+			<dd>Protein Data Bank format. This format contains unit cell and symmetry information.</dd>
+		<dt>GAMESS xyz Cube</dt>
+			<dd>GAMESS Plotting Option .F33 file output.</dd>
+		<dt>GAMESS xyz (from Perl extractor)</dt>
+			<dd>Read in GAMESS xyz format from the PERL extraction.</dd>
+		<dt>DCAR</dt>
+			<dd>Read a MSI DMOL DCAR file.</dd>
+		<dt>DMOL XYZ</dt>
+			<dd>Read a MSI DMOL COORD file.</dd>
+		<dt>CONVEX Mopac ESP</dt>
+			<dd>Mopac Electrostatic Potential.</dd>
+		<dt>Mopac XYZ</dt>
+			<dd>Mopac coordinates.</dd>
+		<dt>TRIPOS MOL2</dt>
+			<dd>Read a TRIPOS MOL2 file.</dd>
+		<dt>MOL</dt>
+			<dd>Read a MOL file.</dd>
+		<dt>CHEM-3D</dt>
+			<dd>CHEM-3D file.</dd>
+		<dt>MM3</dt>
+			<dd>Molecular Mechanics Code MM3.</dd>
+		<dt>SHEL-X</dt>
+			<dd>SHELX is a set of programs for crystal structure determination from single-crystal diffraction data.
+			It is also the format used by the <a href="http://sixray.ethz.ch/dif/icsd/">Inorganic Crystal Structure Database</a>.
+			This format contains unit cell and symmetry information.</dd>
+	</dl>
+	</td>
+</tr>
+<tr>
+	<td class="c1">Units</td>
+	<td class="c2">list</td>
+	<td class="c3">Measurement units used in the files. Currently the only format that uses
+	Bohrs is the Gaussian Cube.</td>
+</tr>
+<tr>
+	<td class="c1">File name</td>
+	<td class="c2">file browser</td>
+	<td class="c3">The file name to be read.</td>
+</tr>
+<tr>
+	<td class="c1">Hydrogens</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Enable Hydrogen atoms reading.</td>
+</tr>
+<tr>
+	<td class="c1">H bonds</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Enable computation of H bonds.</td>
+</tr>
+<tr>
+	<td class="c1">Force Bonds Recomputation</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Force bonds recomputation even if bonds definitions are already
+	present in the file</td>
+</tr>
+<tr>
+	<td class="c1">Freeze bonds</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Don't recompute bonds.</td>
+</tr>
+<tr>
+	<td class="c1">Bonding Range Adjustment</td>
+	<td class="c2">slider</td>
+	<td class="c3">Percentage of variation of the maximum distance between atoms to form a
+	bond.</td>
+</tr>
+<tr>
+	<td class="c1">H Bonding Range Adjustment</td>
+	<td class="c2">slider</td>
+	<td class="c3">Percentage of variation of the maximum distance between H and an
+	atom to form a bond.</td>
+</tr>
+<tr>
+	<td class="c1">H Bond Max Distance</td>
+	<td class="c2">slider</td>
+	<td class="c3">Maximum lenght of an H bond.</td>
+</tr>
+<tr>
+	<td class="c1">H Bond Max Angle</td>
+	<td class="c2">slider</td>
+	<td class="c3">Maximum angle HXY (in X__H..Y where .. is the H bond) to form an H bond.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="MolDisplayApp.html">MolDisplayApp</a> full application.</li>
+	<li><a href="http://www.rcsb.org/pdb/docs/format/pdbguide2.2/guide2.2_frame.html">PDB</a> format.</li>
+	<li><a href="http://www.gaussian.com/g_downloads/g98help.zip">Gaussian Cube</a> documentation (Zip format).</li>
+	<li><a href="http://shelx.uni-ac.gwdg.de/SHELX/index.html">Shel-X</a>
+</ul>
+
+</body></html>

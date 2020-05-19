@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>PresentDemoApp</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>PresentDemoApp</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The PresentDemoApp application provides a base from which various forms of demonstration applications can be constructed.  It is particularly intended to be used when making formal presentations using either the standard or multi-pipe editions of AVS/Express.</blockquote>
+
+<blockquote>
+<h4><b><i>present_demo</i></b> User Macro Parameters</h4>
+
+<table summary="Parameters used by present_demo">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>title</i></td>
+<td width="75">string</td>
+<td width="300">Title to display on Control Panel.</td>
+<td width="125">n/a</td>
+</tr>
+
+<tr>
+<td width="100"><i>rotate</i></td>
+<td width="75">int</td>
+<td width="300">Enables rotation of scene.</td>
+<td width="125"><b>R</b> button</td>
+</tr>
+
+<tr>
+<td width="100"><i>scale</i></td>
+<td width="75">int</td>
+<td width="300">Enables scaling of scene.</td>
+<td width="125"><b>S</b> button</td>
+</tr>
+
+<tr>
+<td width="100"><i>translate</i></td>
+<td width="75">int</td>
+<td width="300">Enables translation of scene.</td>
+<td width="125"><b>T</b> button</td>
+</tr>
+
+<tr>
+<td width="100"><i>rnc</i></td>
+<td width="75">int</td>
+<td width="300">Resets, Normalizes and Centres the scene.</td>
+<td width="125"><b>RNC</b> button</td>
+</tr>
+
+<tr>
+<td width="100"><i>use_mpu</i></td>
+<td width="75">int</td>
+<td width="300">Toggles use of MPU render when available.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>show_menu</i></td>
+<td width="75">int</td>
+<td width="300">Toggles showing of normal AVS/Express application panel.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>inc_objects</i></td>
+<td width="75">int[]</td>
+<td width="300">Indices of objects to include in output.</td>
+<td width="125">Option box list</td>
+</tr>
+
+<tr>
+<td width="100"><i>objectnames</i></td>
+<td width="75">string[]</td>
+<td width="300">Names of input objects.</td>
+<td width="125">n/a</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4><b><i>present_demo</i></b> User Macro Output Ports</h4>
+
+<table summary="Output Ports used by present_demo">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_objs</i></td>
+<td width="75">mlink</td>
+<td width="425">Array of links to selected objects.</td>
+</tr>
+
+<tr>
+<td width="100"><i>module_panel</i></td>
+<td width="75">link</td>
+<td width="425">Link to application UI panel.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>Giving presentations is a major part of many academic and commercial people's work lives.  Often these presentations will consist of displaying the results of visualizations to a wider audience.  This can either be in the form of static images or dynamic visualizations.  AVS/Express is in many ways a good tool for giving these sorts of dynamic presentation.  Many presentations are given using laptop computers and AVS/Express visualizations can be relatively easily taken from a Unix-based desktop environment to a Windows-based laptop environment.  The multi-pipe edition of AVS/Express is even more suited to giving dynamic presentations because it can make use of multi-user immersive displays such as Reality Centers and Immersadesks.</p>
+
+<p>However AVS/Express does have one major problem when it is used for giving presentations.  The standard Express user interface take up a large amount of space on the screen and can be distracting for the audience.  Command line options can be used to remove the Network Editor and the V Command Processor.  However this still leaves the standard <tt>SingleWindowApp</tt> or <tt>MultiWindowApp</tt> user interface.  Both of these take a decent amount of screen space and contain many distracting buttons and sliders.  These user interfaces can also be confusing for the presenter if they are not familiar with the AVS/Express user interface.</p>
+
+<p>One solution to this problem is create a custom user interface that only contains the controls necessary.  This is not a straightforward task and would normally involve removing the standard module user interface.  This could be a major problem if the audience asked a question that could not be answered with the controls in your custom user interface.  The PresentDemo project aims to solve both of these problems by allowing the user to build their demonstration application from a base application.</p>
+</blockquote>
+
+<h3>Using the PresentDemoApp user interface.</h3>
+
+<blockquote>
+<p>The <tt>PresentDemoApp</tt> base application is itself based on the <tt>MultiWindowApp</tt> application.  Therefore it contains the same module user interface and the same scene viewer window.  However by default the module user interface is hidden.  Instead a panel similar to the one shown below is displayed.</p>
+
+<center><img src="pdem_app.gif" alt="PresentDemoApp User Interface"></center>
+
+<p>This panel can is spilt into top and bottom portions.  The top portion contains all the general controls that are used by all applications and that are supplied by the <tt>PresentDemoApp</tt> application.  These controls include:</p>
+
+<center>
+<table summary="PresentDemoApp user interface controls" cellspacing=5>
+<tr>
+<td align="right"><b>File</b> Menu</td>
+<td width=10></td>
+<td>Allows the user to exit express.</td>
+</tr>
+
+<tr>
+<td align="right"><b>R</b> Button</td>
+<td width=10></td>
+<td>Enables rotation of the scene.</td>
+</tr>
+
+<tr>
+<td align="right"><b>S</b> Button</td>
+<td width=10></td>
+<td>Enables scaling of the scene.</td>
+</tr>
+
+<tr>
+<td align="right"><b>T</b> Button</td>
+<td width=10></td>
+<td>Enables translation of the scene.</td>
+</tr>
+
+<tr>
+<td align="right"><b>RNC</b> Button</td>
+<td width=10></td>
+<td>Resets, Normalizes and Centres the scene.</td>
+</tr>
+
+<tr>
+<td align="right"><b>Show Menu</b> Toggle</td>
+<td width=10></td>
+<td>Toggles the display of the standard module user interface.</td>
+</tr>
+
+<tr>
+<td align="right"><b>Use MPU Renderer</b> Toggle</td>
+<td width=10></td>
+<td>Toggles use of the MPU renderer, when available.</td>
+</tr>
+
+<tr>
+<td align="right"><b>Select Visualizations</b> Radio Boxes</td>
+<td width=10></td>
+<td>Toggles the display of the various visualizations.</td>
+</tr>
+</table>
+</center>
+
+<p>The bottom portion of the panel contains all the application specific controls that are supplied by the programmer of the demo.  In this case these are a slider to control the level of an isosurface and a toggle to control the running of an advector visualization.  Before you start developing your own demonstration applications you should become familiar with this user interface.  The PresentDemoEg1 and PresentDemoEg2 example applications are provided so that you can do this.</p>
+</blockquote>
+
+<h3>Developing with the PresentDemoApp base.</h3>
+
+<blockquote>
+<p>Developing with the <tt>PresentDemoApp</tt> base application is in many ways similar to developing with the MultiWindowApp base application.  As PresentDemoApp inherits from MultiWindowApp it contains the same user interface and Uviewer components and is used in much the same way.  However there are some steps that you do have to take that are different to normal.</p>
+
+<ol>
+<li>
+<p><b>Drag PresentDemoApp down from IAC library to start development.</b></p>
+<p>There is no 'New Application' option for the PresentDemoApp.  Therefore you have to manually drag the application down from the IAC library.</p>
+</li>
+
+<li>
+<p><b>Specify title for PresentDemoApp panel.</b></p>
+<p>A title should be given to the application.  This can be done by editing the string found in <i>present_demo.params.title</i>.  This string will appear in the title-bar of the PresentDemoApp panel.</p>
+</li>
+
+<li>
+<p><b>Build application as normal using Network Editor.</b></p>
+</li>
+
+<li>
+<p><b>Feed all Red DataObject outputs through <i>present_demo</i> user macro.</b></p>
+<p>The PresentDemo panel allows the user to select the visibility of the various visualizations.  However for this to work all the red DataObject outputs have be feed through the <i>present_demo</i> user macro.  If they are feed directly into the <i>Uviewer</i> macro as normal then all the objects will be displayed all the time.</p>
+</li>
+
+<li>
+<p><b>Specify names for DataObjects</b></p>
+<p>By default the <i>present_demo</i> macro automatically gives all DataObjects a name.  However these are not meaningful and normally better names should be manually specified.  This can be done by editing the <i>present_demo.objectnames</i> array.  The order in which names are given is important.  Often it will be easier to specify these names by directly editing the V code.</p>
+</li>
+
+<li>
+<p><b>Place application user interface in <i>application_UI</i> macro.</b></p>
+<p>All the application UI components should be placed in the <i>application_UI</i> macro and connected to the parent link.  By doing this the application components will appear in the bottom half of the PresentDemoApp panel.  The output values of these components can then be connected to the appropriate values in the visualization modules.</p>
+</li>
+
+<li>
+<p><b>Resize PresentDemoApp panel so that all components are on screen.</b></p>
+<p>The PresentDemoApp application does not know which components the user will add.  Due to this it cannot automatically resize its user interface and the user must do this manually.</p>
+</li>
+</ol>
+
+<p>After all these steps have been taken your demonstration application should be finished.  You should then save the completed application as a V file.  If you want to edit the application again you can start express and load the application as normal.  If you want to run the application as a demonstration you should use a script or batch file similar to the following.  These will start Express without the Network Editor or V Command Processor, and will suppress error messages.  These scripts assume that they are being run from the project's root directory.</p>
+
+<p>For Unix systems using C shell:</p>
+
+<blockquote><pre>
+#!/usr/bin/csh
+setenv NE_NO_ERROR_DIALOG 1
+./bin/{$MACHINE}/express -novcp -none demo.v
+</pre></blockquote>
+
+<p>For Windows systems:</p>
+
+<blockquote><pre>
+set NE_NO_ERROR_DIALOG 1
+start bin\{$MACHINE}\express -novcp -none demo.v
+</pre></blockquote>
+
+</blockquote>
+
+
+
+<h3>Inputs to <i>present_demo</i> user macro</h3>
+
+<blockquote><b><i>in_objs</i></b></blockquote>
+
+<blockquote>Array of DataObjects that the user can select to be displayed.  This input array can be built up by making multiple connections from red output ports to the <tt>in_objs</tt> port.</blockquote>
+
+
+<h3>Parameters of <i>present_demo</i> user macro</h3>
+
+<blockquote><b><i>title</i></b></blockquote>
+
+<blockquote>String parameter that specifies the name that should be given to the demonstration application.  This string will be displayed in the title-bar of the PresentDemoApp control panel.</blockquote>
+
+<blockquote><b><i>rotate scale translate</i></b></blockquote>
+
+<blockquote>These integer parameters specify whether mouse movements should rotate, scale or translate the selected object or scene.  These parameters are already connected to the appropriate places in the user interface and normally these connections will not need to be altered.</blockquote>
+
+<blockquote><b><i>rnc</i></b></blockquote>
+
+<blockquote>Integer parameter that is used to trigger the resetting, normalization and centering of the selected object or scene.  This parameter is already connected to the appropriate place in the user interface and normally this connection will not need to be altered.</blockquote>
+
+<blockquote><b><i>use_mpu</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies whether the MPU renderer should be used.  This parameter is only used when the Multi-pipe edition of AVS/Express is being used.  The PresentDemoApp base application already connects this parameter to the appropriate places in the Uviewer.  Normally these connections will not need to be altered.</blockquote>
+
+<blockquote><b><i>show_menu</i></b></blockquote>
+
+<blockquote>Integer parameter that specifies the visibility of the normal MultiWindowApp module user interface.  Making the normal module user interface visible allows more detailed adjustments to be made than would be possible with the customized application user interface.  By default the normal user interface is visible.  This default is necessary because of a problem with AVS/Express when running on Windows.  If the MultiWindowApp user interface is initially invisible then the sizes of various user interface components are not setup correctly and hence the user interface does not work correctly.</blockquote>
+
+<blockquote><b><i>inc_objects[]</i></b></blockquote>
+
+<blockquote>Integer array that specifies which DataObjects should be included in the output GroupObject.  The array contains a list of zero-based indices into the input array.  Therefore a value of <tt>{0,3}</tt> means that the first and fourth DataObjects will be included in the output GroupObject.  By default no elements of the input array are selected.</blockquote>
+
+<blockquote><b><i>objectnames[]</i></b></blockquote>
+
+<blockquote>String array that specifies the names of the DataObjects in the input array.  These names are displayed in the user interface so that the user can more easily choose between the objects.  By default the objects are named <i>Object[0], Object[1]</i> and so forth.  However explicit object names can be easily specified.</blockquote>
+
+
+
+<h3>Outputs from <i>present_demo</i> user macro</h3>
+
+<blockquote><b><i>out_objs</i></b></blockquote>
+
+<blockquote>Output GroupObject that contains references to the selected DataObjects from the input array.  This output should be directly connected to the input of the Uviewer macro.</blockquote>
+
+<blockquote><b><i>module_panel</i></b></blockquote>
+
+<blockquote>Link to the bottom UIpanel of the PresentDemoApp control panel.  Any user interface components that are connected to this output will be displayed in the PresentDemoApp control panel.  If the PresentDemoApp base application is used this output is connected to the <tt>application_UI</tt> macro.  In this case all user interface components should be contained with that macro.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The <tt>PresentDemoApp</tt> base application uses the <tt>present_demo</tt> user macro.  This user macro makes use of the PresentDemoMainUI, PresentDemoControlsUI and PresentDemoModulesUI user interface macros.  It also uses the <a href="../ext_objs/ext_objs.html">ExtractObjectsCore</a> low-level module.  The PresentDemoParams parameter block is used to communicate between these components.
+</blockquote>
+
+
+<h3>Examples</h3>
+
+<blockquote>
+<p>The PresentDemo project includes two example application.  The PresentDemoEg1 example reads a geometry file and display it.  This example is intended to be a very simple illustration of how the PresentDemoApp base application can be used.</p>
+
+<p>The PresentDemoEg2 example illustrates how a more complex visualization can be presented as a demonstration.  The demonstration control panel includes 2 application controls, a slider that controls the level of the isosurface and a toggle that runs the advection.  This example is also based on the PresentDemoApp base application.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/p_demo/pdemmods.v</i> contains the V definition of the PresentDemoParams parameter block.</p>
+
+<p><i>xp_comm_proj/p_demo/pdemmacs.v</i> contains the V definitions of the PresentDemoMainUI, PresentDemoControlsUI and PresentDemoModulesUI user interface macros and the present_demo user macro.</p>
+
+<p><i>xp_comm_proj/p_demo/pdemapps.v</i> contains the V definitions of the PresentDemoApp base application, and the PresentDemoEg1 and PresentDemoEg2 example applications.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+The PresentDemo project relies on the successful installation of the following components. Without them the project will not function correctly.
+</blockquote>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#ext_objs">ExtractObjects</a> Project</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>This project was initially inspired by some code created by Ian Curington for the multi-pipe edition demonstration disk.  Some of the methods and techniques used in this project where taken from this code.</p>
+
+<p>The PresentDemo project does not contain any procedural code and hence the process it executes in is not important.  The <a href="../ext_objs/ext_objs.html">ExtractObjects</a> project executes under the process specified in the ExtractObjectsMod library.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+<a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="http://www.avs.com/products/expovr.htm">AVS/Express</a> <a href="http://www.iavsc.org/general/news/mpe.html">Multipipe Edition</a> home page.</li>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#ext_objs">ExtractObjects</a> IAC project.</li>
+</ul>
+
+</body>
+</html>
+

@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		p {text-indent:0.5in; color:black}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:10pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META  HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		STM:The CAVE and Immersadesk
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="bg1x.jpg">
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+	STM:The CAVE and Immersadesk</SPAN>
+</H1>
+<BR>
+<H1 ALIGN="center"><A NAME="geom">Introduction</A></H1>
+<P>
+Scientific visualization is a powerful method to display the results 
+of computer simulations and/or experimental measurements.  The 
+functionality of the Application Visualization System  
+(<SPAN STYLE="color:#408080"><B>AVS</B></SPAN>) from Advanced Visual 
+Systems, Inc. modules have been ported to the Immersadesk&copy; 
+environment from Pyramid Systems, Inc.
+</P>
+<P>
+There are two applications, one called 
+<A HREF="#IMolecule">IMolecule</A> for the display of the geometric 
+structure of molecules and  the other is <A HREF="#IMD">IMD</A> for 
+the display of the results of molecular dynamics simulations.
+</P>
+<BR>
+<H1 ALIGN="center"><A NAME="IMolecule">IMolecule</A></H1>
+<P>
+The <B>IMolecule</B> application code is designed to read geometric 
+structure information of a molecule from a variety of file formats.  
+For more information see the <A HREF="CAVE/imolecule_sc97.html">SC97 
+presentation</A>.
+</P>
+<P>
+For these displays, the visualization process begins by reading the 
+structural information and other output data from the calculation.  
+The data is currently displayed using traditional ball and stick 
+models.  The size of the atom is determined from the van der Waals 
+radii, and one can input coordinates in either Bohrs or Angstroms.
+</P>
+<P>
+To run type:
+</P>
+<DIV ALIGN="center">
+	<CODE>IMolecule filename filetype units</CODE>
+</DIV>
+<P>
+Navigation throughout the molecule is accomplished by:
+</P>
+<OL TYPE="I">
+	<LI><SPAN STYLE="color:brown;"><I>Button 1:</I></SPAN>  Toggle 
+		between rotation on or off (initially off).  This follows 
+		the position of the wand.
+	<LI><SPAN STYLE="color:brown;"><I>Button 2:</I></SPAN>  Toggle 
+		between scale and translation (initially scale).  The actual 
+        functionality is controlled only by the joystick.
+	<LI><SPAN STYLE="color:brown;"><I>Button 3:</I></SPAN>  Reset 
+		to initial configuration.
+</OL> 
+<P>
+The program currently can read structural information from the 
+following types of files:
+</P>
+<OL TYPE="i">
+	<LI><A HREF="header.html#pcoord">Plain XYZ Coordinates</A> called 
+		<I>PlainCoord</I>.  Atom types are specified by the numerical 
+		entry in periodic table.
+	<LI><A HREF="header.html#coord">XYZ Coordinates</A> called 
+		<I>coord</I>.  Atom types specified by atomic name as a 
+		 character string.
+	<LI><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> Cube 
+		Files</A> called <I>Cube</I>.
+	<LI><A HREF="header.html#pdb">Brookhaven Protein Data Bank</A> 
+		called <I>pdb</I>.
+	<LI><A HREF="header.html#pgamess">GAMESS Coordinates via a 
+		PERL script</A> called <I>PGamess</I>.
+	<LI><A HREF="header.html#cgamess">GAMESS Plotting Option</A> 
+		called <I>Gamess Cube</I>.
+	<LI><A HREF="header.html#dcar">MSI DCAR</A> called <I>Dcar</I>.
+	<LI><A HREF="header.html#dmol">DMOL XYZ</A> called <I>DMOL_XYZ</I>.
+	<LI><A HREF="header.html#esp">Mopac Electrostatic Potential</A> 
+		called <I>Mopac ESP</I>.
+	<LI><A HREF="header.html#mopac_xyz">Mopac coordinates</A> called 
+		<I>Mopac XYZ</I>.
+	<LI><A HREF="header.html#mol2">MOL2</A> called <I>mol2</I>.
+	<LI><A HREF="header.html#mol">MOL</A> called <I>mol</I>.
+	<LI><A HREF="header.html#chem3d">CHEM3D</A> called <I>Chem3d</I>.
+	<LI><A HREF="header.html#mm3">Molecular Mechanics Code MM3</A> 
+		called <I>mm3</I>.
+</OL>
+<BR>
+<H1 ALIGN="center"><A NAME="IMD">IMD</A></H1>
+<P>
+The IMD application code is designed to read the results of a 
+molecular dynamics (<B>MD</B>) simulation of spherically symmetric, 
+electrically neutral atom system  interacting via a Lennard-Jones 
+potential.   The atoms are displayed as spheres, colored by the 
+magnitude of the velocity.  (Red being the fastest and blue being 
+the slowest). For more information see the 
+<A HREF="CAVE/imd_sc97.html">SC97 presentation</A>.
+</P>
+<P>
+The executable file is <B><I>CaveDyn0</I></B>, which is set to 
+read the file <CODE>mdvis.dat.kenf_N64</CODE> 1000 time steps 64 
+particles.  The source file is <B><I>CaveDyn0.c</I></B> for the 
+the CaveDyn0 executable and lastly, a Makefile to make the 
+executable, <B><I>make cave0</I></B> to make the 
+<B><I>CaveDyn0</I></B> executable.
+</BODY>
+</HTML>

@@ -1,0 +1,415 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:12pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		 STM:See The Molecule
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="bg1x.jpg">
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+	Welcome to the STM
+	<DIV ALIGN="center">Running STM</DIV></SPAN>
+</H1>
+<TABLE BORDER=3 ALIGN="center">
+<TR>
+	<TD ALIGN="center">UNIX</TD>
+	<TD ALIGN="center">Windows</TD>
+</TR><TR>
+	<TD>
+		The <B>Run</B> script will run the STM application.
+	</TD><TD>
+		The <B>Run.bat</B> batch file will run the STM application.
+		<BR>
+		<SPAN CLASS="NOTE">On a windows system, you can 
+		create and edit a desktop icon 
+		(see the <A HREF="STMfaqW.html">FAQ</A> page.)</SPAN>
+	</TD>
+</TR>
+</TABLE>
+<P>
+The STM application User interface controls both the input parameters
+(describing the characteristics of the input file) and display parameters
+(describing the images viewed).  For more information read
+<A HREF="STM_xp.html">this page.</A>
+</P>
+<TABLE ALIGN="center" BORDER="0">
+<TR>
+	<TD VALIGN="center">
+		<IMG ALT="XP Mol C UI" SRC="MolUI.jpg">
+	</TD><TD>
+		<P>INPUT - The parameters that controls how the data is read. 
+		<OL>
+			<LI><SPAN STYLE="color:brown; font-weight:bold;">Pause</SPAN> 
+				the display.  This pauses the module from processing 
+				and allows the user to set the input correctly 
+				(<B>Select File Type</B> and <B>Units</B>).
+			<LI><SPAN STYLE="color:brown; font-weight:bold;">Select File 
+				Type</SPAN> Select the type of file to read.
+			<LI><SPAN STYLE="color:brown; font-weight:bold;">Units</SPAN>
+				Select a value for the type of units. 
+				<SPAN STYLE="NOTE">Note that for some displays
+				the default atom-atom bond or hydrogen-atom bond values 
+				are not correct.  Sliders <B>Set Bond Scale Factor</B> 
+				and <B>Set Hydrogen Bond Scale Factor</B> allow for scaling
+				the display.</SPAN>
+			<LI>Select a file to read.
+			<LI>Uncheck the <B>Pause</B>.
+				<BR>
+				<SPAN STYLE="NOTE">Note, when initially starting the 
+				application, you may also have to press the start button.
+				This is due to how AVS/Express will save the application.
+				</SPAN>
+		</OL>
+		<P>OUTPUT
+		<OL>
+			<LI>Select the type of display.  
+				The display options are:
+			<OL TYPE="i">
+				<LI>Select to <B>show</B> or <B>hide</B> the hydrogen atoms.
+				<LI>The <B>Set Sphere Size</B> type-in allows the user to 
+					scale the size of the atom spheres.
+				<LI><B>ball and stick</B> display spheres connected by single 
+					lines.  The bonds are determined by two atoms being close 
+					(within a cutoff) specified in the module.  The atoms are 
+					colored by type.
+				<LI><B>cpk</B> also known as space-filling model.  The radii 
+					of the atoms are the van der Waals radii also specified 
+					in the module.  
+				<LI><B>colored stick</B> is also just the bond structure 
+					colored by atom type.
+				<LI><B>colored residue</B> is a residue based display, and 
+					each residue is colored differently.
+			</OL>
+		</OL>
+	</TD>
+</TR>
+</TABLE>
+<P>
+The STM application comes with several pre-constructed networks
+<SPAN CLASS="NOTE">(the networks are in the v directory)</SPAN>
+to display data from a variety of file formats and display options.  
+The networks are described below:
+</P>
+<UL TYPE="square">
+	<LI><SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+		MolecularDisplayApp.v</SPAN> - this network will read and display 
+		molecular structure. Each file format has an associated test data 
+		file:
+		<BR>
+		<TABLE ALIGN="center" BORDER=2>
+		<TR>
+			<TD COLSPAN=3 ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				Data Files for the molecular data test.</SPAN>
+			</TD>
+		</TR><TR>
+			<TD COLSPAN=3>&nbsp;</TD>
+		</TR><TR>
+			<TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				File Name</SPAN>
+			</TD><TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				File Size</SPAN>
+			</TD><TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				Select File Type</SPAN>
+			</TD>
+		</TR><TR>
+			<TD COLSPAN=3>&nbsp;</TD>
+		</TR><TR>
+			<TD>PlainCoord.dat</TD><TD>840</TD>
+			<TD><A HREF="header.html#pcoord">Plain XYZ Coordinates</A> 
+				called <I>Set PlainCoord</I>.  Atom types specified by the
+				numerical entry in periodic table.
+			</TD>
+		</TR><TR>
+			<TD>COORD.dat</TD><TD>2,101</TD>
+			<TD><A HREF="header.html#coord">XYZ Coordinates</A> called 
+				<I>Set coord</I>.  Atom types specified by atomic name as 
+				a character string.
+			</TD>
+		</TR><TR>
+			<TD>CUBEpot.dat</TD><TD>542</TD>
+			<TD><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> 
+				Cube Files</A> called <I>Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>tryp_den.grd</TD><TD>1,690,138</TD>
+			<TD><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> 
+				Cube Files</A> called <I>Set Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>tryp_homo.grd</TD><TD>1,690,155</TD>
+			<TD><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> 
+				Cube Files</A> called <I>Set Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>tryp_pot.grd</TD><TD>1,690,223</TD>
+			<TD><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> 
+				Cube Files</A> called <I>Set Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>PDB.dat</TD><TD>869</TD>
+			<TD><A HREF="header.html#pdb">Brookhaven Protein Data 
+				Bank</A> called <I>Set pdb</I>.</TD>
+		</TR><TR>
+			<TD>caffine.pdb</TD><TD>2,495</TD>
+			<TD><A HREF="header.html#pdb">Brookhaven Protein Data 
+				Bank</A> called <I>Set pdb</I>.</TD>
+		</TR><TR>
+			<TD>PGamess.dat</TD><TD>235</TD>
+			<TD><A HREF="header.html#pgamess">GAMESS Coordinates 
+				via a PERL script</A> called <I>Set PGamess</I>.
+			</TD>
+		</TR><TR>
+			<TD>exam01.new</TD><TD>3,309,142</TD>
+			<TD><A HREF="header.html#cgamess">GAMESS Plotting 
+				Option</A> called <I>Set Gamess Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>jerry.F33</TD><TD>6,168,938</TD>
+			<TD><A HREF="header.html#cgamess">GAMESS Plotting 
+				Option</A> called <I>Set Gamess Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>DCAR.dat</TD><TD>1,081</TD>
+			<TD><A HREF="header.html#dcar">MSI DCAR</A> called 
+				<I>Set Dcar</I>.
+			</TD>
+		</TR><TR>
+			<TD>DMOLxyz.dat</TD><TD>1,078</TD>
+			<TD><A HREF="header.html#dmol">DMOL XYZ</A> called 
+				<I>Set DMOL_XYZ</I>.
+			</TD>
+		</TR><TR>
+			<TD>MOPACesp.dat</TD><TD>570</TD>
+			<TD><A HREF="header.html#esp">Mopac Electrostatic 
+				Potential</A> called <I>Set Mopac ESP</I>.
+			</TD>
+		</TR><TR>
+			<TD>MOPACxyz.dat</TD><TD>380</TD>
+			<TD><A HREF="header.html#mopac_xyz">Mopac 
+				coordinates</A> called <I>Set Mopac XYZ</I>.
+			</TD>
+		</TR><TR>
+			<TD>Mol2.dat</TD><TD>2,412</TD>
+			<TD><A HREF="header.html#mol2">MOL2</A> called 
+				<I>Set mol2</I>.
+			</TD>
+		</TR><TR>
+			<TD>Mol.dat</TD><TD>457</TD>
+			<TD><A HREF="header.html#mol">MOL</A> called 
+				<I>Set mol</I>.
+			</TD>
+		</TR><TR>
+			<TD>Chem3d.dat</TD><TD>323</TD>
+			<TD><A HREF="header.html#chem3d">CHEM3D</A> called 
+				<I>Set Chem3d</I>.
+			</TD>
+		</TR><TR>
+			<TD>MM3.dat</TD><TD>619</TD>
+			<TD><A HREF="header.html#mm3">Molecular Mechanics 
+				Code MM3</A> called <I>Set mm3</I>.
+			</TD>
+		</TR>
+		</TABLE>
+		<BR><BR>
+	<LI><SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+		animatedMolDisplay.v</SPAN> - this network is designed to read
+		a sequence of files and display the data.  To test this network,
+		use the files below:
+		<BR>
+		<TABLE ALIGN="center" BORDER=2>
+		<TR>
+			<TD COLSPAN=2 ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				Data Files for the animated test.
+				<BR>These are all <I>Plain Coordinate</I> files.</SPAN>
+			</TD>
+		</TR><TR>
+			<TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				File Name</SPAN>
+			</TD><TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				Size</SPAN>
+			</TD>
+		</TR><TR>
+			<TD COLSPAN=2>&nbsp;</TD>
+		</TR><TR>
+			<TD>DWB.0001</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0002</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0003</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0004</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0005</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0006</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0007</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0008</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0009</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0010</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0011</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0012</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0013</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0014</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0015</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0016</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0017</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0018</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0019</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0020</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0021</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0022</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0023</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0024</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0025</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0026</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0027</TD><TD>840</TD>
+		</TR><TR>
+			<TD>DWB.0028</TD><TD>840</TD>
+		</TR>
+		</TABLE>
+		<BR><BR>
+	<LI><SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+		G94CubeDisplay.v</SPAN> - this network is designed to read
+		the output generated by the CUBE option from Gaussian.  
+		The <SPAN STYLE="color:brown; font-weight:bold;">Set File 
+		Type</SPAN> option is <I>Set Cube</I>.  To test this network, 
+		use the files below:
+		<BR>
+		<TABLE ALIGN="center" BORDER=2>
+		<TR>
+			<TD COLSPAN=3 ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				Data Files for the molecular data test.</SPAN>
+			</TD>
+		</TR><TR>
+			<TD COLSPAN=3>&nbsp;</TD>
+		</TR><TR>
+			<TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				File Name</SPAN>
+			</TD><TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				Size</SPAN>
+			</TD><TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				File Type</SPAN>
+			</TD>
+		</TR><TR>
+			<TD COLSPAN=3>&nbsp;</TD>
+		</TR><TR>
+			<TD>CUBEpot.dat</TD><TD>542</TD>
+			<TD><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> 
+				Cube Files</A> called <I>Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>tryp_den.grd</TD><TD>1,690,138</TD>
+			<TD><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> 
+				Cube Files</A> called <I>Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>tryp_homo.grd</TD><TD>1,690,155</TD>
+			<TD><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> 
+				Cube Files</A> called <I>Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>tryp_pot.grd</TD><TD>1,690,223</TD>
+			<TD><A HREF="header.html#cube">Gaussian<SUP>&copy;</SUP> 
+				Cube Files</A> called <I>Cube</I>.
+			</TD>
+		</TR>
+		</TABLE>
+		<BR><BR>
+	<LI><SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+		GamessCubeDisplay.v</SPAN> - this network is designed to read a file 
+		output from GAMESS (the log file processed by a PERL script) and 
+		display the data.  To test this network,
+		use the files below:
+		<BR>
+		<TABLE ALIGN="center" BORDER=2>
+		<TR>
+			<TD COLSPAN=3 ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				Data Files for the molecular data test.</SPAN>
+			</TD>
+		</TR><TR>
+			<TD COLSPAN=3>&nbsp;</TD>
+		</TR><TR>
+			<TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				File Name</SPAN>
+			</TD><TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				Size</SPAN>
+			</TD><TD ALIGN="center">
+				<SPAN STYLE="color:brown; font-weight:bold; font-size:14pt;">
+				File Type</SPAN>
+			</TD>
+		</TR><TR>
+			<TD>exam01.new</TD><TD>3,309,142</TD>
+			<TD><A HREF="header.html#cgamess">GAMESS Plotting 
+				Option</A> called <I>Gamess Cube</I>.
+			</TD>
+		</TR><TR>
+			<TD>jerry.F33</TD><TD>6,168,938</TD>
+			<TD><A HREF="header.html#cgamess">GAMESS Plotting 
+				Option</A> called <I>Gamess Cube</I>.
+			</TD>
+		</TR>
+		</TABLE>
+</UL>
+</BODY>
+</HTML>

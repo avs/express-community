@@ -1,0 +1,12 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/vec3dfnt/vec3dfnt.v" Vector3dFonts;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line	
+  XP_COMM_PROJ.Vector3dFonts.Vector3dFontsMacs.Vector3dFonts Vector3dFonts;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Vector3dFonts.Vector3dFontsApps.Vector3dFontsEg Vector3dFontsEg;

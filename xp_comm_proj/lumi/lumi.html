@@ -1,0 +1,155 @@
+<html>
+<head>
+   <title>Luminance - computes scalar luminance from a full-color image</title>
+   <meta name="Author" content="Ian Curington">
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Luminance</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The luminance macro performs full-colour luminance filtering and produces a 1:1 size scalar result from ARGB colour byte images.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by luminance">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">original image to be analysed</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by luminance">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">2D byte field</td>
+<td width="425">luminance values for each pixel</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The luminance module computes a scalar luminance function for each pixel in an image from the red, green and blue channels of that color image.  The output field is the same size of the input in each dimension.  There are no parameters associated with this module, and hence no user interface.</p>
+
+<p>The transfer function used to calculate the luminance is:</p>
+
+<blockquote>
+<b>Luminance = (RED*0.299) + (GREEN*0.587) + (BLUE*0.114)</b>
+</blockquote>
+
+<p>This module is a conversion of the AVS5 "luminance" module.  The module implementation is now in C++. The low-level module operates on simple byte arrays rather than fields.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>Full colour 2D image that is to be analysed by the module.  The image should be a 2D uniform grid of type Image_ARGB.  The read_image module outputs data of this type.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>Uniform scalar byte field containing the calculated luminance values as unsigned bytes.  The uniform field has the same dimensions as the input field.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to the viewer.  A 2D viewer is recommended.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The luminance macro makes use of the LuminanceCore low-level module.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The LuminanceEg example application filters an image and shows it in a viewer.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/lumi/lumimods.v</i> contains the V definition of the LuminanceCore module.</p>
+
+<p><i>xp_comm_proj/lumi/lumimacs.v</i> contains the V definitions of the luminance user macro and the LuminanceEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level LuminanceMods library containing the low-level LuminanceCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Sabreen Vig, Larry Gelberg, Ian Curington
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>AVS5 luminance module, from which this one is derived.</blockquote>
+
+</body>
+</html>
+

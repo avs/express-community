@@ -1,0 +1,15 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/zip_io/zip_io.v" ZipIO;
+# In the following xp_comm_lib file
+data_io.v
+# insert the following line
+  XP_COMM_PROJ.ZipIO.ZipIOMacs.compress_file compress_file;
+  XP_COMM_PROJ.ZipIO.ZipIOMacs.decompress_file decompress_file;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ZipIO.ZipIOApps.WriteCompressedImageEg WriteCompressedImageIOEg;
+  XP_COMM_PROJ.ZipIO.ZipIOApps.ReadCompressedImageEg ReadCompressedImageIOEg;
+

@@ -1,0 +1,84 @@
+Express Community ProjectNodeData Project
+https://github.com/avs/express-community
+---------------------------
+
+This directory ( xp_comm_proj/projnd/ ) contains all the V code, source 
+code, HTML documentation, and installation information for the Community 
+module "ProjectNodeData".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ProjectNodeData project, and a single line addition to an xp_comm_lib/
+file (in this instance mappers.v) to add a link to the User Macro from the 
+new top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of
+the new project may be compiled. If you opt to leave the process
+unspecified, it will by default use the "express" process. Doing so
+means the module may be compiled by using one of the following
+commands in the top-level directory of your project (whilst
+AVS/Express is not running):
+
+	base -comp_proc express -exit
+
+or	make -f express.mk
+
+	Using the 'make' command, requires that the express.mk file
+already exists, and has been updated accordingly.
+
+	If you modify the ProjectNodeData project, and specify the
+process as "user" or another user-defined process, then the module may
+be compiled without having to exit the AVS/Express application. Use
+the following command in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.ProjectNodeData.ProjectNodeDataMods
+
+	Users of the Developer's Edition may select the module in the
+relevant Templates library, and choose 'compile' from the Project
+menu.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/projnd/ directory.
+
+INSTALL			Contains installation instructions for editing the xp_comm_proj.v
+				and xp_comm_lib/mappers.v file. This file should not be edited as
+				the future installation script will use this file.
+
+projnd.v		Creates the XP_COMM_PROJ.ProjectNodeData library.
+
+prndmod.v		Creates the ProjectNodeDataMods library containing the 
+				low-level module ProjectNodeDataCore and the parameter group
+				ProjectNodeDataParams.
+
+prndmac.v		Creates the ProjectNodeDataMacs library containing the 
+				high-level macros ProjectNodeDataFunc, ProjectNodeDataUI and 
+				ProjectNodeData.
+
+prndapp.v		Creates the ProjectNodeDataApps library containing the examle 
+				applications ProjectNodeData2DEg and ProjectNodeData3DEg.
+			
+projnd.cxx		C++ source code for the ProjectNodeDataCore module.
+
+projnd.html		HTML documentation for the ProjectNodeData module.
+
+README			This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h			AVS/Express generated C++ header file.
+
+gen.cxx			AVS/Express generated C++ source file.
+
+projnd.o		Intermediate object file.

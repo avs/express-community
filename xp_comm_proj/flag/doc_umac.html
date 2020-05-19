@@ -1,0 +1,321 @@
+<html>
+<head>
+<title>flag</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>flag</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+AVS/Express Flag simulation from the XP_DEMO suite, in 3D Wind Field, with
+Analysis or Textures applied.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>texture</i></td>
+<td width="75">Image</td>
+<td width="425">optional texture for flag</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter blocks FlagParams and FlagLoopParams, which are accessed by the module <a href="doc_mod.html">FlagRaw</a> and the UI Macro FlagUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</font>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>run</i></td>
+<td width="75">boolean</td>
+<td width="300">Toggle simulation on/off/</td>
+<td width="125">Run/Pause</td>
+</tr>
+
+<tr>
+<td width="100"><i>step</i></td>
+<td width="75">boolean</td>
+<td width="300">Oneshot to trigger next simulation frame.</td>
+<td width="125">Step</td>
+</tr>
+
+<tr>
+<td width="100"><i>flag_wind_1</i></td>
+<td width="75">float</td>
+<td width="300">First part of wind vector.</td>
+<td width="125">Wind Vector 1</td>
+</tr>
+
+<tr>
+<td width="100"><i>flag_wind_2</i></td>
+<td width="75">float</td>
+<td width="300">Second part of wind vector.</td>
+<td width="125">Wind Vector 2</td>
+</tr>
+
+<tr>
+<td width="100"><i>flag_strength</i></td>
+<td width="75">float</td>
+<td width="300">Flag material strength.</td>
+<td width="125">Material Strength</td>
+</tr>
+
+<tr>
+<td width="100"><i>reset</i></td>
+<td width="75">boolean</td>
+<td width="300">Toggle the simulation reset.</td>
+<td width="125">Flag Reset</td>
+</tr>
+
+<tr>
+<td width="100"><i>release_top</i></td>
+<td width="75">boolean</td>
+<td width="300">Trigger release of top-left of flag.</td>
+<td width="125">Release Top</td>
+</tr>
+
+<tr>
+<td width="100"><i>release_bottom</i></td>
+<td width="75">boolean</td>
+<td width="300">Trigger release of bottom-left of flag.</td>
+<td width="125">Release Bottom</td>
+</tr>
+
+<tr>
+<td width="100"><i>flag_color</i></td>
+<td width="75">integer</td>
+<td width="300">Flag colouring mode choice:</td>
+<td width="125">Solid Colour<br>Velocity Tricolor<br>Force Tricolor<br>Force Magnitude<br>Texture Map</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>field</i></td>
+<td width="75">Mesh_Struct+ Dim2+ Space3+ Node_Data</td>
+<td width="425">output field of flag</td>
+</tr>
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">output object of flag</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The Flag demo application is a running physical simulation.
+Over the 2D mesh of the flag, gravity, friction, wind force, and
+elasticity constraints are simulated. Optional controls allow two
+corner points to be constrained (tied) to a flag pole. Using the
+File-Open, you can select alternate flag images to use to color
+the flag. To view simulation parameters, Velocity Tricolor, Force
+Tricolor, and Force Magnitude modes can be selected. The raw mesh
+field data is available in the network, such that other
+visualization tools could be added, such as force magnitude
+contours, normal vector glyphs, etc. The simulation will run
+forever, and can be started using the Run/Pause control button.
+The flag strength control controls material strength parameter
+during the simulation.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>texture</b></i>
+</blockquote>
+
+<blockquote>
+Optional input image to be used as texture map for the flag.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>run</b></i>
+</blockquote>
+
+<blockquote>
+Toggle execution of the flag simulation.
+</blockquote>
+
+<blockquote>
+<i><b>step</b></i>
+</blockquote>
+
+<blockquote>
+Single step through the simulation.
+</blockquote>
+
+<blockquote>
+<i><b>flag_wind_1</b></i>
+</blockquote>
+
+<blockquote>
+First part of wind velocity vector.
+</blockquote>
+
+<blockquote>
+<i><b>flag_wind_2</b></i>
+</blockquote>
+
+<blockquote>
+Second part of wind velocity vector.
+</blockquote>
+
+<blockquote>
+<i><b>flag_strength</b></i>
+</blockquote>
+
+<blockquote>
+Flag material strength.
+</blockquote>
+
+<blockquote>
+<i><b>reset</b></i>
+</blockquote>
+
+<blockquote>
+Reset the flag to it's original starting place.
+</blockquote>
+
+<blockquote>
+<i><b>release_top</b></i>
+</blockquote>
+
+<blockquote>
+Trigger to allow top-left corner to be released from its tie.
+</blockquote>
+
+<blockquote>
+<i><b>release_bottom</b></i>
+</blockquote>
+
+<blockquote>
+Trigger to allow bottom-left corner to be released from its tie.
+</blockquote>
+
+<blockquote>
+<i><b>flag_color</b></i>
+</blockquote>
+
+<blockquote>
+Select the colour mode for flag.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>field</b></i>
+</blockquote>
+
+<blockquote>
+Output mesh and node data of the flag.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+Renderable object of the output mesh and node data of the flag.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level <a href="doc_mod.html">FlagRaw</a> module and the modified FlagLoop module are used in this User Macro flag.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application FlagEg is provided, which demonstrates the flag simulation with two image textures available.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/flag/flagmacs.v</i> contains the flag User Macro, the Flag Functional Macro, the FlagUI UI Macro, and the example application FlagEg V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The FlagMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level <a href="doc_mod.html">FlagRaw</a> module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<blockquote>
+The simulation will sometimes pause - pressing reset will restart the simulation successfully.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Ian Curington - AVS
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+FlagParams, FlagUI, Flag and <a href="doc_mod.html">FlagRaw</a>.
+</blockquote>
+
+</body>
+</html>
+

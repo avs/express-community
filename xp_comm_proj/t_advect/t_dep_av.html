@@ -1,0 +1,221 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>TimeDependentAdvector &amp; AltTimeDependentAdvector</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>TimeDependentAdvector &amp; AltTimeDependentAdvector</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The TimeDependentAdvector and AltTimeDependentAdvector macros provide two alternative ways of visualizing time dependent data.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by TimeDependentAdvector &amp; AltTimeDependentAdvector">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_glyph</i></td>
+<td width="75">Field</td>
+<td width="425">Geometry to use for glyph output.</td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="425">Name of UCD file to read.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by TimeDependentAdvector &amp; AltTimeDependentAdvector">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Renderable glyph visualization.</td>
+</tr>
+
+<tr>
+<td width="100"><i>tracer_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Renderable advector tail visualization.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The TimeDependentAdvector and AltTimeDependentAdvector macros provide examples of how the <a href="t_advect.html"><tt>tailed_advector</tt></a> module can be used with both single and multiple file datasets.  The TimeDependentAdvector macro reads a UCD file containing multiple time steps and uses the <tt>time_step_number</tt> parameter to determine which time step should be output.  The AltTimeDependentAdvector macro uses the <tt>time_step_number</tt> parameter to determine which of several UCD files should be read.</p>
+
+<p>As well as reading UCD files both of these macros provide a set of visualization components that can be adapted to a specific application.  They are not intended to provide general purpose components that can be used with no further modification.  Please see the <a href="t_advect.html"><tt>tailed_advector</tt></a> module documentation for more general information on the use and operation of tailed advectors.</p> 
+</blockquote>
+
+
+<h3>Operation</h3>
+
+<h4><tt>tailed_advector</tt> support for time dependent data</h4>
+
+<blockquote>
+<p>The tailed_advector module provides support for time dependent data through an input parameter, <tt>time_step_interval</tt>, and an output parameter, <tt>time_step_number</tt>.  time_step_interval specifies the time interval between each time step and time_step_number outputs which time step should be currently active.</p>
+
+<p>Before we begin the advection process the time_step_number has a value of 0.  Each time the elapsed time reaches the time_step_interval value the time_step_number is incremented.  At the same time a new probe is created that contains the last position of the advection particles.  This causes the streamline module to update, hence creating new streamlines that start at the ending particles positions.  If this new probe was not created the particles for each time step would start at the original particle positions.</p>
+
+<p>It should be noted that the <tt>tailed_advector</tt> module does not automatically deal with time dependent data.  The time_step_number output has to be used in some way to select which time step should be operated on.  The TimeDependentAdvector and AltTimeDependentAdvector macros show two ways in which this can be done.</p>
+</blockquote>
+
+
+<h4>Operation of TimeDependentAdvector macro</h4>
+
+<blockquote>
+<p>The TimeDependentAdvector macro provides support for UCD files containing multiple time steps.  It does this by using the time_step_number parameter to automatically alter the <tt>current_step</tt> parameter of the <tt>DVread_ucd</tt> module.  This causes the appropriate time step to be input into the tailed_advector module.  A copy_on_change module is used to isolate the current_step parameter and prevent changes to it from propagating back to the time_step_number parameter.</p>
+</blockquote>
+
+
+<h4>Operation of TimeDependentAdvector macro</h4>
+
+<blockquote>
+<p>The AltTimeDependentAdvector macro provides support for series of UCD files containing a single time steps in each file.  It does this by using the time_step_number parameter to automatically append an index number to the input filename string.  Hence a filename string of 'yoke.inp' would result in a series of files called 'yoke.inp.0', 'yoke.inp.1' and so forth.  If an alternative indexing scheme is required it should be straightforward to alter the macro to achieve this.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_glyph</i></b></blockquote>
+
+<blockquote>Geometry that should be used to represent the particles.  Any mesh can be used, however for convenience the Geometries library provides many suitable objects.</blockquote>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>String input that specifies which UCD file or files that should be read.  If the TimeDependentAdvector macro is used the UCD file corresponding to this filename is read.  If the AltTimeDependentAdvector macro is used a series of UCD files based on this filename will be read.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+Only the parameters important for time dependent operation are described here.  For a full description of the parameters of the <a href="t_advect.html">tailed_advector</a> module please see module <a href="t_advect.html">documentation</a> and the AVS/Express advector documentation. 
+</blockquote>
+
+
+<blockquote><b><i>time_step_interval</i></b></blockquote>
+
+<blockquote>
+This float parameter specifies the time that should elapse between each increment of the <tt>time_step_number</tt> output.  For the <tt>time_step_number</tt> output to be incremented regularly the <tt>time_step_interval</tt> should be several times longer than the standard advector <tt>step</tt> period.  If this parameter has a value of 0 the <tt>time_step_number</tt> output will not be incremented.
+</blockquote>
+
+<blockquote><b><i>time_step_number</i></b></blockquote>
+
+<blockquote>Integer parameter that is incremented whenever the time specified by the <tt>time_step_interval</tt> parameter has passed.  This output is used by the TimeDependentAdvector and AltTimeDependentAdvector macros to choose which data set should be used as the input to the tailed_advector module.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>GDobject containing the current particle positions.  Each particle position is represented by a glyph geometry.  The glyphs are orientated along the current velocity vector.  They are scaled and coloured by the magnitude of the velocity vector. This output is suitable for direct connection to a viewer.
+</blockquote>
+
+<blockquote><b><i>tracer_obj</i></b></blockquote>
+
+<blockquote>GDobject containing the generated advector tracers.  The internal field contains a Polyline mesh with the velocity vector stored as a node data component.  This output is suitable for direct connection to a viewer.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote><p>The TimeDependentAdvector macro uses the tailed_advector user macro.  The AltTimeDependentAdvector macro is derived from the TimeDependentAdvector macro and hence also uses the tailed_advector user macro.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+One example application is provided.  The TimeDependentAdvectorEg application demonstrates the use of the TimeDependentAdvector macro by reading all the time steps in the 'yoke.inp' dataset.  Once these have been read the user can run the advection process and observe how the current time step changes as the advection progresses.  It should be noted that the 'yoke.inp' dataset is only used to demonstrate this module.  It does not contain velocity data and hence is not suitable for advector visualization.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/t_advect/tadvmods.v</i> contains the V definitions of the TailedAdvectorCore module, the Synchronize utility module and the TailedAdvectorParams parameter block.</p>
+
+<p><i>xp_comm_proj/t_advect/tadvmacs.v</i> contains the V definitions of the TailedAdvectorUI UI macro, the TailedAdvectorFunc functional macro and the tailed_advector, TimeDependentAdvector and AltTimeDependentAdvector user macros.</p>
+
+<p><i>xp_comm_proj/t_advect/tadvapps.v</i> contains the V definitions of the SingleTailedAdvectorEg, DualTailedAdvectorEg and TimeDependentAdvectorEg example applications.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>This project relies on the successful installation of the following components. Without them it will not function correctly.</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level TailedAdvectorMods library containing the TailedAdvectorCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Fernand Alcatrao, Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd, International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>AVS/Express advector module, from which this one is derived.</li>
+<li>AVS5 advector module.</li>
+<li><a href="t_advect.html">tailed_advector</a> IAC module.</li>
+</ul>
+
+</body>
+</html>
+

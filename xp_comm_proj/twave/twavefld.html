@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <meta name="Author" content="Ian Curington">
+   <title>texture_wave_field - applies a texture with a moving wave function in the alpha channel to a field</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>texture_wave</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The texture_wave_field macro applies a texture with a moving wave function in the alpha channel to a field.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by texture_wave_field">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="75">Field</td>
+<td width="425">Data that is to be textured.</td>
+</tr>
+
+<tr>
+<td width="100"><i>in_image</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">Image that is to be used for texturing.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<p>The texture_wave_field macro does not have any parameters of its own.  Please see the <a href="twave.html">texture_wave</a> documentation for a full description of the parameters of that macro.</p>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by texture_wave_field">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Field</td>
+<td width="425">Field data with generated UV coordinates.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_image</i></td>
+<td width="75">Image_ARGB</td>
+<td width="425">Image with generated pulse function.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">Directly renderable output object with alpha blended texture mapping.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The texture_wave_field macro generates a pulse-wave function in the alpha channel of an existing ARGB image field and applies it to the input field data.  It does this by combining two macros.  The <a href="twave.html">texture_wave</a> macro is used to generate a pulse-wave function and insert it into the alpha channel of an existing image.  The <a href="../scl2tex/doc_umac.html">Scalar2Texture</a> macro is used to generate UV coordinate data from scalar node data and apply the generated texture to the input field data.  This results in three outputs; the image with generated pulse-wave function, the field data with generated UV coordinate data and a renderable GDobject that contains the field data and texture image.  The renderable GDobject is the output that should normally be used.</p>
+
+<p>By using this module to apply an alpha blended texture to existing field data a number of very interesting visualizations can be seen that cannot be easily achieved by other means.  Animating the textures can lead to further visualizations.  However it should be noted that animating textures on complex fields is a graphically intensive task and for decent results good hardware texture-mapping support is essential.</p>
+
+<p>A conference paper fully describing this technique can be obtained by contacting <a href="mailto:ianc@avs.com">Ian Curington</a>; the original author of this project.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_fld</i></b></blockquote>
+
+<blockquote>Input field data that is be to be textured.  The field data should contain a mesh and one component of scalar node data.  The node data is to generate UV texture coordinates so that the field can be correctly textured.  If other node data components are present they will be ignored.</blockquote>
+
+<blockquote><b><i>in_image</i></b> : Image_ARGB</blockquote>
+
+<blockquote>Original image data that is to be used as the basis of the pulse-wave image.  The field data should contain a 2D structured mesh with a 4 byte vector of node data containing the Alpha, Red, Green and Blue components of the image.  This is the field format output by modules such as read_image.  Any data present in the alpha channel is completely replaced by the generated wave function.</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>The texture_wave_field macro does not make use of any parameters.  A full description of all the <a href="twave.html">texture_wave</a> parameters can be found in the documentation for that module.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>Output field containing the input mesh data and the generated node data containing UV texture coordinates.  This output does not contain the generated texture data.</blockquote>
+
+<blockquote><b><i>out_image</i></b> : Image_ARGB</blockquote>
+
+<blockquote>Output image containing the texture image with the generated pulse-wave stored in the alpha channel.  The image is output as a field with a 2D structured mesh and a 4 byte vector of node data containing the ARGB components of the image.</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>GDobject that contains the field data and the generated texture image.  This output is suitable for direct connection to the viewer.  As alpha blending is enabled for this GDobject the effect of the pulse wave function should be visible.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The texture_wave_field user macro uses the <a href="twave.html">texture_wave</a> and <a href="../scl2tex/doc_umac.html">Scalar2Texture</a> user macros.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote><p>The project includes two example applications that demonstrates the use of the texture_wave_field macro.  The TextureWaveEg3 application uses the texture_wave_field macro to apply a texture to a dataset representing Mt. Helens.  The texture pulses should be visible as strips of colour.  The animation facility can be used to move these strips of colour.  The TextureWaveEg4 application loads a dataset representing the air movement in a room, generates streamlines and uses the texture_wave_field macro to apply texturing to the streamlines.</p>
+
+<p>It should be noted that both of these examples use complex datasets and hence the rendering performance is likely to be low unless good hardware texturing support is available</p>
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/twave/tw_mods.v</i> contains the V definitions of the TextureWaveCore module and the TextureWaveParams parameter block.</p>
+
+<p><i>xp_comm_proj/twave/tw_macs.v</i> contains the V definitions of the TextureWaveUI UI macro, the TextureWaveFunc functional macro and the texture_wave and texture_wave_field user macros.</p>
+
+<p><i>xp_comm_proj/twave/tw_apps.v</i> contains the V definitions of the TextureWaveEg1, TextureWaveEg2, TextureWaveEg3 and TextureWaveEg4 example applications.</p>
+</blockquote>
+
+<h3>Prerequisites</h3>
+
+<blockquote>The texture_wave_field user macro and example applications rely on the successful installation of the following component. Without them it will not function correctly. All other macros in this project will function correctly.</blockquote>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/filters.html#scl2tex">Scalar2Texture</a> Project</li>
+</ul>
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level TextureWaveMods library containing the low-level TextureWaveCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>Ian Curington &lt;<a href="mailto:ianc@avs.com">ianc@avs.com</a>&gt;,
+Advanced Visual Systems, Inc.</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>Andrew Dodd,
+International AVS Centre</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="twave.html">texture_wave</a> IAC module</li>
+<li><a href="../scl2tex/doc_umac.html">Scalar2Texture</a> IAC project</li>
+<li>Contact the author for a full conference paper describing
+this technique.</li>
+</ul>
+ 
+</body>
+</html>
+

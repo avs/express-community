@@ -1,0 +1,124 @@
+Copyright / Disclaimer :
+https://github.com/avs/express-community
+------------------------
+
+This software/documentation was produced as part of the INDEX project
+(Intelligent Data Extraction) which is funded under contract ESPRIT EP22745 of 
+the European Community. For further details see
+http://www.man.ac.uk/MVC/research/INDEX/Public/. 
+
+Copyright (c) June 1998, Manchester Visualisation Centre, UK. 
+All Rights Reserved.
+
+Permission to use, copy, modify and distribute this software and its 
+documentation is hereby granted without fee, provided that the above copyright
+notice and this permission notice appear in all copies of this software / 
+documentation.
+
+This software/documentation is provided with no warranty, express or implied, 
+including, without limitation, warrant of merchantability or fitness for a 
+particular purpose.
+
+
+Compress Project
+----------------
+
+This directory ( xp_comm_proj/compress/ ) contains all the V code, source code,
+HTML documentation, and installation information for an AVS/Express field
+compression tool "Compress".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Compress project, and two single line additions to some of the xp_comm_lib/
+files (in this instance misc.v and examples.v) to add a link to the User
+Macro and the Example Application from the new top-level Community library page.
+
+It should be noted that the Zlib public domain compression library, and the 
+utils_xp Community utility library project are pre-requisites. 
+
+The source for the Zlib library may be obtained from 
+http://www.cdrom.com/pub/infozip/zlib. The instructions given with the source
+should be followed to produce a linkable library. The link_files and hdr_dirs
+lines in the file xp_comm_proj/compress/compress_mods.v should be altered (if 
+necesaary) to give the position of the library, and of the Zlib header files
+zlib.h and zconf.h.
+
+Further information may be found in doc_mod.html and doc_umac.html.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+	base -comp_proc express -exit
+
+or	make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+If you modify the Compress project, and elect to specify the process
+as "user" or a user-defined process, then the module may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the module:
+
+	$compile XP_COMM_PROJ.Compress.CompressMods
+
+Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+If both the Examine_Field project and the Compress project are required, then
+the cxx_src_files line in either the examine_field_mods.v file or the
+compress_mods.v file should be removed or commented out (these cxx_src_files
+are common to both projects, which causes errors/warnings when linking if
+they are specified twice). 
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/compress/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ misc.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+compress.v	Creates the XP_COMM_PROJ.Compress library.
+
+compmods.v	Creates the CompressMods library containing the low-level
+		module Compress_Prim and the parameter group Compress_Param.
+
+compmacs.v	Creates the CompressMacs library containing the high-level
+		macros Compress_UI, Compress, compress and the example
+		appplication Compress_Eg.
+
+compress.cxx	The C++ source code for the Compress_Prim module.
+
+deflate.c	The C source code for an interface to the general purpose 
+		Zlib compression library
+
+deflate.h	The corresponding header file, which prototypes functions.
+
+doc_mod.html	HTML documentation for the Compress_Prim module.
+
+doc_umac.html	HTML documentation for the compress user macro.
+
+README		This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+out_hdr.h	AVS/Express generated header file.
+
+out_src.cxx	AVS/Express generated source code.

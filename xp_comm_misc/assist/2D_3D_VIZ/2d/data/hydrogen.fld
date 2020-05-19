@@ -1,0 +1,15 @@
+# AVS field file 
+# this is a header file for a field to be 
+# used in conjunction with the  build a field module of AVS
+#
+ndim = 3
+dim1 = 64
+dim2 = 64
+dim3 = 64
+nspace = 3
+veclen = 1
+data = byte
+field = uniform
+
+variable 1 file=hydrogen.dat filetype=binary skip=3
+

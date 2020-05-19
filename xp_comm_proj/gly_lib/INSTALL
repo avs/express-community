@@ -1,0 +1,21 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/gly_lib/gly_lib.v" GlyphLibrary;
+# In the following xp_comm_lib file
+glyphs.v
+# insert the following line
+  NElink Simple2D => Templates.XP_COMM_PROJ.GlyphLibrary.Simple2D;
+# In the following xp_comm_lib file
+glyphs.v
+# insert the following line
+  NElink Simple3D => Templates.XP_COMM_PROJ.GlyphLibrary.Simple3D;
+# In the following xp_comm_lib file
+glyphs.v
+# insert the following line
+  NElink Params2D => Templates.XP_COMM_PROJ.GlyphLibrary.Params2D;
+# In the following xp_comm_lib file
+glyphs.v
+# insert the following line
+  NElink Params3D => Templates.XP_COMM_PROJ.GlyphLibrary.Params3D;
+

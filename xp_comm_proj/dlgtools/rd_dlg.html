@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>read_dlg - Reads DLG (.dlg) format files.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>read_dlg</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The read_dlg user macro reads DLG (.dlg) format files and outputs a group structure containing this data.</blockquote>
+
+
+<blockquote>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by read_dlg">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">Name of the DLG file to be read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports provided by read_dlg">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">DlgData</td>
+<td width="425">group representing the DLG data read from the file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>file_info</i></td>
+<td width="75">string</td>
+<td width="425">Meta-data about the read DLG file.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The read_dlg user macro reads DLG data files.  DLG is a digital line graph system for the storage of vector GIS data.  A DLG file specifies areas and shapes. The reader module parses this file, and populates a DLG data structure in AVS/Express.  This group structure is called DlgData.  A further processing macro, <a href="outl_dlg.html">outline_dlg</a>, converts this data structure into AVS/Express field data containing a polyline cell-set.  The outline_dlg macro also outputs a directly renderable DataObject.  The read_dlg user macro expects the input DLG data to be in ASCII format.</p>
+
+<p>The United States Geological Survey (USGS) Digital Line Graph
+(DLG) format stores line map information in a digital form. DLG files
+include information on planimetric base categories, such as
+transportation, hydrography, and boundaries.  More information on Digital Line Graph data can be found on the <a href="http://edcwww.cr.usgs.gov/nsdi/gendlg.htm">DLG</a> Geospatial Data clearing-house page.  You can also look at the Digital Line Graph <a href="http://rockyweb.cr.usgs.gov/nmpstds/dlgstds.html">standard</a>.</p>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>
+String parameter that contains the name of the DLG file that should be read.  The filename can either by relative or absolute and it can contain AVS/Express environment variables (i.e. $XP_ROOT, $XP_PATH&lt;1&gt;).
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out</i></b></blockquote>
+
+<blockquote>A custom group of DlgData type representing the data read from the DLG file.  This DlgData can be converted into AVS/Express field data by the <a href="outl_dlg.html">outline_dlg</a> user macro.</blockquote>
+
+<blockquote><b><i>file_info</i></b></blockquote>
+
+<blockquote>A string output that contains general information read from the DLG file.  This is intended to give background about the read DLG file and be displayed to the user.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The functional macro ReadDlgFunc uses the low-level module ReadDlgCore. This functional macro and the ReadDlgUI user interface macro are used by the read_dlg user macro.  None of these macros uses a parameter block.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+The project includes the DlgTookitEg example application that demonstrates how the three user macros can be used.  The <a href="rd_dlg.html">read_dlg</a> macro is used to read a sample DLG file.  An example DLG file containing the boundaries of Florida is included.  The <a href="outl_dlg.html">outline_dlg</a> macro is used to convert the read data into field data that can then be displayed on a 2D viewer.  Finally the <a href="wr_dlg.html">write_dlg</a> macro can be used to write the DLG data back to a file.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/dlgtools/read/rd_mods.v</i> contains the V definition of the ReadDlgCore module.</p>
+
+<p><i>xp_comm_proj/dlgtools/read/rd_macs.v</i> contains the V definitions of the ReadDlgUI UI macro, the ReadDlgFunc functional macro and the read_dlg user macro.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The low-level module implementation makes use of a set of header definitions and utilities to aid further module development.  These are contained in the <tt>dlg.h</tt> and <tt>gen_proc.h</tt> header files.  Part of this module implementation is support for the <tt>XP_DEBUG</tt> environment variable.  Setting the <tt>XP_DEBUG</tt> to 1 will cause the module to report a great dealing of debugging information.</p>
+
+<p>The low-level ReadDlgMods library containing the low-level module ReadDlgCore does not specify a process. By default the <tt>express</tt> process will be used.</p>
+</blockquote>
+
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>anonymous</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Jens Lorenz,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="outl_dlg.html">outline_dlg</a> user macro.</li>
+<li><a href="wr_dlg.html">write_dlg</a> user macro.</li>
+<li><a href="http://edcwww.cr.usgs.gov/nsdi/gendlg.htm">DLG</a> information at the USGS Geospatial Data Clearinghouse.</li>
+<li><a href="http://rockyweb.cr.usgs.gov/nmpstds/dlgstds.html">Digital Line Graph</a> standard.</li>
+</ul>
+
+</body>
+</html>
+

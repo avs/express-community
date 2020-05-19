@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>outline_dlg - Outlines DlgData objects.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>outline_dlg</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The outline_dlg user macro outlines DLG (.dlg) format files thus converting the data into an AVS/Express Mesh and AVS/Express DataObject.</blockquote>
+
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports provided by outline_dlg">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">DlgData</td>
+<td width="425">group representing the DLG data to be outlined.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by outline_dlg">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>all_flag</i></td>
+<td width="75">int</td>
+<td width="300">Indicates that all polygons should be converted.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>selected</i></td>
+<td width="75">int[]</td>
+<td width="300">Array indicating which polygons should be converted.</td>
+<td width="125">List Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>names</i></td>
+<td width="75">string[]</td>
+<td width="300">Names of all polygons.</td>
+<td width="125">List Box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports provided by outline_dlg">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Polyline Mesh</td>
+<td width="425">The DLG data outlined into a Polyline Mesh.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The outline_dlg user macro takes a DlgData object and outlines the DLG data.  It outputs the outline data as an AVS/Express Polyline Mesh and a DataObject.  These outputs can then be used for further processing or for direct rendering.  The user interface allows the outlining of either all the polygons in the dataset or a selection of one or more polygons.</p>
+
+<p>Internally the outline_dlg macro generates one Polyline pair for each polygon specified in the polys group of the DlgData object.  No extra nodes are created and hence each generated Polyline is left open.  Any polygon data present in the the polys group is ignored.</p>
+
+<p>The United States Geological Survey (USGS) Digital Line Graph
+(DLG) format stores line map information in a digital form. DLG files
+include information on planimetric base categories, such as
+transportation, hydrography, and boundaries.  More information on Digital Line Graph data can be found on the <a href="http://edcwww.cr.usgs.gov/nsdi/gendlg.htm">DLG</a> Geospatial Data clearing-house page.  You can also look at the Digital Line Graph <a href="http://rockyweb.cr.usgs.gov/nmpstds/dlgstds.html">standard</a>.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>
+A DlgData group that contains the DLG data to be outlined.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>all_flag</i></b></blockquote>
+
+<blockquote>
+Integer parameter that specifies whether all polygons should be outlined and converted into field data.  If this parameter is true then all polygons will always be outlined.  The value of this parameter overrides any selection of polygons.
+</blockquote>
+
+<blockquote><b><i>selected</i></b></blockquote>
+
+<blockquote>
+Integer array that specifies which polygons should be outlined and converted into field data.  The array is of variable length and specifies the indices of the polygons that should be outlined.  The polygon indices are zero-based.
+</blockquote>
+
+<blockquote><b><i>names</i></b></blockquote>
+
+<blockquote>
+String array that contains the names of the polygons that can be selected from.  This parameter is already connected to the DlgData input and should not need to be altered.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_fld</i></b></blockquote>
+
+<blockquote>AVS/Express mesh output containing the outlined DLG data.  The output mesh contains a single Polyline cell-set that contains the generated outline data.  Which polygons are outlined is determined by the all_flag and selected parameters.  This output is suitable for further processing by other visualization components.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>
+Directly renderable output object containing the outlined DLG data.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The functional macro OutlineDlgFunc uses the low-level module OutlineDlgCore.  The user interface OutlineDlgUI macro uses the low-level module SelectAllCore.  The user macro outline_dlg contains these functional and user interface macros.  All of these macros use the OutlineDlgParams parameter block for communication.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+The project includes the DlgTookitEg example application that demonstrates how the three user macros can be used.  The <a href="rd_dlg.html">read_dlg</a> macro is used to read a sample DLG file.  An example DLG file containing the boundaries of Florida is included.  The <a href="outl_dlg.html">outline_dlg</a> macro is used to convert the read data into field data that can then be displayed on a 2D viewer.  Finally the <a href="wr_dlg.html">write_dlg</a> macro can be used to write the DLG data back to a file.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/dlgtools/outline/ol_mods.v</i> contains the V definitions of the OutlineDlgCore and SelectAllCore modules and the OutlineDlgParams parameter block.</p>
+
+<p><i>xp_comm_proj/dlgtools/outline/ol_macs.v</i> contains the V definitions of the OutlineDlgUI UI macro, the OutlineDlgFunc functional macro and the outline_dlg user macro.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The low-level module implementation makes use of a set of header definitions and utilities to aid further module development.  These are contained in the <tt>dlg.h</tt> and <tt>gen_proc.h</tt> header files.  Part of this module implementation is support for the <tt>XP_DEBUG</tt> environment variable.  Setting the <tt>XP_DEBUG</tt> to 1 will cause the module to report a great dealing of debugging information.</p>
+
+<p>The low-level OutlineDlgMods library containing the low-level modules OutlineDlgCore and SelectAllCore does not specify a process. By default the <tt>express</tt> process will be used.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>anonymous</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Jens Lorenz,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="rd_dlg.html">read_dlg</a> user macro.</li>
+<li><a href="wr_dlg.html">write_dlg</a> user macro.</li>
+<li><a href="http://edcwww.cr.usgs.gov/nsdi/gendlg.htm">DLG</a> information at the USGS Geospatial Data Clearinghouse.</li>
+<li><a href="http://rockyweb.cr.usgs.gov/nmpstds/dlgstds.html">Digital Line Graph</a> standard.</li>
+</ul>
+
+</body>
+</html>
+

@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>CatmullSplineCore &amp; CatmullSplineFldCore</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CatmullSplineCore &amp; CatmullSplineFldCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+<p>CatmullSplineCore generates a Catmull-Rom spline from a series of 2D or 3D coordinates. </p>
+
+<p>CatmullSplineFldCore generates a Catmull-Rom spline from a 2D or 3D input field.</p>
+
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module CatmullSplineCore &lt;src_file="ctml_arr.cxx",
+                             cxx_src_files="catmull.cxx",
+                             cxx_hdr_files="catmull.hxx"&gt;
+   {
+
+      float+IPort2 &amp;points[];
+      int dims[] =&gt; array_dims(points);
+
+      CatmullParams+IPort2 &amp;CatmullParams;
+
+      int line_type =&gt; CatmullParams.line_type;
+      int spline_type =&gt; CatmullParams.spline_type;
+      float smoothness =&gt; CatmullParams.smoothness;
+      int points_added =&gt; CatmullParams.points_added;
+
+      cxxmethod+req+notify_inst update (
+         .points+read+notify+req,
+         .dims+read+notify+req,
+         .line_type+read+notify+req,
+         .spline_type+read+notify+req,
+         .smoothness+read+notify+req,
+         .points_added+read+notify+req,
+         .out_size+write,
+         .out+write
+      );
+
+      int+OPort2 out_size;
+      float+OPort2 out[out_size][dims[0]];
+  };
+
+  module CatmullSplineFldCore &lt;src_file="ctml_fld.cxx",
+                               libdeps="FLD",
+                               cxx_src_files="catmull.cxx",
+                               cxx_hdr_files="catmull.hxx fld/Xfld.h"&gt;
+   {
+      Mesh+Node_Data+IPort2 &amp;in_fld {
+      	ncell_sets = 1;
+      	Polyline cell_set;
+      };
+
+      Catmull_2Params+IPort2 &amp;Catmull_2Params;
+      int line_type =&gt; Catmull_2Params.line_type;
+      int spline_type =&gt; Catmull_2Params.spline_type;
+      float smoothness =&gt; Catmull_2Params.smoothness;
+      int points_added =&gt; Catmull_2Params.points_added;
+      float DistanceEps =&gt; Catmull_2Params.DistanceEps;
+	  
+      cxxmethod+req+notify_inst update (
+         in_fld+req+notify+read,
+         spline_type+read+notify+req,
+         smoothness+read+notify+req,
+         points_added+read+notify+req,
+         DistanceEps+read+notify+req,
+         out+write
+      );
+
+      Mesh+Node_Data+OPort2 out {
+      	&amp;xform =&gt; in_fld.xform;
+      	ncell_sets = 1;
+      	Polyline cell_set;
+      };
+  };
+
+
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>CatmullSplineCore is a low level module that takes a series of either 2D or 3D floating point coordinates and generates a spline that passes through all the points with C1 (continuous first parametric derivative) and G1 (slopes equal at joints) continuity.  The spline is then output as a similar series of coordinates.  Parameters are provided so that the number of points output and the smoothness of the spline can be altered.</p>
+
+<p>CatmullSplineFldCore is a low level module that takes a 2D or 3D field to generate the a spline in the same way as CatmullSplineCore. The node data of the input field is interpolated for the additional points.</p>
+
+<p>These low-level modules can be used directly.  However user macros are provided that include a user interface and output a Point mesh that can be easily used in further visualizations.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;points</b></i>
+</blockquote>
+
+<blockquote>
+Reference to an array of floating point coordinates which are to be used as the nodes that the spline curve connects. Coordinates can be either 2 or 3 dimensional and should be represented by arrays of the form <tt>[n][2]</tt> and <tt>[n][3]</tt> respectively, where <tt>n</tt> is the number of nodes. A spline curve is then generated that connects the nodes together in the order given.
+</blockquote>
+
+<blockquote>
+<i><b>&amp;CatmullParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the parameters for the CatmullRomSpline function.
+</blockquote>
+
+<blockquote>
+<i><b>line_type</b></i>
+</blockquote>
+
+<pre>
+   enum line_type { choices => {"closed", "open"}; };
+</pre>
+
+<blockquote>
+Defines whether the spline is closed or left open. The parameter is an enumeration of two values, this is defined using the code above. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;CatmullParams input.
+</blockquote>
+
+<blockquote>
+<i><b>spline_type</b></i>
+</blockquote>
+
+<pre>
+   enum spline_type { choices => {"CatmullRom"}; };
+</pre>
+
+<blockquote>
+Defines which type of spline should be used to smooth the input line. The parameter is an enumeration of values, this is defined using the code above. Currently the module only supports the use of the Catmull-Rom spline.  However in future the module maybe enhanced to support other splines. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;CatmullParams input.
+</blockquote>
+
+<blockquote>
+<i><b>points_added</b></i>
+</blockquote>
+
+<blockquote>
+Number of points to be added to smooth the line between two points. The parameter is of type int. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;CatmullParams input.
+</blockquote>
+
+<blockquote>
+<i><b>smoothness</b></i>
+</blockquote>
+
+<blockquote>
+'Smoothness' of the generated spline.  The parameter is of type float. This parameter allows the user to specify now closely the resulting generated spline should match the original data.  Normally the parameter should have a value between 0 and 1.  As the smoothness approaches 0 the generated spline matches the original line more closely.  If smoothness is given a value outside of the range 0 to 1, the resulting line will tend to be baroque.  Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;CatmullParams input.
+</blockquote>
+
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out[out_size][]</b></i>
+</blockquote>
+
+<blockquote>
+The generated spline curve represented as a series of floating point coordinates along the spline.  The size of the array is specified by the out_size parameter.
+</blockquote>
+
+<blockquote>
+<i><b>out_size</b></i>
+</blockquote>
+
+<blockquote>
+The number of points in the generated spline curve.  The number of coordinates generated is determined by the points_added parameter and whether or not the spline is closed.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level CatmullSplineCore module is used in the Functional Macro CatmullSplineFunc.  This macro is used in the User Macro catmull_spline. Additionally, the user macro also uses the CatmullParams parameter block group object and the CatmullUI UI Macro.
+</blockquote>
+
+<blockquote>
+The low-level CatmullSplineFldCore module is used in the Functional Macro CatmullSplineFldFunc.  This macro is used in the User Macro catmull_spline_fld. Additionally, the user macro also uses the CatmullParams parameter block group object and the CatmullFldUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Four example applications are provided.  CatmullSpline2DEg takes an array of 8 2D coordinates and smoothes the polyline between them by calculating a Catmull-Rom spline curve.  Similarly the CatmullSpline3DEg takes 8 3D coordinates the smoothes the line between them. CatmullSplineFldEg takes a 3D field (Mesh+Node_Data) and smoothes the line between the field coordinates interpolating the node data values.</p>
+
+<p>The PathSmoothingEg application reads the hydrogen data-set, generates a surface and then allows the user to setup a 3D path through that data-set.  The camera can then by moved along the path, hence allowing the user to 'fly' through the data.  To improve the sense of movement the camera path is smoothed by the CatmullSplineFunc macro.</p>
+
+<p>The PathSmoothingEg application should be used by first resetting, normalizing and centering the Top object.  After doing this the user should see a surface with a path marked along it.  Pressing the <tt>'Play Frames'</tt> button will start the camera moving along the path.  It will stop after one circuit.  To return to a overview the camera and object views both have to be reset.  The user interface allows the smoothness, number of points added and visibility of both the path and the key points to be altered.  The application also allows the a new path to created.  First the user should press the <tt>'Reset All'</tt> button to clear all existing key points.  Next adding control points should be enabled by setting the <tt>Collect Points</tt> toggle.  Once this is done control points can be added by CTRL-clicking on the surface.  The CatmullSplineFunc macro will add extra points in between control points to smooth the new path.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/catmull/ctmlmods.v</i> contains the CatmullParams group and the CatmullSplineCore module V definitions.</p>
+
+<p><i>xp_comm_proj/catmull/ctmlmacs.v</i> contains the V definitions of the catmull_spline User Macro, the CatmullSplineFunc Functional Macro and the CatmullUI UI Macro.</p>
+
+<p><i>xp_comm_proj/catmull/ctmlapps.v</i> contains the V definitions of the example applications CatmullSpline2DEg, CatmullSpline3DEg, PathSmoothingEg and CatmullSplineFldEg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level CatmullMods library containing the module CatmullSplineCore and CatmullSplineFldCore does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Mario Valle
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+Andrew Dodd
+Dr Federico Gamba
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+CatmullParams, CatmullUI, <a href="doc_umac.html" name="catmull_spline &amp; catmull_spline_fld">catmull_spline &amp; catmull_spline_fld</a>
+</blockquote>
+
+</body>
+</html>
+

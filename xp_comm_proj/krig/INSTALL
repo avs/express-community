@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+    "../xp_comm_proj/krig/krig.v"       Krig;
+# In the following xp_comm_lib file
+filters.v
+# insert the following line
+      XP_COMM_PROJ.Krig.KrigMacs.Interp2D Interp2D;
+      XP_COMM_PROJ.Krig.KrigMacs.Krig2D Krig2D;
+      XP_COMM_PROJ.Krig.KrigMacs.Krig Krig;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+      XP_COMM_PROJ.Krig.KrigApps Krig_Apps;
+
+

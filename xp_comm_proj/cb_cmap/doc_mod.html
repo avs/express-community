@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>CB_ColorMapCore</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CB_ColorMapCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Read the ColorBrewer database from file and find the colormaps matching the required parameters.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+	group color_map {
+		int ncolors;
+		string category;
+		string name;
+		int colors[ncolors][3] ;	
+	};
+
+	module CB_ColorMapCore {
+		string+IPort2 cbFile = "xp_comm_proj/cb_cmap/ColorBrewer_all_schemes_RGBonly3.csv";
+		int ncats;
+		string categories[ncats];
+		int catidx;
+		int mapidx;
+		cmap_type_sel selector;
+		omethod+notify_inst+req inst (
+			cbFile+read+notify+req,
+			ncats+write,
+			categories+write+nosave,
+			cmapptr+write+nosave
+		)="CB_ColorMap_Inst";
+		ptr cmapptr;
+		omethod+notify_inst+req update (
+			cmapptr+read+req,
+			selector+read+notify,
+			catidx+read+notify,
+			mapidx+read+notify,
+			ncatmaps+write,
+			catmaps+write,
+			ncmap+write,
+			colormaps+write
+		)="CB_ColorMapCore";
+		omethod+notify_deinst+req destroy (
+			cmapptr+read+req
+		)="CB_ColorMap_Destroy";
+		int ncatmaps;
+		string catmaps[ncatmaps];
+		int ncmap;
+		color_map colormaps[ncmap];
+	};
+
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Read the ColorBrewer database from file and find the colormaps matching the required parameters.
+</blockquote>
+
+<blockquote>
+ColorBrewer is an online tool for generating colormaps primarily looking at map data but can be used with any type of data and provides much better interpretation of the data than the standard visualization colormaps.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>selector</b></i>
+</blockquote>
+
+<blockquote>
+Select on name or number of colors.
+</blockquote>
+
+<blockquote>
+<i><b>catidx</b></i>
+</blockquote>
+
+<blockquote>
+Category index (0 to ncats-1)
+</blockquote>
+
+<blockquote>
+<i><b>mapidx</b></i>
+</blockquote>
+
+<blockquote>
+Name index of colormap type
+</blockquote>
+<blockquote>
+<i><b>ncatmaps</b></i>
+</blockquote>
+
+<blockquote>
+Number of colours in selected colormaps
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>ncmap</b></i>
+</blockquote>
+
+<blockquote>
+Number of colormaps matching requirements
+</blockquote>
+
+<blockquote>
+<i><b>colormaps</b></i>
+</blockquote>
+
+<blockquote>
+Array of the colomaps matching the requirements.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+CB_ColormapEg
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cb_map/cbcmmods.v</I> contains the color_map and CB_ColorMapParams groups and the CB_ColorMapCore module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ColorBrewer database, <i>ColorBrewer_all_schemes_RGBonly3.csv</i>, is provided under the Apache license agreement. See the file <I>ColorBrewer_all_schemes_RGBonly3.license.txt</I>.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+
+Tino Ernst & Tobias Shriebeck
+
+International AVS Centre
+Research Computing Services
+Devonshire House,
+Precinct Centre,
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CB_ColorMap
+</blockquote>
+
+</body>
+</html>

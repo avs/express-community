@@ -1,0 +1,103 @@
+<html>
+<head>
+<title>CreatePolyList</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CreatePolyList</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+CreatePolyList creates the poly_connect_list for a polyline mesh. It searches
+the input id_array array looking for common ids.  If the id number changes
+while searching down the array, the start and end indices are stored and the
+number of polylines incremented.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module CreatePolyList &lt;src_file = &quot;cr_polyl.cxx&quot;&gt; {
+  int+IPort2 id_array[];
+  int+OPort2 num_polys;
+  int+OPort2 poly_connect_list[]; 
+
+  cxxmethod+notify_inst+req update(
+    .id_array+read+notify+req,
+    .num_polys+write,
+    .poly_connect_list+write
+  );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+This modules uses an id array that contains the index to which polyline a given
+point belongs. The output of the module is a list of polylines where only the
+index of the start and end point of each polyline is given.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>id_array[]</b></i>
+</blockquote>
+
+<blockquote>
+This array stores for each point to which polyline it belongs.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>num_polys</b></i>
+</blockquote>
+
+<blockquote>
+number of polylines in the polyconnect list.
+</blockquote>
+
+<blockquote>
+<i><b>poly_connect_list[]</b></i>
+</blockquote>
+
+<blockquote>
+The list of start and endpoints of the polylines.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/cr_polyl/crplmods.v</I> contains the CreatePolyList modules V 
+definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level CreatePolyListMods library containing the module CreatePolyList 
+does not specify a process. By default the <tt>express</tt> process will be 
+used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Advanced Visual Systems Inc.
+Documentation - Ian Curington, Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+</body>
+</html>

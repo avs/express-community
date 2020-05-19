@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>group_array_manager</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>group_array_manager</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module enables you to add, replace, swap and delete groups in an array. It copies the input to a new group and maintains an array of references to these objects. 
+</blockquote>
+
+<blockquote>
+<h4>Inputs</h4>
+
+<table width="100%">
+<tr>
+<td width="30%"><b><font size="-1">Name</font></b></td>
+<td width="20%"><b><font size="-1">Type</font></b></td>
+<td width="50%"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+<tr>
+<td width="30%"><i>in</i></td>
+<td width="20%"></td>
+<td width="50%"></td>
+</tr>
+
+<tr>
+<td width="30%"><i>selected</i></td>
+<td width="20%">int</td>
+<td width="50%">the current item in <i>out</i>, see below</td>
+</tr>
+
+<tr>
+<td width="30%"><i>other</i></td>
+<td width="20%">int</td>
+<td width="50%">the other item in <i>out</i>, see below</td>
+</tr>
+
+<tr>
+<td width="30%"><i>add</i></td>
+<td width="20%">int</td>
+<td width="50%">add <i>in</i> to <i>out</i></td>
+</tr>
+
+<tr>
+<td width="30%"><i>replace</i></td>
+<td width="20%">int</td>
+<td width="50%">replace <i>selected</i> in <i>out</i> with <i>in</i></td>
+</tr>
+
+<tr>
+<td width="30%"><i>swap</i></td>
+<td width="20%">int</td>
+<td width="50%">swap <i>selected</i> and <i>other</i> in <i>out</i></td>
+</tr>
+
+<tr>
+<td width="30%"><i>delete</i></td>
+<td width="20%">int</td>
+<td width="50%">delete <i>selected</i> in <i>out</i></td>
+</tr>
+
+<tr>
+<td width="30%"><i>farm</i></td>
+<td width="20%">group &</td>
+<td width="50%">An empty group to contain the array elements</td>
+</tr>
+
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table width="100%">
+<tr>
+<td width="30%"><b><font size="-1">Name</font></b></td>
+<td width="20%"><b><font size="-1">Type</font></b></td>
+<td width="50%"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+<tr>
+<td width="30%"><i>nGroups</i></td>
+<td width="20%">int</td>
+<td width="50%">number of groups in array</td>
+</tr>
+
+<tr>
+<td width="30%"><i>out</i></td>
+<td width="20%">group []</td>
+<td width="50%">array of group references</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr width="100%"></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+Originally written to maintain an array of snap-shot images but generalised to any group type (even a hetergenous array I guess) it allows you to add, replace, swap and delete groups in an array. It actually copies the input to a new group (at a specified location) and maintains an array of references to these groups. 
+</blockquote>
+
+<h3>Parameters</h3>
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>in</i></b></blockquote>
+<blockquote>A group that will be added to the <i>out</i> array if the <i>add</i> or <i>replace</i> values change.</blockquote>
+
+<blockquote><b><i>selected</i></b></blockquote>
+<blockquote>The currently selected item in <i>out</i>, see below.</blockquote>
+
+<blockquote><b><i>other</i></b></blockquote>
+<blockquote>Another selected item in <i>out</i>, see below</blockquote>
+
+<blockquote><b><i>add</i></b></blockquote>
+<blockquote>When this value changes the object referenced by <i>in</i> will be added to the end of <i>out</i></blockquote>
+
+<blockquote><b><i>replace</i></b></blockquote>
+<blockquote>When this value changes the <i>selected</i> item in <i>out</i> will be replaced with the object referenced by <i>in</i>.</blockquote>
+
+<blockquote><b><i>swap</i></b></blockquote>
+<blockquote>When this value changes the <i>selected</i> item and <i>other</i> in <i>out</i> are swapped, nothing will be done if <i>selected</i> and <i>other</i> are equal.</blockquote>
+
+<blockquote><b><i>delete</i></b></blockquote>
+<blockquote>When this value changes the <i>selected</i> item in <i>out</i> is deleted.</blockquote>
+
+<blockquote><b><i>farm</i></b></blockquote>
+<blockquote>This should be connected to an empty group into which the group elements will be copied and maintained.</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>nGroups</i></b></blockquote>
+<blockquote>The number of groups hence the size of the array.</blockquote>
+
+<blockquote><b><i>out</i></b></blockquote>
+<blockquote>The array of group references, all the groups are contained in the object (usually another group that is reference by <i>farm</i>).</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+GroupArrManEg, load an image and then press the Add button on the Group Array Manager Panel, do this for a few images. This example contains a simple UI, I haven't constructed a proper UI/user macro as it is more a developers module who will probably want to create the UI as part of additional functionality.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/grparman/grparman.v</i> defines the library</p> 
+<p><i>xp_comm_proj/grparman/gam_mods.v</i> module parameter block definition</p>
+<p><i>xp_comm_proj/grparman/gam_macs.v</i> macro definitions, contains a simple functional macro</p>
+<p><i>xp_comm_proj/grparman/gam_apps.v</i> example application</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The object into which the groups are copied is called the <i>farm</i> since original the module worked only with Fields - get it? The<i> farm</i> has to refer to a external group because it always crashed if I added the groups to within the module itself, maybe this is because I'm using C++ and it mucks up the module class? I've defined a parameter block for your convience <i>grparrmanParams</i> and a functional macro <i>GroupArrayManager</i>, which uses this and adds a the usually I/O links.</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+James S. Perrin : <A HREF="mailto:james.perrin@man.ac.uk">james.perrin@man.ac.uk</A>,
+Manchester Visualization Centre
+</pre></blockquote>
+
+</body>
+</html>

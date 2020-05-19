@@ -1,0 +1,254 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>Crop3D</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Crop3D</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The Crop3D module provides a crop box module for unstructured fields with non polygonal cell sets.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by Crop3D">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="110"><i>in</i></td>
+<td width="165">Field</td>
+<td width="425">Unstructured Field to be cropped.</td>
+</tr>
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Crop3D">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="110"><i>xmin</i></td>
+<td width="165">float</td>
+<td width="300">minimum X-value for the crop box</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="110"><i>xmax</i></td>
+<td width="165">float</td>
+<td width="300">maximum X-value for the crop box</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="110"><i>ymin</i></td>
+<td width="165">float</td>
+<td width="300">minimum Y-value for the crop box</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="110"><i>ymax</i></td>
+<td width="165">float</td>
+<td width="300">maximum Y-value for the crop box</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="110"><i>zmin</i></td>
+<td width="165">float</td>
+<td width="300">minimum Z-value for the crop box</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="110"><i>zmax</i></td>
+<td width="165">float</td>
+<td width="300">maximum Z-value for the crop box</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Crop3D">
+
+<tr>
+<td width="110"><font size="-1"><b>Name</b></font></td>
+<td width="165"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="110"><i>out</i></td>
+<td width="165">Field</td>
+<td width="425">Unstructured Field which is cropped to the given crop box</td>
+</tr>
+
+<tr>
+<td width="110"><i>obj</i></td>
+<td width="165">DataObject</td>
+<td width="425">directly renderable object</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This project provides a crop box module for unstructured fields with non polygonal cell sets. The Crop3D module crops the Field (1D, 2D or 3D) within a
+region given by the minimum and maximum values of the crop box. The crop of a particular cell will happen only if all coordinates are defined after the crop.
+</p>
+
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>
+Unstructured Field with non polygonal cell sets that is to be cropped.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>minx</i></b></blockquote>
+
+<blockquote>
+Float parameter that defines the minimum X-Value for the crop box.
+</blockquote>
+
+<blockquote><b><i>maxx</i></b></blockquote>
+
+<blockquote>
+Float parameter that defines the maximum X-Value for the crop box.
+</blockquote>
+
+<blockquote><b><i>miny</i></b></blockquote>
+
+<blockquote>
+Float parameter that defines the minimum Y-Value for the crop box.
+</blockquote>
+
+<blockquote><b><i>maxy</i></b></blockquote>
+
+<blockquote>
+Float parameter that defines the maximum Y-Value for the crop box.
+</blockquote>
+
+<blockquote><b><i>minz</i></b></blockquote>
+
+<blockquote>
+Float parameter that defines the minimum Z-Value for the crop box.
+</blockquote>
+
+<blockquote><b><i>maxz</i></b></blockquote>
+
+<blockquote>
+Float parameter that defines the maximum Z-Value for the crop box.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out</i></b></blockquote>
+
+<blockquote>
+Unstructured field that is cropped to the specified crop box.
+</blockquote>
+
+
+<blockquote><b><i>obj</i></b></blockquote>
+
+<blockquote>
+Directly renderable object of the cropped out field. This Port can be connected directly to the UViewer.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The Crop3DFunc functional macro uses the Crop3DCore low-level module.  The Crop3D user macro uses this functional macro and the Crop3DUI user interface macro.  All of these macros use the Crop3DParams parameter block to communicate parameters between themselves.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application is provided with the Crop3D project. 
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/crop3d/crp3dmod.v</i> Creates the Crop3DMods library containing the low-level Crop3DCore module and the Crop3DParams parameter block.</p>
+
+<p><i>xp_comm_proj/crop3d/crp3dmac.v</i> Creates the Crop3DMacs library containing the user interface macro Crop3DUI, The functional macro Crop3DFunc and the high-level user macro Crop3D.</p>
+
+<p><i>xp_comm_proj/crop3d/crp3dapps.v</i> Creates the Crop3DApps library containing the example application Crop3DEg.</p>
+
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Mario Valle,
+AVS Italy
+</pre>
+</blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Tobias Schiebeck,
+Manchester Visualization Centre
+</pre>
+</blockquote>
+
+
+</body>
+</html>
+

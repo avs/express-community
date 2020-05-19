@@ -1,0 +1,572 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>read_spot &amp; read_spot_alt</title>
+</head>
+<body text="#000000" bgcolor="#92BFBF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<h1>read_spot &amp; read_spot_alt</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The read_spot and read_spot_alt user macros read all or part of the contents of SPOT Panochromatic or Multispectral images into AVS/Express. They also manage access to the large amounts of data in a SPOT image.  The read_spot_alt macro provides an alternative way of specifying the scaling and windowing parameters.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by read_spot &amp; read_spot_alt">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>HeaderFileName</i></td>
+<td width="75">String</td>
+<td width="300">Name of SPOT header file.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>ImageFileName</i></td>
+<td width="75">String</td>
+<td width="300">Name of SPOT image file.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>BandNumberToRead</i></td>
+<td width="75">Integer</td>
+<td width="300">Band to read from SPOT image.</td>
+<td width="125">UI Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>StartRow</i></td>
+<td width="75">Integer</td>
+<td width="300">Row to start reading from.</td>
+<td width="125">UI Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>StartColumn</i></td>
+<td width="75">Integer</td>
+<td width="300">Column to start reading from.</td>
+<td width="125">UI Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>NumberOfRows</i></td>
+<td width="75">Integer</td>
+<td width="300">Number of rows to read.</td>
+<td width="125">UI Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>NumberOfColumns</i></td>
+<td width="75">Integer</td>
+<td width="300">Number of columns to read.</td>
+<td width="125">UI Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>XScaleFactor</i></td>
+<td width="75">Float</td>
+<td width="300">Horizontal scaling factor.</td>
+<td width="125">UI Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>YScaleFactor</i></td>
+<td width="75">Float</td>
+<td width="300">Vertical scaling factor.</td>
+<td width="125">UI Field</td>
+</tr>
+
+<tr>
+<td width="100"><i>ActivateFlag</i></td>
+<td width="75">Integer</td>
+<td width="300">Toggles update of image.</td>
+<td width="125">UI Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by rd_spot &amp; rd_spot_alt">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_image</i></td>
+<td width="75">2D Uniform Field</td>
+<td width="425">Image data read from SPOT file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4">&nbsp;</td>
+</tr>
+
+<tr>
+<td width="100"><i>ProcessingLevel</i></td>
+<td width="75">string</td>
+<td width="425">Level of image processing (<tt>'1A'</tt> or <tt>'1B'</tt>)</td>
+</tr>
+
+<tr>
+<td width="100"><i>NumberOfBands</i></td>
+<td width="75">integer</td>
+<td width="425">Number of bands of data in SPOT file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>NumberOfRows</i></td>
+<td width="75">integer</td>
+<td width="425">Total number of rows of data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>NumberOfColumns</i></td>
+<td width="75">integer</td>
+<td width="425">Total number of columns of data.</td>
+</tr>
+
+<tr>
+<td width="100"><i>Year<br>Month<br>Day</i></td>
+<td width="75">integer</td>
+<td width="425">Date contained in SPOT file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>Hour<br>Minute</i></td>
+<td width="75">integer</td>
+<td width="425">Time contained in SPOT file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>Second</i></td>
+<td width="75">float</td>
+<td width="425">Time contained in SPOT file.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+
+<p>These two user macros read SPOT image files.  The read_spot macro reads the both the header and image data from a set SPOT header and image files.  The header information is displayed to the user and the image data is output as a 2D AVS/Express image field and renderable object.  The read_spot_alt macro is derived from the read_spot macro and provides an alternate way of specifying scaling and window parameters.</p>
+
+<p>The SPOT file format was created by the <a href="http://www.spotimage.fr/">SPOT Image Corporation</a> so that data from the SPOT series of satellites could be distributed.  The SPOT satellites produce panchromatic imagery with a resolution of about 10 meters. They produce multispectral imagery with a resolution of about 30 meters.</p>
+
+<p>SPOT images are available with many levels of processing. Level 1A is essentially raw data. It has been radiometrically corrected, but has not been rectified. Level 1B has been radiometrically corrected and has been rectified. However, the rectification technique is very coarse, and does not consider local perturbations caused by terrain. Level 2 data is radiometrically corrected and rectified using techniques that consider perturbations caused by terrain and other factors.  These macros can not read SPOT files with level 2 processing.</p>
+
+<p>Panchromatic level 1A scenes have 6000 pixel rows and 6000 pixel columns. Multispectral level 1A scenes have 3000 pixel rows and 3000 pixel columns. Panchromatic level 1B scenes have from 5900 to 6100 pixel rows and from 5900 to 8000 pixel columns. Multispectral level 1B scenes have from 2900 to 3100 pixel rows and from 2900 to 5000 pixel columns.</p>
+
+<p>The ReadSpot macros should be able to display virtually any SPOT image.  They are able to read level 1A and 1B images in both panchromatic or multispectral forms. As SPOT images can be very large scaling factors and a window within the image can be specified. The read_spot and read_spot_alt macros manage access to the SPOT file so that only the appropriate parts of the image file are accessed for visualization.</p>
+
+<p>Specifying the scaling and window parameters for the read_spot module can be difficult so below are two examples of setting up image parameters.</p>
+
+<blockquote>
+<table summary="read_spot Examples">
+<tr>
+<td>
+<p>To display a 1000 x 1000 image derived from the entire contents of a level 1A SPOT panchromatic scene, you would set the following values:</p>
+
+<table border summary="Parameters for 6000 by 6000 SPOT image">
+<tr>
+<td width="170"><center><b>Parameter</b></center></td>
+<td width="160"><center><b>Value</b></center></td>
+</tr>
+
+<tr>
+<td width="170">Start Row</td>
+<td width="160">0</td>
+</tr>
+
+<tr>
+<td width="170">Start Column</td>
+<td width="160">0</td>
+</tr>
+
+<tr>
+<td width="170">Number of Output Rows</td>
+<td width="160">1000</td>
+</tr>
+
+<tr>
+<td width="170">Number of Output Columns</td>
+<td width="160">1000</td>
+</tr>
+
+<tr>
+<td width="170">X Scale Factor</td>
+<td width="160">1000 / 6000 = 0.16666</td>
+</tr>
+
+<tr>
+<td width="170">Y Scale Factor</td>
+<td width="160">1000 / 6000 = 0.16666</td>
+</tr>
+</table>
+</td>
+
+<td>
+<p>To display a 1000 x 1000 image derived from a 2000 x 2000 sub-image starting
+at row 300, column 500 of a SPOT scene, you would set the following values:</p>
+
+<table border summary="Parameters for 2000 by 2000 SPOT image">
+<tr>
+<td width="170"><center><b>Parameter</b></center></td>
+<td width="160"><center><b>Value</b></center></td>
+</tr>
+
+<tr>
+<td width="170">Start Row</td>
+<td width="160">300</td>
+</tr>
+
+<tr>
+<td width="170">Start Column</td>
+<td width="160">500</td>
+</tr>
+
+<tr>
+<td width="170">Number of Output Rows</td>
+<td width="160">1000</td>
+</tr>
+
+<tr>
+<td width="170">Number of Output Columns</td>
+<td width="160">1000</td>
+</tr>
+
+<tr>
+<td width="170">X Scale Factor</td>
+<td width="160">1000 / 2000 = 0.5</td>
+</tr>
+
+<tr>
+<td width="170">Y Scale Factor</td>
+<td width="160">1000 / 2000 = 0.5</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+</blockquote>
+
+<p>The read_spot_alt module provides an alternate way of specifying the number of rows and columns that are to be read.  Instead of specifying the number of output rows and columns that you want the final AVS field to have you specify the number of rows and columns that are to be read from the SPOT file.  Which of these two modules are used depends on your problem domain and your personal preference. Shown below are the same two examples of setting up image parameters revised so that they work with the read_spot_alt module.</p>
+
+<blockquote>
+<table summary="read_spot_alt Examples">
+<tr>
+<td>
+<p>To display a 1000 x 1000 image derived from the entire contents of a level 1A SPOT panchromatic scene, you would set the following values:</p>
+
+<table border summary="Parameters for 6000 by 6000 SPOT image">
+<tr>
+<td width="170"><center><b>Parameter</b></center></td>
+<td width="160"><center><b>Value</b></center></td>
+</tr>
+
+<tr>
+<td width="170">Start Row</td>
+<td width="160">0</td>
+</tr>
+
+<tr>
+<td width="170">Start Column</td>
+<td width="160">0</td>
+</tr>
+
+<tr>
+<td width="170">Number of Input Rows</td>
+<td width="160">6000</td>
+</tr>
+
+<tr>
+<td width="170">Number of Input Columns</td>
+<td width="160">6000</td>
+</tr>
+
+<tr>
+<td width="170">X Scale Factor</td>
+<td width="160">1000 / 6000 = 0.16666</td>
+</tr>
+
+<tr>
+<td width="170">Y Scale Factor</td>
+<td width="160">1000 / 6000 = 0.16666</td>
+</tr>
+</table>
+</td>
+
+<td>
+<p>To display a 1000 x 1000 image derived from a 2000 x 2000 sub-image starting
+at row 300, column 500 of a SPOT scene, you would set the following values:</p>
+
+<table border summary="Parameters for 2000 by 2000 SPOT image">
+<tr>
+<td width="170"><center><b>Parameter</b></center></td>
+<td width="160"><center><b>Value</b></center></td>
+</tr>
+
+<tr>
+<td width="170">Start Row</td>
+<td width="160">300</td>
+</tr>
+
+<tr>
+<td width="170">Start Column</td>
+<td width="160">500</td>
+</tr>
+
+<tr>
+<td width="170">Number of Input Rows</td>
+<td width="160">2000</td>
+</tr>
+
+<tr>
+<td width="170">Number of Input Columns</td>
+<td width="160">2000</td>
+</tr>
+
+<tr>
+<td width="170">X Scale Factor</td>
+<td width="160">1000 / 2000 = 0.5</td>
+</tr>
+
+<tr>
+<td width="170">Y Scale Factor</td>
+<td width="160">1000 / 2000 = 0.5</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+
+</blockquote>
+
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>&amp;input_params</i></b></blockquote>
+
+<blockquote>
+Input parameter block that contains the input parameters for the user macros.
+</blockquote>
+
+<blockquote><b><i>input_params.HeaderFileName</i></b></blockquote>
+
+<blockquote>
+String parameter that contains the name of the SPOT header file that should be read.  The filename can either by relative or absolute and it can contain AVS/Express environment variables (i.e. $XP_ROOT, $XP_PATH&lt;1&gt;).
+</blockquote>
+
+<blockquote><b><i>input_params.ImageFileName</i></b></blockquote>
+
+<blockquote>
+String parameter that contains the name of the SPOT image file that should be read.  The filename can either by relative or absolute and it can contain AVS/Express environment variables (i.e. $XP_ROOT, $XP_PATH&lt;1&gt;).
+</blockquote>
+
+<blockquote><b><i>input_params.BandNumberToRead</i></b></blockquote>
+
+<blockquote>
+Integer parameter that specifies which band should be read from the SPOT file.  Currently the read_spot macro can read SPOT files that have either 1 or 3 bands.  Therefore this parameter can only have the values 1,2 or 3.  If no value is specified then all the bands will be read and the output data will be treated as greyscale or RGB data as appropriate.
+</blockquote>
+
+<blockquote>
+<b><i>input_params.StartRow</i></b><br>
+<b><i>input_params.StartColumn</i></b>
+</blockquote>
+
+<blockquote>
+Integer parameters that specify where the SPOT file should start to be to read from.
+</blockquote>
+
+<blockquote>
+<b><i>input_params.NumberOfRows</i></b><br>
+<b><i>input_params.NumberOfColumns</i></b>
+</blockquote>
+
+<blockquote>
+Integer parameters that specify how many rows and columns should be read from the SPOT file.  For the read_spot macro these parameters specify how many rows and columns the <b>output</b> AVS/Express field should have.  Conversely for the read_spot_alt macro these parameters specify how many rows and columns of data should be read from the <b>input</b> SPOT file.
+</blockquote>
+
+<blockquote>
+<b><i>input_params.XScaleFactor</i></b><br>
+<b><i>input_params.YScaleFactor</i></b>
+</blockquote>
+
+<blockquote>
+Float parameters that specify the horizontal and vertical scaling factors that are to be used when a SPOT file is read.  These scaling factors are intended to allow the user to downsize the SPOT image as it is read.  This reduces the amount data that has to be processed by the visualization pipeline.  The scaling factor is calculated as the output dimension divided by the input dimension.  Therefore to downsize the SPOT data scaling factors of less than 1 would be used.
+</blockquote>
+
+<blockquote>
+<b><i>input_params.ActivateFlag</i></b>
+</blockquote>
+
+<blockquote>
+Integer parameter that specifies whether the SPOT file should be read whenever a parameter is changed.  If this parameter is set to <tt>0</tt> the SPOT file is never read.  This allows the user to setup the scaling and window parameters without having to wait for SPOT file to load after each change.
+</blockquote>
+
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_image</i></b></blockquote>
+
+<blockquote>
+Field data output that contains the image data read from the SPOT file.  This field data contains a 2D uniform mesh and one component of node data.  If the SPOT file contains 1 band the node data will consist of scalar bytes.  If the SPOT file contains 3 bands the node data will consist of a 3 byte vector that is treated as RGB data by the renderer.
+</blockquote>
+
+<blockquote><i><b>out_obj</b></i></blockquote>
+
+<blockquote>
+The directly renderable output of the read_spot and read_spot_alt macros. This output contains the image data read from the SPOT file in a form that can be rendered by the standard data viewers.</blockquote>
+
+<blockquote><b><i>output_params</i></b></blockquote>
+
+<blockquote>
+Output parameter block that contains the header information read by the user macros.  This parameter block is only used to provide information to the user.  The ReadSpotImage and ReadSpotImageAlt macros do not use this parameter block as they access the header file directly.
+</blockquote>
+
+<blockquote><b><i>output_params.ProcessingLevel</i></b></blockquote>
+
+<blockquote>
+String parameter that states the processing level that this SPOT file was created with.  This parameter can have the values <tt>'1A'</tt>, <tt>'1B'</tt> or <tt>'unknown'</tt>.
+</blockquote>
+
+<blockquote><b><i>output_params.NumberOfBands</i></b></blockquote>
+
+<blockquote>
+Integer parameter that states how many of bands of data are present in the SPOT file.  The read_spot and read_spot_alt macro can only read images with either 1 or 3 bands.
+</blockquote>
+
+<blockquote>
+<b><i>output_params.NumberOfRows</i></b><br>
+<b><i>output_params.NumberOfColumns</i></b>
+</blockquote>
+
+<blockquote>
+Integer parameters that state the numbers of rows and columns that are present in the SPOT image.
+</blockquote>
+
+<blockquote>
+<b><i>output_params.Year</i></b><br>
+<b><i>output_params.Month</i></b><br>
+<b><i>output_params.Day</i></b>
+</blockquote>
+
+<blockquote>
+Integer parameters that state the date found in the SPOT header file.
+</blockquote>
+
+<blockquote>
+<b><i>output_params.Hour</i></b><br>
+<b><i>output_params.Minute</i></b><br>
+<b><i>output_params.Second</i></b>
+</blockquote>
+
+<blockquote>
+Integer and float parameters that state the time found in the SPOT header file.  The hours and minutes are stated as integers.  The number of seconds is stated as a floating point.  The number of milliseconds read from the SPOT header is converted into seconds and stored in the seconds parameter.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The ReadSpotImageFunc functional macro uses the ReadSpotImage low-level module.  The read_spot user macro uses this functional macro, the ReadSpotHeader low-level module and the ReadSpotUI user interface macro.  The ReadSpotImageFuncAlt functional macro uses the ReadSpotImageAlt low-level module.  The read_spot_alt user macro uses this functional macro, the ReadSpotHeader low-level module and the ReadSpotUIAlt user interface macro.  All of these macros use the ReadSpotInputParams and ReadSpotOutputParams parameter blocks to communicate information between themselves.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided, ReadSpotEg and ReadSpotEgAlt, that demonstrate using the read_spot and read_spot_alt user macros to read and display SPOT files.  No example SPOT files are included with the project as they would increase the size of the download by too much.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_spot/rsptmods.v</i> contains the V definitions of the ReadSpotInputParams and ReadSpotOutputParams groups and the ReadSpotHeader, ReadSpotImage and ReadSpotImageAlt low-level modules.</p>
+
+<p><i>xp_comm_proj/rd_spot/rsptmacs.v</i> contains the V definitions of the read_spot and read_spot_alt User Macros, the ReadSpotImageFunc and ReadSpotImageFuncAlt Functional Macros and the ReadSpotUI and ReadSpotUIAlt UI Macros.</p>
+
+<p><i>xp_comm_proj/rd_spot/rsptapps.v</i> contains the V definitions of the ReadSpotEg and ReadSpotEgAlt example applications.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ReadSpotMacs library inherits its process. As this library contains no procedural code, the process is not important. The modules in the low-level ReadSpotMods library execute under the process specified in that library, not the process defined in the high-level library.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Steve Walker
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_mod.html">ReadSpotHeader</a> IAC module.</li>
+<li><a href="doc_mod.html">ReadSpotImage</a> IAC module.</li>
+<li><a href="doc_mod.html">ReadSpotImageAlt</a> IAC module.</li>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#rd_dted">ReadDted</a> IAC project.</li>
+<li><a href="http://www.spotimage.fr/">SPOT Image Corporation</a> web-site.</li>
+</ul>
+
+</body>
+</html>
+

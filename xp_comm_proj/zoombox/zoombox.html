@@ -1,0 +1,147 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>ZoomBox</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ZoomBox</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module allows to zoom into the scene in the output window using shift + Left Mouse Button.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports of Zoombox macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Top object to be handled by Zoombox</td>
+</tr>
+
+<tr>
+<td width="100"><i>view</i></td>
+<td width="75">Scene</td>
+<td width="425">Current view onto the object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The Zoombox macro allows to select a rectangular area using Shift + left mouse button of the scene in the Uviewer3D. The Uviewer3D zooms in to the selected area to allow a more detailed view of the objects in the selected area.
+</blockquote>
+
+<blockquote>
+It should be noted that as the high level macros require the use of a number of low level AVS/Express modules. These macros will only work with the AVS/Express developer edition.
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the DataObject which is manipulated by the Zoombox. By default this input is connected to the Top object of the Uviewer3D.
+</blockquote>
+
+<blockquote>
+<i><b>view</b></i>
+</blockquote>
+
+<blockquote>
+View onto the object manipulated by Zoobox. By default this is connected to the current view of the scene in the Uviewer3D.
+</blockquote>
+
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro ZoomBox makes use of the Functional Macro ZoomBoxFunc.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ZoomBoxEg is provided, which loads a field file and allows to test the zoom functionality.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/zoombox/zoommacs.v</i> contains the V definitions of the ZoomBoxFunc Functional Macro and the ZoomBox User Macro.</p>
+
+<p><i>xp_comm_proj/zoombox/zoomapps.v</i> contains the V definition of the example application ZoomBoxEg.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project requires the following components to be installed correctly.
+Without these components the user level macros will not work correctly.
+</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ZoomBoxMacs library inherits its process. As this library contains
+no procedural code, the process is not important.
+</blockquote>
+
+<blockquote>
+The high level macros use DV low level objects, and hence these macros require a license for the AVS/Express Developer Edition. 
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ali Bitar
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>
+International AVS Centre
+</pre></blockquote>
+
+
+</body>
+</html>

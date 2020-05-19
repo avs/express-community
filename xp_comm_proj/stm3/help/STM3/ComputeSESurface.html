@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module ComputeSESurface documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,MSMS">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Compute SE Surface</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Compute SE Surface</h1>
+
+<h2>Description</h2>
+<p>Compute the molecule Solvent Excluded Surface using the MSMS
+(<a href="http://www.scripps.edu/pub/olson-web/people/sanner/html/msms_home.html">Molecular Surface Computation Home Page</a> - Michel F. Sanner) tool.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecule.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Probe radius</td>
+	<td class="c2">float</td>
+	<td class="c3">The radius of the probe used to find the solvent excluded surface (normally 1.4).</td>
+</tr>
+<tr>
+	<td class="c1">Triangulation density</td>
+	<td class="c2">float</td>
+	<td class="c3">The triangle density of the resulting surface. Bigger number means better quality, but over 6 there is no improvement.</td>
+</tr>
+<tr>
+	<td class="c1">Surface coloring</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">Set the value used to color the surface. Possible values are:
+	<dl>
+	<dt>no color</dt>
+		<dd>The surface has the default color set by Editors->Object->Properties->Primary Color.</dd>
+	<dt>color by nearest atom type</dt>
+		<dd>Every node is colored by the type of the nearest atom. The color is the same used by the ball-and-stock molecule representation.</dd>
+	<dt>color by charge</dt>
+		<dd>Every node is colored by the nearest atom charge.</dd>
+	<dt>color by atomic number</dt>
+		<dd>Every node is colored by the nearest atom atomic number.</dd>
+	</dl></td>
+</tr>
+<tr>
+	<td class="c1">Surface opacity</td>
+	<td class="c2">slider</td>
+	<td class="c3">The surface opacity value.</td>
+</tr>
+<tr>
+	<td class="c1">Surface rendering type</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">The surface can be rendered as a surface, as wireframe or as points.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">fld</td>
+	<td class="c2">Field</td>
+	<td class="c3">The surface.</td>
+</tr>
+<tr>
+	<td class="c1">obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The renderable version of fld.</td>
+</tr>
+</table>
+	
+<h2>Interface to MSMS executable</h2>
+<p>
+This module uses an external executable to compute the Solvent Excluded Surface. The executables for Linux and Windows are distributed 
+with STM3 in the directory <tt>msms</tt>. The path to the executable is defined in the <b>avsenv</b> file and it is called MSMSSERVER.</p>
+<p>The executable creates some temporary file under the first directory available in this list:</p>
+<ul>
+	<li>The environment variable <tt>TMP</tt></li>
+	<li>The environment variable <tt>TEMP</tt></li>
+	<li>The directory <tt>/tmp</tt></li>
+</ul>
+<p>The temporary files are called: <tt>stm3msmsXXXXXX</tt> where <tt>XXXXXX</tt> is some number.</p>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="http://www.scripps.edu/pub/olson-web/people/sanner/html/msms_home.html">MSMS</a> home.</li>
+</ul>
+
+</body></html>

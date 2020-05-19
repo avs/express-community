@@ -1,0 +1,248 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>visitserver</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>visitserver</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>This user macro controls the connection to remote applications which use the <a href="http://www.fz-juelich.de/zam/visit">VISIT library</a>.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by visitserver">
+<tr>
+<td WIDTH="100"><b><font size=-1>Name</font></b></td>
+<td WIDTH="75"><b><font size=-1>Type</font></b></td>
+<td WIDTH="350"><b><font size=-1>Description</font></b></td>
+<td WIDTH="125"><b><font size=-1>UI Control</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4"><hr></td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>SeapService</i></td>
+<td WIDTH="75">string</td>
+<td WIDTH="300">Service name under which the visualization will be announced at the SEAP-Server.</td>
+<td WIDTH="125">UItext</td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>SeapPasswd</i></td>
+<td WIDTH="75">string</td>
+<td WIDTH="300">Password used to access the service at SEAP-server.</td>
+<td WIDTH="125">UItext</td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>Interface</i></td>
+<td WIDTH="75">string</td>
+<td WIDTH="300">Host-name that is published at SEAP-server. If set to
+"*" the callers hostname is used.</td>
+<td WIDTH="125">UItext</td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>Listen</i></td>
+<td WIDTH="75">int</td>
+<td WIDTH="300">Enables/disables listening socket for connecting to an application.</td>
+<td WIDTH="125">UItoggle</td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>IdDescriptions</i></td>
+<td WIDTH="75">string[]</td>
+<td WIDTH="300">Data description strings for request IDs.</td>
+<td WIDTH="125">-</td>
+</tr>
+
+<tr>
+<td COLSPAN="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by visitserver" >
+<tr>
+<td WIDTH="100"><b><font size=-1>Name</font></b></td>
+<td WIDTH="80"><b><font size=-1>Type</font></b></td>
+<td WIDTH="425"><b><font size=-1>Description</font></b></td>
+</tr>
+
+<tr>
+<td COLSPAN="4"><hr></td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>SockID</i></td>
+<td WIDTH="80">int</td>
+<td>Socket descriptor of the data-connection to the remote application.</td>
+</tr>
+
+<tr>
+<td WIDTH="100"><i>Trigger</i></td>
+<td WIDTH="80">int</td>
+<td>Triggered when request is received from remote application.</td>
+</tr>
+
+<tr>
+<td COLSPAN="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This macro creates and controls the connection from an AVS/Express application to a remote VISIT application.  When the <code>Listen</code> toggle is set to on the macro attempts to establish a socket connection to a SEAP-server with the next free port number above the value of the given Port number.  If it is successful it announces the information about this Port at the SEAP-server under the service-name, password and interface given by SeapService, SeapPasswd and Interface parameters.</p>
+
+<p>Once the service has been announced several call-back functions are registered and the macro waits for connections to the announced port.  After a connection to a remote application client has been made the macro outputs the socket descriptor of the connection to the SockID output port.  This socket descriptor contains the ID necessary for VisitReader and VisitWriter modules to send and receive data from the remote application.  The module also deletes the announced service from the SEAP-server.  Each visitserver macro can only control one connection at a time. Therefore, each time a new connection request comes in the old connection is shut down.  If a connection is shut down by the remote application, the visitserver macro announces its service at the SEAP-server again.  Finally the macro begins waiting for requests to be made.</p>
+
+<p>Whenever a request is received from the remote application the Trigger output port is activated.  Each request contains an ID number which determines what is requested and which VisitReader or VisitWriter module should process the request.  The Trigger output port is set to this ID number.  If only one VisitReader or VisitWriter module is being used this output can be directly connected to the Trigger input of the module.  Otherwise a Multiplexer module must be used to select the appropriate module to process the request.  This module then reads the request data from the socket and then either reads data from the remote application or sends data to the remote application.</p>
+
+<p>As well as doing this the visitserver macro provides a user interface that can be used to control the connection to the remote application.  The user interface also displays status messages which describe the data connection.  These status messages are colour coded to help in quickly identifying the current state of the connection.</p>
+
+<p>The visitserver macro should be used in conjunction with the modules <a href="./doc_modMulti.html">Multiplexer</a>, <a href="./doc_modReader.html">VisitReader</a> and <a href="./doc_modWriter.html">VisitWriter</a>.</p>
+
+<p>Before this macro can be compiled and used the VISIT library must be installed.  For information on how to install this library please see the  <a href="http://www.fz-juelich.de/zam/visit">VISIT library</a>(<tt>http://www.fz-juelich.de/zam/visit</tt>) home page. A complete set of documentation for the VISIT-library can also be found at this URL.</p>
+
+<p>The Visit IAC project assumes that the VISIT library has been installed into
+the default directory i.e.</p>
+
+<p><code>/usr/local/visit/</code></p>
+
+<p>If this is not the case then the references to that directory in the
+visit_mods.v file will have to be modified.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>SeapService, SeapPasswd, Interface</i></b></blockquote>
+
+<blockquote>
+<p>Service name and password under which the visualization service will be announced at the SEAP-server. The SEAP-server is a separate process which is used to isolate visualization and computation applications.  The SEAP-server stores a list of entries that describe the services of visualization applications.  Remote applications can ask the SEAP-server for such services and then receive the Port number of the socket and the host on which the listening socket is established from the SEAP-server. This additional process removes the need to use hard-coded host names port numbers. It also allows the visualization workstation to be changed while the remote application keeps on running.</p>
+
+<p>The Interface input specifies which host name a remote application should  connect to.  By default the interface input is <code>'*'</code>.  This means that the name of the local host will be used.  Normally this should not need to be changed.</p>
+</blockquote>
+
+
+<blockquote><b><i>Listen</i></b></blockquote>
+
+<blockquote>
+This toggle enables and disables the listening socket.  When this toggle is set the appropriate service is announced and a listening socket is established.  When this toggle is cleared any running connection is stopped and the service is removed from the SEAP-server. 
+</blockquote>
+
+<blockquote><b><i>IdDescriptions</i></b></blockquote>
+
+<blockquote>
+This string array contains descriptions to be used when displaying messages about the requests from the remote application.  Each request from the remote application contains an ID number which is used to determine which VisitReader or VisitWriter module should process the request.  This ID can also be used to give a more meaningful description to each request.  The ID is used by the visitserver macro to select an element of the IdDescriptions array when the status is being displayed in the user interface or when printing to the standard output.
+</blockquote>
+
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>SockID</i></b></blockquote>
+
+<blockquote>The SockID output contains the socket descriptor of the data-connection to the remote application.  The VisitReader and VisitWriter modules need this SockId to read from and write data to the socket.</blockquote>
+
+<blockquote><b><i>Trigger</i></b></blockquote>
+
+<blockquote>
+The Trigger output contains the value of the ID-parameter of the message.  Whenever a request is received from the remote application this output is changed and activated.  The Trigger output should be used to activate the appropriate VisitReader and VisitWriter modules so that data can be sent to and received from the remote application.  The Multiplexer module should be used to help trigger the appropriate module.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro visitserver combines the Functional Macro VisitServerFunc with the UI Macro VisitServerUI.  The User Macro also contains the parameter block VisitServerParams and the string array IdDescriptions.  This string array should be filled with descriptions of the different IDs used by the remote application.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Two example applications are provided that work together with remote applications provided with the VISIT-library distribution.  The VisitSimpleEg application is designed to test the installation of the Visit project and connects to the <code>vclient</code> remote application.  If the project has been installed and compiled correctly several values should be sent to and received from the remote application.  The test can be repeated several times by using the command line parameters of the <code>vclient</code> application.  For instance the following command will repeat the test 20 times:</p>
+
+<p><code>vclient -p -n 20</code></p>
+
+<p>The VisitGoLEg example application is a more complete visualization example that connects to a remote game of life simulation.  The application connects to the <code>cgol</code> remote application.  This application computes the game of life simulation for a 3D field and sends the full state of simulation to the AVS/Express application after every life step.  As well as displaying the results of the simulation the VisitGoLEg application also allows the simulation to be steered.  It is possible to insert new blocks into the simulation, and to stop or pause the remote application.</p>
+
+<p>A SEAP server must be running before either of these applications can be used.  For full instructions on using the <code>cgol</code> and <code>vclient</code> applications please see the <a href="http://www.fz-juelich.de/zam/visit">VISIT library</a> home page.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/visit/visit_macs.v</i> contains the V definitions
+of the Functional Macro VisitServerFunc, the UI Macro VisitServerUI
+and the User Macro visitserver.</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>The VisitMacs library inherits its process. As this library contains no procedural code, the process is not important. The modules in the low-level VisitMods library execute under the process specified in that library, not the process defined in the high-level library. By default the express process will be used.</p>
+
+<p>Before the Visit project can be compiled the VISIT library must be installed, configured and compiled.  For full instructions please see the <a href="http://www.fz-juelich.de/zam/visit">VISIT</a> library web-site.</p>
+
+<p>The Visit IAC project assumes that the VISIT library has been installed into
+the default directory i.e.</p>
+
+<p><code>/usr/local/visit/</code></p>
+
+<p>If this is not the case then the references to that directory in the
+visit_mods.v file will have to be modified.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Wolfgang Frings
+Central Institute for Applied Mathematics
+Research Center Juelich
+D-52425 Juelich
+Germany 
+</pre></blockquote>
+
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umacReader.html">visitreader</a> user macro.</li>
+<li><a href="doc_umacWriter.html">visitwriter</a> =user macro.</li>
+<li><a href="doc_umacMulti.html">multiplexer</a> user macro.</li>
+<li><a href="doc_modServer.html">VisitServer</a> module.</li>
+<li><a href="doc_modReader.html">VisitReader</a> module.</li>
+<li><a href="doc_modWriter.html">VisitWriter</a> module.</li>
+<li><a href="doc_modMulti.html">Multiplexer</a> user macro.</li>
+<li><a href="http://www.fz-juelich.de/zam/visit">VISIT</a> library web-site.</li>
+</ul>
+
+</body>
+</html>
+

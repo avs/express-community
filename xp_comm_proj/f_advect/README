@@ -1,0 +1,55 @@
+Express Community FastAdvector Project
+https://github.com/avs/express-community
+------------------------
+
+This directory ( xp_comm_proj/f_advect/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"FastAdvector".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new FastAdvector project, and additions to 2 of the files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+The project contains only V code and no modules within the project contain
+procedural code.  Hence the project does not have to be compiled.  The project
+makes use of low-level AVS/Express modules and hence requires the Developer's
+Edition of AVS/Express.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/f_advect/ directory.
+
+INSTALL         Contains installation instructions for editing the xp_comm_proj.v
+                and xp_comm_lib/ files. This file should not be edited as the
+                future installation script will use this file.
+
+f_advect.v      Creates the XP_COMM_PROJ.FastAdvector library.
+
+fadvmacs.v      Creates the FastAdvectorMacs library containing the user
+                interface macro FastAdvectorUI, the functional macros FastAdvect and
+                fast_advector_noui and the user macro fast_advector.
+
+fadvapps.v      Creates the FastAdvectorApps library containing the example applications
+                FastAdvectorEg1 and FastAdvectorEg2.
+
+f_advect.html   HTML documentation for the fast_advector user macro.
+
+README          This file.
+
+
+
+Prerequisites
+-------------
+
+This project relies on the successful installation of the following components.
+Without them it will not function correctly.
+
+AVS/Express Developer's Edition
+

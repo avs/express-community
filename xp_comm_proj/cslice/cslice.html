@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>CoordinatesSlice</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>CoordinatesSlice</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module extract points from a given array with 3D-points, which are positioned on a defined plane. The extracted points are output as 2D-points.
+</blockquote>
+
+<blockquote>
+<h4>Inputs</h4>
+<table summary="Inputs used by CoordinatesSlice">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Coords_3D</i></td>
+<td width="200">Coords_3D</td>
+<td width="425">group containing array with 3D-points and dimension of the array</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by CoordinatesSlice">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>plane</i></td>
+<td width="200">float</td>
+<td width="300">value of plane-coordinate</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>axis</i></td>
+<td width="200">int</td>
+<td width="300">x-,y-, or z-axis (equivalent to values 0, 1, 2)</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>dec</i></td>
+<td width="200">int</td>
+<td width="300">number of decimals of plane-value</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by CoordinatesSlice">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>xy_out</i></td>
+<td width="200">array [][2]</td>
+<td width="425">array of 2D-points matching the plane</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The module extracts points from an array of 3D-points, which are positioned on a specified plane. The plane is defined by two values:
+<ul>
+<li>Axis, which specifies the alignment of the plane through the values 0,1 or 2, equivalent to x-, y- or z-axis (the axis orthogonal to the plane).</li>
+<li>Plane, which defines the distance between the origin of the coordinate system and the plane</li>
+</ul>
+Both of these values can be selected by sliders.<br>
+The slider of the Plane-value is limited by the maximum and minimum values of coordinates at the specified axis.<br>
+The precision of the result depends on the precision of the Plane-value. The 3D-points are truncated to the same number of decimals as the number of decimals of the Plane-value.<br>
+The module outputs an array of 2D-points consisting of the matching points  neglecting the values of the coordinate specified by Axis.<br>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<h4>Inputs</h4>
+
+<blockquote><b><i>Coords_3D</i></b></blockquote>
+<blockquote>group containing the following parameters:
+<ul>
+<li>dimension, which specifies the number of the 3D-points</li>
+<li>xyz_Coords, an array [dimension][3] containing the coordinates of the 3D-points
+</ul>
+</blockquote>
+
+<blockquote><b><i>axis</i></b></blockquote>
+<blockquote>Alignment of the plane, values 0,1 or 2 for x-,y- or z-axis</blockquote>
+
+<blockquote><b><i>plane</i></b></blockquote>
+<blockquote>Value specifying the exact position of the plane</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>xy_out</i></b></blockquote>
+<blockquote>array [][2] of the points matching the plane</blockquote>
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+The example contains a sphere, Coords_3D containing the array of the points of the sphere and the dimension of this array, a point_mesh to convert the result of the module and a Uviewer3D to visualize the result.<br>
+The CoordinatesSlice-Module provides the User-Interface for selecting the Axis- and Plane-values and outputs the points matching the plane.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/cslice/cslice.v</i> Creates the XP_COMM_PROJ.CoordinatesSlice library.</p> 
+<p><i>xp_comm_proj/cslice/csl_mods.v</i> Creates the CoordinatesSliceMods library containing the low-level module CoordinatesSliceCore and the input group Coords_3D ant the parameter block CoordinatesSliceParams.</p>
+<p><i>xp_comm_proj/cslice/csl_macs.v</i> Creates the CoordinatesSliceMacs library containing the high-level functional macro CoordinatesSliceFunc, user interface macro CoordinatesSliceUI and the user macro CoordinatesSlice.</p>
+<p><i>xp_comm_proj/cslice/csl_apps.v</i> Creates the CoordinatesSliceApps library containing the example application CoordinatesSliceEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+anonymous
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Antje Niederlein, 
+Manchester Visualization Centre
+
+</pre></blockquote>
+</body>
+</html>

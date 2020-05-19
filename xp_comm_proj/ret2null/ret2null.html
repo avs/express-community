@@ -1,0 +1,89 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+   <title>ReturnToNull</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ReturnToNull</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Demonstrates now a UIfield can be returned to a NULL value in both V and C code.</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>When designed a user interface it can often be useful to be able force the user to enter data again.  For some components this can be done by setting them to a know default value.  For other components, such as text boxes, this can be done by resetting them to a NULL value.  This project demonstrates now the UIfield component can be reset to a NULL value.  Examples are provided that do this in module C code and network editor V code.</p>
+
+
+<h4>Resetting through Network Editor V code</h4>
+
+<p>Returning a UIfield to a NULL value can be achieved by simply executing the following V statement:</p>
+
+<pre>
+MyField.value = ;
+</pre>
+
+<p>However normally you would want to reset a field interactively, when a button is pressed or a calculation has completed.  This can be achieved by using the <tt>parse_v</tt> module.  This module executes a specified V statement whenever it is triggered.  Hence it can be setup so that it can reset the UIfield component whenever a button is pressed.  This is shown in the <tt>V_Ret2NullEg</tt> example application.</p>
+
+
+<h4>Resetting through Module C code</h4>
+
+<p>Returning a UIfield to a NULL value in C code can be achieved in a similar way to V code.  Primarily it is necessary to set the <tt>MyField.value</tt> object equal to the <tt>OMnull_obj</tt> object.  <tt>OMnull_obj</tt>  is a special object that is used by the Object Manager to represent a NULL or empty value.  However as we wish to use this function interactively we need to detect when the module has been triggered by an external input.  This can be done by using the <tt>OMchanged()</tt> function to test if the parameter has changed.</p>
+
+<p>The <tt>ReturnToNull</tt> module and source code provides a simple implementation of this.  The <tt>C_Ret2NullEg</tt> example application shows how this module can be used.</p>
+
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>&amp;ui_field</i></b></blockquote>
+
+<blockquote>
+Reference to a UIfield component that is to be returned to NULL by the <tt>ReturnToNull</tt> module.
+</blockquote>
+
+<blockquote><b><i>trigger</i></b></blockquote>
+
+<blockquote>
+Integer trigger parameter used by the <tt>ReturnToNull</tt> module.  Whenever this parameter is set to 1 the referenced UIfield component to returned to NULL.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/ret2null/rt2nmods.v</i> contains the V definition of the ReturnToNull low-level module.</p>
+
+<p><i>xp_comm_proj/ret2null/rt2nmacs.v</i> contains the V definitions of the example applications V_Ret2NullEg and C_Ret2NullEg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level Ret2NullMods library containing the module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>Leigh J. Grundy
+Advanced Visual Systems, Inc.
+
+Andrew Dodd
+International AVS Centre
+</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+AVS module parse_v
+</blockquote>
+
+</body>
+</html>
+

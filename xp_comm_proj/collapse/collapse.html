@@ -1,0 +1,279 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+   <title>collapse_field &amp; collapse_field_planes</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>collapse_field &amp; collapse_field_planes</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Collapses a uniform field along a specified axis.  Specific planes can be included or excluded from collapsing operation.</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by collapse_field &amp; collapse_field_planes">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">uniform field</td>
+<td width="425">data to be collapsed</td>
+</tr>
+
+<tr>
+<td width="100"><i>planes</i></td>
+<td width="75">int[]</td>
+<td width="425">planes to include or exclude</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by collapse_field &amp; collapse_field_planes">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>operation</i></td>
+<td width="75">enum</td>
+<td width="300">type of collapsing operation</td>
+<td width="125">Radiobox</td>
+</tr>
+
+<tr>
+<td width="100"><i>axis</i></td>
+<td width="75">int</td>
+<td width="300">axis to collapse along</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>planes</i></td>
+<td width="75">int[]</td>
+<td width="300">planes to include or exclude</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by collapse_field &amp; collapse_field_planes">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_field</i></td>
+<td width="75">uniform vector field</td>
+<td width="425">collapsed output field</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">GDobject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The collapse_field and collapse_field_planes macros allow a uniform field to be collapsed along an axis hence generating a new lower dimension field.  Parameters are available so that the type of collapsing operation and the planes to include or exclude can be specified.  Currently 4 collapsing operations are supported:</p>
+
+<ol>
+<li>
+<b>Collapse All</b><br>
+Sum all planes along axis.  Ignore any specification of planes.
+</li>
+<li>
+<b>Slice</b><br>
+Othroslices along the axis at the first plane specified in the planes array.  </li>
+<li>
+<b>Collapse Except</b><br>
+Sums all planes except those specified in the planes array.
+</li>
+<li>
+<b>Collapse Only</b><br>
+Sums only those planes specified in the planes array.
+</li>
+</ol>
+
+
+<p>The two user macros supplied primarily differ in the number of planes you are able to specify.  <b>collapse_field_planes</b> takes an array of planes as an input and hence it is possible to specify any number of planes.  <b>collapse_field</b> only allows a single plane to be specified.  Although this does reduce the usefulness of the macro it does allow the plane to be specified through the user interface.</p>
+
+<p>The macros only work with uniform fields.  The input field coordinates can have 1, 2 or 3 dimensions.  If the input is 3D a 2D output field is produced.  If the input is 2D or 1D, a 1D output field is produced.  The input field node data can have any vector length.  Internally the module converts input data to double type and sums each vector component separately.  The output field contains node data of double type.</p>
+
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>
+Uniform field input containing the data that is to be collapsed.  The field should contain a uniform mesh and one component of node data.  The uniform mesh should have nspace of 1, 2 or 3.  If other node data components are present they will be ignored.  The input node data can have any vector length.
+</blockquote>
+
+<blockquote><b><i>planes[]</i></b></blockquote>
+
+<blockquote>
+Integer array containing the planes indices that are to be used in the collapsing operation.  Depending upon which operation is chosen these planes will either be included in or excluded from the collapsing summation.  Plane indices are numbered from zero.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<p><b><i>operation</i></b></p>
+
+<pre>
+enum operation { choices = {"collapse", "slice", "collapse_except", "collapse_only"}; };
+</pre>
+
+<p>Defines now the input field is collapsed. Currently it is possible to collapse the input field in four different ways:</p>
+
+<ol>
+<li>
+<b>"collapse"</b><br>
+Sum all planes along axis.  Ignore any specification of planes.
+</li>
+<li>
+<b>"slice"</b><br>
+Othroslices along the axis at the first plane specified in the planes array.  </li>
+<li>
+<b>"collapse_except"</b><br>
+Sums all planes except those specified in the planes array.
+</li>
+<li>
+<b>"collapse_only"</b><br>
+Sums only those planes specified in the planes array.
+</li>
+</ol>
+
+<p>These operations are presented in the user interface through a radio box.  The collapse_field macro does not present the "collapse_only" option as for a single plane the results are identical to those generated by the "slice" option.</p>
+</blockquote>
+
+<blockquote><b><i>axis</i></b></blockquote>
+
+<blockquote>
+Integer parameter that specifies what axis should be collapsed along.  Axes are numbered from zero.
+</blockquote>
+
+<blockquote><b><i>planes[]</i></b></blockquote>
+
+<blockquote>
+Integer array containing the planes indices that are to be used in the collapsing operation.  The collapse_field macro connects this parameter to a slider in the user interface.  The collapse_field_planes macro connects this parameter to the planes input port.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_field</i></b></blockquote>
+
+<blockquote>
+Output field containing the collapsed data in a uniform vector field.  If the input field was 3D this output field will be 2D.  If the input field was 2D or 1D this output field will be 1D.  The output field will contain the summed node data of the input field.  This node data will be of type double and have the same vector length as the input data.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The GDobject version of the output, suitable for direct connection
+to a viewer.</blockquote>
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The CollapseFieldFunc functional macro makes use of the low-level module CollapseFieldCore.  Both of the user macros, collapse_field and collapse_field_planes, make use of this functional macro.  They also make use of the user interface macros, CollapseUI and CollapsePlanesUI.  The CollapseParams parameter block is used by all of these modules to connect themselves together.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>Two example applications are provided.  Both of these applications read in a uniform 3D field and collapse that field into a 2D slice.  The CollapseFieldEg application demonstrates how the collapse_field macro can be used to select a single plane.  The CollapseFieldPlanesEg application demonstrates how the collapse_field_planes macro can be used to exclude or include 10 planes in the middle of the field.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/collapse/clp_mods.v</i> contains the V definitions of the CollapseFieldCore low-level module and the CollapseParams parameter block.</p>
+
+<p><i>xp_comm_proj/collapse/clp_macs.v</i> contains the V definitions of the User Interface macros CollapseUI and CollapsePlanesUI, the functional macro CollapseFieldFunc, the user macros collapse_field and collapse_field_planes and the example applications CollapseFieldPlanesEg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level CollapseMods library containing the module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>Mario Valle
+Advanced Visual Systems, Inc.</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>Andrew Dodd
+International AVS Centre</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote>
+IAC module <a href="../xray/xray.html"><tt>Xray</tt></a>.
+</blockquote>
+
+</body>
+</html>
+

@@ -1,0 +1,153 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>mandelbrot</TITLE>
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080" BGCOLOR="#92bfbf">
+
+<H1>mandelbrot</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>Generates the mandelbrot set.
+<P><HR></BLOCKQUOTE></P>
+
+<H4>Parameters</H4>
+<BLOCKQUOTE>The following lists all of the parameters found in the parameter block MandelbrotParams, which are accessed by the module <a href="doc_mod.html">MandelbrotGen</a> and the UI Macro MandelbrotUI.</BLOCKQUOTE></DIR>
+
+<blockquote>
+<TABLE CELLSPACING=0 BORDER=0 WIDTH=549>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>leftx</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="53%" VALIGN="MIDDLE">
+<P>left edge of mandelbrot set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>rightx</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="53%" VALIGN="MIDDLE">
+<P>right edge of mandelbrot set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>topy</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="53%" VALIGN="MIDDLE">
+<P>top edge of mandelbrot set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>bottomy</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="53%" VALIGN="MIDDLE">
+<P>bottom edge of mandelbrot set</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>max_value</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>double</TD>
+<TD WIDTH="53%" VALIGN="MIDDLE">
+<P>"bailout value" for iteration loop</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>max_iter</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>int</TD>
+<TD WIDTH="53%" VALIGN="MIDDLE">
+<P>maximum number of iterations allowed</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>resx</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>int</TD>
+<TD WIDTH="53%" VALIGN="MIDDLE">
+<P>horizontal resolution</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>resy</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>int</TD>
+<TD WIDTH="53%" VALIGN="MIDDLE">
+<P>vertical resolution</TD>
+</TR>
+</TABLE>
+
+<P><HR></blockquote>
+</P><DIR>
+
+<H4>Output Ports</H4></DIR>
+
+<blockquote>
+<TABLE CELLSPACING=0 BORDER=0 WIDTH=555>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<P><I>out_fld</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>Mesh_Unif+Node_Data</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>output field containing Node_Data combined with a generated uniform Mesh.</TD>
+</TR>
+<TR><TD WIDTH="17%" VALIGN="MIDDLE">
+<I><P>out_obj</I></TD>
+<TD WIDTH="30%" VALIGN="MIDDLE">
+<P>DataObjectNoTexture</TD>
+<TD WIDTH="52%" VALIGN="MIDDLE">
+<P>directly renderable output object</TD>
+</TR>
+</TABLE>
+
+<P><HR></BLOCKQUOTE></P>
+<H3>Description</H3>
+<BLOCKQUOTE>The mandelbrot module generates data that represents a view of the mandelbrot set. The location of a rectangular portion of the mandelbrot set and the limits of the algorithm can be specified through a simple user interface. The number of iterations is output as a single byte of node data. The node data is mapped onto a uniform mesh and output as both Mesh_Unif+Node_Data objects and directly renderable data objects.</BLOCKQUOTE>
+<H3>Parameters</H3>
+<B><I><BLOCKQUOTE>leftx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the MandelbrotParams parameter block group, this double value is used to specify the left edge of the mandelbrot set. This is the minimum real number that the mandelbrot function iterates over.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>rightx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the MandelbrotParams parameter block group, this double value is used to specify the right edge of the mandelbrot set. This is the maximum real number that the mandelbrot function iterates over.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>topy</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the MandelbrotParams parameter block group, this double value is used to specify the top edge of the mandelbrot set. This is the maximum imaginary number that the mandelbrot function iterates over.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>bottomy</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the MandelbrotParams parameter block group, this double value is used to specify the bottom edge of the mandelbrot set. This is the minimum real number that the mandelbrot function iterates over.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>max_value</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the MandelbrotParams parameter block group, this double value is used to specify the "bailout value" used to calculate the mandelbrot set. If the magnitude of the iterated function Z(n) exceeds this value then the iteration is stopped and number of iterations taken is stored.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>max_iter</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the MandelbrotParams parameter block group, this int value is used to specify the maximum number of iterations allowed while calculating a point in the mandelbrot set. If the value of Z(n) is below the "bailout value" after the maximum number of iterations then the magnitude of the function is assumed have reached a steady state and therefore no more iterations need to be performed. The maximum number of iterations possible is 255, and values above this level are ignored.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>resx</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the MandelbrotParams parameter block group, this int value is used to specify the horizontal resolution of the mandelbrot set.</BLOCKQUOTE>
+<B><I><BLOCKQUOTE>resy</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>A member of the MandelbrotParams parameter block group, this int value is used to specify the vertical resolution of the mandelbrot set.</BLOCKQUOTE>
+<H3>Output Ports</H3>
+<BLOCKQUOTE>&nbsp;<B><I>out_fld</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>The most primitive output field of the mandelbrot macro. This contains the mandelbrot set represented as Node_Data combined with a generated uniform Mesh. </BLOCKQUOTE>
+<B><I><BLOCKQUOTE>out_obj</B></I> </BLOCKQUOTE>
+<BLOCKQUOTE>The directly renderable output field of the mandelbrot macro. This contains DataObjectNoTexture objects that can be rendered by the standard data viewers. The Data Objects are generated directly from the combined Node_Data and Mesh_Unif.</BLOCKQUOTE>
+<H3>Utility Macros</H3>
+<BLOCKQUOTE>The low-level <a href="doc_mod.html">MandelbrotGen</a> module is used in this User Macro mandelbrot. </BLOCKQUOTE>
+<H3>Example</H3>
+<BLOCKQUOTE>An example application MandelbrotEg is provided, which generates a large scale portion of the Mandelbrot Set and displays it using the Uviewer2D standard data viewer.</BLOCKQUOTE>
+<H3>Files</H3>
+<I><BLOCKQUOTE>xp_comm_proj/mandel/mandmacs.v</I> contains the mandelbrot User Macro, the MandelbrotUI UI Macro, and the example application MandelbrotEg V definitions. </BLOCKQUOTE>
+<H3>Other Notes</H3>
+<BLOCKQUOTE>The MandelbrotMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level <a href="doc_mod.html">MandelbrotGen</a> module, executes under the process specified in its library, not the process defined in the high-level library. </BLOCKQUOTE>
+<H3>Authors</H3>
+<blockquote>
+<PRE>Paul G. Lever
+Andrew Dodd</PRE>
+</blockquote>
+<H3>Contact</H3>
+<blockquote>
+<PRE>
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL</PRE>
+</blockquote>
+<H3>See Also</H3>
+<BLOCKQUOTE>MandelbrotParams, MandelbrotUI, MandelbrotEg and <a href="doc_mod.html">MandelbrotGen</a>. </BLOCKQUOTE></BODY>
+</HTML>

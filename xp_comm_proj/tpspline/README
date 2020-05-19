@@ -1,0 +1,97 @@
+Express Community ThinPlateSpline Project
+https://github.com/avs/express-community
+---------------------------
+
+This directory ( xp_comm_proj/tpspline/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"ThinPlateSpline".
+
+The Thin Plate Spline implementation is based upon the code written by
+Dave Eberly.  The original code can be found on the Magic Software web-site.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ThinPlateSpline project, and additions to one or more of files in the
+xp_comm_lib/ directory, to link appropriate objects to the top-level Community
+library page.
+
+Once the files have been correctly installed, the low-level modules of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+	base -comp_proc express -exit
+or
+	make -f express.mk
+
+	Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+	If you modify the ThinPlateSpline project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.ThinPlateSpline.ThinPlateSplineMods
+
+	Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/tpspline/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/ mappers.v and examples.v files. This file should
+               not be edited as the future installation script will use this
+               file.
+
+tpspline.v     Creates the XP_COMM_PROJ.ThinPlateSpline library.
+
+tps_mods.v     Creates the the low-level modules TPS_unif_core, TPS_rect_core
+               and TPS_Params.
+
+tps_macs.v     Creates the high-level macros TPS_unif, TPS_rect, tps_unif, tps_rect,
+               TPS_baseUI, TPS_unifUI, TPS_rectUI, TPS_base_Eg, TPS_uniform_Eg and
+               TPS_rectilinear_Eg.
+
+tps_unif.cxx   C++ source code for the TPS_unif_core module.
+
+tps_rect.cxx   C++ source code for the TPS_rect_core module.
+
+tpspline.cxx   C++ source code used by the AVS modules.
+solve.cxx
+
+tpspline.h     Header files for C++ source code.
+solve.h
+
+doc_mod.html   HTML documentation for the TPS_unif_core and TPS_rect_core modules.
+
+doc_umac.html  HTML documentation for the tps_unif and tps_rect User Macros.
+
+README         This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.hxx	        AVS/Express generated header file.
+
+gen.cxx	        AVS/Express generated source code.
+
+tps_unif.o(bj)  Intermediate object files.
+tps_rect.o(bj)
+tpspline.o(bj)
+solve.o(bj)
+

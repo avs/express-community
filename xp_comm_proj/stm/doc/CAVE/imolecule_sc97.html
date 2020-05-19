@@ -1,0 +1,262 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:10pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META  HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		Molecular Structure Displays using the Immersadesk
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="../bg1x.jpg">
+<HR SIZE=10><HR>
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+        <U>Molecular Structure Displays using the Immersadesk&copy;.</U>
+        </SPAN>
+</H1>
+<P ALIGN="right">
+SC '97, San Jose, CA
+<BR>
+<HR>
+<TABLE BORDER=0 ALIGN="center">
+<TR>
+	<TD COLSPAN=5 ALIGN="center">
+		<SPAN STYLE="color:#408080; font-weight:bold;">
+        Ken Flurchick*, Lee Bartolotti** and 
+		Theresa L. Windus*<SUP>+</SUP></SPAN>
+	</TD>
+</TR><TR>
+	<TD>&nbsp;</TD>
+</TR><TR>
+	<TD>*Ohio Supercomputer Center</TD>
+	<TD>&nbsp;</TD>
+	<TD>**North Carolina Supercomputing Center</TD>
+	<TD>&nbsp;</TD>
+	<TD><SUP>+</SUP>Aeronautical Systems Center</TD>
+</TR><TR>
+	<TD>OSC</TD>
+	<TD>&nbsp;</TD>
+	<TD>NCSC</TD>
+	<TD>&nbsp;</TD>
+	<TD>MSRC PET</TD>
+</TR><TR>
+	<TD>1224 Kinnear Rd.&nbsp;</TD>
+	<TD>&nbsp;</TD>
+	<TD>3021 Cornwallis Rd.</TD>
+	<TD>&nbsp;</TD>
+	<TD>2435 Fifth Street, Bldg. 676</TD>
+</TR><TR>
+	<TD>Columbus, OH 43212&nbsp;</TD>
+	<TD>&nbsp;</TD>
+	<TD>RTP, NC 27709</TD>
+	<TD>&nbsp;</TD>
+	<TD>WPAFB, OH 45433</TD>
+</TR>
+</TABLE>
+<BR><HR SIZE=10>
+<P>
+Scientific visualization is a powerful method to display the results of 
+computer simulations and/or experimental measurements.  We have ported 
+the functionality of the Application Visualization System 
+(<SPAN STYLE="color:#408080, font-weight:bold;">AVS</SPAN>) from Advanced 
+Visual Systems, Inc. module we have written called <I>coord_to_geom</I> 
+to the Immersadesk&copy; environment from Pyramid Systems, Inc.
+</P>
+<P>
+Navigation throughout the molecule is accomplished by:
+<OL TYPE="I">
+	<LI><SPAN STYLE="color:brown"><I>Button 1:</I></SPAN> Toggle between 
+		rotation on or off (initially off).  This follows the position 
+		of the wand.
+	<LI><SPAN STYLE="color:brown"><I>Button 2:</I></SPAN>  Toggle between 
+		scale and translation (initially scale).  The actual functionality 
+		is controlled only by the joystick.
+	<LI><SPAN STYLE="color:brown"><I>Button 3:</I></SPAN>  Reset to initial 
+		configuration.
+</OL>
+<P>
+For these displays, the visualization process begins by reading the structural 
+information and other output data from the calculation.  The data is currently 
+displayed using traditional ball and stick models.  The size of the atom is 
+determined from the van der Waals radii, taken from Emsley ["The Elements" John 
+Emsley, Oxford Molecular Press, 1989 ISBN 0-19-855237-8], and one can input 
+coordinates in either Bohrs or Angstroms.
+</P>
+<P>
+The program can read structural information from the following types of files:
+</P>
+<OL TYPE="i">
+	<LI><A HREF="../header.html#pcoord">Plain XYZ Coordinates</A> called 
+		<I>PlainCoord</I>.  Atom types specified by numerical entry in 
+		periodic table.
+	<LI><A HREF="../header.html#coord">XYZ Coordinates</A> called 
+		<I>coord</I>.  Atom types specified by atomic name as a 
+		 character string.
+	<LI><A HREF="../header.html#cube">Gaussian<SUP>&copy;</SUP> Cube 
+		Files</A> called <I>Cube</I>.
+	<LI><A HREF="../header.html#pdb">Brookhaven Protein Data Bank</A> 
+		called <I>pdb</I>.
+	<LI><A HREF="../header.html#pgamess">GAMESS Coordinates via a 
+		PERL script</A> called <I>PGamess</I>.
+	<LI><A HREF="../header.html#cgamess">GAMESS Plotting Option</A> 
+		called <I>Gamess Cube</I>.
+	<LI><A HREF="../header.html#dcar">MSI DCAR</A> called <I>Dcar</I>.
+	<LI><A HREF="../header.html#dmol">DMOL XYZ</A> called <I>DMOL_XYZ</I>.
+	<LI><A HREF="../header.html#esp">Mopac Electrostatic Potential</A> 
+		called <I>Mopac ESP</I>.
+	<LI><A HREF="../header.html#mopac_xyz">Mopac coordinates</A> called 
+		<I>Mopac XYZ</I>.
+	<LI><A HREF="../header.html#mol2">MOL2</A> called <I>mol2</I>.
+	<LI><A HREF="../header.html#mol">MOL</A> called <I>mol</I>.
+	<LI><A HREF="../header.html#chem3d">CHEM3D</A> called <I>Chem3d</I>.
+	<LI><A HREF="../header.html#mm3">Molecular Mechanics Code MM3</A> 
+		called <I>mm3</I>.
+</OL>
+<BR><HR SIZE=6><BR>
+<P>
+In this demonstration, we will show several examples using the IMMERSADESK to 
+display molecular structure.
+</P>
+<UL TYPE="disk">
+	<LI>DoD Challenge Application: Materials for Laser Hardening 
+		<P ALIGN="center">Authors P. N. Day, Z. Wang, and R. Pachter
+		<BR>Materials Directorate, Wright Laboratory
+		<BR>WL/MLPJ
+		<BR>Wright-Patterson AFB, OH
+		<BR><BR>
+		<IMG SRC="ruth_im.jpg">
+		<BR><A HREF="ruth.wrl">VRML Display</A>
+		<BR>
+		</P>
+		<P>
+		The objective of this effort is to explore and design novel materials 
+		with controlled properties for laser hardening applications at the 
+		Materials Directorate, AFRL, applying newly developed methods, 
+		algorithms and scalable advanced software. In particular, we study 
+		materials with fast nonlinear optical (NLO) response over broad 
+		spectral band-widths such as reverse saturable absorbers, as well as 
+		polymer dispersed liquid crystals and advance absorbing dyes, which 
+		are critical for laser eye and sensor protection.
+		<BR><HR SIZE=6><BR>
+	<LI>Lithium Intercalated Graphite
+		<P ALIGN="center">
+		Author Dr. Lawrence Scanlon
+		<BR>Air Force Research Lab
+		<BR>Wright-Patterson, AFB OH
+		<BR>
+		<TABLE BORDER=0 ALIGN="center">
+		<TR>
+			<TD>
+				<IMG SRC="li2c60.jpg" WIDTH="350" HEIGHT="350" ALIGN="left">
+			</TD><TD>
+				<IMG SRC="li3c60.jpg" WIDTH="350" HEIGHT="350" ALIGN="right">
+			</TD>
+		</TR>
+		</TABLE>
+		<P ALIGN="center">
+		<IMG SRC="li2c60_im.jpg">
+		</P>
+		<BR>
+		<P>
+		Computational chemistry has been used to investigate the nature of 
+		lithium bonding within a C<SUB>60</SUB> [Fullerene] carbon lattice.  
+		Two lithium-C<SUB>60</SUB> systems were  investigated.  A 
+		trilithium-C<SUB>60</SUB> system with a charge and multiplicity of 
+		(0,4) is shown.  Optimized geometries for these systems suggest two 
+		types of lithium within the C<SUB>60</SUB> lattice.  An ionic lithium 
+		is obtained for the dilithium-C<SUB>60</SUB> system and a lithium 
+		with covalent character is obtained for the trilithium-C<SUB>60</SUB> 
+		system.  In both cases the lithium-lithium separation of 2.96 Angstroms 
+		or less is consistent with that required in order to achieve ampere-hour 
+		capacities greater than that obtained in a stage 1 lithium intercalated 
+		graphite.
+		<BR><HR SIZE=6><BR>
+	<LI>Calculation of the Heats of Formation of Prospective Rocket Fuels
+		<P ALIGN="center">
+		Authors Jeff Mills and Jerry Boatz
+		<BR>Air Force Research Laboratory
+		<BR>Propulsion Directorate
+		<BR>Edwards AFB, CA
+		<BR>
+		</P>
+		<TABLE BORDER=0 ALIGN="center">
+		<TR>
+			<TD>
+				<IMG SRC="mol1.jpg" WIDTH="250" HEIGHT="200">
+				<BR>tetra(nitromethyl)spirotriskadecane
+			</TD><TD ALIGN="center">
+				<IMG SRC="mol4.jpg" WIDTH="250" HEIGHT="200">
+				<BR>2,2,6,6-tetra(nitromethyl)-spiro[3.3] heptane
+			</TD>
+			<TD>
+				<IMG SRC="mol5.jpg" WIDTH="250" HEIGHT="200">
+				<BR>2,6-bisoxetane
+			</TD>
+		</TR>
+		</TABLE>
+		<P ALIGN="center">
+		<IMG SRC="mol7_im.jpg" WIDTH="400" HEIGHT="400">
+		<BR><BR><A HREF="mol7.wrl">VRML Display</A>
+		</P>
+		<P>
+		The heat of formation of a chemical substance, the energy required 
+		to assemble it from its component elements, provides an important 
+		measure of its intrinsic energy content.  Thus, prediction of this 
+		parameter plays an important role in the search for new energetic 
+		molecules.  Accurate theoretical calculations enable evaluation of 
+		prospective high-energy rocket fuels and propellant additives in 
+		support of experimental investigators.
+		<P>
+		These calculations provide critical parameters necessary for the 
+		evaluation of a specific set of proposed rocket fuels and also help 
+		to justify a means of efficiently screening prospective molecules 
+		in the future.  Theoretical investigations of this sort, in tandem 
+		with experimental research, are part of the effort to reduce the 
+		time and expense required to develop and deploy new propellants 
+		capable of higher performance and increased payload.
+		<BR><HR SIZE=6><BR>
+	<LI>Design of New High Energy Species
+		<P ALIGN="center">
+		Authors  Mark S. Gordon and Takako Kudo
+		<BR>Department of Chemistry
+		<BR> Iowa State University
+		<BR>Ames, IA
+		<BR><BR>
+		<IMG SRC="mark_im.jpg">
+		<BR><A HREF="mark.wrl">VRML Display</A>
+		</P>
+		<P>
+		Polyhedral Oligomeric Silsesquioxanes (POSS) hold great promise as 
+		lubricants and protective coatings for space vehicles, among many 
+		other uses.  At present, however, little is known about the mechanism 
+		of formation of these species, or about the role of solvent, catalysts, 
+		or pendant chemical groups.  The objective of this research is to use 
+		computational chemistry to determine plausible routes to the POSS and 
+		then to propose new synthetic routes and new species.
+</UL>
+<HR SIZE=10>
+</BODY>
+</HTML>

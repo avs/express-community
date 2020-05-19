@@ -1,0 +1,70 @@
+ReadPlot3d
+https://github.com/avs/express-community
+----------
+
+This directory ( xp_comm_proj/rdplot3d/ ) contains all the V code, source code,
+HTML documentation, and installation information for the "ReadPlot3d"
+project.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new ReadPlot3d project, and two single line additions to some of the xp_comm_lib/
+files (in this instance data_io.v and examples.v) to add a link to the User
+Macro and the Example Application from the new top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Please note that the process is set to inherit from
+the parent libraries (usually the express process).
+
+Either select the library XP_COMM_PROJ.ReadPlot3d.ReadPlot3dMods and then choose
+compile from the Project menu, or use the following VCP command:
+
+$compile XP_COMM_PROJ.ReadPlot3d.ReadPlot3dMods
+
+Alternatively you may compile without starting the AVS/Express application:
+
+e.g., base -comp_proc express -exit
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/rdplot3d/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ data_io.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+rdplot3d.v	Creates the XP_COMM_PROJ.ReadPlot3d library.
+
+rdp3mods.v	Creates the ReadPlot3dMods library containing the low-level
+		module ReadPlot3dFile and the parameter group ReadPlot3dParams.
+
+rdp3macs.v	Creates the ReadPlot3dMacs library containing the high-level
+		macros ReadPlot3dUI, ReadPlot3d, read_plot3d and the example
+		appplication ReadPlot3dEg.
+
+rdplot3d.c	The C source code for the ReadPlot3d module.
+
+doc_mod.html	HTML documentation for the ReadPlot3dFile module.
+
+doc_umac.html	HTML documentation for the read_plot3d User Macro.
+
+README		This file.
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+rdplot3d.o	Intermediate object file.

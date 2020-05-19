@@ -1,0 +1,158 @@
+<html>
+<head>
+<title>CatmullRomSpline</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>CatmullRomSpline</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Generates a Catmull-Rom spline from a series of 2D or 3D coordinates.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module CatmullRomSpline < build_dir="xp_comm_proj/catmull",
+                          src_file="catmull.c",
+                          out_src_file="gen.cxx",
+                          out_hdr_file="gen.h",
+                   		  c_src_files="spline.c",
+                          c_hdr_files="spline.h"> {
+
+      float points<NEportLevels={2,0}>[];
+
+      CatmullParams &amp;CatmullParams <NEportLevels={2,0}>;
+
+      omethod+notify_inst+req update(
+         .points+read+notify+req,
+         .line_type+read+notify,
+         .steps+read+notify,
+         .nspace+read,
+         .out+write
+      ) = "update";
+
+      int line_type => CatmullParams.line_type;
+      int steps => CatmullParams.steps;
+
+      float dims[] => array_dims(points);
+      int nspace => (array_size(points) / dims[1]);
+
+      float out<NEportLevels={0,2}>[((((array_size(.points) / .nspace) - .line_type) * .steps) + 1)][.nspace];
+  };
+
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+CatmullRomSpline is a low level module that takes a series of either 2D or 3D floating point coordinates and generates a spline that passes through all the points with C1 continuity. The spline is then output as a similar series of coordinates, the number of which is determined by the number of steps required. If these points are to be displayed they then have to be converted into a mesh.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;points</b></i>
+</blockquote>
+
+<blockquote>
+Reference to an array of floating point coordinates which are to be used as the nodes that the spline curve connects. Coordinates can be either 2 or 3 dimensional and should be represented by arrays of the form <tt>[n][2]</tt> and <tt>[n][3]</tt> respectively, where <tt>n</tt> is the number of nodes. A spline curve is then generated that connects the nodes together in the order given.
+</blockquote>
+
+<blockquote>
+<i><b>&amp;CatmullParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the parameters for the CatmullRomSpline function.
+</blockquote>
+
+<blockquote>
+<i><b>steps</b></i>
+</blockquote>
+
+<blockquote>
+Number of line segments to be used to smooth the line between two points. The parameter is of type int. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;CatmullParams input.
+</blockquote>
+
+<blockquote>
+<i><b>line_type</b></i>
+</blockquote>
+
+<pre>
+      enum line_type { choices => {"closed","open"}; } = "closed";
+</pre>
+
+<blockquote>
+Defines whether the spline is closed or left open. The parameter is an enumeration of two values, this is defined using the code above. Normally the value of this parameter is found by referring to the parameter block, which is referenced by the &amp;CatmullParams input.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The generated spline curve represented as a series of floating point coordinates along the spline. The number of coordinates generated is determined by the steps parameter. The resultant array is of the same form as the input array. Therefore for a closed 3D spline the output array would have the following dimensions <tt>[(n * steps) + 1][3]</tt> where <tt>n</tt> is the original number of nodes.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level CatmullRomSpline module is used in the User Macro catmull. Additionally, this macro also uses the CatmullParams parameter block group object, as does the CatmullUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application CatmullEg is provided, which takes an array of 8 3D coordinates and smoothes the polyline between them by calculating a Catmull-Rom spline curve.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/catmull/ctmlmods.v</I> contains the CatmullParams group and the CatmullRomSpline module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level CatmullMods library containing the module CatmullRomSpline does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Mario Valle
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CatmullParams, CatmullUI, <a href="doc_umac.html" name="catmull">catmull</a>
+</blockquote>
+
+<blockquote>
+
+</blockquote>
+
+</body>
+</html>

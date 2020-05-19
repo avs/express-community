@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/nullbrik/nullbrik.v" NullBrick;
+# In the following xp_comm_lib file
+filters.v
+# insert the following line
+  XP_COMM_PROJ.NullBrick.NullBrickMacs.null_brick null_brick;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.NullBrick.NullBrickMacs.NullBrickEg1 NullBrickEg1;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.NullBrick.NullBrickMacs.NullBrickEg2 NullBrickEg2;

@@ -1,0 +1,226 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>ReadDbaseMods</title>
+</head>
+<body text="#000000" bgcolor="#92BFBF" link="#0000EE" vlink="#551A8B" alink="#FF0000">
+
+<h1>ReadDbaseMods</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Suite of low-level modules to read Borland dBASE files (.dbf).  Originally designed for use by the Arc/Info Shape File reader.
+</blockquote>
+
+<blockquote><hr>
+<h3>Interface Specification:</h3>
+
+<p>ReadDBFType</p>
+
+<pre>
+  module ReadDBFType {
+      string+IPort2 DBFFileName;
+      string+IPort2 ColumnName;
+      int+IPort2    ColumnNumber;
+
+      int+OPort2 ColumnType;
+  };
+</pre>
+
+<p>ReadDBFDate, ReadDBFFloat, ReadDBFInteger, ReadDBFLogical &amp; ReadDBFString</p> 
+
+<pre>
+   module {
+      string+IPort2 DBFFileName;
+      string+IPort2 ColumnName;
+      int+IPort2    ColumnNumber;
+
+      int NumberOfValues;
+      prim+OPort2 ColumnValues[NumberOfValues];
+   };
+</pre>
+
+<hr></blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This library contains a suite of low-level modules for reading dBase database files.  The Borland dBase format is a popular database storage format that allows database columns and rows to be stored in a binary structured file.  Each column in the database can have a different data type.  Hence the module suite contains a module that discovers the type of a column and a column reading module for each type of data.  If the specified column is valid and of the appropriate type the column reading module will read the contents of column into an array.</p>
+
+<p>This suite of modules works as a stand-alone dBase reading system.  However the suite was originally developed to be used with the <a href="http://www.iavsc.org/repository/express/data_io.html#rd_shape">ReadShape</a> project that reads Arc/Info Shape files.  In the Arc/Info Shape format attributes of the geometry, such as city names, are stored in dBase files.  As this suite will generally have to be used as part of a larger system no high-level macros have been developed.  An example of the use of this suite can be found in the ReadDbaseEg example application.</p>
+
+<p>The current version of the ReadDbase project adds support for 64 bit platforms.  This support has currently only been tested on a SGI Origin 2000.</p>
+</blockquote>
+
+
+<h4>Modules:</h4>
+
+<blockquote>
+<table BORDER=0 COLS=2 WIDTH="52%" summary="Module Use Summary">
+
+<tr>
+<td><b>ReadDBFDate</b></td>
+<td>Extracts Date Column</td>
+</tr>
+
+<tr>
+<td><b>ReadDBFFloat</b></td>
+<td>Extracts Floating Point (Real) Column</td>
+</tr>
+
+<tr>
+<td><b>ReadDBFInteger</b></td>
+<td>Extracts Integer Column</td>
+</tr>
+
+<tr>
+<td><b>ReadDBFLogical</b></td>
+<td>Extracts Logical Column</td>
+</tr>
+
+<tr>
+<td><b>ReadDBFString</b></td>
+<td>Extracts String Arrays</td>
+</tr>
+
+<tr>
+<td><b>ReadDBFType</b></td>
+<td>Identifies Types</td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<b><i>DBFFilename</i></b>
+</blockquote>
+
+<blockquote>
+The name of the file that should be read from. The parameter is of type string.  The filename should specify the full path name of the file.
+</blockquote>
+
+<blockquote>
+<b><i>ColumnName</i></b>
+</blockquote>
+
+<blockquote>
+The name of the column that should be read into an array. The parameter is of type string.  If a column number is also provided then the column name should match the column number.
+</blockquote>
+
+<blockquote>
+<b><i>ColumnNumber</i></b>
+</blockquote>
+
+<blockquote>
+The number of the column that should be read into an array. The parameter is of type int.  If a column name is also provided then the column name should match the column number.  The first column is numbered 1. 
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<h4>ReadDBFType</h4>
+
+<blockquote>
+<b><i>ColumnType</i></b>
+</blockquote>
+
+<blockquote>
+<p>A integer value specifying the data type of the column being examined.  
+The data type can be derived from the resulting value as follows:</p>
+
+<ol>
+<li>string</li>
+<li>date</li>
+<li>logical</li>
+<li>integer</li>
+<li>float</li>
+</ol>
+
+<p>A value of zero means that the data type was found to be invalid.</p>
+</blockquote>
+
+
+<h4>ReadDBFDate, ReadDBFFloat, ReadDBFInteger, ReadDBFLogical &amp; 
+ReadDBFString</h4>
+
+<blockquote>
+<b><i>NumberOfValues</i></b>
+</blockquote>
+
+<blockquote>
+A integer value specifying the number of values in the column that is being read from.  This is used to size the output array that contains the values read from the column.
+</blockquote>
+
+<blockquote>
+<b><i>ColumnValues[]</i></b>
+</blockquote>
+
+<blockquote>
+An array of primitive values containing the data read from the dBase file.  The exact type of the array is dependent upon the data type of the data being read.  ReadDBFFloat, ReadDBFInteger and ReadDBFString have output arrays of float, int and string as would be expected.  As AVS/Express does not have a logical or date data type, ReadDBFLogical is read into a char array and ReadDBFDate is read into a string array.  The size of output array is given by the NumberOfValues property.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The ReadDbase suite of modules does not have any user or functional macros.  The comb_mesh_and_data module is provided.  However this module simply replicates the behaviour of the DVcomb_mesh_and_data module so that the example application can be used with the Visualization edition of AVS/Express.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadDbaseEg is provided that reads a supplied dBase file and generates a very simple map from it.  The data file contains the coordinates, names, populations and sample dates of several cities.  The application reads these values and maps the city names to text-glyphs and the population size to proportionally sized diamond glyphs.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_dbase/rddbmods.v</i> contains the V definitions of the suite of dBase reading modules.</p>
+
+<p><i>xp_comm_proj/rd_dbase/rddbmacs.v</i> contains the V definitions of the comb_mesh_and_data macro and the ReadDbaseEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>This suite of dBase reading modules is implemented by an underlying C++ class system, which is then connected to the AVS/Express cxx module system. Not all possible DBF file entities are mapped. This set of modules has only been extensively tested with DBF files from Arc/Info.</p>
+
+<p>The low-level ReadShapeMods library containing the low-level module suite does not specify a process. By default the <tt>express</tt> process will be used.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Steve Walker
+Advanced Visual Systems, Inc.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/data_io.html#rd_shape">ReadShape</a> IAC project.</li>
+<li>AVS/Express GIS Kit</li>
+<li>AVS/Express DataBase Kit</li>
+</ul>
+
+</body>
+</html>
+

@@ -1,0 +1,80 @@
+Express Community StringList Module
+https://github.com/avs/express-community
+---------------------
+
+This directory ( xp_comm_proj/strlist/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community StringList 
+module.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new StringList project, and a single line addition to an xp_comm_lib/
+file (in this instance misc.v) to add a link to the User
+Macro from the new top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of
+the new project may be compiled. If you opt to leave the process
+unspecified, it will by default use the "express" process. Doing so
+means the module may be compiled by using one of the following
+commands in the top-level directory of your project (whilst
+AVS/Express is not running):
+
+	base -comp_proc express -exit
+
+or	make -f express.mk
+
+	Using the 'make' command, requires that the express.mk file
+already exists, and has been updated accordingly.
+
+	If you modify the StringList project, and elect to specify the
+process as "user" or another user-defined process, then the module may
+be compiled without having to exit the AVS/Express application. Use
+the following command in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.StringList.StringListMods
+
+	Users of the Developer's Edition may select the module in the
+relevant Templates library, and choose 'compile' from the Project
+menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/strlist/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/misc.v file. This file should not be edited as the
+			   future installation script will use this file.
+
+strlist.v      Creates the XP_COMM_PROJ.StringList library.
+
+strlmods.v     Creates the StringListMods library containing the low-level
+               module StringListCore and the parameter block StringListParams.
+
+strlmacs.v     Creates the StringListMacs library containing the high-level
+               functional macro StringListFunc, user macro UIStringList.
+
+strlist.c      The C source code for the StringListCore module.
+
+strlmods.html  HTML documentation for the StringListCore low level module.
+
+strlmacs.html  HTML documentation for the UIStringList high level macro.
+
+README         This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h           AVS/Express generated header file.
+
+strlist.o       Intermediate object file.

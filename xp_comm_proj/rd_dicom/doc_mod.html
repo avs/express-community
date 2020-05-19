@@ -1,0 +1,432 @@
+<html>
+<head>
+<title>Read DICOM Modules</title>
+</head>
+<body bgcolor="#92bfbf">
+<h1>Contents</h1>
+<ul>
+  <li><a href="#read_dicom_files">read_dicom_files</a></li>
+  <li><a href="#read_DCMLIST">read_DCMLIST</a></li>
+</ul>
+
+<h1><a name="read_dicom_files">read_dicom_files</a></h1>
+
+<h3>Synopsis</h3>
+
+<blockquote> Reads a series of DICOM files and outputs a uniform AVS field
+reconstructing a volume of data. Further information from the DICOM files is
+placed the DICOM_Header object.  </blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module ReadDicomFile
+  {
+      string filenames&lt;NEportLevels={2,0}&gt;[];
+      int trigger&lt;NEportLevels={2,0}&gt;;
+      int flip&lt;NEportLevels={2,0}&gt;;
+      int busy&lt;NEportLevels={0,2}&gt; = 0;
+      int done&lt;NEportLevels={0,2}&gt; = 0;
+      XP_COMM_PROJ.ReadDICOM.ReadDICOMData.DICOM_Header header&lt;NEportLevels={0,2}&gt;;
+      XP_COMM_PROJ.ReadDICOM.ReadDICOMData.DICOM_Volume volume&lt;NEportLevels={0,2}&gt;;
+      cxxmethod+req read (
+	 filenames+read+req,
+	 trigger+notify,
+	 flip+read,
+	 busy+write+nonotify,
+	 done+write+nonotify,
+	 header+write+nonotify,
+	 volume+write+nonotify
+      );
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote> This read_dicom_files module reads a <B>set</B> of DICOM V3
+<B>files</B> and outputs a uniform field. Further information from the DICOM
+files is placed the DICOM_Header object.  </blockquote>
+
+<blockquote> The uniform field is output as a DICOM_Volume object.  This object
+is derived from the Field_Unif module and and can hence be used in the exactly
+the same way.  It can be directly connected to all the standard visualization
+modules.  The information in the image header is output as an DICOM_Header
+object.  This object simply contains references to 4 further objects which
+actually contain the primitive data values.  See below for further
+information. The extents of the volume (ie points array) are set to the physical
+dimensions of the volume include the correct slice spacing.  </blockquote>
+
+<blockquote> The read_dicom_files module uses the DCM ToolKit (DCMTK) to read
+DICOM files.  This toolkit was developed by the <a
+href="http://dicom.offis.de/index.php.en">OFFIS Institute for Information
+Technology</a>.  </blockquote>
+
+
+<h3>Input</h3>
+
+<blockquote>
+<i><b>filenames</b></i>
+</blockquote>
+
+<blockquote> This is an array of filenames of the DICOM files that make up the
+volume. They will be read in the order specified (unless <b>flip</b> is set)
+hence the first image will be placed at z = 0, the next at z = 1 etc. .
+</blockquote>
+
+
+<blockquote>
+<i><b>flip</b></i>
+</blockquote>
+
+<blockquote> By default images are read into the volume starting from the
+bottom. If you wish to reverse the order of the images set this value to 1
+before reading the data.  An integer.  </blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>busy</b></i>
+</blockquote>
+
+<blockquote> This parameter indicates whether the read_dicom_files module is
+currently busy processing data.  The parameter is of type int.  The parameter is
+set as appropriate by the ReadDicomFile module.  It can be used by the user
+interface to indicate the current state of the module.  </blockquote>
+
+
+<blockquote>
+<i><b><a name="volume">volume</a></b></i>
+</blockquote>
+
+<blockquote> This object contains the stacked image data contained within the
+DICOM files. The object is of type DICOM_Volume.  This object is derived from
+Field_Unif and can be used in the exactly the same way as a standard uniform
+field.  The DICOM_Volume object sets the number of dimensions so that only 3D
+data can be stored in the object.  This will not effect how the object can be
+used.  </blockquote>
+
+<blockquote>
+<i><b><a name="header">header</a></b></i>
+</blockquote>
+
+<blockquote>
+This object contains the header information contained within the DICOM
+file. The object is of type DICOM_Header. This object contains
+references to 5 further objects. These objects actually contain the
+information read from the DICOM file. Each of these sub-objects
+corresponds to the appropriate DICOM module. These modules are patient,
+generalStudy, generalSeries, generalEquipment & imageSeries and contain the
+information shown below.
+</blockquote>
+
+<ul>
+<li>Patient</li>
+  <ul>
+  <li>PatientsNameP</li>
+  <li>PatientIDP</li>
+  <li>PatientsBirthDateP</li>
+  <li>PatientsBirthTimeP</li>
+  <li>PatientsSexP</li>
+  <li>ReferencedPatientSequenceP</li>
+  <li>OtherPatientID</li>
+  <li>OtherPatientNamesP</li>
+  <li>EthnicGroupP</li>
+  <li>PatientCommentsP</li>
+  </ul>
+<li>General_Study</li>
+  <ul>
+  <li>StudyInstanceUIDGS</li>
+  <li>StudyDateGS</li>
+  <li>StudyTimeGS</li>
+   <li>ReferringPhysiciansNameGS</li>
+  <li>StudyIDGS</li>
+  <li>AccessionNumberGS</li>
+  <li>StudyDescriptionGS</li>
+  <li>NameofPhysiciansReadingStudyGS</li>
+  <li>ReferencedStudySequenceGS</li>
+  </ul>
+<li>General_Series</li>
+  <ul>
+  <li>ModalityGS</li>
+  <li>SeriesInstanceUIDGS</li>
+  <li>SeriesNumberGS</li>
+  <li>Laterality</li>
+  <li>SeriesDate</li>
+  <li>SeriesTime</li>
+  <li>PerformingPhysiciansNameGS</li>
+  <li>ProtocolName</li>
+  <li>SeriesDescription</li>
+  <li>OperatorsName</li>
+  <li>ReferencedStudyComponentSequenceGS</li>
+  <li>BodyPartExaminedGS</li>
+  <li>PatientPosition</li>
+  <li>SmallestPixelValueinSeries</li>
+  <li>LargestPixelValueinSeries</li>
+  </ul>
+<li>General_Equipment</li>
+  <ul>
+  <li>ManufacturerGE</li>
+  <li>InstitutionNameGE</li>
+  <li>InstitutionAddressGE</li>
+  <li>StationName</li>
+  <li>InstitutionalDepartmentName</li>
+  <li>ManufacturersModelName</li>
+  <li>DeviceSerialNumberGE</li>
+  <li>SoftwareVersionsGE</li>
+  <li>SpatialResolution</li>
+  <li>DateofLastCalibration</li>
+  <li>TimeofLastCalibration</li>
+  <li>PixelPaddingValue</li>
+  </ul>
+<LI>Image_Series</LI>
+  <UL>
+    <LI>Interpretation</LI>
+    <LI>Rows</LI>
+    <LI>Columns</LI>
+    <LI>Slices</LI>
+    <LI>BitsAllocated</LI>
+    <LI>SliceSpacing</LI>
+    <LI>XSpacing</LI>
+    <LI>YSpacing</LI>
+    <LI>WindowCentre</LI>
+    <LI>WindowWidth</LI>
+  </UL>
+</ul>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote> The low-level read_dicom_files module is used in the User Macro <a
+href="doc_umac.html#ReadDICOM">ReadDICOM</a>.  </blockquote>
+
+<h3>Example</h3>
+
+<blockquote> Two example applications are provided.  They both read in a DICOM
+format file.  The TileDicomEg example uses the tile_volume module to visualize
+the data whilst the IsoVolDicomEg example uses the isovolume module.  The
+IsoVolDicomEg also uses a downsize module to reduce the amount of data to be
+visualized.  A sample DICOM files set <i>?????</i> is provided with the
+distribution of this module.  </blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote> <I>xp_comm_proj/rd_dicom/rddimods.v</I> contains the V definitions for
+read_dicom_file. <I>xp_comm_proj/rd_dicom/rddidat.v</I> contains the V definitions
+for DICOM_Volume, DICOM_Header, Patient, General_Study, General_Series,
+General_Equipment and Image_Series parameter blocks.  </blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Written by James S. Perrin (UoM)
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote> <a href="#read_DCMLIST">read_DCMLIST</a>, <a
+href="doc_umac.html#ReadDICOM">ReadDICOM</a>, TileDicomEg, IsoVolDicomEg,
+Read_ACR_NEMA (IAC module) </blockquote>
+
+<hr>
+
+<h1><a name="read_DCMLIST">read_DCMLIST</a></h1>
+
+<h3>Synopsis</h3>
+
+<blockquote> This module is a simple DICOM file manager. It scans a directory of
+DICOM files and determines the patient, studies and series that they belong
+to. The information is then written to the DCMLIST file.  </blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module read_DCMLIST 
+   {
+      string dirname&lt;NEportLevels={2,1}&gt;;
+      int rescan&lt;NEportLevels={2,0}&gt;;
+      int delete&lt;NEportLevels={2,0}&gt;;
+      int nfiles&lt;NEportLevels={0,2}&gt;;
+      int selected_series&lt;NEportLevels={2,0}&gt;;
+      string filenames&lt;NEportLevels={0,2}&gt;[nfiles];
+      int nseries&lt;NEportLevels={0,2}&gt;;
+      string series&lt;NEportLevels={0,2}&gt;[nseries];
+      int series_st_en&lt;NEportLevels={0,2}&gt;[nseries][2];
+      cxxmethod+notify_inst+req read (
+	 dirname+read+req+notify,
+	 rescan+read+notify,
+	 nfiles+write,
+	 filenames+write,
+	 nseries+write,
+	 series+write,
+	 series_st_en+write
+      );
+      cxxmethod+req remove (
+	 delete+read+req+notify,
+	 dirname+read+req,
+	 selected_series+read+req,
+	 nfiles+write,
+	 filenames+write,
+	 nseries+write,
+	 series+write,
+	 series_st_en+write
+      );
+   };
+
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote> The low-level read_DCMLIST module provides a method of handling a
+directory of DICOM files. It parses a directory of DICOM images and groups the
+files by patient, study and series. A set of DICOM images, that were obtained
+sequentially and can be stacked to reconstruct a volume of data, form a series
+(they are exceptions such as calibration images). The resulting information is
+written to the directory in a file called DCMLIST which will be read
+subsequently so that the files do not need to be parsed again, unless of course
+files are added or removed.  </blockquote>
+
+<blockquote> The module creates an array of strings describing each series
+(Patient, Study number, Study Date, Series number, Series Date, Number of
+images). On selecting a series the module provides the indices of the first and
+last filenames making up the series from and array of all the filenames. These
+values can be passed to the <a
+href="../strarsub/strarsub.html">StringArraySubset</a> module from the IAC, to
+extract an array of the filenames they constitute the series. Finally these
+filenames may be passed to the <a href="#read_dicom_files">read_dicom_files</a>
+module to load and reconstruct the volume.  </blockquote>
+
+<blockquote> The read_dicom_files module uses the DCM ToolKit (DCMTK) to read
+DICOM files.  This toolkit was developed by the <a
+href="http://dicom.offis.de/index.php.en">OFFIS Institute for Information
+Technology</a>.  </blockquote>
+
+<h3>Input</h3>
+
+<blockquote>
+<i><b>dirname</b></i>
+</blockquote>
+
+<blockquote> A string containing the name of the directory holding the DICOM
+files. When this is changed the module will attempt to find the DCMLIST file. It
+will report an error if none is found, in which case the directory should be
+rescanned. Under UN*X's read_DCMLIST expects the DICOM files to appear in a
+single directory and the DICOM client tools tend to simply dump the files in one
+location. Under Windows however we used a freeware tool (to acedemia at least)
+called <a href="http://www.efilm.ca">eFilm</a> to provide the DICOM node. It
+stores the files in a under a given directory using the patientID and SeriesID
+to create a further two levels of directory hierachy. Hence <b>dirname</b>
+should be the directory containing the patient directories. If you do not use
+eFilm on Windows or have all you DICOM files in a single directory you can
+simply create three levels of directories and place the files in the bottom one
+e.g., <i><tt>C:\my_dicom\pat\series\myfile_1.dcm</tt></i> etc. and
+<b>dirname</b> is <i><tt>"C:\my_dicom"</tt></i>.  </blockquote>
+
+<blockquote>
+<i><b>rescan</b></i>
+</blockquote>
+
+<blockquote> Cause the module to rescan the specified directory if set. This
+should be performed if new files are added or manually removed from the
+directory. <i>NOTE</i> Scanning a large number of files can take a few minutes.
+</blockquote>
+
+<blockquote>
+<i><b>delete</b></i>
+</blockquote>
+
+<blockquote>
+<i><b>selected_series</b></i>
+</blockquote>
+
+<blockquote> The index of the currently selected series. This is used whenever
+<b>delete</b> is set. It is also the index into the <b>series_st_en</b>.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>filenames</b></i>
+</blockquote>
+
+<blockquote> A string array containing in order all the filenames of the DICOM
+files found.  </blockquote>
+
+<blockquote>
+<i><b>nseries</b></i>
+</blockquote>
+
+<blockquote>
+The total number of series found.
+</blockquote>
+
+<blockquote>
+<i><b>series</b></i>
+</blockquote>
+
+<blockquote>
+An array of strings describing each series.
+</blockquote>
+
+<blockquote>
+<i><b>series_st_en</b></i>
+</blockquote>
+
+<blockquote> A two dimensional array containing the start and end indices for
+each series in the filenames array.  </blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote> The low-level read_dicom_files module is used in the user macro <a
+href="doc_umac.html#ReadDCMLISTUI">ReadDCMLISTUI</a>, which is subsequently used
+by <a href="doc_umac.html#ReadDICOM">ReadDICOM</a>.  </blockquote>
+
+<h3>Example</h3>
+
+<blockquote> Two example applications are provided.  They both read in a DICOM
+format file.  The TileDicomEg example uses the tile_volume module to visualize
+the data whilst the IsoSurfaceDicomEg example uses the isosurface module.  The
+IsoSurfaceDicomEg also uses a downsize module to reduce the amount of data to be
+visualized. </blockquote>
+
+<h3>Files</h3>
+
+<blockquote> <I>xp_comm_proj/rd_dicom/rddimods.v</I> contains the V definitions for
+read_DCMLIST </blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote> read_DCMLIST is design to be used in conjunction with <a
+href="#read_dicom_files">read_dicom_files</a>. The low-level ReadDICOMMods
+library containing the module read_DCMLIST does not specify a process. By
+default the express process will be used.  </blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+James S. Perrin (MVC)
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<blockquote> <a href="#read_dicom_files">read_dicom_files</a>, <a
+href="doc_umac.html#ReadDICOM">ReadDICOM</a>, <a
+href="doc_umac.html#ReadDCMLISTUI">ReadDCMLISTUI</a>, TileDicomEg,
+IsoVolDicomEg, Read_ACR_NEMA (IAC module) </blockquote>
+
+</body>
+</html>
+

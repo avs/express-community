@@ -1,0 +1,17 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/tubes/tubes.v" Tubes;
+# In the following xp_comm_lib file
+mappers.v
+# insert the following line
+  XP_COMM_PROJ.Tubes.TubesMacs.Tubes tubes;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Tubes.TubesMacs.TubesEg1 TubesEg1;
+  XP_COMM_PROJ.Tubes.TubesMacs.TubesEg2 TubesEg2;
+  XP_COMM_PROJ.Tubes.TubesMacs.SimpleTubesEg SimpleTubesEg;
+  XP_COMM_PROJ.Tubes.TubesMacs.BlendyTubesEg BlendyTubesEg;
+  XP_COMM_PROJ.Tubes.TubesMacs.EdgesTubesEg EdgesTubesEg;
+

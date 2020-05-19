@@ -1,0 +1,200 @@
+<html>
+<head>
+<title>read_movie_apply_offset</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>read_movie_apply_offset</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+Reads in an offset file and applies the offset vectors to the coordinates of the input field data.
+</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>in</i></td>
+<td width="80">Mesh+Node_Data</td>
+<td width="425">field data representing the input BYU model.</td>
+</tr>
+<tr>
+<td width="100"><i>scale</i></td>
+<td width="80">float</td>
+<td width="425">scale factor for the offset vectors.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block ReadMovieOffsetParams, which are accessed by the module ReadMovieOffsetFile and the UI Macro ReadMovieOffsetUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="150"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">Offset file to be read</td>
+<td width="150">'Read MOVIE-BYU Offset File Name'</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>out</i></td>
+<td width="80">Mesh+Node_Data</td>
+<td width="425">field data representing the offset BYU model.</td>
+</tr>
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable offset output object.</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+read_movie_apply_offset reads in an offset file and generates both field data and renderable Data Objects offset by the specified amount.  The offset file is an ASCII file which should consist of a series of 3D vectors that represent the offset to be applied to the respective coordinate in the field data input to the module. The file format can be seen in the supplied example files, cube001 to cube008. The offset file to be read can be specified through a simple user interface.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+The field data that the offset is to be applied to. The type of this field is Mesh+Node_Data
+</blockquote>
+
+<blockquote>
+<i><b>scale</b></i>
+</blockquote>
+
+<blockquote>
+The factor by which the offsets from the offset file are scaled by. The type of this field is float. It should be noted that only the offset vectors are scaled, the original data is not scaled by this parameter.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ReadMovieOffsetParams parameter block group, this string value is used to specify the name of the offset file that should be applied to the input field data.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the read_movie_apply_offset macro. This contains the model read from the BYU file represented as field data, offset by the amount specified in the offset file.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the read_movie_byu macro. This contains a DataObject object that can be rendered by the standard data viewers. The Data Object is generated from the input field data, after being offset by the amount specified in the offset file.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+This user macro uses the general user macro, read_movie_offset and adds
+the functionality required for the macro to act as a section in the
+visualization pipeline. The read_movie_offset macro in turn makes use of
+the functional macro ReadMovieOffset, which uses the low level modules
+<a href="rdoffbyu.html">ReadMovieOffsetFile</a> and
+ReadMovieBYUApplyOffset.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadMovieBYUEg is provided, which uses the <a href="rdbyumac.html" name="read_movie_byu">read_movie_byu</a> macro to load a BYU file that is then animated by the read_movie_animate macro.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rdmovbyu/rdmbmacs.v</i> contains the read_movie_apply_offset User Macro, the ReadMovieOffset Functional Macro, the ReadMovieOffsetUI UI Macro, and the example application ReadMovieBYUEg V definitions. The file also contains several other macro definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ReadMovieBYUMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level ReadMovieOffsetFile module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington
+Paul G. Lever
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadMovieOffsetParams, ReadMovieOffsetUI, ReadMovieOffset, ReadMovieBYUApplyOffset and <a href="rdoffbyu.html" name="ReadMovieOffsetFile">ReadMovieOffsetFile</a>.
+</blockquote>
+
+</body>
+</html>

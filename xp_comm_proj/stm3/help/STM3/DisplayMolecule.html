@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module DisplayMolecule documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,PDB">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Display Molecule</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Display Molecule</h1>
+
+<h2>Description</h2>
+<p>Transform the molecule structure data into graphic objects for display.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Visibility</td>
+	<td class="c2">various toggles</td>
+	<td class="c3">The following items can be made independently visible:
+	<dl>
+		<dt>atoms</dt>
+		<dt>bonds</dt>
+		<dt>atom names</dt>
+		<dt>residue names</dt>
+	</dl></td>
+</tr>
+<tr>
+	<td class="c1">single res name</td>
+	<td class="c2">toggle</td>
+	<td class="c3">If set only a residue name label per residue is displayed instead of one label per atom.</td>
+</tr>
+<tr>
+	<td class="c1">Fast Rot</td>
+	<td class="c2">toggle</td>
+	<td class="c3">If set the atom structure is replaced on viewer by a lighter one during manimulations. This is useful with big structures to
+	speedup manipulations.</td>
+</tr>
+<tr>
+	<td class="c1">Resolution</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">Sets the resolution of ball and sticks. Useful with big molecules.</td>
+</tr>
+<tr>
+	<td class="c1">Visualization format</td>
+	<td class="c2">list</td>
+	<td class="c3">Select the visualization format for the molecule. The available formats are:
+	<dl>
+		<dt>Ball and Stick</dt>
+			<dd>Standard format.</dd>
+		<dt>CPK</dt>
+			<dd>Usual space filling format.</dd>
+		<dt>Colored Stick</dt>
+			<dd>Only bonds are show with rounded edges.</dd>
+		<dt>Colored Residue</dt>
+			<dd>Only bonds are show colored by the corresponding residue type.</dd>
+		<dt>Stick</dt>
+			<dd>Only bonds are show colored by the default object color.</dd>
+		<dt>Licorice</dt>
+			<dd>Only bonds are show with rounded edges -like colored stick- but also orphan atoms are show.</dd>
+		<dt>Licorice Stick</dt>
+			<dd>Same as Stick, but with rounded edges.</dd>
+		<dt>Ball and Stick (charge)</dt>
+			<dd>The atoms are colored by the charge value.</dd>
+		<dt>CPK (charge)</dt>
+			<dd>Usual space filling format in which the atoms are colored by the charge value.</dd>
+		<dt>Licorice (charge)</dt>
+			<dd>Only the bonds are show, but with rounded edges. Also orphan atoms are show. The atoms are colored by the charge value.</dd>
+	</dl>
+	</td>
+</tr>
+<tr>
+	<td class="c1">Bonds format</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">The bonds can be represented as:
+	<dl>
+	<dt>lines</dt>
+	<dt>tube</dt>
+	<dt>all H bonds (normal and H-bonds) as lines</dt>
+	<dt>only the H-bonds as lines</dt>
+	</dl>
+	</td>
+</tr>
+<tr>
+	<td class="c1">Split Color</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Set the coloring of bonds to be two uniform bands instead of an interpolated color between the two atoms colors.</td>
+</tr>
+<tr>
+	<td class="c1">Open display parameter settings</td>
+	<td class="c2">button</td>
+	<td class="c3">Open an auxiliar screen to set rarely changed graphic display settings.</td>
+</tr>
+<tr>
+	<td class="c1">use manual limits</td>
+	<td class="c2">toggle</td>
+	<td class="c3">This section appears only if a representation that maps charge values is selected.
+	For the charge color mapping use the limits entered below. If not set the charge limits are computed by the module and show
+	in the fields below.</td>
+</tr>
+<tr>
+	<td class="c1">min, max</td>
+	<td class="c2">numeric fields</td>
+	<td class="c3">Limits of the atoms charge values. Used to color the atoms itself.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">Graphic object to be sent to the viewer (MolViewer or the standard Uviewer3D).</td>
+</tr>
+<tr>
+	<td class="c1">display_params</td>
+	<td class="c2"><a href="DisplayParams.html">DisplayParams</a></td>
+	<td class="c3">Molecule display settings data.</td>
+</tr>
+</table>
+
+</body></html>

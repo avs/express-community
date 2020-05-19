@@ -1,0 +1,74 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "Jpglless"=.\JpegDir\JpgLless\Jlless.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Jpglossy"=.\JpegDir\JpgLossy\Jlossy.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Papyrus3"=.\Papyrus3.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name Jpglless
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Jpglossy
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name dicomdir
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "dicomdir"=.\dicomdir\dicomdir.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

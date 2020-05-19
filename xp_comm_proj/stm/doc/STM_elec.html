@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:10pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META  HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		 STM:See The Molecule
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="bg1x.jpg">
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+	STM: Electronic Structure</SPAN>
+</H1>
+<P>
+The STM codes are  a suite of application codes and AVS modules 
+is available to display both the geometric structure and electronic 
+properties.   Electronic and structural information  is obtained 
+from either Density Functional Theory (DFT) or Schr&ouml;dinger 
+Theory,  using a variety of computational or experimental approaches.
+</P>
+<P>
+Electron densities are obtained  from Density Functional Theory 
+(DFT) via the Kohn-Sham (KS) orbital-density equations:
+</P>
+<DIV ALIGN="center">
+	<IMG ALT="Kohn Sham equations" SRC="Image2.gif">
+	<BR>
+	<IMG ALT="Orbtal Expansion" SRC="Image1.gif">
+</DIV>
+where  <FONT FACE="Symbol">C<SUB>k</SUB></FONT> is the basis function 
+and the C<FONT FACE="Symbol"> &#107;</FONT> are the expansion 
+coefficients</FONT>
+</P>
+<P>
+Electron densities are obtained  from wave function functional via the  
+Schr&ouml;dinger equation; 
+<DIV ALIGN="center">
+	<IMG ALT="Wavefunction Functional" SRC="Image3.gif">
+</DIV>
+where the Fock matrix <B>F<SUB><FONT FACE="Symbol">mn</B></SUB></FONT> 
+is given by,
+<DIV ALIGN="center">
+	<IMG ALT="Fock matrix equation" SRC="Image4.gif">
+</DIV>
+where 
+<FONT SIZE=4>D</FONT><SUB><FONT FACE="Symbol" SIZE=4>ls </SUB></FONT>
+<FONT SIZE=4>= </FONT><FONT FACE="Symbol" SIZE=4>S</FONT>
+<SUB><FONT SIZE=4>i</SUB> c<SUB>i</FONT>
+<FONT FACE="Symbol" SIZE=4>l</SUB></FONT><FONT SIZE=4> c<SUB>i</FONT>
+<FONT FACE="Symbol" SIZE=4>s</SUB></FONT><FONT SIZE=4> </FONT>is the 
+density matrix and 
+<FONT SIZE=4>S</FONT><SUB><FONT FACE="Symbol" SIZE=4>mn</SUB></FONT> 
+is the overlap matrix which arises from the non-orthogonality of the 
+basis functions.
+</P>
+<P>
+Some of the molecular electronic properties are 
+<OL>
+	<LI>the <B>H</B>ighest <B>O</B>ccupied <B>M</B>olecular 
+		<B>O</B>rbital (HOMO) 
+	<LI>the electronic charge density computed from the sum  of 
+		the squares of the molecular orbitals namely,
+		<DIV ALIGN="center">
+			<IMG ALT="Electron Density Equation" SRC="Image5.gif">
+		</DIV>
+		where N is the number of electrons in the molecule, 
+		n<SUB>i</SUB> is the number of electrons in  the  
+		i<SUP>th</SUP> molecular orbital 
+	<LI>the electrostatic potential (ESP) which is written as,
+		<DIV ALIGN="center">
+			<IMG ALT="Electrostatic Potential" SRC="Image6.gif">
+		</DIV>
+		where, Z<SUB><FONT FACE="Symbol">a</SUB></FONT> is the 
+		nuclear charge on the 
+		<FONT FACE="Symbol">a</FONT><SUP>th</SUP> 
+		nuclear center in the molecule and 
+		<FONT FACE="Symbol">r</FONT>(<B>r</B><SUB>1</SUB>) is 
+		the electron density
+	<LI>the Laplacian of the density, whose zero-envelope defines 
+		a reactivity surface.
+</OL>
+<P>
+STM is designed to read GAUSSIAN <B><I>cube</I></B> output, GAUSSIAN
+<B><I>chkpnt</I></B> files (next release) and specialized GAMESS 
+output files for electronic information.  For more information on the 
+visualization modules see the description of <A HREF="STM_xp.html">the 
+AVS/Express STM modules</A>.
+</P>
+</BODY>
+</HTML>

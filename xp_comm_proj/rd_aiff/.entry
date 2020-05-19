@@ -1,0 +1,14 @@
+PNUM	P0030
+PNAME	ReadAIFF
+DATE	19th November 1999
+DESC	A module that reads AIFF audio files.
+AUTHOR	Paul G. Lever, Andrew Dodd
+VERSION	1.1
+DIR	rd_aiff
+TYPE	Data_IO
+DOC	Module;ReadAiffData;doc_mod.html
+DOC	User Macro;readAiff;doc_umac.html
+!IMAGE	
+!MOVIE	
+!PREREQ	
+NOTE	Does not read compressed AIFF files.

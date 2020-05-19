@@ -1,0 +1,226 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <meta name="Author" content="Ian Curington">
+   <title>fast_glyph_3D - Fast 3D Mesh Glyph Macro</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>fast_glyph_3D</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Fast 3D Mesh glyph mapper macro, that efficiently replicates glyph
+geometry at given coordinates.</blockquote>
+
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by fast_glyph_3D">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>glyph_fld</i></td>
+<td width="80">Mesh</td>
+<td width="425">geometry that should be placed at coordinates.</td>
+</tr>
+
+<tr>
+<td width="100"><i>coords</i></td>
+<td width="80">float[][2]</td>
+<td width="425">coordinate position list.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<table summary="Parameters used by fast_glyph_3D">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>scale</i></td>
+<td width="75">float</td>
+<td width="300">scaling factor for each glyph.</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by fast_glyph_3D">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="80">Mesh</td>
+<td width="425">output mesh containing the replicated glyphs.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="80">DataObject</td>
+<td width="425">directly renderable output object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The fast_glyph_3D macro takes a list of 3D coordinate positions and a glyph shape, and replicates that glyph at all coordinate positions. The macro outputs a 3D mesh and a directly renderable DataObject.
+</p>
+<p>
+The fast_glyph_3D macro and the low-level FastGlyph3DCore module were developed from the fast_glyph_2D macro and modules. They share many of the same features and limitations of the original modules. The most important difference is that the fast_glyph_3D macro provides no control over the orientation of the replicated glyphs. The module is also only able to deal with and output 3D data.  It expects that the coordinates are supplied as a series of x-y-z triplets.  The advantage of these limitations is that the fast_glyph_3D macro is at least 4 times faster than the standard glyph macro.
+</p>
+</blockquote>
+
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>glyph_fld</i></b></blockquote>
+
+<blockquote>Connection to the glyph geometry that should be replicated at each supplied point.  It is assumed that the glyph is 3D, has no node data and has a single cell set.  If this is not the case the node data will be discarded by the module and only the first cell set will be used for the output glyphs.
+</blockquote>
+
+<blockquote><b><i>coords[][3]</i></b></blockquote>
+
+<blockquote>Connection to a float array containing the 3D positions of each point. Examples of how to construct this array from arrays of x, y and z coordinates and from Field data can be seen in the example applications.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>scale</i></b></blockquote>
+
+<blockquote>Floating point parameter that specifies how much the glyphs should be scaled by.  This parameter applies globally to the glyphs generated and will mostly be used to size the glyphs appropriately for the data set.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_mesh</i></b></blockquote>
+
+<blockquote>Mesh containing the replicated glyph geometry.  This mesh will only contain a single cell set and no node data or cell data.
+</blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>
+The directly renderable output of the fast_glyph_3D macro.  The DataObject contained within this output is generated from the same data as that output by <tt>out_mesh</tt>.  This renderable output is the output that will normally be used.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The fast_glyph_3D use macro makes use of the FastGlyph3D functional macro and the FastGlyph3D user interface macro.  The FastGlyph3D functional macro is a wrapper around the FastGlyph3DCore low-level module.  This module contains all the C++ code necessary for this macro.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided, FastGlyph3D_SimpleEg and FastGlyph3D_SizeEg. The FastGlyph3D_SimpleEg application demonstrates how 3 arrays containing x coordinates, y coordinates and z coordinates can be input into the fast_glyph_3D macro to generate 4 diamond glyphs. The FastGlyph3D_SizeEg application demonstrates the fast_glyph_3D macro generating a large number of cross glyphs. The hydrogen data-set is read, several visualizations performed and a glyph drawn at each node point of each of these visualizations. 
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/fglyph/fgmods.v</i> contains the V definitions of the FastGlyph3DCore module.</blockquote>
+
+<blockquote><i>xp_comm_proj/fglyph/fgmacs.v</i> contains the V definitions of the FastGlyph3D Functional macro, the FastGlyph3DUI UI macro, the fast_glyph_3D user macro and the example applications.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>
+To gain the extra performance necessary this macro makes a number of assumptions and is less general than the original glyph module.  The important assumptions are mentioned above.  A complete list of assumptions is shown below:
+</p>
+
+<ul>
+<li>The input is a raw coordinate array rather than a field.</li>
+<li>The input coordinate array is assumed to be 3D (x-y-z) triplets.</li>
+<li>Only one glyph shape is drawn at each node. The module does not deal with multiple glyphs, such as in the geo_glyph module.</li>
+<li>It only processes the first cell set of the glyph. If the glyph has several cell sets, such as lines and quads, it will only use the first one in the list.</li>
+<li>The output is a Mesh with only one cell set. This is very efficient for
+rendering speed.</li>
+<li>All node data is ignored, if present on the input field (coordinates) or
+the glyph field. This module only processes geometry.</li>
+<li>When using the Developer's edition of AVS/Express the renderable output is a light-weight DataObject designed to go into a 3D viewer.  This object is not available in the Visualization edition.</li>
+<li>The module does not handle NULL data.</li>
+<li>Scale is global and all glyphs are scaled by the same value, rather than on
+individual glyph basis.</li>
+<li>No rotation or glyph orientation is performed.</li>
+<li>Output dimensioning is done at instance time rather than each time the
+module updates. This reduces malloc/free operations.</li>
+<li>If the input coord array is zero length, the output array is also cleared,
+rather than being left in a previous state.</li>
+<li>The module minimizes calls to the OM.</li>
+</ul>
+
+<p>The module is written in C++, uses simple arrays for input/output. The algorithm is very simple and can be extended to perform different tasks.</p>
+
+<p>The low-level FastGlyphMods library containing the module FastGlyph3DCore does not specify a process. By default the <tt>express</tt> process will be used.</p>
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Mark Lambert, Ian Curington
+Advanced Visual Systems, Inc.
+
+Andrew Dodd
+International AVS Centre
+</pre>
+
+</blockquote>
+
+</body>
+</html>
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>Axes3D</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>Axes3D</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module produces a 3D coordinate system. It enables the user to see the
+alignment and dimensions of objects in respect of the coordinate axes.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Inputs used by Axes3D">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>infld</i></td>
+<td width="200">mesh</td>
+<td width="425">mesh of the object to be measured by the coordinate system</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Axes3D">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="200">DataObject</td>
+<td width="425">directly renderable object of the coordinate system</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The module generates a coordinate system to a given object. The coordinate
+system consists of the labels along each of the three Axes and if selected 
+planes and grids in between two axes (xy-plane, xz-plane and yz-plane).
+<p>
+The coordinate system can be altered by the user in several ways:
+
+<ul>
+<li><b>Gridsize:</b>
+<p>
+The grid size can either be changed for each individual plane or using the
+<i>auto grid</i> for all planes at the same time. Label - defines the text, which should be converted and it can be altered through editing a UIText-field.
+<p>
+<li><b>Plane position and appearance</b>
+<p>
+The plane positions can be altered depending on the Grid size using a slider.
+<p>
+The toggle buttons <i>plane</i> allow to switch a plane off completely. 
+The <i>grid</i> toggle button changes enables a more detailed grid on the plane. 
+If the plane is switched off the extra grid is not visible either.
+<p>
+<li><b>Axis position</b>
+<p>
+The position of the indivual axis can be defined by the plane it is to be drawn
+on, and the position on this plane (top or bottom).
+<p>
+<li><b>Labels</b>
+<p>
+The label size can be altered using the label height slider (On X11 based
+systems the fonts are dependent on X11-fonts. If there is no font in a given
+size the font will not change).
+<p>
+The name of each axis can be altered and the position of the axis label can be
+at the top or the bottom of the axis. 
+<p>
+The grid labels can be arraged left, centered or right of the axis.
+<p>
+</ul>
+
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockqoute></blockquote>
+<blockquote>
+
+<h4>Inputs</h4>
+
+<blockquote><b><i>infld</i></b></blockquote>
+<blockquote>The mesh that the coordinate system is calculated for.</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>obj</i></b></blockquote>
+<blockquote>Directly renderable object of the coordinate system that can be used with the UViewer. </blockquote>
+
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+There are two example applications provided that use the Axes3D module. The
+first simple example uses ReadGeom to read an AVS geometry file and outputs the
+geometry and the coordinate system. The second uses some preprocessing and shows
+that if the preprocessing results change the coordiate system changes as well.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/axes3d/axes3d.v</i> Creates the XP_COMM_PROJ.Axes3D library.</p> 
+<p><i>xp_comm_proj/axes3d/ax3dmods.v</i> Creates the Axes3DMods library containing
+the low-level module Axes3DCore and the parameter blocks axes_mod_params,
+axes_geom_params, axis_data and TextVals.</p>
+<p><i>xp_comm_proj/axes3d/ax3dmacs.v</i> Creates the Axes3DMacs library containing 
+the high-level functional macro Axes3DFunc, user interface macro Axes3DUI and
+the user macro Axes3D.</p>
+<p><i>xp_comm_proj/axes3d/ax3apps.v</i> Creates the Axes3DApps library containing 
+the example application Axes3DEg and Axes3DEg2.</p>
+</blockquote>
+
+
+<h3>Authors</h3>
+<blockquote><pre>
+Dr Krzysztof Nowinski
+Warsaw University 
+</pre></blockquote>
+
+<h3>Modifications</h3>
+<blockquote><pre>
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>

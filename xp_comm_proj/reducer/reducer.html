@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>Reducer</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>Reducer</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module reduces the linear input array of float values using a factor specified by the user. Output is the reduced array of float values.
+</blockquote>
+
+<blockquote>
+<h4>Inputs</h4>
+<table summary="Inputs used by Reducer">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="200">float[]</td>
+<td width="425">linear array of float values</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Reducer">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>factor</i></td>
+<td width="200">int</td>
+<td width="300">factor to reduce the in-array</td>
+<td width="125">Field</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Reducer">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="200">float[]</td>
+<td width="425">reduced array</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+The size of the output array is defined by the size of the input array divided by the value of the reduce factor. If the division leaves a remainder this will be dropped. The out size is only the integer part of the division.<br> 
+<br>
+The values of the output array are calculated in a loop. Each value is the average of a group of float values. The size of each group is given by the reduce factor. The groups are taken from the input array.<br>
+<br>
+Example:<br>
+<pre>
+		in_arr[5] = {1,3,5,7,9}
+		factor = 2
+
+		=> out_size = in_size/factor = 5/2 = 2
+		   out_arr[0] = (1+3)/2 = 2
+		   out_arr[1] = (5+7)/2 = 6.5
+
+		=> out_arr[2] = {2,6.5}
+		         
+</pre>    
+If there are any values of the input array left they will be ignored.<br>
+<br>
+The user_macro provides a simple user interface to type in the reduce factor.<br>
+</blockquote>
+
+<h3>Parameters</h3>
+<blockquote>
+<h4>Inputs</h4>
+
+<blockquote><b><i>in_arr</i></b></blockquote>
+<blockquote>input array</blockquote>
+
+<blockquote><b><i>factor</i></b></blockquote>
+<blockquote>reduce factor</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote><b><i>nout</i></b></blockquote>
+<blockquote>number of values in output array</blockquote>
+
+<blockquote><b><i>out</i></b></blockquote>
+<blockquote>output array</blockquote>
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+Using the Read_Field you can browse a field which is transformed by extract_data_array to a linear array. Notice that the size of the output array is smaller than the size of the input array.
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/reducer/reducer.v</i> Creates the XP_COMM_PROJ.Reducer library.</p> 
+<p><i>xp_comm_proj/reducer/red_mods.v</i> Creates the ReducerMods library containing the low-level module ReducerCore and the parameter block ReducerParams.</p>
+<p><i>xp_comm_proj/reducer/red_macs.v</i> Creates the ReducerMacs library containing the high-level functional macro ReducerFunc, user interface macro ReducerUI and the user macro Reducermacro definition</p>
+<p><i>xp_comm_proj/reducer/red_apps.v</i> Creates the ReducerApps library containing the example application ReducerEg.</p>  
+</blockquote>
+
+<h3>Author</h3>
+<blockquote><pre>
+Ian Curington,
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+<blockquote><pre>
+Simone Herrmann,
+Manchester Visualization Centre
+</pre></blockquote>
+
+</body>
+</html>

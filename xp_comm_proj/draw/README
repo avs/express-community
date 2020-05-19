@@ -1,0 +1,99 @@
+Express Community Draw Project
+https://github.com/avs/express-community
+----------------
+
+This directory ( xp_comm_proj/draw/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"Draw".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Draw project, and additions to two of the files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+        Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+	If you modify the Draw project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+        $compile XP_COMM_PROJ.Draw.DrawMods
+
+        Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/draw/ directory.
+
+INSTALL         Contains installation instructions for editing the xp_comm_proj.v
+                and xp_comm_lib/ files. This file should not be edited as the
+                future installation script will use this file.
+
+draw.v          Creates the XP_COMM_PROJ.Draw library.
+
+drawmods.v      Creates the DrawMods library containing the low-level modules
+                SuperDrawCore, LineResamplerCore and RegionResamplerCore and
+                the parameter block DrawLineParams and LineResamplerParams.
+
+drawmacs.v      Creates the DrawMacs library containing the user interface
+                macros SuperDrawUI and LineResamplerUI, the functional macros
+                SuperDrawFunc and LineResamplerFunc, and the user macros
+                SuperDraw, LineResampler and RegionResampler.
+
+drawapps.v      Creates the DrawApps library containing the example applications
+                SuperDrawEg, LineResamplerEg and RegionResamplerEg.
+
+sup_draw.cxx    The C++ source code for the SuperDrawCore module.
+
+distance.cxx    Extra C++ source code used by the SuperDrawCore module implementation.
+
+sd_stat.h       C++ header file used by SuperDrawCore module implementation.
+
+lnresamp.cxx    The C++ source code for the LineResamplerCore module.
+
+rgresamp.cxx    The C++ source code for the RegionResamplerCore module.
+
+sup_draw.html   HTML documentation for the SuperDraw user macro.
+
+lnresamp.html   HTML documentation for the LineResampler user macro.
+
+rgresamp.html   HTML documentation for the RegionResampler user macro.
+
+README          This file.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+sd_gen.h        AVS/Express generated header files.
+lnrs_gen.h
+rgrs_gen.h
+
+gen.cxx         AVS/Express generated source code.
+
+*.o(bj)         Intermediate object files.
+

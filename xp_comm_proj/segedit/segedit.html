@@ -1,0 +1,182 @@
+<h1>Segmentation Editor<h1>
+
+<h3>Description<h3>
+
+<p>This project is the implementation of a 2½D segmentation editor. This editor allows selecting a region of interest on a 2D orthoslice from a 3D volume and stacking the result in a new 3D volume. The result is a segmentation of the 3D volume on a slice-by slice basis.</p>
+
+<h3>Working Principle</h3>
+<p>The Segmentation Editor uses several 3D Masks, which store individual regions of interest. Each of the masks is stored as a BYTE Node_Data entry with the same dimensions as the input field. Each of the masks contains a either the value it represents or 0 as the NULL value for each voxel. The 3D masks can either be applied to the input field or added as new node data entries. </p>
+<p>If the mask is applied to the input field the input node data is transferred to the output field for all voxels which are selected by any of the 3D masks. Voxels which are not selected by any of the masks are assigned a NULL value which is determined from the input data. </p>
+<p>If the mask is added to the input field, all the Node_Data entries of the input field are taken over into the output field as they are and the mask Node_Data entries are attached as additional entities.</p>
+<h3>Creating the Masks</h3>
+<p>The user is generally creating the mask on a 2D slice which is generated using orthoslice. The Mask can be created by drawing individual points, lines ore using more advanced techniques such as 2D region growing or thresholding. A 3D region growing is provided which takes the selected seed point and takes the segmentation into 3D space. Once the 2D mask is created it is inserted in the 3D mask in the location of the original orthoslice. The mask is shown semi-transparent inside the 2D viewer used for t
+
+<p>Input window of the Segmentation Editor</p>
+<h3>User Macros</h3>
+<p>The Segmentation Editor is provided in two different user macros: SegmentationEditor and SegmentationWizard</p>
+<h4>Segmentation Editor</h4>
+
+<table align="center"> 
+<tr>
+<td rowspan="2"><img border="0" src="seui.png" alt="Segmentation Editor User interface"><br><p align="center">Segmentation Editor User interface</p></td>
+<td><img border="0" src="in.png" width="85%" height="85%" alt="Segmentation Editor Input Window"><br><p align="center">Segmentation Editor Input Window</p></td></tr>
+<tr><td><img border="0" src="out.png" width="85%" height="85%" alt="Segmentation Editor Output Window"><br><p align="center">Segmentation Editor Output Window</p></td></tr>
+</table>
+<p>To be able to use the Segmentation Editor the user needs a 2D scene window that is used to draw the masks and select seed points. This scene should be connected to the mask_obj to provide the context for the drawn mask. The user also needs the User Interface to select the segmentation tasks to perform. The Segmentation Editor also provides outputs for the 3D mask and the segmented volume which will be helpful to perform segmentation tasks.</p>
+<p>The User interface is split into several parts. The first two sliders (axis and plane) define the slice which is used for the 2D task. This slice is shown in the Draw Mask Input view. All other tasks relate to this slice.</p>
+<h5> Segmentation Editor User Interface</h5>
+<h6>Draw Mask</h6>
+<p>The Draw Mask frame is the central part of the Segmentation Editor user interface. This frame enables and disables other user interfaces and functionality of the Segmentation Editor in general. The frame uses a number of radio-buttons which directly control the behaviour of the DrawMask low level module. The user can select from the following options:</p>
+<ul>
+<li> Draw Point</li>
+<p>This allows the user to draw individual points in the current mask; the points are drawn using the picking settings in the 2D scene which provides the view input to the Segmentation Editor. Each Point is drawn respecting the properties set in the pen user interface (see Section 4.1.1.2).</p>
+<li> Draw Line</li>
+<p>This option connects draws a line between the newly picked point and the previous points. The line is drawn using the properties set in the pen user interface (see Section 4.1.1.2).</p>
+<li> Close Line</li>
+<p>This option connects all drawn points in one area by lines, in the order they were drawn. This uses the same properties as the draw line option.</p>
+<li> Fill Area</li>
+<p>This option uses a fills an area selected by the user. The user clicks in an area on the mask, which is the seed point for the flood fill algorithm. </p>
+<li> New Area</li>
+<p>This option creates a new "points area" clearing the list of previously selected points. This means the close line option does not include "old" points in the drawn polyline.</p>
+<li> Invert Mask</li>
+<p>This option replaces the current mask on the 2D slice with an inverted mask. It changes the node data values of the current mask by the 0 or the selected mask value (see Section 4.1.1.3).</p>
+<li> Clear Mask</li>
+<p>This option clears the 2D mask and creates a new "points area" clearing the list of previously selected points</p>
+<li> Grow Region 2D</li>
+<p>This option enables the 2D region growing user interfaces to generate more complex masks (see Section 4.1.1.4).</p>
+<li> Grow Region 3D</li>
+<p>This option enables the 3D region growing user interfaces to generate a 3D mask for a special feature (see Section 4.1.1.5).</p>
+<li> Threshold</li>
+<p>This option enables the thresholding user interfaces to generate more complex 2D mask (see Section 4.1.1.6).</p>
+<li> Save 3D Mask</li>
+<p>This option enables the save 3D mask user interfaces to store the 3D segmentation masks into a HDF5 file (see Section 4.1.1.10).</p>
+<li> Load 3D Mask</li>
+<p>This option enables the load 3D mask user interfaces to restore a set of previously saved segmentation masks from a HDF5 file (see Section 4.1.1.11).</p>
+<li> Clear 3D Mask</li>
+<p>This option clears the 3D masks and the output volume. This allows the user to start a new segmentation.</p>
+</ul>
+<h6>Pen</h6>
+<p>The Pen frame allows the user to select the pen style and pen width he is drawing with. The pen style option allows the user to choose between draw and erase. </p>
+<ul>
+<li> Draw uses the in the mask value frame (see Section 4.1.1.3) selected value for any drawing event.</li>
+<li> Erase usese 0, which is the standard mask NULL value for the drawing event.</li>
+</ul>
+<p>The width slider defines the size of the drawn points or lines.</p>
+<h6>Mask Value</h6>
+<p>The mask value defines the node data value to be used in the 3D mask for the given entity. If the apply mask user interface (see Section 4.1.1.7) is set to add mask these node data values are added to the output node data that they can later be used to identify an object. The input box underneath the slider allows the user to set the node data label to something meaningful rather then the default "Segment <value>". The "Edit Entities" button opens a new panel in the user interface (see Section 4.1.1.9)
+<h6>2D Region Growing</h6>
+<p>The 2D region growing allows the user to use a "Magic Wand" tool as known from image processing tools. The user selects the "seed point" on the slice and a region is grown from this point as long as the differences between the data values of the neighbouring points fulfil the region growing condition. The region growing condition can be influenced using the user interface.</p>
+<p>The delta slider sets the maximum difference between two points to continue the region growing.</p>
+<p>The increment toggle button defines how difference limit is applied. If the increment toggle is set the difference is calculated between the values of the two neighbouring points. Otherwise the difference is calculated between the value of the seed point and the value of the point to grow to.</p>
+<p>The Radio buttons "Add to Mask" and "Replace Mask" permit the user to select several parts on the 2D slice and combine them in one entity. The "Add to Mask" option merges the new region with the previous mask. This previous mask could also have been obtained using other mask drawing facilities. The "Replace Mask" option clears the mask before inserting the new region.</p>
+<p>The "Run with Previous Seed Point" button allows the user to grow a region around the same seed point on a different slice. This is useful if the user has selected an object which he wants to grow without having to target the same object for every slice.</p>
+<h6>3D Region Growing</h6>
+<p>The 3D region growing takes the Segmentation Editor into the third dimension. It allows the user to select a "seed point" using two coordinates from the picked point on the slice and the third coordinate from the slice value. This 3D seed point is then used to grow a region as long as the differences between the data values of the neighbouring points (3D) fulfil the region growing condition. The region growing condition can be influenced using the user interface. </p>
+<p>The delta slider sets the maximum difference between two points to continue the region growing.</p>
+<p>The increment toggle button defines how difference limit is applied. If the increment toggle is set the difference is calculated between the values of the two neighbouring points. Otherwise the difference is calculated between the value of the seed point and the value of the point to grow to.</p>
+<p>The Radio buttons "Add to Mask" and "Replace Mask" permit the user to select several objects in the volume and combine them in one entity. The "Add to Mask" option merges the new region with the previous mask. The previous mask could also have been obtained using other mask drawing facilities. The "Replace Mask" option clears the mask before inserting the new region.</p>
+<p>There are some risks using the 3D region growing, as it can add a 3D mask that changes the previously carefully segmented slices in the output. To avoid loosing segmented entities it is recommended to perform 3D region growing in a new entity rather than overwriting manual segmentation.</p>
+<h6>Thresholding</h6>
+<p>The threshold function allows the user to create a mask using a simple value threshold. The mask value is set if the node data value is in the range between the minimum and maximum threshold value. </p>
+<p>The Radio buttons "Add to Mask" and "Replace Mask" permit the user to apply several masks to the 2D slice and combine them in one entity. The "Add to Mask" option merges the new and the previous masks. This previous mask could also have been obtained using other mask drawing facilities. The "Replace Mask" option clears the mask before inserting the new mask.</p>
+<h6>Apply Mask</h6>
+<p>The Apply Mask frame allows the user to select how the output of the Segmentation Editor is formed. </p>
+<ul>
+<li> "Add Mask" combines the 3D Masks as additional node data components in the original field. </li>
+<li> "Apply Mask" replaces the original Node_Data with a new set of node data values. The node data of each voxel is transferred to the output one of the masks is set. Otherwise the node data value of the voxel is set to the NULL value.</li>
+</ul>
+<p>If Apply Mask user interface is set to "Add Mask" the user is provided with an additional frame (see Section 4.1.1.8) to select which masks should be shown in the output window (output of the obj port of the Segmentation Editor).</p>
+<h6>Output Segments</h6>
+<p>The Output Segments frame lists all the entities used. The user can select which entities should be shown in the output window (output of the obj port of the Segmentation Editor). The entities are listed by the name given in the Mask Value frame (see Section 4.1.1.3). </p>
+<p>The Selection in this frame has no influence on the Node_Data components written to the output field. The output field always contains all components.</p>
+<h6>Edit Entities</h6>
+<p>The Edit Entities frame allows the user to combine or delete individual 3D masks (entities). It provides a list or all the entities currently used in the 3D mask on the left hand side and three buttons on the right. The user can select any number of entities before clicking on the Combine or Delete button. </p>
+<p>When the user clicks on the Delete button all the entities selected will be removed from the 3D mask.</p>
+<p>When the user clicks on the Combine button all the entities selected will be combined into the first entity selected. The Node_Data values of the combined entities are changed to the resulting value. The name is kept from the first entity selected.</p>
+<p>The newly generated mask is applied immediately to create the new output data.</p>
+<p>The close frame button hides the Edit Entities frame.</p>
+<h6>Save 3D Mask</h6>
+<p>The Save 3D Mask frame provides a simple user interface as most of the AVS/Express data output modules. The user can input a filename or toggle a file browser to input the output file name. The write button triggers the write process to store all entities in the 3D mask into a HDF5 file with the given name. The HDF5 file is stored using the internal compression of the WriteHDF5 module which is part of AVS/Express.</p>
+<h6>Load 3D Mask</h6>
+<p>The Load 3D Mask frame provides a user interface that allows the user to restore a mask from a HDF5 file which was stored with the Save 3D Mask function. The loading of the 3D mask happens in two steps which are represented by the two parts of the user interface. </p>
+<p>The first step (on the left) is to provide a filename to the ReadHDF5 module. The user can input the filename either directly into the input box (top left) or trough the file browser provided by clicking the "Browse…" button. </p>
+<p>Once the user has provided the filename the Entities frame is filled with the entities stored in the HDF5 file. The user can now select the entities which should be read from the file in the Read Entities frame. Pressing the Read button the 3D mask is replaced by the entities selected from the file.</p>
+<p>The mask which was created before the Load 3D mask will be lost after reading from the file.</p>
+
+<h5>Segmentation Editor Parameters</h5>
+<h6>Input Ports:</h6>
+<ul>
+<li> in (Mesh_Unif+Node_Data)</li>
+<p>This is the input field to be segmented.</p>
+
+<li> view (DefaultView+DefaultView) </li>
+<p>This input provides the connection to the 2D view to be able to interact with the 2D Mask.</p>
+</ul>
+<h6>Output Ports</h6>
+<ul>
+<li> out (Mesh_Unif+Node_Data)</li>
+<p>This is the segmented output field. The field depends on the apply mask radio button: </p>
+<li> If apply mask is set to "Add Mask" the field contains the original Node_Data values with the 3D mask Node_Data values attached.</li>
+<li> If apply mask is set to "Apply Mask" the original Node_Data values will be changed for each individual voxel. If the voxel is part of any mask the original node data for the voxel is taken over into the output Node_Data. Otherwise the Node_Data values for the voxel are set to a NULL value.</li>
+<li> obj (DefaultObject) </li>
+<p>This is a directly renderable object that shows the segmentation entities. This object depends on the apply mask radio button: </p>
+<li> If apply mask is set to "Add Mask" the output only contains the entities selected in the "output segments" user interface. </li>
+<li> If apply mask is set to "Apply Mask" the output contains a directly renderable object of the out field.</li>
+<li> mask_obj (DefaultObject) </li>
+<p>This is the directly renderable object that contains the selected orthoslice as well as the 2D mask. This port should be connected to the same scene that connects to the view input of the Segmentation Editor.</p>
+<li> mask3D_obj (DefaultObject) </li>
+<p>This is the directly renderable object that shows the 3D mask of the currently selected entity.</p>
+<li> mask2D_obj (DefaultObject) </li>
+<p>This is the directly renderable object that shows the 2D mask of the mask_object without showing the orthoslice. This should help identifying mask when the transparent mask in the mask_object is hard to see.</p>
+</ul>
+<h4>Segmentation Wizard</h4>
+<p>The SegmentationWizard is a wrapper for the SegmentationEditor which includes a 4 View Window dialogue that provides the 4 main views that help using the SegmentationEditor as well as the full user interface. The four scenes show the input view (top left), the 2D mask on its own (top right), the 3D mask (bottom left) and the output view (bottom right). </p>
+<p>The input view contains the selected orthoslice and mask in a 2D scene. The user can draw in this window using the right mouse button to modify the mask. Seed point selections for the region growing are also done using the right mouse button in this window.</p>
+<p>The 2D mask view shows the currently used 2D mask on its own. This can help if the opacity of the 2D mask on top of the 2D orthoslice makes it hard to identify the positioning of the 2D mask.</p>
+<p>The 3D mask view shows the currently edited 3D mask and bounding boxes for the 3D volume and the selected orthoslice. The orthoslice bounding box helps to relate the position of the slice to the volume.</p>
+<p>The output view shows the directly renderable object written to the obj port of the SegmentationWizard. This view is dependent on the apply mask radio buttons (see Section 4.1). </p>
+
+<p align="center"><img border="0" src="swizard.png" width="85%" height="85%" alt="Dialog provided by the SegmentationWizard User Macro"><br>Dialog provided by the SegmentationWizard User Macro</p>
+<h5>Input Ports:</h5>
+<ul>
+<li> in (Mesh_Unif+Node_Data)</li>
+<p>This is the input field to be segmented.</p>
+
+<li> visible (int) </li>
+<p>This input switches the dialogue on (1) or off (0).</p>
+</ul>
+
+<h5>Output Ports</h5>
+<ul>
+<li> out (Mesh_Unif+Node_Data)</li>
+<p>This is the segmented output field. The field depends on the apply mask radio button: </p>
+<li> If apply mask is set to "Add Mask" the field contains the original Node_Data values with the 3D mask Node_Data values attached.</li>
+<li> If apply mask is set to "Apply Mask" the original Node_Data values will be changed for each individual voxel. If the voxel is part of any mask the original node data for the voxel is taken over into the output Node_Data. Otherwise the Node_Data values for the voxel are set to a NULL value.</li>
+<li> obj (DefaultObject) </li>
+<p>This is a directly renderable object that shows the segmentation entities. This object depends on the apply mask radio button: </p>
+<li> If apply mask is set to "Add Mask" the output only contains the entities selected in the "output segments" user interface. </li>
+<li> If apply mask is set to "Apply Mask" the output contains a directly renderable object of the out field.</li>
+</ul>
+
+<h3>Authors</h3>
+
+<p>
+<pre>
+Tobias Schiebeck
+International AVS Centre</pre>
+</p>
+<h3>
+Contact</h3>
+<p>
+<pre>
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+United Kingdom
+M13 9PL
+</pre>
+</p>
+

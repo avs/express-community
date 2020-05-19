@@ -1,0 +1,202 @@
+<html>
+<head>
+   <title>fast_advector - fast particle advector module with point cloud output.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>fast_advector</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The fast_advector user macro uses points to display advector movement.  Due to this it allows faster animation and the display of many more particles than the standard advector module.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by fast_advector">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_field</i></td>
+<td width="75">Mesh+Node_Data</td>
+<td width="425">Vector field data to be visualized.</td>
+</tr>
+
+<tr>
+<td width="100"><i>in_probe</i></td>
+<td width="75">Mesh</td>
+<td width="425">Initial advector particle positions.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+The parameters of the fast_advector macro are the same as these for the standard advector module except that the glyph normalize and scale parameters have been removed.
+</blockquote>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by fast_advector">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Point Mesh</td>
+<td width="425">Current advector particle positions.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">Directly Renderable Output Object.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The fast_advector user macro is based on the standard AVS/Express advector modules and performs point cloud animation through 3D vector fields.  This allows for visualizations to be performed with higher frame rates and larger number of particles than would be possible with the standard module.</p>
+
+<p>The standard advector module allows vector fields to be visualized by moving particles through the vector field.  Internally it uses the glyph system to display a symbol for each particle.  This allows arrows and other similar geometry to be used to represent advector particles.  However the glyph system does carry a rather large overhead.</p>
+
+<p>The fast_advector macro avoids this overhead by using a simple point to represent each advector particle.  This allow many more particles to be simulated and displayed than would be possible with the standard advector module.  Alternatively the same number of particles can be displayed at higher frame rates.  The user interface controls for the fast_advector macro are the same as for the advector module except that the the glyph normalize and scale controls have been removed.  As the macro does not use glyphs these are not necessary.  Similarly the glyph input port has been removed.  The actual performance of the fast_advector macro will vary between platforms and data-sets.  However overall it appears to be around 3 times faster than the standard advector module.  If you wish to perform your own timing test remember to turn off status checking and module flashing.</p>
+
+<p>As the fast_advector macro allows many more particles to be animated at reasonable frame rates it is how possible to perform visualizations with thousands of points visible.  This sort of 'point cloud' visualization can be very useful in certain situations.  Its is particularly useful for getting an overall impression of the flow within a visualization.  The supplied example applications are good examples of how this technique can be useful.</p> 
+
+<p>The project contains only V code and no modules within the project contain
+procedural code.  Hence the project does not have to be compiled.  The project
+makes use of low-level AVS/Express modules and hence requires the Developer's
+Edition of AVS/Express.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+The inputs to the fast_advector macro are the same as these for the standard advector module except that the glyph input port has been removed.
+</blockquote>
+
+<blockquote><b><i>in_field</i></b></blockquote>
+
+<blockquote>Input field data that is to be used to calculate the advector animation.  The field should contain a Mesh and a single set of vector Node_Data.</blockquote>
+
+<blockquote><b><i>in_probe</i></b></blockquote>
+
+<blockquote>Mesh input that contains the initial sample positions that will be used to generate advector particles.  The number of particles simulated can be increased by increasing the number of nodes in this mesh.</blockquote>
+
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+The parameters of the fast_advector macro are the same as these for the standard advector module except that the glyph normalize and scale parameters have been removed.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+The outputs of the fast_advector macro are the same as these for the standard advector module.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The FastAdvect functional macro takes field data, probe and parameter inputs and outputs a generated point mesh containing the advector particles.  The fast_advector_noui functional macro uses the FastAdvect macro and adds an internal paramter block and a DataObject output that can be directly rendered.  This macro can be used when a separate user interface is being used to control the advection.  The fast_advector user macro extends the fast_advector_noui macro by adding a standard module user interface.  This user macro will be normally used.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided with the FastAdvector project.  The FastAdvectorEg1 example application reads the <i>'bluntfin'</i> data-set and injects an array of particles into this field.  This example is comparable to the standard advector example that is supplied with AVS/Express.  You should be able to see that a much higher number of particles is being simulated.  The FastAdvectorEg2 example application reads in a data-set that represents the convection in a room.  This example is a particularly good demonstration of how a point-cloud can be used.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/f_advect/fadvmacs.v</i> contains the V definitions of the FastAdvectUI user interface macro, the FastAdvect and fast_advector_noui functional macros and the fast_advector user macro.</p>
+
+<p><i>xp_comm_proj/f_advect/fadvapps.v</i> contains the V definitions of the FastAdvectorEg1 and FastAdvectorEg2 example applications.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project requires the following components to be installed correctly. Without these components the project will not work.
+</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The FastAdvectorMacs library inherits its process. As this library contains no procedural code, the process is not important.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Ian Curington,
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>Standard AVS/Express advector module, from which this one is derived.</li>
+</ul>
+
+</body>
+</html>
+

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module PickAtoms documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Pick Atoms</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Pick Atoms</h1>
+
+<h2>Description</h2>
+<p>Enable accessing various information from a displayed molecule. One to four atoms can be picked by Control-LeftButton mouse click in the
+viewer to obtain:</p>
+<ul>
+	<li>Information on a single atom (one atom picked). The information is composed by: atom name and number, coordinates, residue name and atom
+	charge.</li>
+	<li>Distance between two atoms (two atoms picked).</li>
+	<li>Angle formed by three atoms (three atoms picked). The vertex is the second atom picked.</li>
+	<li>Torsion angle formed by four atoms (four atoms picked). Torsion angle is the angle formed
+		between the planes containing atoms 1,2,3 and 2,3,4.</li>
+</ul>
+<p>The information can be show as a label in the viewer (if the output port <i>label_obj</i> is connected to the viewer input) or
+in the <b>Pick result</b> field int the module panel.</p>
+<p>To remove the label from the display just pick on the viewer background or set the pick operation to disabled.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data corresponding to the displayed structure.</td>
+</tr>
+<tr>
+	<td class="c1">picked_obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The picked graphic object from the corresponding MolViewer output. Picking is done by Control-LeftButton click on the viewer.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">Select pick operation</td>
+	<td class="c2">radio buttons</td>
+	<td class="c3">The operation to be performed:
+	<ul>
+		<li>Picking disabled.</li>
+		<li>Information on a single atom (one atom picked).</li>
+		<li>Distance between two atoms (two atoms picked).</li>
+		<li>Angle formed by three atoms (three atoms picked). The vertex is the second atom picked.</li>
+		<li>Torsion angle formed by four atoms (four atoms picked). Torsion angle is the angle formed
+		between the planes containing atoms 1,2,3 and 2,3,4.</li>
+	</ul>
+	</td>
+</tr>
+<tr>
+	<td class="c1">Pick result</td>
+	<td class="c2">text field</td>
+	<td class="c3">The pick result values. Those values are the same as the ones on the text label in the viewer.</td>
+</tr>
+<tr>
+	<td class="c1">Label format</td>
+	<td class="c2">standard<br>AVS/Express text graphic object params</td>
+	<td class="c3">Enable modification of the label display.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">label_obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The resulting label object. It has to be sent to the MolViewer input. If not connected the values can be read anyway from the
+	<b>Pick result</b> field in the module panel.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="PickMoleculeApp.html">Pick Molecule</a> complete application.</li>
+</ul>
+
+</body></html>

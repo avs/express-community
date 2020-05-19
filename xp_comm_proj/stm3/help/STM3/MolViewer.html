@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module MolViewer documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,Gaussian">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>MolViewer</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>MolViewer</h1>
+
+<h2>Description</h2>
+<p>This is a specially modified <a href="http://help.avs.com/Express/doc/help_62/reference/gd/Uviewer_.htm">Uviewer3D</a> AVS/Express module. Respect to the original one has the following modifications:</p>
+<ul>
+	<li>Viewer background color set.</li>
+	<li>The interactor works on the whole scene. This means that if you select a graphical object and then transform it, the whole scene is
+	transformed.</li>
+	<li>The viewer size (512x512) is suited for movies generation.</li>
+	<li>Unused output ports are removed.</li>
+</ul>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">child_objs</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The set of graphic objects to be visualized.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">The standard one for AVS/Express Uviewer3D</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">picked_obj</td>
+	<td class="c2">DefaultObject</td>
+	<td class="c3">The picked graphic object. Picking is done by Control-LeftButton click on the viewer.</td>
+</tr>
+<tr>
+	<td class="c1">curr_view</td>
+	<td class="c2">DefaultView</td>
+	<td class="c3">The visualized scene.</td>
+</tr>
+</table>
+
+</body></html>

@@ -1,0 +1,188 @@
+<html>
+<head>
+<title>GenerateSurface</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>GenerateSurface</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Generates a 3D surface from a 2D Field.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">input field</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>threshold</i></td>
+<td width="75">float</td>
+<td width="300">The threshold level to control the surface reduction</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field of the 3D surface.</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+GenerateSurface gernerates a 3D surface from 2D field. This module changes the coordinates of node data based on the difference between the individual node data values and the average value of all node data. Therefore, the lower node data value will change the coordinates of this node below the 2D field plane. On the other hand, the node with higher value will be above the 2D field plane. The quality of the surface can be controlled using the threshold which is a silder in the user interface. From given a 3D field, orthoslice can be usedto extract 
+a 2D field from 3D field.
+</blockquote>
+
+<blockquote>
+Note: This module only works for 2D fields where the velcen of the input node data is one.
+</blockquote>
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the input field.  It has to be a 2D field with a data veclen of one.
+</blockquote>
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>threshold</b></i>
+</blockquote>
+
+<blockquote>
+The threshold level controls the quality of the generated 2D surface. The values can be between 0.0 and the maximum value of the node data. The lower the value for the threshold level the higher is the quality of the generated surface.
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The 3D output field is a surface based on the individual node data values in 2D field data.
+</blockquote>
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro GenerateSurface makes use of the Functional Macro GenerateSurfaceFunc and the UI Macro GenerateSurfaceUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application GenerateSurfaceEg is provided, which uses the AVS/Express sample data file wind.fld. This example uses orthoslice to extract a 2D field. Then it uses extract_component extract a single data component from the field. Finally the GenerateSurface creates the 3D surface.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/gen_surf/gsurfmod.v</i> contains the V definitions of the GenerateSurfaceParams parameter block and the GenerateSurfaceCore module.</p>
+
+<p><i>xp_comm_proj/gen_surf/gsurfmac.v</i> contains the V definitions of the GenerateSurfaceFunc Functional Macro, the GenerateSurfaceUI User Interface Macro, and the GenerateSurface User Macro. </p>
+
+<p><i>xp_comm_proj/gen_surf/gsurfapp.v</i> contains the V definition of the example application GenerateSurfaceEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Dave Goughnour
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:may@man.ac.uk">MA YingLiang</a>
+Manchester Visualization Centre
+</pre></blockquote>
+
+
+</body>
+</html>

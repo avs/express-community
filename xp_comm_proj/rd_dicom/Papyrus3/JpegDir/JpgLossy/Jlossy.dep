@@ -1,0 +1,682 @@
+# Microsoft Developer Studio Generated Dependency File, included by Jlossy.mak
+
+.\jcapimin.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcapistd.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jccoefct.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jccolor.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcdctmgr.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jchuff.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jchuff.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcinit.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcmainct.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcmarker.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcmaster.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcomapi.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcparam.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcphuff.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jchuff.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcprepct.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jcsample.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jctrans.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdapimin.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdapistd.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdatadst.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdatasrc.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdcoefct.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdcolor.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jddctmgr.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdhuff.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdhuff.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdinput.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdmainct.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdmarker.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdmaster.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdmerge.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdphuff.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdhuff.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdpostct.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdsample.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jdtrans.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jerror.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	".\jversion.h"\
+	
+
+.\jfdctflt.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jfdctfst.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jfdctint.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jidctflt.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jidctfst.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jidctint.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jidctred.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jdct.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jmemmgr.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmemsys.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jmemnobs.c : \
+	"..\..\PapyEalloc3.h"\
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmemsys.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jquant1.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jquant2.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\jutils.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\rdbmp.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\cderror.h"\
+	".\cdjpeg.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\rdcolmap.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\cderror.h"\
+	".\cdjpeg.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\rdgif.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\cderror.h"\
+	".\cdjpeg.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\rdppm.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\cderror.h"\
+	".\cdjpeg.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\rdrle.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\cderror.h"\
+	".\cdjpeg.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\rdswitch.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\cderror.h"\
+	".\cdjpeg.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\rdtarga.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\cderror.h"\
+	".\cdjpeg.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	
+
+.\wrrle.c : \
+	"..\..\PapyError3.h"\
+	"..\..\PapyFileSystem3.h"\
+	"..\..\PapyTypeDef3.h"\
+	".\cderror.h"\
+	".\cdjpeg.h"\
+	".\jconfig.h"\
+	".\jerror.h"\
+	".\jinclude.h"\
+	".\jmorecfg.h"\
+	".\jpegint.h"\
+	".\jpeglib.h"\
+	

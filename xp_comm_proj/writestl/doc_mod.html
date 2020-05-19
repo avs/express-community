@@ -1,0 +1,177 @@
+<html>
+<head>
+<title>write_stl</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>write_stl</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Writes out triangular cell sets as binary STL files.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module write_stl< build_dir="xp_comm_proj/writestl",
+                     src_file="writestl.cxx",
+                     out_hdr_file="gen.hxx",
+                     out_src_file="gen.cxx",
+                     libdeps="FLD",
+                     cxx_hdr_files="fld/Xfld.h">
+   {
+      cxxmethod+req update<status=1>(
+         filename+read+req,
+         trigger+read+req+notify,
+         in+read,
+         .err+write,
+         .err_str+write);
+
+      string filename<export=2,NEportLevels={2,0}>;
+      int trigger<export=2,NEportLevels={2,0}>;
+
+      Mesh &in<export=2,NEportLevels={2,0}>;
+      int err<export=2,NEportLevels={0,2}> = 0;
+      string err_str<export=2,NEportLevels={0,2}> = "";
+   };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The write_stl module writes binary STL(Stereo Lithography) files based
+upon the data contained in triangular cell sets. The input to the module
+is a standard Mesh object which should contain one or more cell sets of
+type "Tri". If the Mesh contains more than one cell set then only the
+last cell set will be written to the STL file. The triangular cell set
+is written to file according to the binary STL format. Facet normal
+vectors are calculated and written to file. The attribute block is not
+used and null data is written to it.
+</blockquote>
+
+<blockquote>
+It is intended that the write_stl module should be used to write the output of
+a visualization module to a STL file.  Many visualization modules, such as
+isosurface, output field data containing a single triangular cell set.  By using
+this module these results can be conviently output as an STL file for further
+manipulation.  As most of these visualization modules output only a single cell
+set the way that the write_stl module treats multiple cell sets should not be
+a problem.  Naturally, this module can be used with any Meshes that contain
+suitable triangular cell sets.  However it is most easily used when combined with
+visualization modules, such as isosurface.  An example of this is shown in
+WriteSTLEg.
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&amp;in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the Mesh that contains the triangular cell set
+that is to be written to the STL file.  If no triangular cell sets are present
+then an error message will be given.  If multiple triangular cell sets
+are present then the last cell set only will be written to the STL file.
+</blockquote>
+
+<blockquote>
+<i><b>filename</b></i>
+</blockquote>
+
+<blockquote>
+The name of the file that should be written to. This parameter is of type string.
+Note that if an existing file is specified the module will not warn that the 
+original file is being overwritten.  If error-checking of this type is required
+then it should be provided at a higher level.
+</blockquote>
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+This parameter is used to notify the module that the output file should be written.
+The parameter is of type int.  Whenever the value of this parameter is set the 
+write_stl module is notified.  This causes the module to read the current input
+mesh and create the corresponding STL file.  If this parameter can be connected to
+a UIButton component to create a simple user interface.
+</blockquote>
+
+<blockquote>
+<i><b>err</b></i><br>
+<i><b>err_str</b></i>
+</blockquote>
+
+<blockquote>
+These two parameters control the output of error messages.  The <i><b>err</b></i>
+parameter is an int value that is set to 1 whenever an error occurs.  This parameter 
+can therefore be used to control the display of error messages in the user interface.
+The <i><b>err_str</b></i> parameter is a string value that is used to return error
+messages from the write_stl module.  The writeSTL user macro shows now it is possible
+to use the state of the <i><b>err</b></i> parameter to control the display of the
+text in the <i><b>err_str</b></i> parameter.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level write_stl module is used in the User Macro writeSTL.  This can be
+used as is in applications.  An example of how it can be used is shown in
+WriteSTLEg.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application WriteSTLEg is provided, which calculates an isosurface of
+the hydrogen volume data.  The resulting mesh can be written to a user specified
+STL file.  This file can subsequently be read by either the IAC ReadSLPSTL project
+or other programs that use the binary STL file format.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/writestl/wrstmods.v</I> contains the write_stl module V definition.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level WriteSTLMods library containing the module
+write_stl does not specify a process. By default the express
+process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+write_stl, writeSTL, WriteSTLEg
+</blockquote>
+
+</body>
+</html>
+

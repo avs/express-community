@@ -1,0 +1,219 @@
+<html>
+<head>
+<title>Dmap2Image</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Dmap2Image</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Generates an image which can be used with Scalar2Texture2 from a given Datamap. 
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>X_Resolution</i></td>
+<td width="75">Datamap</td>
+<td width="425">dmap_in</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+</blockquote>
+
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>X_Resolution</i></td>
+<td width="75">int</td>
+<td width="300">Resolution in X direction</td>
+<td width="125"><i>Slider</i></td>
+</tr>
+<tr>
+<td width="100"><i>Y_Resolution</i></td>
+<td width="75">int</td>
+<td width="300">Resolution in Y direction</td>
+<td width="125"><i>Slider</i></td>
+</tr>
+<tr>
+<td width="100"><i>Mode</i></td>
+<td width="75">int</td>
+<td width="300">Toggles between Square and Legend Mode</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">fld</td>
+<td width="425">Image_field (argb data)</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">fld</td>
+<td width="425">Directly renderable Object</td>
+</tr>
+
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+Dmap2Image generates an image from a given Datamap. The image size is regulated by the X_Resolution and Y_Resolution parameters. The content of the Image is defined by the Mode parameter. This parameter can be 0 or 1. If it is 0 the image simply contains a "rainbow" which is shows the current Datamap. If the Mode parameter is 1 the output image is generated in legend Mode. This means it is split into two parts. The upper part contains the "rainbow" and the lower part contains an checkerboard and the alpha blending.
+</blockquote>
+
+<blockquote>
+Dmap2ImageSquare is a special case of Dmap2Image with X_Resolution and Y_Resolution set to 256 and Mode to 0.
+</blockquote>
+
+<blockquote>
+Dmap2ImageLegend is a special case of Dmap2Image with X_Resolution= 350 and Y_Resolution = 60 and Mode = 0.
+</blockquote>
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>X_Resolution</b></i>
+</blockquote>
+
+<blockquote>
+The width of output image (resolution in X direction).
+</blockquote>
+
+<blockquote>
+<i><b>Y_Resolution</b></i>
+</blockquote>
+
+<blockquote>
+The height of output image (resolution in Y direction).
+</blockquote>
+
+<blockquote>
+<i><b>Mode</b></i>
+</blockquote>
+
+<blockquote>
+Mode has two possible values 0 or 1. Value 0 generates a "rainbow" across the whole image. Value 1 generates the Legend mode image containing "rainbow" checkerboard and alpha blending.
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+out_fld contains the an ARGB Image which can be used for further processing (e.g. in Scalar2Texture2 as Datamap).
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+out_obj contains the an ARGB Image as directly renderable object which can be viewed with the UViewer.
+</blockquote>
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macros Dmap2Image, Dmap2ImageSquare and Dmap2ImageLegend make use of the Functional Macro Dmap2ImageFunc. The Dmap2Image macro also makes use of the UI Macro Dmap2ImageUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Three example applications Dmap2ImageEg, Dmap2ImageSquareEg and Dmap2ImageLegendEg is provided, that demonstrate tigh level macros. Another use is demonstrated in the Datamap2TextureEg example application in the Scalar2Texture module.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/dmap2img/d2imods.v</i> contains the V definitions of the Dmap2ImageParams parameter block and the Dmap2ImageCore module.</p>
+
+<p><i>xp_comm_proj/dmap2img/d2imacs.v</i> contains the V definitions of the Dmap2ImageFunc Functional Macro, the GenerateTestDataUI User Interface Macro, and the User Macros Dmap2Image, Dmap2ImageSquare and Dmap2ImageLegend. </p>
+
+<p><i>xp_comm_proj/dmap2img/d2iapps.v</i> contains the V definition of the example applications Dmap2ImageEg, Dmap2ImageSquareEg and Dmap2ImageLegendEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ian Curington
+Advanced Visual Systems, Inc.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>
+International AVS Centre
+</pre></blockquote>
+
+
+</body>
+</html>

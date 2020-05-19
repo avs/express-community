@@ -1,0 +1,113 @@
+Express Community ReadVis5D Project
+https://github.com/avs/express-community
+---------------------
+
+This directory ( xp_comm_proj/rd_vis5d/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"ReadVis5D".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new project, and additions to two of the files in the xp_comm_lib/ directory
+to add links to the User Macro and Example Applications to the top-level
+Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+If you modify the project, and elect to specify the process as "user" or
+another user-defined process, then the module may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the module:
+
+        $compile XP_COMM_PROJ.ReadVis5D.ReadVis5DMods
+
+Users of the Developer's Edition may select the module in the relevant 
+Templates library, and choose 'compile' from the Project menu.
+
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/rd_vis5d/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/data_io.v and xp_comm_lib/examples.v files. This file
+               should not be edited as the future installation script will
+               use this file.
+
+rd_vis5d.v     Creates the XP_COMM_PROJ.ReadVis5D library.
+
+rv5dmods.v     Creates the ReadVis5DMods library containing the parameter
+               blocks ReadVis5DParams and ReadVis5DTopography and the low-level
+               modules ReadVis5DCore and ReadTopoCore.
+
+rv5dmacs.v     Creates the ReadVis5DMacs library containing the UI macros
+               LoopUI, WindSelectUI, ReadVis5DUI and ReadVis5DTopographyUI,
+               the functional macros ReadVis5DFunc and ReadVis5DTopographyFunc
+               and the user macros ReadVis5D and ReadVis5DTopography.
+			   
+rv5dapps.v     Creates the ReadVis5DApps library containing the example 
+               applications ReadVis5DEg, ReadVis5DTopographyEg and 
+               ReadVis5DStreamlinesEg. 
+
+binio.h
+pcio.h
+proj.h
+v5d.h
+vis5d.h        The C/C++ header files for the core functions to read Vis5D files.
+
+binio.c
+read.cxx
+v5d.cxx        The C/C++ source code for the core functions to read Vis5D files.
+
+RdVis5D.h      The C++ header file for the ReadVis5DCore module.	
+
+RdVis5D.cxx    The C++ source code for the ReadVis5DCore module.
+
+ReadTopo.cxx   The C++ source code for the ReadTopoCore module.
+
+rd_vis5d.html  HTML documentation for both the ReadVis5DCore the low-level 
+               module and ReadVis5D user macro.
+
+rv5dtopo.html  HTML documentation for both the ReadTopoCore the low-level 
+               module and ReadVis5DTopography user macro.
+			   
+data/*.v5d     example Vis5D data files.
+
+data/*.topo    example Vis5D Topography files. 
+
+README         This file.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+RdTopgen.h     
+RdV5Dgen.h     AVS/Express generated header files.
+
+RdTopgen.cxx     
+RdV5Dgen.cxx   AVS/Express generated C++ source files.
+
+*.o/obj        Intermediate object files.
+

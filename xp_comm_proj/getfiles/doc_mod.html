@@ -1,0 +1,134 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <title>GetFilesCore</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>GetFilesCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A file access module that gets a listing of files with a given file extension in a directory.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+   module GetFilesCore &lt;src_file="getfiles.cxx"&gt; {
+      string+IPort2 dir&lt;export=2&gt;;
+      string+IPort2 ext&lt;export=2&gt;;
+
+      cxxmethod+req update (
+         .dir+req+read+notify,
+         .ext+req+read+notify,
+         .nFiles+write,
+         .files+write
+      );
+
+      int nFiles;
+      string+OPort2 files&lt;export=2&gt;[.nFiles];
+   };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The GetFilesCore module generates file listings by scanning a directory and searching for a specified file extension.  It outputs an array of strings containing the names of the files found.  The file extension is specified as being the part of the filename after the final <tt>'.'</tt> character.  The file extension input should <b>not</b> contain a preceding <tt>'.'</tt> character.  It can contain a search specification (i.e. <tt>'c*'</tt>.</p>
+
+<p>The GetFilesCore module is intended to be the basis for a variety of file selection and I/O macros.  It particular it is intended to be used in situations when the standard File Dialog box is not suitable.  The <a href="doc_umac.html">MultiFileShell</a> and <a href="doc_umac.html">Multiple_File_Select</a> user macros provide examples of how this can be done.</p>
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>dir</b></i>
+</blockquote>
+
+<blockquote>
+String input that specifies which directory should be searched for files.  AVS/Express environment variables(e.g. <tt>$XP_PATH&lt;1&gt;</tt>) can be used in this directory string.
+</blockquote>
+
+<blockquote>
+<i><b>ext</b></i>
+</blockquote>
+
+<blockquote>
+String input that specifies which file extension should be searched for.  This string should <b>not</b> contain a preceding <tt>'.'</tt> character.  The file extension can contain a search specification.  Therefore if the file extension is set to <tt>'h*'</tt> all files that have extensions that begin with <tt>'h'</tt> are listed.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>nFiles</b></i>
+</blockquote>
+
+<blockquote>
+Integer output specifying the number of files that match the specified criteria.
+</blockquote>
+
+<blockquote>
+<i><b>files[nFiles]</b></i>
+</blockquote>
+
+<blockquote>
+Array of strings that contains the names of all the files that match the specified criteria.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level GetFiles2Core module is used in the user macro MultiFileShell.  This user macro is used in the Multiple_File_Select user macro.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+Two example applications are provided.  The GetFilesEg1 application gets all the files in the current project directory and allows the user to select one or more of these files.  This application could be used as the basis for a full file access application.  The GetFilesEg2 application gets a list of all the geometry files in the <tt>express/data/geom</tt> directory and allows the user to select one of these files.  This geometry file is then read and displayed.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote><i>xp_comm_proj/getfiles/getfmods.v</i> contains the V definitions of 
+the GetFilesCore module.
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level GetFilesMods library containing the module GetFilesCore does not specify a process. By default the express process will be used.
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Jeremy Maccelari,
+Visual Numerics
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="doc_umac.html">MultiFileShell</a> user macro.</li>
+<li><a href="doc_umac.html">Multiple_File_Select</a> user macro.</li>
+</ul>
+
+</body>
+</html>
+

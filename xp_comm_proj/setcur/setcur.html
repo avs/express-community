@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>SetCursor</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>SetCursor Project (For AVS module developers only)</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The SetCursor project demonstrates one way of allowing a C or C++ module to change the mouse cursor to, for example, a busy or waiting cursor.  This project is only intended to be used by AVS/Express module developers.
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The SetCursor project shows one way of changing the mouse cursor from a C or C++ module.  This allows a module to do several things including displaying a busy cursor while it is doing its computations.  The project includes the C source file <code>cursor.c</code> which is linked into Express through the <code>SetCursorUtilityCode</code> module.  This module should not need to be edited and hence is not visible in the Network Editor.  The <code>cursor.c</code> file contains a single function, <code>SetApplicationCursor</code>.  The full declaration of the function is shown below:</p>
+
+<pre>
+void SetApplicationCursor(int enable)
+</pre>
+
+<p>Whenever this function is called a pre-defined AVS/Express cursor object is found and the attach parameter set.  If enable is 1 then the attach parameter is set to true and the working cursor will appear when the mouse is over the application window.  Conversely if enable is 0 then the attach parameter is set to false and the normal cursor will appear.  The <code>SetCursorExampleMod</code> low-level module and its associated source code show how a call to this function could be made.  The main advantage of the approach shown in this project is that the <code>SetApplicationCursor</code> function can be called from anywhere within a module's code and no extra references have to be managed.</p>
+
+<p>The obvious limitation of this approach is that it relies on a pre-defined cursor object existing and the location of that object must be statically compiled into Express.  To ensure that this happens correctly in your own projects you will have to alter the <code>CURSOR_OBJ</code> define in the <code>cursor.c</code> file.  Currently this points to the Cursor object in the supplied example application.  The define will have to be altered to reflect and actual name and user interface structure of your application.  Because of this limitation the approach shown in this project will be of most use in a small number of situations.  These are where a compiled Express project will be produced and where the user interface modules can be hidden from the user.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application SetCursorEg is provided.  This demonstrates how the SetCursorExampleMod and Cursor objects should be connected with the rest of the application network.  To see how the SetApplicationCursor function should be used the source code to the SetCursorExampleMod should be examined.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><I>xp_comm_proj/setcur/cur_mods.v</I> contains the V definitions of the SetCursorUtilityCode and SetCursorExampleMod modules.</p>
+
+<p><I>xp_comm_proj/setcur/cur_apps.v</I> contains the V definition of the SetCursorEg example application.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+This module is intended for AVS/Express module developers only.  The low-level SetCursorMods library containing the modules SetCursorUtilityCode and SetCursorExampleMod does not specify a process. By default the express process will be used.  For this project to work correctly both of these modules must be in the same process.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Dr David Knight,
+AVS Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#diserr">DisplayErrorDialog</a> IAC project.</li>
+</ul>
+
+</body>
+</html>
+

@@ -1,0 +1,392 @@
+<html>
+<head>
+<title>imagePlayer</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>imagePlayer</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+Animates a number of AVS x format image files stored in memory or on
+disk.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block
+ImagePlayerParams, which are accessed by the module AVSImagePlayer and the UI Macro
+ImagePlayerUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</font>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>file_format</i></td>
+<td width="75">string</td>
+<td width="300">filename specification</td>
+<td width="125"><tt>File Format</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>nb_images</i></td>
+<td width="75">int</td>
+<td width="300">total number of images</td>
+<td width="125"><tt>Number of Images</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>first_image</i></td>
+<td width="75">int</td>
+<td width="300">first index number</td>
+<td width="125"><tt>First Image</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>step</i></td>
+<td width="75">int</td>
+<td width="300">value of loop increment</td>
+<td width="125"><tt>Step</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>access_mode</i></td>
+<td width="75">int</td>
+<td width="300">memory or disk access</td>
+<td width="125"><tt>Access Mode</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>run_mode</i></td>
+<td width="75">int</td>
+<td width="300">forward, backwards or cycle control</td>
+<td width="125"><tt>Run Mode</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>fps</i></td>
+<td width="75">float</td>
+<td width="300">animation rate in frames per second</td>
+<td width="125"><tt>Frames per sec</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>nsec_before</i></td>
+<td width="75">int</td>
+<td width="300">secs before animation is restarted</td>
+<td width="125"><tt>Nsec Before</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>nsec_after</i></td>
+<td width="75">int</td>
+<td width="300">secs before animation returns to first frame</td>
+<td width="125"><tt>Nsec After</tt></td>
+</tr>
+
+<tr>
+<td width="100"><i>count</i></td>
+<td width="75">int</td>
+<td width="300">index number of current image</td>
+<td width="125"><tt>Image Number</tt> slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>real_fps</i></td>
+<td width="75">string</td>
+<td width="300">actual animation rate</td>
+<td width="125"><tt>Real Frame/s</tt> label</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">field data</td>
+<td width="425">currently displayed image data</td>
+</tr>
+
+<tr>
+<td width="100"><i>obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The imagePlayer macro is a high level user macro that is able to read in
+image files in the AVS x format and then animate them either from memory
+or by loading each image as it is required. The image filenames are
+specified by using a C-style format-string and a number of parameters.
+The module is also able to control the rate at which the images are
+animated, whether the animation runs forward or backwards and whether
+the animation cycles continously. All of these functions are
+controllable through a User Interface. The images are output as both a
+uniform mesh with colours represented by node data, and a renderable
+DataObject that is generated from the uniform mesh.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>ImagePlayerParams.file_format</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this string
+value is used to specify the filename formatting string that is used to
+load the sequence of image files. This is down by using a C-style
+formatting expression to generate indexed filenames.
+</blockquote>
+
+<blockquote>
+Therefore setting <TT>file_format</TT> to <TT>"Imag%d.x"</TT> will
+generate filenames of the form <TT>"Image0.x"</TT> with no leading
+characters; whilst setting the parameter to <TT>"Image%04d.x"</TT> will
+generate filenames which are padded with zeros to be 8 characters long
+(i.e. <TT>"Imag0001.x"</TT>). More information can be found in any C
+reference book.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.nb_images</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this int value
+specifies the total number of images that are to be animated. The
+animation will stop or repeat as appropriate when this many frames have
+been displayed.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.first_image</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this int value
+specifies the index number of the first image to be animated.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.step</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this int value
+specifies the value that the index number should be incremented by
+during each iteration of the animation loop.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.access_mode</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this int value
+specifies whether images should be animated from memory or from disk.
+Setting the parameter to 0 specifies that each image should be read from
+disk immediately before it is displayed. Setting the parameter to 1
+specifies that all the images should be loaded into memory before the
+animation begins and displayed directly from memory.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.run_mode</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this int value
+specifies how the animation should be performed. There are four possible
+values for this parameter:-
+</blockquote>
+
+<dl compact>
+<dt>0	<dd>Play forwards until last frame is reached
+<dt>1	<dd>Play forwards continously, cycling to start when last frame is reached
+<dt>2	<dd>Play backwards until first frame is reached
+<dt>3	<dd>Play backwards continously, cycling to end when first frame is reached
+</dl>
+
+<blockquote>
+<i><b>ImagePlayerParams.fps</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this float value
+specifies the rate at which the animation should run in frames per
+second. This is the intended animation rate. If the system is unable to
+achieve this rate then the animation will run at a lower rate.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.nsec_before</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this int value
+specifies the number of seconds that the animation should wait at the
+starting frame before the animation is restarted. This parameter only
+applies when the animation is cycling.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.nsec_after</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this int value
+specifies the number of seconds that the animation should wait at the
+ending frame before the animation returns to the starting frame. This
+parameter only applies when the animation is cycling.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.count</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this int value
+specifies the index number of the currently displayed image. Setting
+this parameter will cause the currently displayed image to change
+immediately.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.real_fps</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ImagePlayerParams parameter block group, this string
+value displays the number of frames per second that the animation is
+actually running at. The parameter is intended for display only and to
+ease display the number of frames per second is included along with an
+appropriate message by the module.
+</blockquote>
+
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The currently displayed image output as Field data. The image is
+represented by a uniform mesh. The colour of each pixel is represented
+by a vector of length 4 (i.e. alpha, red, green, blue) at each node data
+point.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the AVSImagePlayer module. This
+contains a DataObject object that can be rendered by the standard data
+viewers. The DataObject is generated directly from the field data
+created from the currently displayed image.
+</blockquote>
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level AVSImagePlayer module is used in the User Macro
+imagePlayer. Additionally, this macro also uses the ImagePlayerParams
+parameter block group object, as does the ImagePlayerUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application AVSImagePlayerEg is provided, which uses the
+animation module to display a sequence of images generated for a
+Meteorological Office presentation on global warming.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/ximg_ply/iplymacs.v</i> contains the imagePlayer User Macro,
+the ImagePlayerUI UI Macro, and the example application AVSImagePlayerEg
+V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The AVSImagePlayerMacs library inherits its process. As this library
+contains no procedural code, the process is not important. The low-level
+AVSImagePlayer module, executes under the process specified in its library,
+not the process defined in the high-level library.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Fernand Alcatrao
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ImagePlayerParams, ImagePlayerUI and AVSImagePlayer.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+</body>
+</html>

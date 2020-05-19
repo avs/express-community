@@ -1,0 +1,139 @@
+Express Community ReadCgns Project
+https://github.com/avs/express-community
+--------------------
+
+This directory ( xp_comm_proj/rd_cgns/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project "ReadCgns".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new project, and two additions to the xp_comm_lib/ files (in this instance
+data_io.v and examples.v) to add links to the User Macro and Example
+applications from the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+If you modify the project, and elect to specify the process as "user" or
+another user-defined process, then the module may be compiled without
+having to exit the AVS/Express application. Use the following command in the
+VCP to compile the module:
+
+        $compile XP_COMM_PROJ.ReadCgns.ReadCgnsMods
+
+Users of the Developer's Edition may select the module in the relevant 
+Templates library, and choose 'compile' from the Project menu.
+
+As well as installing and compiling the Community project code the CGNS library
+must also be installed.  On the Windows platform a pre-compiled library is
+supplied and will be automatically linked into Express.  On other platforms
+the CGNS library must be downloaded from www.cgns.org and installed into
+the appropriate place.  Please see the project documentation for more
+information on installing the CGNS library.
+
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/rd_tin/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/ data_io.v and examples.v files. This file should
+               not be edited as the future installation script will use
+               this file.
+
+rd_cgns.v      Creates the XP_COMM_PROJ.ReadCgns library.
+
+cgnsmods.v     Creates the ReadCgnsMods library containing the low-level
+               DVread_cgns module, the BaseInfo and ZoneInfo groups and the
+               ReadCgnsParams and ReadCgnsOutputParams parameter blocks.
+
+cgnsmacs.v     Creates the ReadCgnsMacs library containing the user interface 
+               macro ReadCgnsUI, the functional macro ReadCgnsFunc and the 
+               high-level user macro read_cgns.
+
+cgnsapps.v     Creates the ReadCgnsApps library containing the example 
+               applications ReadCgnsUnstructuredEg and ReadCgnsMultiBlockEg.
+               Also creates a sub-library TestCases containing sample
+               applications used during implementation testing.
+
+scan_cgns.c    The C source code for the DVread_cgns module.
+load_cgns.c
+unstructured.c
+structured.c
+
+dv_cgns.h      The C header file that contains DVread_cgns module definitions.
+
+cgnslib.h      The standard CGNS library C header file.
+
+libcgns.lib    Precompiled CGNS library file for the Windows platform.
+
+rd_cgns.html   HTML documentation for the read_cgns user macro.
+
+CHANGES        History of changes made to project.
+
+README         This file.
+
+
+data/5blocks.cgns   Test CGNS file containing structured data.
+
+data/tut21.cgns     Test CGNS file containing unstructured data.
+
+data/tst-mixed.cgns     Test case CGNS file containing three Bases. The second Base
+                        tests correct handling of simultaneous structured and
+                        unstructured zones with one of them lacking data. The third
+                        Base checks Sections with MIXED cell type with cells defined
+                        not in any order.
+
+data/tst-ngon.cgns      Test case CGNS file verifying the implementation of NGON-n cells.
+
+data/tst-rind.cgns      Test case CGNS file containing Rind data.
+
+data/tst-unsupp.cgns    Test case CGNS file checking for unsupported features of the CGNS
+                        standard. First Base contains a Zone with non Cartesian coordinates,
+                        second Base (second Zone, second Solution) tests for handling
+                        unsupported GridPosition.
+
+data/tst-cells.cgns     Test case CGNS file containing multiple Bases, each one serves
+                        as a test for base cell type handling.
+
+data/tst-1D-scnd_order.cgns     Test case CGNS file containing one-dimensional second order
+                                cells (BAR_3).
+
+data/tst-2D-scnd_order.cgns     Test case CGNS file containing two dimensional second order
+                                cells (TRI_6, QUAD_8, QUAD_9).
+
+data/tst-3D-scnd_order.cgns     Test case CGNS file containing three dimensional second order
+                                cells (TETRA_10, PYRA_14, PENTA_15, PENTA_18, HEXA_20, HEXA_27).
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h           AVS/Express generated header file.
+
+scan_cgns.o(bj) Intermediate object files.
+load_cgns.o(bj)
+unstructured.o(bj)
+structured.o(bj)
+

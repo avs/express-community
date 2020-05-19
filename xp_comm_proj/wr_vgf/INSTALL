@@ -1,0 +1,16 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/wr_vgf/wr_vgf.v" WriteVGF;
+# In the following xp_comm_lib file
+output.v
+# insert the following line
+     XP_COMM_PROJ.WriteVGF.WriteVGFMacs.writeVGF writeVGF;
+     XP_COMM_PROJ.WriteVGF.WriteVGFMacs.writeVGF_GD writeVGF_GD;
+     XP_COMM_PROJ.WriteVGF.WriteVGFMacs.writeVGF_ARR writeVGF_ARR;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+     XP_COMM_PROJ.WriteVGF.WriteVGFMacs.WriteVGFEg WriteVGFEg;
+     XP_COMM_PROJ.WriteVGF.WriteVGFMacs.WriteVGF_Arr_Eg WriteVGF_ARR_Eg;
+

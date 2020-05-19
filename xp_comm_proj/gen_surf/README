@@ -1,0 +1,66 @@
+Express Community GenerateSurface Example Project
+https://github.com/avs/express-community
+-----------------------------------
+
+This directory ( xp_comm_proj/gen_surf/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community GenerateSurface
+Example project "GenerateSurface".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new GenerateSurface project, and two single line additions to some of the 
+xp_comm_lib/ files (in this instance mappers.v and examples.v) to add a link to 
+the User Macro and the Example Application from the new top-level Community library
+page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Users of the Developer's Edition may select the
+library XP_COMM_PROJ.GenerateSurface.GenerateSurfaceMods in the Templates library,
+and then perform a compile. Alternatively, you may type the following command
+into the VCP prompt; Visualization Edition users must type the following
+command to compile the project, as there is no access to the Templates library
+through the Network Editor:
+
+$compile XP_COMM_PROJ.GenerateSurface.GenerateSurfaceMods
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/gen_surf/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/mappers.v and examples.v files. This file should
+		not be edited as the future installation script will use this
+		file.
+
+gen_surf.v	Creates the XP_COMM_PROJ.GenerateSurface library.
+
+gsurfmod.v	Creates the GenerateSurfaceMods library containing the low-level
+		module GenerateSurface and the parameter group
+		GenerateSurfaceParams.
+
+gsurfmac.v	Creates the GenerateSurfaceMacs library containing the high-level
+		macros GenerateSurfaceUI, GenerateSurfaceFunc, GenerateSurface and the
+		example appplication GenerateSurfaceApps.
+
+gen_surf.c	The C source code for the GenerateSurface module.
+
+doc_mod.html	HTML documentation for the GenerateSurface module.
+
+
+README		This file.
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h	AVS/Express generated header file.
+
+gen_surf.o	Intermediate object file.

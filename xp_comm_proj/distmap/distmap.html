@@ -1,0 +1,401 @@
+<!doctype html public "-//w3c//dtd html 4.01 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <title>background_generator - generate shaded background images</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>DistanceMapSegmentation</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The DistanceMapSegmentation performs a 3D segmentation based on the 
+  difference in the value of neighboured pixels. The segmentation itself is done 
+  by region growing. This module works only with byte data.&nbsp; 
+  <p align="center"><img border="0" src="distseg.png" width="90%" height="90%" alt="Screen Shot of the Example application using the DistanceMapSegmentation module"></p>
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by DistanceMapSegmentation">
+
+<tr>
+<td width="100"><b>Name</b></td>
+<td width="75"><b>Type</b></td>
+<td width="425"><b>Description</b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in</i></td>
+<td width="75">Mesh_Unif + Node_Data</td>
+<td width="425">Input data from which the segmentation will be performed</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by DistanceMapSegmentation" width="668">
+
+<tr>
+<td width="150"><b>Name</b></td>
+<td width="53"><b>Type</b></td>
+<td width="322"><b>Description</b></td>
+<td width="125"><b>UI Control</b></td>
+</tr>
+<tr>
+<td colspan="4" width="662"><hr></td>
+</tr>
+<tr>
+<td width="150">
+<i>axes</i><br>
+<i>plane</i></td>
+<td width="53">int</td>
+<td width="322">values defining slice number and viewing direction of 2 D input</td>
+<td width="125">UIradioBoxLabel<br>
+UIslider</td>
+</tr>
+
+<tr>
+<td width="150">
+<i><br>
+init_mask<br>
+init_points<br>
+reset</i></td>
+<td width="53">int</td>
+<td width="322">triggers functions to initialize the mask<br>
+removes all values from current mask<br>
+removes all points from current mask<br>
+deletes all masks and points</td>
+<td width="125">UIbutton</td>
+</tr>
+
+<tr>
+<td width="150">
+<i>fill_mode</i></td>
+<td width="53">int</td>
+<td width="322">decides which operation should be performed with the masks 
+(replace, add, intersect, subtract) </td>
+<td width="125">UIradioBoxLabel</td>
+</tr>
+
+<tr>
+<td width="150">
+<i>mask_num</i></td>
+<td width="53">int</td>
+<td width="322">current mask number (between 1 and 100)</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="150">
+<i>tolerance</i></td>
+<td width="53">int</td>
+<td width="322">value declares the accepted difference in the voxel-value from 
+the picked value to be part of this mask</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="150"><i>fill_val</i></td>
+<td width="53">int</td>
+<td width="322">value of the region of interest, usually picked by mouse</td>
+<td width="125">UIfield</td>
+</tr>
+
+<tr>
+<td width="150"><i>cutoff</i></td>
+<td width="53">int</td>
+<td width="322">provides threshold for segmentation; values below this threshold 
+are set to 0</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="150"><i>smooth</i></td>
+<td width="53">int</td>
+<td width="322">threshold used for mask operations</td>
+<td width="125">UIslider</td>
+</tr>
+
+<tr>
+<td width="150"><i>smooth_out</i></td>
+<td width="53">int</td>
+<td width="322">decides about the kind of smoothing (no smoothing, smooth diam 
+3, smooth diam5)</td>
+<td width="125">UIradioBoxLabel</td>
+</tr>
+
+<tr>
+<td width="150"><i>do</i></td>
+<td width="53">int</td>
+<td width="322">starts the calculating of the 3D segmentation</td>
+<td width="125">UIfield</td>
+</tr>
+
+<tr>
+<td colspan="4" width="662"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by DistanceMapSegmentation" width="624">
+
+<tr>
+<td width="100"><b>Name</b></td>
+<td width="95"><b>Type</b></td>
+<td width="415"><b>Description</b></td>
+</tr>
+
+<tr>
+<td colspan="4" width="618"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>data_obj</i></td>
+<td width="95">DefaultObject</td>
+<td width="415">2D output of current slice with isoline of segmentation</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_field</i></td>
+<td width="95">Mesh_Unif + Node_Data</td>
+<td width="415"> 3D output of the segmentation, 
+includes a 'shadow' of not segmented objects</td>
+</tr>
+
+<tr>
+<td width="100"><i>fill_obj</i></td>
+<td width="95">DefaultObject</td>
+<td width="415">2D output of the distance map of the segmentation of the 
+current slice</td>
+</tr>
+
+<tr>
+<td width="100"><i>res_obj</i></td>
+<td width="95">DefaultObject</td>
+<td width="415">resulting 2D output of segmentation of this slice, includes a 'shadow' of not segmented objects</td>
+</tr>
+
+<tr>
+<td width="100"><i>mask_obj</i></td>
+<td width="95">DefaultObject</td>
+<td width="415">2D output of the segmentation mask of the current slice, different masks are displayed in different colours</td>
+</tr>
+
+<tr>
+<td colspan="4" width="618"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The DistanceMapSegmentation macro provides a way to segment a 3 D byte 
+volumes using a distance map. The user selects a area of interest by picking a 
+point out of it with the left mouse button while the Ctrl-key is pressed. A 
+border gets drown around an area with similar values. With the <i>tolerance</i> 
+and <i>cutoff</i> sliders this area can be adjusted. The <i>do</i> button starts 
+the calculation of the 3D segmentation of this area. The fill window shows the 
+distance map derived from this area. The mask window shows the mask, if there 
+are several masks they get drawn in different colours. The result window shows 
+the current slice with the distance values used in the 3D scene window.</p>
+
+<p>Around the picked points a region growing is performed to select areas with 
+approximately the same values. This segmentation is used to create distance map. 
+Values below a threshold (cutoff) get ignored.</p>
+
+<p>There is the possibility to have up to 100 mask of the same volume. This 
+masks are not independent of each other. Point in one mask cannot be also points 
+in another mask. Therefore mask operations are provided. You can add new 
+segments to an existing mask, or replace the values with the new ones; you can 
+also intersect or subtract two masks. To reset the current mask the user can 
+press <i>reset mask</i>, to initialize all point <i>init points</i>, or to reset 
+everything <i>reset</i>.</p>
+
+</blockquote>
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in</i></b></blockquote>
+
+<blockquote>Input of 3D volume data, usually provided by a <i>Read Field</i> 
+  module. This is the data which should be segmented using this module. This 
+  input is required.</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote>
+
+</blockquote>
+
+<blockquote>
+<b><i>axes </i></b><br>
+<i><b>plane</b></i></blockquote>
+
+<blockquote>
+This values define the current slice. The axis provides the viewing direction on 
+the volume data, the plane the depth of the selected slice in the volume.</blockquote>
+
+<blockquote><b><i>init_mask<br>
+  init_point<br>
+  reset</i></b></blockquote>
+
+<blockquote>
+This are parameters which trigger functions to reset the current mask, or to 
+reset all picket point points, or to reset everything, so all masks and all 
+points get deleted. 
+<p><b>
+<i>fill_mode</i></b></p>
+<p>There is the choice between four mask operations. You can replace an existing 
+mask, you can add new values to it, or intersect two masks or make the 
+difference between&nbsp; them. It is impossible that two masks have points at 
+the same place. The default fill mode is replace the old mask with the new one.</p>
+<p><b>
+<i>mask_num</i></b></p>
+<p>You could have up to 100 different masks for the same volume. This parameter 
+specifies the current.</p>
+<p><b>
+<i>tolerance</i></b></p>
+<p>The <i>tolerance</i> provides a value to specify the allowed difference 
+between neighboured voxels to belong to the same area of interest.&nbsp; This is 
+one of two possibilities to select the correct area of the volume, the other 
+parameter is <i>cutoff</i>.</p>
+<p><b><i>fill_val</i></b></p>
+<p>The value of the voxel which was picked as part of the area of interest. 
+Pixels around this voxel with a value within the choosen tolerance get selected 
+as part of the area of interest.</p>
+<p><b><i>cutoff</i></b></p>
+<p>The second value to influence the mask. It provides a threshold. After the 
+distance map was created all voxels which have not the same value as the picked 
+one are represented by their difference in value. If the difference is bigger 
+than this threshold they get excluded from the mask.</p>
+<p><b><i>smooth</i></b></p>
+<p>This is the threshold for the mask opperations. Only values above this 
+threshold get considered.</p>
+<p><b><i>smooth_out</i></b></p>
+<p>The user has the choice between <i>no smoothing</i>, <i>smooth diam 3</i>, or
+<i>smooth diam 5.</i> The difference between the two smoothing methods is the 
+radius which gets considered (one voxel on each side or two).&nbsp; This is 
+useful if you want to prevent the creation of pointy areas. </p>
+<p><b><i>do</i></b></p>
+<p>If this value gets set, it triggers the calculation of the 3D segmentation.</p>
+</blockquote>
+
+<h3>
+<b>Outputs</b></h3>
+
+<blockquote><b><i>data_obj</i></b></blockquote>
+
+<blockquote>DefaultObject containing the current slice in the specified 
+  direction in which the segmentation is represented by an isoline.</blockquote>
+
+<blockquote><b><i>out_field</i></b></blockquote>
+
+<blockquote>This is the segmented output field. The current selected mask is 
+  used to calculate this output. It includes also a 'shadow' of the other not 
+  currently segmented objects in the data.<p><b><i>fill_obj</i></b></p>
+  <p>This is a 2 D representation of the current slice as shown in the <i>
+  data_obj</i> output. The values come from a distance map calculated from the 
+  selection in that slice.</p>
+  <p><b><i>res_obj</i></b></p>
+  <p>This is a 2 D representation of the current slice as shown in the <i>
+  data_obj</i> output. The values come from a global distance map from the 
+  current selected mask (same values as in the <i>out_field</i>). It includes 
+  also a 'shadow' of all not currently segmented objects in that volume.</p>
+  <p><b><i>mask_obj</i></b></p>
+  <p>This is a 2 D representation of the current slice as shown in the <i>
+  data_obj</i> output. It represents the masks in this slice. Each mask is shown 
+  in a different colour.</p>
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>The functional macro <i>DistanceMapSegmentationFunc</i> uses the 
+  low-level modules&nbsp; <i>dist_fill</i>, <i>create_outf</i>, <i>reset_all</i>,
+  <i>init_mask</i>, <i>init_point</i> and the macros <i>distance_map_slice</i> 
+  which uses in one instance the module <i>add_points</i>, and <i>mask_field</i> 
+  which uses <i>create_outm</i>.  The user macro <i>DistanceMapSegmentation</i> uses this functional macro and the user interface macro 
+  <i>DistanceMapSegmentationUI</i>.  The <i>distmapParams</i> parameter block is used to connect these components together.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>The DistanceMapSegmentationEg example application loads a file and 
+  displays all outputs in separate windows.</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>&quot;../xp_comm_proj/distmap/dstmppar.v&quot;</i>&nbsp; contains the V 
+definition of the parameter blocks. <i>pt_params </i>defines the point parameter 
+needed; <i>pt_init_params</i> defines the reset of the picked points; <i>
+fill_params</i> includes all needed parameter to fill a mask; <i>out_params</i> 
+includes all needed parameter to do the segmentation; <i>points</i> include all 
+picked points; <i>distmapParams</i> include all other parameter blocks.</p>
+<p><i>&quot;../xp_comm_proj/distmap/dstmpmod.v&quot;</i> contains the V definition 
+modules. <i>add_points </i>handels the picking of new points from the input 
+slice; <i>create_outf</i> creates the 3 D output; <i>create_outm</i> creates the 
+mask output; <i>dis_fill</i> creates the distance map; <i>init_points</i> resets 
+all&nbsp; picked points of current slice; <i>init_mask</i> resets the mask of 
+current slice; reset_all resets the points and masks of all slices;</p>
+<p><i>&quot;../xp_comm_proj/distmap/dstmpmac.v&quot;</i> contains the V definition 
+of the macros. <i>DistanceMapSegmentationUI</i> describes the user interface of 
+this module; <i>distance_map_slice</i> creates the data input slice according to 
+the selected axis and plane; <i>DistanceMapSegmentationFunc</i> is the 
+functional macro in this library; <i>DistanceMapSegmentation</i> and <i>
+DistanceMapSegmentationDialog</i> are the user macros.</p>
+<p><i>&quot;../xp_comm_proj/distmap/dstmpapp.v&quot;</i> contains the V definition 
+of the example applications. <i>DistanceMapSegmentationEg </i>is a multi-window 
+application that uses the <i>DistanceMapSegmentation</i>&nbsp; user macro, 
+separate output windows; <i>DistanceMapSegmentationDialogEg</i> uses the <i>
+DistanceMapSegmentationDialog</i> as user macro, all windows are displayed in one viewer.</p>
+
+
+</blockquote>
+
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Dr Krzysztof Nowinski
+Warsaw University
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Tobias Schiebeck 
+International AVS Centre
+
+Anja Bindrich 
+MVC University of Manchester
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li>DistanceMapSegmentationDialog</li>
+</ul>
+
+</body>
+</html>

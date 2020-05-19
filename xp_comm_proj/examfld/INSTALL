@@ -1,0 +1,12 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/examfld/examfld.v" Examine_Field;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Examine_Field.Examine_FieldMacs.examine_field examine_field;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Examine_Field.Examine_FieldMacs.Examine_Field_Eg Examine_Field_Eg;

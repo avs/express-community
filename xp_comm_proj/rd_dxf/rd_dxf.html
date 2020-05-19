@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+   <title>readDXF - Reads DXF format files.</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>readDXF</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>The readDXF user macro reads DXF format files.</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by readDXF">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>file_name</i></td>
+<td width="75">string</td>
+<td width="300">Name of DXF file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>reverse_normals</i></td>
+<td width="75">boolean</td>
+<td width="300">Specifies if read normals should be reversed.</td>
+<td width="125">Check Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>fill_polygons</i></td>
+<td width="75">boolean</td>
+<td width="300">Specifies if polygons should be filled or outlined.</td>
+<td width="125">Check Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>layers</i></td>
+<td width="75">int[]</td>
+<td width="300">DXF layers that should be output</td>
+<td width="125">Check Boxes</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by readDXF">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_flds</i></td>
+<td width="75">Field[]</td>
+<td width="425">Array of layers read from DXF file.</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_geom</i></td>
+<td width="75">GroupObject</td>
+<td width="425">Renderable geometry object</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_text</i></td>
+<td width="75">GroupObject</td>
+<td width="425">Renderable text object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The DXF file format was created by AutoDesk so that drawing information could be transferred between AutoCad and other applications.  The DXF acronym  actually stands for Drawing eXchange Format.  DXF files can be of two types, binary and the more common ASCII formats.  The readDXF user macro allows AVS/Express to read data from an ascii DXF file and output it as an array of field data.  The DXF format can contain a number of layers of information.  Each of these are read into a separate field in the output array.  The user can select which layers should be output.  The user can also specify whether polygons should be filled and whether normals should be reversed.</p>
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>file_name</i></b></blockquote>
+
+<blockquote>String parameter that specifies which DXF file should be read.  The file_name string should contain the full path name of the file and can contain any of the AVS/Express environment variables (e.g. $XP_PATH&lt;1&gt;)</blockquote>
+
+<blockquote><b><i>reverse_normals</i></b></blockquote>
+
+<blockquote>Boolean parameter that specifies if the normals read from the DXF file should be reversed.  The data in a 3D model should be arranged so that normal vectors point outwards, away from the solid mass of the model.  However it is quite common to find files where the normals been mistakenly written so that they point inwards.  This parameter allows the user to correct this problem.  If you notice that the lighting on the loaded DXF file does not look correct you should try setting this parameter.</blockquote>
+
+<blockquote><b><i>fill_polygons</i></b></blockquote>
+
+<blockquote>Boolean parameter that specifies if polygons should be output as filled shapes or as outlines.</blockquote>
+
+<blockquote><b><i>layers[]</i></b></blockquote>
+
+<blockquote>Array of integers that specifies which layers read from the DXF file should be output to the field and renderable object outputs.  The array should contain a list of index numbers that specifies which layers should be selected.  Hence the array <tt>{0,1,2}</tt> specifies that only the first three layers should be output.  This kind of array is output by the UIoptionBoxLabel component.  Each time the DXF file is read the layers array is reset so that all layers are output.  Internally an <a href="../ext_objs/ext_objs.html">ExtractObjectsCore</a> module processes this parameter.</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_flds[]</i></b></blockquote>
+
+<blockquote>Array of fields containing the geometry data read from the specified DXF file.  Each specified layer is read into a separate field in the array.</blockquote>
+
+<blockquote><b><i>out_geom</i></b></blockquote>
+
+<blockquote>The GroupObject version of the geometry output, suitable for direct connection to the viewer.  It contains the array of fields present on the out_flds output port.  The transform of each child DataObject is matched to the transformation of the parent GroupObject.</blockquote>
+
+<blockquote><b><i>out_text</i></b></blockquote>
+
+<blockquote>A GroupObject that represents the text read from the DXF file.  This output is suitable for direct connection to the viewer.  The transform of each child DataObject is matched to the transformation of the parent GroupObject.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ReadDXFFunc functional macro uses the low-level ReadDXFCore module.  It also uses the <a href="../ext_objs/ext_objs.html">ExtractObjectsCore</a> module and the <a href="../cat_cs/doc_umac.html">cat_cell_sets</a> macro.  The ExtractObjectsCore module is used to select the appropriate layers from the ReadDXFCore output.  The cat_cell_sets macro is used because ReadDXFCore module outputs field data with a large number of cell sets.  To improve performance the cat_cell_sets macro is used to reduce the number of cell sets output.</p>
+
+<p>The ReadDXFFunc functional macro and the ReadDXF_UI user interface macro are used by the readDXF user macro.  All of these macros use the ReadDXFParams parameter block to communicate data.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes two example applications that demonstrates the use of the readDXF macro.  The ReadDXFEg application uses the readDXF macro to read a DXF file containing a model of an aeroplane.  The ReadDXFExtractEg application extends the ReadDXFEg application by extracting fields from the output and performing mesh visualization on them.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_dxf/rdxfmods.v</i> contains the V definition of the ReadDXFCore module and the ReadDXFParams parameter block.</p>
+
+<p><i>xp_comm_proj/rd_dxf/rdxfmacs.v</i> contains the V definitions of the ReadDXF_UI UI macro, the ReadDXFFunc functional macro and the readDXF user macro.</p>
+
+<p><i>xp_comm_proj/rd_dxf/rdxfapps.v</i> contains the V definition of the ReadDXFEg example application.</p>
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project requires the following components to be installed correctly. Without these components the project will not work.
+</blockquote>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#ext_objs">ExtractObjects</a> IAC project</li> 
+<li><a href="http://www.iavsc.org/repository/express/mappers.html#cat_cs">CatCellSets</a> IAC project</li> 
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadDXFMods library containing the ReadDXFCore module does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>
+Peter Stark
+Stephen Marsland
+Margaret Wood
+Anja Bindrich
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre><a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>,
+International AVS Centre</pre>
+</blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#ext_objs">ExtractObjects</a> IAC project</li> 
+<li><a href="http://www.iavsc.org/repository/express/mappers.html#cat_cs">CatCellSets</a> IAC project.</li>
+<li><a href="http://www.autodesk.com">AutoDesk</a> for further information on the AutoCad series of products and the DXF file format.</li>
+</ul>
+
+</body>
+</html>
+

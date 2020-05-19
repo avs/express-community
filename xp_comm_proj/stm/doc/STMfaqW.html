@@ -1,0 +1,186 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:12pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		 STM:See The Molecule
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="bg1x.jpg">
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+	Frequently Asked Questions</SPAN>
+</H1>
+<OL>
+	<LI>I cannot get the files to compile under Windows!
+		<P>
+		Check to make sure the environment variables for the Microsoft Visual C++
+		6.0 compiler is available.  The variables are set from a batch file
+		<I>vcvars32.bat</I> provided with the Microsoft installation.
+		</P>
+	<LI>I load my data file into the <I>G94FubeDisplay.v</I> netowrk and the 
+		application crashes!  Now what?
+		<P>
+		The problem is probably the size of the intermediate storage array.
+		Originally set to <B>250000</B>, the version dated 01/25/2000 has the
+		array set to <B>750000</B>.  You may need to increase this value.
+		Look at the dimensions from the CUBE file and multiply them together
+		to determin the size you need.
+		</P>
+		<UL TYPE="square">
+			<LI>To reset the array
+				<BR>Line 11 in the <I>Read_G94_cube.c</I> source code in the 
+				<I>mods</I> directory of XPstm.  The line reads
+				<DIV ALIGN="center">
+					#define STORAGE 250000
+					<BR>or<BR>
+					#define STORAGE 750000
+				</DIV>
+				change the value.
+			<LI>To determine the dimensions
+				<BR>The first integers in lines 4, 5, 6 are the x,y, and z 
+				dimensions of the box.  Multiply these values together to 
+				determine the amount of storage required by the <I>Read_G94_cube</I>
+				module.
+		</UL>
+	<LI>How do I customize a desktop icon for STM?
+		<P>
+		For Windows 95:
+		<OL TYPE="i">
+			<LI> First, create a desktop icon for Express.  This can be done
+				in two ways:
+				<OL TYPE="a">
+					<LI>Locate the Express.exe (usually in 
+						C:\Express\bin\pc) file and drag the file 
+						to desktop.
+					<LI>Or use the pop-up menu for the application 
+						(right mouse click) and select <B>Create 
+						Shortcut</B>.
+				</OL>
+			<LI>The icon will originally look like:
+				<IMG ALT="Destop Icon" SRC="icon0.jpg">
+				<P>
+				Then using the icon pop-up menu (select the </B>Rename</B> 
+				option), rename the icon to STM (or whatever you prefer).  
+			<LI>
+				
+				<TABLE BORDER=0 ALIGN="center">
+				<TR>
+					<TD VALIGN="top">
+						<p>
+						Then, using the icon pop-up menu, select the 
+						<B>Properties</B> option.
+					</P>
+					</TD><TD>
+						<IMG ALT="Properties Page One" SRC="icon1.jpg">
+					</TD>
+				</TR>
+				</TABLE>
+			<LI>
+				<TABLE BORDER=0 ALIGN="center">
+				<TR>
+					<TD VALIGN="top">
+						<P>
+						Then, selet the <I>Program</I> tab on the properties 
+						menu, and:
+						<P>
+						<OL TYPE="i">
+							<LI>Set the <I>Cmd Line</I> to be the location of the
+								Run.bat file.  For example if XPstm is on the D:\
+								drive then use <B>D:\XPstm\Run.bat</B>
+							<LI>Set the <I>Start in:</I> field to be the XPstm 
+								directory path. For example if XPstm is on the D:\
+								drive then use <B>D:\XPstm</B>
+							<LI>Select the APPLY button.
+						</OL>
+					</TD><TD>
+						<IMG ALT="Properties Page Two" SRC="icon2.jpg" WIDTH="50%">
+					</TD>
+				</TR>
+				</TABLE>
+			<LI>The icon will change and probably look like 
+				<IMG ALT="Windows 95 icon" SRC="W95icon.jpg" ALIGN="bottom">
+		</OL>
+		<P>
+		For Windows NT:
+		<OL TYPE="i">
+			<LI> First, create a desktop icon for Express.  This can be done
+				in two ways:
+				<OL TYPE="a">
+					<LI>Locate the Express.exe (usually in 
+						C:\Express\bin\pc) file and drag the file 
+						to desktop.
+					<LI>Or use the pop-up menu for the application 
+						(right mouse click) and select <B>Create 
+						Shortcut</B>.
+				</OL>
+			<LI>The icon will originally look like:
+				<IMG ALT="Destop Icon" SRC="icon0.jpg">
+				<P>
+				Then using the icon pop-up menu (select the </B>Rename</B> 
+				option), rename the icon to STM (or whatever you prefer).  
+			<LI>
+				
+				<TABLE BORDER=0 ALIGN="center">
+				<TR>
+					<TD VALIGN="top">
+						<p>
+						Then, using the icon pop-up menu, select the 
+						<B>Properties</B> option.
+					</P>
+					</TD><TD>
+						<IMG ALT="Properties Page One" SRC="iconPage1.jpg">
+					</TD>
+				</TR>
+				</TABLE>
+			<LI>
+				<TABLE BORDER=0 ALIGN="center">
+				<TR>
+					<TD VALIGN="top">
+						<P>
+						Then, selet the <I>Shortcut</I> tab on the properties 
+						menu, and:
+						<P>
+						<OL TYPE="i">
+							<LI>Set the <I>Target</I> to be the location of the
+								Run.bat file.  For example if XPstm is on the D:\
+								drive then use <B>D:\XPstm\Run.bat</B>
+							<LI>Set the <I>Start in:</I> field to be the XPstm 
+								directory path. For example if XPstm is on the D:\
+								drive then use <B>D:\XPstm</B>
+							<LI>Select the APPLY button.
+						</OL>
+					</TD><TD>
+						<IMG ALT="Properties Page Two" SRC="iconPage2.jpg" WIDTH="50%">
+					</TD>
+				</TR>
+				</TABLE>
+			<LI>The icon will change and probably look like 
+				<IMG ALT="Windows 95 icon" SRC="WNTicon.jpg" ALIGN="bottom">
+</OL>
+</BODY>
+</HTML>

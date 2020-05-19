@@ -1,0 +1,196 @@
+<html>
+<head>
+   <meta name="Author" content="Ian Curington">
+   <title>Krig - 3D scatter to grid interpolation using Kriging methods</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Krig</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Advanced interpolation modules using polynomial and statistically
+based kriging methods in 3D.</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="150"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_fld</i></td>
+<td width="80">Mesh+Node_Data</td>
+<td width="425">3D scatter points</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+
+<table>
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100">nx<i></i></td>
+<td width="80">int</td>
+<td width="425">number of grid nodes in x direction</td>
+</tr>
+
+<tr>
+<td width="100">ny<i></i></td>
+<td width="80">int</td>
+<td width="425">number of grid nodes in y direction</td>
+</tr>
+
+<tr>
+<td width="100">nz<i></i></td>
+<td width="80">int</td>
+<td width="425">number of grid nodes in z direction</td>
+</tr>
+
+<tr>
+<td width="100">radius<i></i></td>
+<td width="80">float</td>
+<td width="425">search radius</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="80"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100">zest<i></i></td>
+<td width="80">float[][][]</td>
+<td width="425">estmated values at grid nodes</td>
+</tr>
+
+<tr>
+<td width="100">zstd<i></i></td>
+<td width="80">float[][][]</td>
+<td width="425">standard deviation at grid nodes</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+The Krig set of modules perform scatter to grid interpolation. They are
+based on the Toolmaster interpolation system, using both simple and Kriging
+methods. As these routines are already part of the AVS/Express runtime
+environment, these modules provide high-level Field wrappers around these
+interpolation functions. Three macro modules are provided in this Krig
+library:
+
+<p><br><b><i>Krig</i></b> - Interpolation from 3D scatter points and
+data values to a Kriging 3D grid.
+<blockquote>Estimates a random function of 3 variables at all grid nodes
+belonging to a 3D regular grid using the method of Kriging. The random function
+estimate and standard deviation arrays are calculated at all grid nodes.
+The semi-variogram function "gam" is supplied in this project and may be
+configured as needed with re-compilation.</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>in_fld</i></b></blockquote>
+
+<blockquote>3D scatter points which combine a mesh and some node data. A Node_Data object represents the values of some dataset at the node points of a field, while the Mesh represents the locations of that field's nodes in space.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>zest</i></b></blockquote>
+
+<blockquote>3D float array. This array contains the estimated values  at the grid nodes. 
+</blockquote>
+
+<blockquote><b><i>zstd</i></b></blockquote>
+
+<blockquote>3D float array. This array contains the standard deviations t the 
+grid nodes.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+<blockquote>
+The Krig2D macro uses the XuKrigging3D low-level module. This modules uses the XuKriging3DCalc and other functions of the the Toolmaster agX library. 
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>Two example applications are applied, KrigEg0 and KrigEg1. The KrigEg0 application demonstrates how 3D scatter points can be interpolated into uniform 3D grid.
+KrigEg1 is similar to KrigEg0, but adds a crop macro to show the boundary of 3D grid.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/krig/krigmods.v</i> contains the V definition of the agxint,XuKrigging2D and XuKrigging3D modules.</p>
+
+<p><i>xp_comm_proj/krig/krigmacs.v</i> contains the V definitions of the Krig2D,Interp2D and Krig macros.</p>
+<p><i>xp_comm_proj/krig/krigapps.v</i> contains the V definition of the KrigApps example application.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+&nbsp;See the documentation for <b><i>XuKriging2DCalc,&nbsp; XuKriging3DCalc,&nbsp;
+XuGriddingLocalFitCalc </i></b>in the Toolmaster agX Reference Manual.
+
+<h3>Authors</h3>
+
+<blockquote>
+<pre>Mark Lambert, Roger Fleuty, Ian Curington</pre>
+
+<pre>Advanced Visual Systems, Inc.</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+
+</body>
+</html>

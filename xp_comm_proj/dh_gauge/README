@@ -1,0 +1,48 @@
+Express Community DashGauge Project
+https://github.com/avs/express-community
+---------------------
+
+This directory ( xp_comm_proj/dh_gauge/ ) contains all the V code, HTML
+documentation, and installation information for the Community project
+"DashGauge".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new DashGauge project, and additions to one or more of files in the
+xp_comm_lib/ directory, to link appropriate objects to the top-level Community library
+page.
+
+This project contains no source code, and hence does not require compilation.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/dh_dial/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+dhdial.v	Creates the XP_COMM_PROJ.DashGauge library.
+
+dhg_macs.v	Creates the DashGaugeMacs library containing the V definitions
+		of the low level macros dash_camera, mk_dashtext, mk_needle, 
+		transform_needle, arc_grid and arc_solid as well as the high level 
+		User Interface Macros DashGaugeA, DashGaugeB and DashGauge.
+			
+dhg_apps.v	Creates the DashGaugeApps library containing the V definition 
+		of the example application DashGaugeArrayEg.
+		
+DhGauge.html	HTML documentation for the DashGauge high level User Interface
+		Macros DashGaugeA, DashGaugeB and DashGauge.
+
+README		This file.
+
+Generated Files
+---------------
+
+There are no generated files as this project does not contain any source code.

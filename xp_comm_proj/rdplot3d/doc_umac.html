@@ -1,0 +1,319 @@
+<html>
+<head>
+<title>read_plot3d</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>read_plot3d</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+This module reads either a formatted or unformatted multiblock PLOT3D data set consisting of the grid and data vector (Q file).
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block ReadPlot3dParams, which are accessed by the module ReadPlot3dFile and the UI Macro ReadPlot3dUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</font>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename_xyz</i></td>
+<td width="75">string</td>
+<td width="300">The selected grid file (x.dat)</td>
+<td width="125">XYZ (Grid) Filename</td>
+</tr>
+
+<tr>
+<td width="100"><i>filename_q</i></td>
+<td width="75">string</td>
+<td width="300">The selected data file (q.dat)</td>
+<td width="125">Q (Results) Filename</td>
+</tr>
+
+<tr>
+<td width="100"><i>iblanks</i></td>
+<td width="75">integer</td>
+<td width="300">Indicate presence of iblank values in the data files</td>
+<td width="125">IBlanks</td>
+</tr>
+
+<tr>
+<td width="100"><i>format</i></td>
+<td width="75">integer</td>
+<td width="300">Select the file format: ASCII, Binary, or Binary with Padding</td>
+<td width="125">File Format</td>
+</tr>
+
+<tr>
+<td width="100"><i>use_q</i></td>
+<td width="75">integer</td>
+<td width="300">Process Q file; otherwise ignore only building mesh data structure
+</td>
+<td width="125">Use Q file data</td>
+</tr>
+
+<tr>
+<td width="100"><i>trigger</i></td>
+<td width="75">integer</td>
+<td width="300">Start the read process</td>
+<td width="125">Read</td>
+</tr>
+
+<tr>
+<td width="100"><i>dims3d</i></td>
+<td width="75">integer</td>
+<td width="300">Assume data is 3D if selected, if not, assume 2D only</td>
+<td width="125">3D</td>
+</tr>
+
+<tr>
+<td width="100"><i>multiblock</i></td>
+<td width="75">integer</td>
+<td width="300">Assume multiblock format or else simple 1-block binary files</td>
+<td width="125">Multiblock</td>
+</tr>
+
+<tr>
+<td width="100"><i>&lt;none&gt;</i></td>
+<td width="75"><i>&lt;none&gt;</i></td>
+<td width="300">Clear the filename entries</td>
+<td width="125">Clear</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Ouput Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out</i></td>
+<td width="75">Multi_Block (link)</td>
+<td width="425">Multi-block output containing array of fields</td>
+</tr>
+
+<tr>
+<td width="100"><i>fields</i></td>
+<td width="75">field array (mlink)</td>
+<td width="425">Link to the fields sub-object of the multi-block output</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+This module reads either a formatted or unformatted multiblock PLOT3D data set consisting of the grid and data vector (Q file). 3D, 2D, ASCII, binary or Fortran unformatted files are handled. No corrections are made for block edge overlap and no co-incident node removal is attempted between blocks.  The cells of the output field structure created are all hexahedra. If no Q (result data) is present, visualizations can be made of the mesh file only.
+</blockquote>
+<blockquote>
+ReadPlot3dFile reads in several of the possible plot3d file types, a multiblock (with or without iblanks) stored in the whole field format, or a single 1-block file. The Q vector is labeled with the default names of the primative variables.
+</blockquote>
+<blockquote>
+File formats may be ASCII formatted, and two types of binary file. In the "binary" mode, the file is accessed as a continuous stream. In the "unformatted" mode, padding records are assumed at the end of logical blocks, such as caused by FORTRAN I/O, if the padding option is turned on, otherwise straight binary with no padding is assumed.
+</blockquote>
+<blockquote>
+If non-multiblock is selected, just one block is output, and no leading header is assumed.
+</blockquote>
+<blockquote>
+The reader automatically checks and detects BigEndian/LittleEndian format mode, and does byte swapping on the fly. This means that data generated on a UNIX machine can be viewed on an Intel PC, or that data generated on a Dec Alpha can be visualized on a Sun or SGI.
+</blockquote>
+<blockquote>
+The reader is written in an "omethod" style in C, with a multi-block (arrays of fields) output data structure. The DVswitch module can be used to select just one of the blocks for visualization with Main-Page modules, otherwise use the ARR modules for multiblock processing.
+</blockquote>
+<blockquote>
+<b>Typical Usage:</b> You have to have some idea of what the files contain before reading, or just experiment by pushing various combinations of parameters.
+</blockquote>
+<blockquote>
+<ul>
+<li>Single block PLOT3D files from AVS5: bluntfin</li>
+<ul>
+<li>blntfinq.bin, blntfinx.bin</li>
+<li>[3D, no iblanks, binary, no multiblock]</li>
+</ul>
+<li>Ascii multiblock files from AVS/Express</li>
+<ul>
+<li>multb_q.dat, multb_x.dat</li>
+<li>[3D, iblanks, ASCII, multiblock]</li>
+</ul>
+<li>Unformatted 2D grid files from a Dec Alpha System:</li>
+<ul>
+<li>[2D, no iblanks, binary w/padding, multiblock]</li>
+</ul>
+</ul>
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>&ReadPlot3dFileParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the various toggles and filenames.
+</blockquote>
+
+<blockquote>
+<i><b>filename_xyz</b></i>
+</blockquote>
+
+<blockquote>
+The selected grid file (x.dat)
+</blockquote>
+
+<blockquote>
+<i><b>filename_q</b></i>
+</blockquote>
+
+<blockquote>
+The selected data file (q.dat)
+</blockquote>
+
+<blockquote>
+<i><b>iblanks</b></i>
+</blockquote>
+
+<blockquote>
+A boolean parameter to indicate the presence of iblank values in the data files.
+</blockquote>
+
+<blockquote>
+<i><b>format</b></i>
+</blockquote>
+
+<blockquote>
+Select the file format: ASCII, Binary, or Binary with Padding
+</blockquote>
+
+<blockquote>
+<i><b>use_q</b></i>
+</blockquote>
+
+<blockquote>
+If selected, will try to process Q file; otherwise, will ignore and only build the mesh data structure.
+</blockquote>
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+Button to actually do the read. All other parameter interfaces may be set or changed beforehand, without triggering the read process.
+</blockquote>
+
+<blockquote>
+<i><b>dims3d</b></i>
+</blockquote>
+
+<blockquote>
+Assume data is 3D if selected, if not, assume 2D only
+</blockquote>
+
+<blockquote>
+<i><b>multiblock</b></i>
+</blockquote>
+
+<blockquote>
+Assume multiblock format or else simple 1-block binary files.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Multi-block output containing array of fields.
+</blockquote>
+
+<blockquote>
+<i><b>fields</b></i>
+</blockquote>
+
+<blockquote>
+Link to the fields sub-object of the multi-block output.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ReadPlot3dFile module is used in the Functional Macro ReadPlot3d and the User Macro read_plot3d. Additionally, the module, the Functional Macro and the UI Macro ReadPlot3dUI have references to the parameter block ReadPlot3dParams. There is a real instance of the parameter block in read_plot3d.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadPlot3dEg is provided, which reads the bluntfin plot3d data found in the AVS/Express installation directories, and then renders an orthogonal slice through the dataset.
+</blockquote>
+
+<blockquote>
+Note that a link object is used to extract a single field from the field array output of the module.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/rdplot3d/rdp3macs.v</i> contains the read_plot3d User Macro, the ReadPlot3d Functional Macro, the ReadPlot3dUI UI Macro, and the example application ReadPlot3dEg V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The read_plot3dMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level ReadPlot3dFile module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Ian Curington, AVS Inc (AVS/Express Port)
+Michael J. Rangitsch (AVS5 version, 11 Oct 1994)
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ReadPlot3dParams, ReadPlot3dFile, ReadPlot3dUI and ReadPlot3d.
+</blockquote>
+
+<blockquote>
+Plot3d_Multi_Block
+</blockquote>
+
+</body>
+</html>

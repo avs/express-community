@@ -1,0 +1,262 @@
+<html>
+<head>
+<title>Examine_Field_Prim</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>Examine_Field_Prim</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Examine a field, and write brief information about it to a string. 
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module Examine_Field_Prim
+<
+  libdeps       = "FLD",
+  hdr_dirs      = "../utils_xp",
+  src_file      = "examfld.cxx",
+  cxx_hdr_files = "fld/Xfld.h array_fn.h field_fn.h om_fn.h",
+  cxx_src_files = "../utils_xp/array_fn.cxx ../utils_xp/field_fn.cxx ../utils_xp/om_fn.cxx"
+> 
+{
+  int    text_rows   <NEportLevels={2,1}>;
+  string text_string <NEportLevels={2,1}>;
+  group  &data       
+  <
+    NEportLevels={2,0},NEx=429.,NEy=286.
+  >
+  {
+    int nnodes;
+    int nspace;
+    Data_Array coordinates {
+       nvals => <-.nnodes;
+       veclen => <-.nspace;
+       float values[.nvals][.veclen];
+       float min => cache(min_array(magnitude(.values),0,0));
+       float max => cache(max_array(magnitude(.values),0,0));
+       float min_vec[.veclen] => cache(min_array(.values,0,0));
+       float max_vec[.veclen] => cache(max_array(.values,0,0));
+    };
+    int+opt   ndim;
+    int+opt   dims[.ndim];
+    int+opt   npoints;
+    float+opt points[.npoints][.nspace];
+    int+opt   grid_type;
+    int+opt   ncell_sets;
+    Cell_Set+opt cell_set[.ncell_sets] {
+      int ncell_data;
+      Data_Array cell_data[.ncell_data] {
+        nvals => <-.ncells;
+      };
+    };
+    DefaultXform+opt xform;
+    int+opt          nnode_data;
+    Data_Array+opt   node_data[.nnode_data] {
+      nvals => <-.nnodes;
+    };
+  };
+  cxxmethod+req update (data+notify+req, data.nnodes+req);
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+Examines arrays within an AVS/Express field, and writes information about the arrays into a string object.
+</p>
+<p>
+A summary of the number of arrays is produced, and has the form :
+</p>
+<p>
+<code>
+n arrays
+<br>
+(n1 gr, n2 nd, n3 cd, n4 co)
+</code>
+</p>
+<p>
+where <code>n</code> is the total number of arrays in the field, <code>n1</code> the number of grid arrays (may be 1 or 0 if the grid is a connection to a function), <code>n2</code> is the number of node data arrays, <code>n3</code> is the number of cell data arrays and <code>n4</code> is the number of connectivity arrays. 
+</p>
+<p>
+A connectivity array is defined as being the poly_connect_list in a Cell_Set, if it exists, otherwise it is the node_connect_list.
+</p>
+<p>
+Next, information about each array is written in the form :
+</p>
+<code>
+no - name
+<br>
+type [length], size
+</code>
+</p>
+<p>
+where, <code>no</code> is the array's number (see next paragraph), <code>name</code> is as given in its label subobject (or `?' if unset), <code>type</code> is the data type, <code>length</code> is the number of entries in the array, and <code>size</code> is the size of the array (in bytes if less than 1kb big, else in kb).
+</p>
+<p>
+Arrays are numbered starting from 1, and in the following order : grid, node data, cell data and connectivity. Ordering of arrays within each of these categories is as in the input field.
+</p>
+<p>
+Example output is :
+</p>
+<p>
+<code>
+2 arrays
+<br>
+(1 gr, 1 nd, 0 cd, 0 co).
+<br>
+
+<br>
+1 -  ?
+<br>
+float [122880], 480kb
+<br>
+
+<br>
+2 -  density
+<br>
+float [40960], 160kb
+</code>
+</p>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&data</b></i>
+</blockquote>
+
+<blockquote>
+A reference to the input field.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>text_string</b></i>
+</blockquote>
+
+<blockquote>
+String object containing information about the field.
+</blockquote>
+
+<blockquote>
+<i><b>text_rows</b></i>
+</blockquote>
+
+<blockquote>
+Number of lines in the string.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level <i>Examine_Field_Prim</i> module is used in the functional-macro <i>Examine_Field</i>, and in the user-macro <i>examine_field</i>. Additionally, these macros also use the <i>Examine_Field_Param</i> parameter block group object, as does the <i>Examine_Field_UI</i> macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application <i>Examine_Field_Eg</i> is provided, which uses the AVS/Express sample data file <i>bluntfin.fld</i>. This data file contains six arrays (one grid plus five node data). Information about the arrays is shown in a SingleWindowApp main window by selecting the examine_field option from the editors, modules menu.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p>
+<i>xp_comm_proj/examfld/efldmods.v</i>
+<br>
+contains the V definitions for the <i>Examine_Field_Param</i> group and the <i>Examine_Field_Prim</i> module.
+</p>
+<p>
+<i>xp_comm_proj/examfld/examfld.cxx</i>
+<br>
+contains the source code for the primitive module.
+</p>
+<p>
+<i>xp_comm_proj/examfld/INSTALL</i>
+<br>
+contains instructions on how to add Examine_Field project modules and macros to the IAC library structure.
+</p>
+<p>
+<i>xp_comm_proj/examfield/README</i>
+<br>
+contains instructions on how to compile and install Examine_Field project modules and macros.
+</p>
+<p>
+Additional files are required for AVS/Express utility functions (see below).
+</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>
+The module also requires the <i>util_xp</i> AVS/Express utility code files. These may be obtained from <a href="http://www.iavsc.org">http://www.iavsc.org/</a>, and need to be installed in the <i>xp_comm_proj</i> directory according to the instructions given with the package.
+</p>
+<p>
+If both the Examine_Field project and the Compress project are required, then the <code>cxx_src_files</code> line in either the <i>examine_field_mods.v</i> file or the <i>compress_mods.v</i> file should be removed or commented out (these cxx_src_files are common to both projects, which causes errors/warnings when linking if they are specified twice). 
+</p>
+<p>
+See the <i>README</i> and <i>INSTALL</i> files for full information about compiling and installing the Examine_Field project modules and macros.
+</p>
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Amardeep S Bhattal.
+
+Manchester Visualisation Centre,
+Manchester Computing,
+University of Manchester,
+Oxford Road,
+Manchester,
+M13 9PL,
+UK.
+</pre>
+
+<a href=mailto:a.bhattal@mcc.ac.uk>
+a.bhattal@mcc.ac.uk
+</a>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+examine_field, utils_xp.
+</blockquote>
+
+<h3>Copyright / Disclaimer</h3>
+
+<blockquote>
+This software/documentation was produced as part of the INDEX project
+(Intelligent Data Extraction) which is funded under contract ESPRIT EP22745 of 
+the European Community. For further details see
+<a href="http://www.man.ac.uk/MVC/research/INDEX/Public/">http://www.man.ac.uk/MVC/research/INDEX/Public/</a>.
+
+Copyright (c) June 1998, Manchester Visualisation Centre, UK. 
+All Rights Reserved.
+
+Permission to use, copy, modify and distribute this software and its 
+documentation is hereby granted without fee, provided that the above copyright
+notice and this permission notice appear in all copies of this software / 
+documentation.
+
+This software/documentation is provided with no warranty, express or implied, 
+including, without limitation, warrant of merchantability or fitness for a 
+particular purpose.
+</blockquote>
+
+</body>
+</html>

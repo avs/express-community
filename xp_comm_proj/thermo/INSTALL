@@ -1,0 +1,14 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/thermo/thermo.v" Thermometer;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Thermometer.ThermometerMacs.Thermometer2D Thermometer2D;
+  XP_COMM_PROJ.Thermometer.ThermometerMacs.Bargraph2D Bargraph2D;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Thermometer.ThermometerApps.ThermometerEg ThermometerEg;
+

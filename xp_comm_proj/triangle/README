@@ -1,0 +1,109 @@
+Express Community Triangle Project
+https://github.com/avs/express-community
+--------------------
+
+This directory ( xp_comm_proj/triangle/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"Triangle".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Triangle project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+	base -comp_proc express -exit
+or
+	make -f express.mk
+
+	Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+	If you modify the Triangle project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.Triangle.TriangleMods
+
+	Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/triangle/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+triangle.v      Creates the XP_COMM_PROJ.Triangle library.
+
+trimods.v	Creates the TriangleMods library containing the low-level
+		modules triangle, fix_voronoi_edges, compute_triangle_areas
+		point_in_triangle and fault_region, and the group structure
+		struct_triangulateio.
+
+trimacs.v	Creates the TriangleMacs library containing the high-level
+		macros Delauney, Voronoi, Convex_Hull, Concave_Tri,
+		Triangulate_Area, Triangle_Stats and struct_to_fld.
+
+triapps.v       Creates the TriangleApps example application library.  This
+		library includes links to the following files:
+
+triapp1.v       Concave Polygon example application.
+triapp2.v       Convex Hull example application.
+triapp3.v       Delauney Triangulation example application.
+triapp4.v       Fault Triangulation example application.
+triapp5.v       Point In Polygon example application.
+triapp6.v       Voronoi Triangulation example application.
+triapp7.v       Moving Fault Region and Animated Fault Region example
+		applications.
+
+tri.cxx         The C++ source code for the Triangle module.
+edge.cxx        The C++ source code for the fix_voronoi_edges module.
+area.cxx        The C++ source code for the compute_triangle_areas module.
+point.cxx       The C++ source code for the point_in_triangle module.
+fault.cxx       The C++ source code for the fault_region module.
+
+barycent.c      Source code for Barycentric function.
+
+tridefs.h       Community specific definitions used by triangle utility library.
+
+triangle.c      Source code of triangle utility library.
+triangle.h      Header file for triangle utility library.
+
+triangle.html	HTML documentation for the triangle module.
+
+dvcc.html	HTML documentation for the Delauney, Voronoi, Convex_Hull and Concave_Tri macros.
+
+tri_area.html	HTML documentation for the Triangulate_Are macro.
+
+README		This file.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.hxx		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+*.o/obj		Intermediate object files.
+

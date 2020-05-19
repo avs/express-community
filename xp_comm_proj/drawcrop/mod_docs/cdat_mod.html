@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML VERSION="2.0">
+<HEAD>
+<!-- WEBMAGIC VERSION NUMBER="2.0.2" -->
+<!-- WEBMAGIC TRANSLATION NAME="ServerRoot" SRC="/var/www/htdocs/" DST="/" -->
+<!-- WEBMAGIC TRANSLATION NAME="ProjectRoot" SRC="./" DST="" -->
+<TITLE>cropdata</TITLE>
+</HEAD>
+<BODY BGCOLOR="#92bfbf">
+<H1>cropdata</H1>
+<H3>Synopsis</H3>
+<BLOCKQUOTE>Receives data from mouse actions and from the crop_control module so the
+module crop_coord is coordinated with these two data sources.</BLOCKQUOTE>
+<HR>
+<PRE>
+      module cropdata&lt;build_dir=&quot;xp_comm_proj/drawcrop/cropdata&quot;, out_hdr_file=&quot;gen.h&quot;, out_src_file=&quot;gen.cxx&quot;&gt; {
+         int dims_in&lt;NEportLevels={2,1}&gt;[];
+         int set_coord&lt;NEportLevels={2,1}&gt;;         
+         int reset_coord&lt;NEportLevels={0,2}&gt;;
+         int which_view&lt;NEportLevels={2,1}&gt;;
+         float min_in&lt;NEportLevels={2,1}&gt;[];
+         float max_in&lt;NEportLevels={2,1}&gt;[];
+         float min_axis2&lt;NEportLevels={0,2}&gt;[];
+         float max_axis2&lt;NEportLevels={0,2}&gt;[];
+         float min_axis1&lt;NEportLevels={0,2}&gt;[];
+         float max_axis1&lt;NEportLevels={0,2}&gt;[];
+         float min_axis0&lt;NEportLevels={0,2}&gt;[];
+         float max_axis0&lt;NEportLevels={0,2}&gt;[];
+
+         omethod+notify_inst+req update1&lt;src_file=&quot;cropdat1.c&quot;,weight=1&gt;(
+&#9;              &#9;dims_in+read+notify+req,
+              &#9;&#9;set_coord+read+notify+req,
+              &#9;&#9;min_axis2+write,
+              &#9;&#9;max_axis2+write,
+              &#9;&#9;min_axis1+write,
+              &#9;&#9;max_axis1+write,
+              &#9;&#9;min_axis0+write,
+              &#9;&#9;max_axis0+write
+         ) = &quot;cropdat1&quot;;
+         omethod+notify_inst+req update2&lt;src_file=&quot;cropdat2.c&quot;,weight=2&gt;(
+              &#9;&#9;set_coord+read+notify+req,
+                which_view+read+notify+req,
+              &#9;&#9;min_in+read+notify+req,
+              &#9;&#9;max_in+read+notify+req,
+              &#9;&#9;min_axis2+write,&#9;&#9;
+              &#9;&#9;max_axis2+write&#9;
+         ) = &quot;cropdat2&quot;;
+         omethod+notify_inst+req update3&lt;src_file=&quot;cropdat3.c&quot;,weight=2&gt;(
+              &#9;&#9;set_coord+read+notify+req,
+                which_view+read+notify+req,
+              &#9;&#9;min_in+read+notify+req,
+              &#9;&#9;max_in+read+notify+req,
+&#9;              &#9;min_axis1+write,
+&#9;              &#9;max_axis1+write
+         ) = &quot;cropdat3&quot;;
+         omethod+notify_inst+req update4&lt;src_file=&quot;cropdat4.c&quot;,weight=2&gt;(
+              &#9;&#9;set_coord+read+notify+req,
+                which_view+read+notify+req,
+              &#9;&#9;min_in+read+notify+req,
+              &#9;&#9;max_in+read+notify+req,
+              &#9;&#9;min_axis0+write,
+              &#9;&#9;max_axis0+write
+         ) = &quot;cropdat4&quot;;
+         omethod+notify_inst+req update5&lt;src_file=&quot;cropdat5.c&quot;,weight=3&gt;(
+              &#9;&#9;set_coord+read+notify+req,
+              &#9;&#9;reset_coord+write
+        &#9;) = &quot;cropdat5&quot;;
+      };
+</PRE>
+<HR>
+<H3>Description</H3>
+<BLOCKQUOTE>The cropdata module takes in a number of mouse actions from the Uviewer2D
+interprets them and coordinates these values with the UI, the integer value
+&quot;set_coord&quot; from the crop_control module so that the cropping action coordinates
+with that of the mouse, User Interface and the selection of a new data file. </BLOCKQUOTE>
+<H3>Inputs</H3>
+<P><B><I>dims_in</I></B></P>
+<BLOCKQUOTE>Contains the dimensions of the input data field, this is required for the
+original coordinate space of the data volume is.</BLOCKQUOTE>
+<P><B><I>set_coord</I></B></P>
+<BLOCKQUOTE>Connects to the UI so the action of the module coordinates with the user
+specified function. </BLOCKQUOTE>
+<P><B><I>whichview</I></B> </P>
+<BLOCKQUOTE>Connects to a function in the macroDrawCrop macro that test to see which
+viewer has been selected so that the mouse actions are associated with the
+correct View.</BLOCKQUOTE>
+<P><B><I>min_in</I></B></P>
+<BLOCKQUOTE>Connected to the ContinuousSketch module to give the two minimum values
+on the corner of the box drawn by the mouse.</BLOCKQUOTE>
+<P><B><I>max_in</I></B></P>
+<BLOCKQUOTE>Connected to the ContinuousSketch module to give the two maximum values
+on the corner of the box drawn by the mouse.</BLOCKQUOTE>
+<H3>Outputs</H3>
+<P><B><I>min_axis2</I></B></P>
+<BLOCKQUOTE>The output value from this is the minimum values of the corner of the box
+that describes the minimum crop values when the orthoslice axis is 2. </BLOCKQUOTE>
+<P><B><I>min_axis2</I></B></P>
+<BLOCKQUOTE>The output value from this is the maximum values of the corner of the box
+that describes the maximum crop values when the orthoslice axis is 2. </BLOCKQUOTE>
+<P><B><I>min_axis1</I></B></P>
+<BLOCKQUOTE>The output value from this is the minimum values of the corner of the box
+that describes the minimum crop values when the orthoslice axis is 1. </BLOCKQUOTE>
+<P><B><I>min_axis1</I></B></P>
+<BLOCKQUOTE>The output value from this is the maximum values of the corner of the box
+that describes the maximum crop values when the orthoslice axis is 1. </BLOCKQUOTE>
+<P><B><I>min_axis0</I></B></P>
+<BLOCKQUOTE>The output value from this is the minimum values of the corner of the box
+that describes the minimum crop values when the orthoslice axis is 0. </BLOCKQUOTE>
+<P><B><I>min_axis0</I></B></P>
+<BLOCKQUOTE>The output value from this is the maximum values of the corner of the box
+that describes the maximum crop values when the orthoslice axis is 0. </BLOCKQUOTE>
+<H3>Utility Macros</H3>
+<BLOCKQUOTE>The macroDrawCrop holds this module as well as all the other main functional
+parts of the module. </BLOCKQUOTE>
+<H3>Example</H3>
+<BLOCKQUOTE>An example application DrawCrop_Eg is provided, this shows how the module
+must be connected into an application. </BLOCKQUOTE>
+<H3>Files</H3>
+<BLOCKQUOTE><I>xp_comm_proj/drawcrop/cropmod.v</I> contains the module V definitions for cropcont, cropdata, cropmous and
+cordcrop. </BLOCKQUOTE>
+<H3>Other Notes</H3>
+<P>compile with:</P>
+<PRE>
+$base -comp_proc express -exit
+</PRE>
+<H3>Author</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+        Joanna Leng
+        Manchester Visualization Centre
+        Manchester Computing
+        University of Manchester
+        Oxford Road
+        Manchester
+        UK
+        M13 9PL
+
+        Phone  +44 161  275 6252   Fax +44 161 275 6800  
+        email  j.leng@mcc.ac.uk
+        www    http://www.man.ac.uk/MVC/staff/leng
+</PRE>
+<H3>Date</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+J. Leng August 1998
+</PRE>
+<H3>Contact</H3>
+<BLOCKQUOTE></BLOCKQUOTE>
+<PRE>
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</PRE>
+<H3>See Also</H3>
+<BLOCKQUOTE>All other DrawCrop modules and macros</BLOCKQUOTE>
+</BODY>
+</HTML>

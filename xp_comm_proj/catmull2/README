@@ -1,0 +1,97 @@
+Express Community Catmull Rom Spline 2 Project
+https://github.com/avs/express-community
+--------------------------------
+
+This directory ( xp_comm_proj/catmull2/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"Catmull_2".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Catmull_2 project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+	base -comp_proc express -exit
+or
+	make -f express.mk
+
+	Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+	If you modify the Catmull project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.Catmull_2.Catmull_2Mods
+
+	Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/catmull_2/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ files. This file should not be edited as the
+		future installation script will use this file.
+
+catmull2.v	Creates the XP_COMM_PROJ.Catmull_2 library.
+
+ctml2mod.v	Creates the Catmull_2Mods library containing the low-level
+		modules CatmullSpline_2Core and CatmullSplineFldCore and the 
+		parameter group Catmull_2Params.
+
+ctml2mac.v	Creates the Catmull_2Macs library containing the high-level
+		macros Catmull_2UI, CatmullSpline_2Func, catmull_spline_2,
+		CatmullFldUI, CatmullSplineFldFunc and catmull_spline_fld_2.
+
+ctml2app.v	Creates the CatmullApps library containing the example
+		applications CatmullSpline_2_2DEg, CatmullSpline_2_3DEg,
+		PathSmoothing_2_Eg and CatmullSplineFld_2_Eg.
+
+ctml_arr.cxx	The C++ source code for the CatmullSpline_2Core low-level module.
+
+ctml_fld.cxx	The C++ source code for the CatmullSplineFldCore low-level module.
+
+catmull.hxx	The C++ source code that defines the CatmullRomSpline object that
+catmull.cxx	is used by the CatmullSpline_2Core and CatmullSplineFldCore modules.
+
+doc_mod.html	HTML documentation for the CatmullSplineCore module.
+
+doc_umac.html	HTML documentation for the catmull_spline User Macro.
+
+README		This file.
+
+readme.txt	Original documentation for module.
+
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.hxx		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+catmull.o/obj	Intermediate object files.
+ctml_arr.o/obj
+ctml_fld.o/obj
+gen.o/obj
+

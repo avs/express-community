@@ -1,0 +1,155 @@
+<html>
+<head>
+<title>threshold</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>threshold</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Remove data above and below min/max threshold levels, by setting to NULL.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>in</i></td>
+<td width="125">Mesh+Node_Data</td>
+<td width="300">input field for threshold of Node_Data</td>
+</tr>
+
+</table>
+
+<h4>Parameters</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>minimum</i></td>
+<td width="125">double</td>
+<td width="300">lower threshold level</td>
+</tr>
+
+<tr>
+<td width="125"><i>maximum</i></td>
+<td width="125">double</td>
+<td width="300">upper threshold level</td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+
+<tr>
+<td width="125"><i>out</i></td>
+<td width="125">Mesh+Node_Data</td>
+<td width="300">output field with thresholded Node_Data and original Mesh</td>
+</tr>
+
+</table>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+The threshold macro removes all values in the Node_Data of a field above a maximum value, and below a minimum value, by setting those values to NULL. The macro operates on any type of Node_Data of a field, and the output must be recombined with the mesh, to get a Field data structure. The macro also includes a UI Macro to provide a simple interface via dials to the minimum and maximum values.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+The input Field for the threshold macro. The lower-level module ThresholdNodeData is used, inside the Functional Macro Threshold, to threshold the Node_Data of any input field, and to then recombine it with the original Mesh (if present).
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>minimum</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ThresholdParams paramter block group, this double value is used to select the lower threshold level for the module.
+</blockquote>
+
+<blockquote>
+<i><b>maximum</b></i>
+</blockquote>
+
+<blockquote>
+A member of the ThresholdParams parameter block group, this double value is used to select the upper threshold level for the module.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field for the threshold macro. This contains the thresholded Node_Data combined with the original Mesh (if present).
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro threshold combines the Functional Macro Threshold with the UI Macro Threshold UI, via the use of the common parameter block ThresholdParams, to provide a usable macro in the visualization library.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ThresholdEg is provided, which uses the AVS/Express sample data file hydrogen.fld, to display a thresholded orthoslice.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/thresh/thr_macs.v</I> contains the Functional Macro Threshold, the User Macro threshold, the UI Macro ThresholdUI and the Example Application ThrsholdEg.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The ThresholdMacs library inherits its process. As this library contains no procedural code, the process is not important. The low-level ThresholdNodeData module, executes under the process specified in its library, not the process defined in the high-level library.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Nick Trout
+Ian Curington
+Paul G. Lever
+
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ThresholdParams, ThresholdNodeData, Threshold, and ThresholdUI.
+</blockquote>
+
+<blockquote>
+DVthreshold, DVthreshold_cell, DVthresh_null.
+</blockquote>
+
+</body>
+</html>

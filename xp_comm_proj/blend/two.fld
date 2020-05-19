@@ -1,0 +1,10 @@
+# AVS field file
+#
+ndim=2
+dim1=16
+dim2=16
+nspace=2
+veclen=1
+data=float
+field=uniform
+variable 1 file=two.dat filetype=ascii offset=0 skip=0 stride=1

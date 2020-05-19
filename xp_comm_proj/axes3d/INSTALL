@@ -1,0 +1,13 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/axes3d/axes3d.v" Axes3D;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.Axes3D.Axes3DMacs.Axes3D Axes3D;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Axes3D.Axes3DApps.Axes3DEg Axes3DEg;
+  XP_COMM_PROJ.Axes3D.Axes3DApps.Axes3DEg2 Axes3DEg2;

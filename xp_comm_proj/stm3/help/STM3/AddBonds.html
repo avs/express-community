@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module AddBonds documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Add Bonds</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Add Bonds</h1>
+
+<h2>Description</h2>
+<p>Manually add bonds between atoms.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_in</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data.</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">N. bonds to add</td>
+	<td class="c2">field</td>
+	<td class="c3">The number of bonds to be added to the molecule. The following pair of fields will be replicated this number of times.</td>
+</tr>
+<tr>
+	<td class="c1">Atom from</td>
+	<td class="c2">field</td>
+	<td class="c3">Index of the atom from which the added link starts.</td>
+</tr>
+<tr>
+	<td class="c1">Atom to</td>
+	<td class="c2">field</td>
+	<td class="c3">Index of the atom on which the added link ends.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule_out</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data with bonds added. The bonds are marked as SPECIAL_BOND for rendering pourposes.</td>
+</tr>
+</table>
+
+</body></html>

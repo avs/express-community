@@ -1,0 +1,149 @@
+<HTML>
+<HEAD>
+	<!DOCTYPE HTML PUBLIC "html 4.0">
+	<STYLE TYPE="text/css">
+		 p {text-indent:0.5in; color:black}
+		 caption {font-size:16pt; color:black;}
+		#Special14 {
+			color:brown; font-family:monospace; 
+			font-style:italic; margin-left:4em; 
+			margin-right:8em; text-align:justify; 
+			font-size:10pt; padding-top:1em; 
+			font-weight:bold;
+		}			
+		.NOTE {
+			font-family:courier;
+			color:green; 
+			font-weight:bold; 
+			font-size:10pt;
+		}
+		.BDR {
+			border-style:ridge; 
+			border-color:#ff0000; 
+			border-width:9px; 
+			background-color:yellow;
+		}
+	</STYLE>
+	<META  HTTP-EQUIV="Keywords" CONTENT="Software">
+	<META HTTP-EQUIV="Descriptions" CONTENT="STM Code">
+	<TITLE>
+		Molecular Dynamics of an Atomic System
+	</TITLE>
+</HEAD>
+<BODY LANG="EN" BGCOLOR="#f2fae4" BACKGROUND="../bg1x.jpg">
+<HR SIZE=10><HR>
+<H1 ALIGN="center" CLASS="BDR">
+	<SPAN STYLE="color:#800000;">
+        <U>Molecular Dynamics of an Atomic System </U>
+        </SPAN>
+</H1>
+<P ALIGN="right">
+SC '97, San Jose, CA
+<BR>
+<HR>
+<TABLE BORDER=0 ALIGN="center">
+<TR>
+	<TD COLSPAN=5 ALIGN="center">
+   		<SPAN STYLE="color:#408080; font-weight:bold;">
+        Ken Flurchick*, Mark Reed** and Theresa L. Windus*<SUP>+</SUP>
+		</SPAN>
+   </TD>
+</TR><TR>
+	<TD>&nbsp;</TD>
+</TR><TR>
+	<TD>*Ohio Supercomputer Center</TD>
+	<TD>&nbsp;</TD>
+ 	<TD>**North Carolina Supercomputing Center</TD>
+	<TD>&nbsp;</TD>
+	<TD><SUP>+</SUP>Aeronautical Systems Center</TD>
+</TR><TR>
+	<TD>OSC</TD>
+	<TD>&nbsp;</TD>
+	<TD>NCSC</TD>
+	<TD>&nbsp;</TD>
+	<TD>MSRC PET</TD>
+</TR><TR>
+	<TD>1224 Kinnear Rd.&nbsp;</TD>
+	<TD>&nbsp;</TD>
+	<TD>3021 Cornwallis Rd.</TD>
+	<TD>&nbsp;</TD>
+	<TD>2435 Fifth Street, Bldg. 676</TD>
+</TR><TR>
+	<TD>Columbus, OH 43212&nbsp;</TD>
+	<TD>&nbsp;</TD>
+	<TD>RTP, NC 27709</TD>
+	<TD>&nbsp;</TD>
+	<TD>WPAFB, OH 45433</TD>
+</TR>
+</TABLE>
+<BR><HR SIZE=10>
+<P>
+The IMMERSADESK&copy; Molecular Dynamics (<B>IMD</B>) application code 
+was developed as a module for the Application Visualization System 
+(<SPAN STYLE="color:#408080; font-weight:bold;">AVS</SPAN>) from Advanced 
+Visual Systems, Inc.  was ported to the IMMERSADESK&copy; from Pyramid 
+Systems, Inc.  at the Aeronautical Systems Center (ASC) as part of the 
+Ohio Supercomputer Center activities Programming Environment and Training 
+- Computational Chemistry and Materials (CCM) support.
+</P>
+<P>
+The <B>IMD</B> application displays the results from a molecular dynamics 
+(<B>MD</B>) simulation.  This simulation consists of spherically symmetric, 
+electrically neutral atom system  interacting via a Lennard-Jones potential.   
+The atoms are displayed as spheres, colored by the magnitude of the velocity.  
+(Red being the fastest and blue being the slowest).
+</P>
+<BR>
+<H2 ALIGN="center">Figure 1 Molecular Dynamics display.</H2>
+<BR>
+<DIV ALIGN="center">
+	<IMG ALT="Cave Dynamics" SRC="cavedyn1.jpg">
+</DIV>
+<P>
+In the display, streamers are shown to give information about the path of 
+the particles.  The tails are also color coded by the magnitude of the 
+velocity to include velocity history information.  The <B>MD</B> simulation 
+was part of the research done to compute the thermal transport coefficients 
+of a moderately dense gas, in which:
+</P>
+<UL TYPE="disk">
+	<LI>the molecular dynamics technique is used to trace the evolution of 
+        the system through phase space.
+		<BR><BR>
+	<LI>microscopic position and velocity information is then used to construct 
+		thermodynamic properties such as the virial, and the thermal transport 
+		coefficients.
+		<BR><BR>
+	<LI>the simulations in this work use the Lennard-Jones interaction potential.
+</UL>
+<P>
+For additional information, see
+<BR>
+<SPAN CLASS="NOTE"><I> Mark S.C. Reed and K.M. Flurchick, "Hybrid Molecular 
+Dynamics: An Approach to Low Density Simulations", Computer Physics 
+Communications <B>81</B>, 56, (1994).</I></SPAN>
+</P>
+<P> 
+The IMMERSADESK/CAVE&copy; provides a unique way to visualize particle dynamics 
+and behavior such as clustering as well as gather spatial relational information.  
+For the clustering one can view:
+</P>
+<UL TYPE="square"> 
+	<LI>cluster formation
+	<LI>propagation
+	<LI>transport
+	<LI>aggregation
+	<LI>destruction
+</UL>
+<P>
+In this visualization, one can view collision dynamics plus spatial and momentum 
+shifts by carefully watching the tails and the color changes.
+<BR> 
+<H2 ALIGN="center">Figure 2 Molecular Dynamics display.</H2>
+<BR>
+<DIV ALIGN="center">
+	<IMG ALT="Cave Dynamics" SRC="cavedyn2.jpg">
+</DIV>
+<HR SIZE=10>
+</BODY>
+</HTML>

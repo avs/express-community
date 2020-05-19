@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>ArrayAToF</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ArrayAToF</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Converts an array of strings into an array of floats. The array of floats 
+contains the results of the function call of atof on every single element 
+of the input array. 
+
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module ArrayAToF <src_file = "arr_atof.cxx"> {
+  string+IPort2 strings_in[];
+  float+OPort2 floats_out[];
+
+  cxxmethod+req+notify_inst update(
+    .strings_in+notify+read+req,
+    .floats_out+write
+  );
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The module converts the strings in the input array into floats and stores the
+floats in the same position in the output array.
+<p>
+Array of floats that contains the results of the function call of atof on
+every single element of the input array. 
+
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>strings_in[]</b></i>
+</blockquote>
+
+<blockquote>
+Array of strings to be converted.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>floats_out[]</b></i>
+</blockquote>
+
+<blockquote>
+Array of floats that contains the results of the functions calls of atof on
+every single element of the input array. 
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/arr_atof/aa2fmods.v</I> contains the ArrayAToF module V definition.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level ArrayAToFMods library containing the module ArrayAToF does not specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Ian Curington
+Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+Manchester Visualization Centre
+</pre></blockquote>
+
+</body>
+</html>

@@ -1,0 +1,331 @@
+<html>
+<head>
+<title>SubLoop</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>SubLoop</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The output of one AVS/Express loop triggers the SubLoop module, which starts another loop in the same Application. Single steps forward and backward are possible without having an external trigger. 
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>trigger</i></td>
+<td width="75">int</td>
+<td width="425">Trigger for the next step of the loop. This should be connected to the count port of the main (endless) Loop module of the application.</td>
+</tr>
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>reset</i></td>
+<td width="75">int</td>
+<td width="300">Reset Loop count to the start value.</td>
+<td width="125">UItogle</td>
+</tr>
+
+<tr>
+<td width="100"><i>reset_back</i></td>
+<td width="75">int</td>
+<td width="300">Reset loop count to the end value.</td>
+<td width="125">UItogle</td>
+</tr>
+
+<tr>
+<td width="100"><i>run</i></td>
+<td width="75">int</td>
+<td width="300">Starts looping whenever the trigger changes.</td>
+<td width="125">UItogle</td>
+</tr>
+
+<tr>
+<td width="100"><i>run_back</i></td>
+<td width="75">int</td>
+<td width="300">Starts looping backwards whenever the trigger changes.</td>
+<td width="125">UItogle</td>
+</tr>
+
+<tr>
+<td width="100"><i>step</i></td>
+<td width="75">int</td>
+<td width="300">increment loop count by incr</td>
+<td width="125">UItogle</td>
+</tr>
+
+<tr>
+<td width="100"><i>step_back</i></td>
+<td width="75">int</td>
+<td width="300">decrement loop count by incr</td>
+<td width="125">UItogle</td>
+</tr>
+
+<tr>
+<td width="100"><i>cycle</i></td>
+<td width="75">int</td>
+<td width="300">cycle loop once, cycle or bounce</td>
+<td width="125">UIchoice</td>
+</tr>
+
+<tr>
+<td width="100"><i>start</i></td>
+<td width="75">float</td>
+<td width="300">The start value for loop count</td>
+<td width="125">UIfield</td>
+</tr>
+
+<tr>
+<td width="100"><i>end</i></td>
+<td width="75">float</td>
+<td width="300">The end value for loop count</td>
+<td width="125">UIfield</td>
+</tr>
+
+<tr>
+<td width="100"><i>incr</i></td>
+<td width="75">float</td>
+<td width="300">The value the loop count is changed by on each step</td>
+<td width="125">UIfield</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>count</i></td>
+<td width="75">float</td>
+<td width="425">current value</td>
+</tr>
+
+<tr>
+<td width="100"><i>done</i></td>
+<td width="75">int</td>
+<td width="425">set to 1 when SubLoop reaches end value</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+The SubLoop module is used to generate several loops within one AVS/Express application. This module uses the output of another loop module to as trigger for its internal loop. It has all the capabilities of the standard AVS/Express Loop module. The advantage of this module is that it does not run an endless loop which interferes with other modules.
+</p>
+<p>
+To use two completely independent loops the application should contain a standard loop module and two SubLoop modules. Both SubLoop modules get their 
+trigger from the Loop module which performs an endless loop. The SubLoop modules can then transpose the output from the Loop module into the values needed for the actual animation.</p>
+</blockquote>
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>trigger</b></i>
+</blockquote>
+
+<blockquote>
+When trigger (int) is updated and the SubLoop module is in <b>run</b> or <b>run_back</b> mode the SubLoop executes its next step.
+</blockquote>
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>run</b></i>
+</blockquote>
+
+<blockquote>
+Toggle (int) that starts the loop whenever the trigger is activates. Runs the loop forward (adds the incr value to the loop count). 
+</blockquote>
+
+<blockquote>
+<i><b>run_back</b></i>
+</blockquote>
+
+<blockquote>
+Toggle (int) that starts the loop backwards whenever the trigger is activates. Runs the loop backwards (subtracts the incr value from the loop count). 
+</blockquote>
+
+<blockquote>
+<i><b>step</b></i>
+</blockquote>
+
+<blockquote>
+<p>Toggle (int) that executes the loop once (adds the incr value to the loop count).
+</p>
+<p>This does not depend on the trigger beeing activated.</p>
+</blockquote>
+
+<blockquote>
+<i><b>step_back</b></i>
+</blockquote>
+
+<blockquote>
+<p>Toggle (int) that executes the loop once backwards (subtracts the incr value from the loop count). 
+</p>
+<p>This does not depend on the trigger beeing activated.</p>
+</blockquote>
+
+<blockquote>
+<i><b>reset</b></i>
+</blockquote>
+
+<blockquote>
+Toggle (int) that sets the loop count to the start value.
+</blockquote>
+
+<blockquote>
+<i><b>reset_back</b></i>
+</blockquote>
+
+<blockquote>
+Toggle (int) that sets the loop count to the end value.
+</blockquote>
+
+<blockquote>
+<i><b>cycle</b></i>
+</blockquote>
+
+<blockquote>
+Choice (once/cycle/bounce) that decides the loop behaviour whenever the loop counter reaches the end-value:
+<ul>
+<li> <b><i>once</i></b> stops execution when end value is reached.</li>
+<li> <b><i>cycle</i></b> starts again with the start value. </li>
+<li> <b><i>bounce</i></b> continues execuion in oposite direction.</li>
+</ul>
+</blockquote>
+
+<blockquote>
+<i><b>start</b></i>
+</blockquote>
+
+<blockquote>
+Start value (float) for the loop counter.
+</blockquote>
+
+<blockquote>
+<i><b>end</b></i>
+</blockquote>
+
+<blockquote>
+End value for the loop counter.
+</blockquote>
+
+<blockquote>
+<i><b>incr</b></i>
+</blockquote>
+
+<blockquote>
+Increment in each step of the loop. 
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>count</b></i>
+</blockquote>
+
+<blockquote>
+The current value of the loop counter. 
+</blockquote>
+
+<blockquote>
+<i><b>done</b></i>
+</blockquote>
+
+<blockquote>
+This value is set if the Loop has reached its end value if it is executed once.
+</blockquote>
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro SubLoop makes use of the Functional Macro SubloopFunc and the UI Macro SubLoopUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application SubLoopEg is provided, which reads a field file and shows two animated orthoslices running at the same time.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/subloop/sloopmod.v</i> contains the V definitions of the SubLoopParams parameter block and the SubLoopCore module.</p>
+
+<p><i>xp_comm_proj/subloop/sloopmac.v</i> contains the V definitions of the SubLoopFunc Functional Macro, the SubLoopUI User Interface Macro, and the SubLoop User Macro. </p>
+
+<p><i>xp_comm_proj/subloop/sloopapp.v</i> contains the V definition of the example application SubLoopEg.</p>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+
+</body>
+</html>

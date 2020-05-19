@@ -1,0 +1,35 @@
+AC_INIT(src/advection.cxx)
+AM_INIT_AUTOMAKE(lea_lib, 1.0)
+AM_CONFIG_HEADER(config.h)
+
+AC_PROG_CC
+AC_PROG_CXX
+
+#--- Custom Check header macro
+#    allows to take into account CFLAGS and CXXFLAGS
+#---
+AC_DEFUN(BJ_CHECK_HEADER,[
+ AC_MSG_CHECKING(for $1)
+ AC_TRY_COMPILE([#include <$1>],[],
+   AC_MSG_RESULT(yes),
+  [AC_MSG_RESULT(no)
+  AC_MSG_WARN("$1 header not found")
+  echo "----------------------------------------------------------------------"
+  echo "The $2 is required to compile and run leaflow demo - but not LEA lib."
+  echo "Download $2 at $3"
+  echo "Set CXXFLAGS, CFLAGS and LDFLAGS environment variables if headers "
+  echo "are installed in non standard directory"
+  echo "----------------------------------------------------------------------"
+  #AC_MSG_ERROR("$1 header not found")
+  ])
+])
+
+BJ_CHECK_HEADER(GL/glut.h, GLUT, 
+	        http://www.opengl.org/developers/documentation/glut/)
+
+BJ_CHECK_HEADER(srfftw.h, FFTW, http://www.fftw.org/download.html)
+
+AC_PROG_INSTALL
+AM_PROG_LIBTOOL
+
+AC_OUTPUT(Makefile src/Makefile)

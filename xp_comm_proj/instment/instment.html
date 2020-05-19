@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Instrumentation - suite of performance tuning and debugging modules</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>Instrumentation</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+<p>A set of modules that report timings, memory usage, object counts and module execution.  Intended for development performance tuning and debugging.</p>
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by Instrumentation Modules">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Trigger</i></td>
+<td width="75">primitive</td>
+<td width="425">Trigger data reporting.</td>
+</tr>
+
+<tr>
+<td width="100"><i>Trigger_On</i></td>
+<td width="75">primitive</td>
+<td width="425">Starts data reporting.</td>
+</tr>
+
+<tr>
+<td width="100"><i>Trigger_Off</i></td>
+<td width="75">primitive</td>
+<td width="425">Stops data reporting.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Parameters</h4>
+
+<table summary="Parameters used by Instrumentation modules">
+
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="75">string</td>
+<td width="300">Log file to write reported data to.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>active</i></td>
+<td width="75">int</td>
+<td width="300">Enabled reporting of information.</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The Instrumentation project contains a number of modules designed for development performance tuning and debugging in AVS/Express applications.  These modules are relatively small are intended to be added in specific places within an application to report time, memory information, object usage or module execution when triggered. They can either be dropped into running networks to report activity using the network editor, or can be left inside an application for use in a runtime for benchmarking.</p>
+
+<p>The following modules are provided in the Instrumentation project.</p>
+
+<h4>time_activity</h4>
+
+<blockquote>
+This module records the time and change in memory usage between a trigger event and when the application returns to a "idle" state. This way a single chain of events may be timed. The data obtained is written into a user specified log file. The elapsed time and memory resident page size reported by the operating system is reported for the current Express process.  The change in memory usage from the initial trigger to idle state is also reported. The way that memory usage is actually recorded will vary from system to system.  Some will report the number of pages used while others will report in Kbytes used.  Internally the module uses the <code>getrusage</code> function.  For more information check the manual pages for your system and look at the ru_maxss variable definition for details.  The manual pages can be looked at using <code>man getrusage</code> command.  For the way that Windows reports memory usage please see the description below for time_on_off.
+</blockquote>
+
+
+<h4>time_on_off</h4>
+
+<blockquote>
+<p>This module records the time and change in memory usage between a start trigger event and a end trigger event. This way a very specific chain of events  may be timed. The data obtained is written into a user specified log file. The elapsed time and memory resident page size reported by the operating system is reported for the current Express process.  The change in memory usage from the start trigger to the end trigger is also reported. The way that memory usage is actually recorded will vary from system to system.  Some will report the number of pages used while others will report in Kbytes used.  Internally the module uses the <code>getrusage</code> function.  For more information check the manual pages for your system and look at the ru_maxss variable definition for details.  The manual pages can be looked at using <code>man getrusage</code> command.</p>
+
+<p>On Windows the following information is recorded in the log file.</p>
+
+<pre>
+time on off ELAPSED: 48.720000 seconds, virtual image changed by 14680064
+   MemLoad=71, TotalPhys=133701632, AvailPhys=446464, TotalPageFile=2013777920
+   AvailPageFile=1928302592, TotalVirtual=2143289344, AvailVirtual 2018902016
+</pre>
+
+<p>where:</p>
+
+<pre>
+virtual image changed by = change in (TotalVirtual - AvailVirtual)
+MemoryLoad               = percent of memory in use
+TotalPhys                = bytes of physical memory 
+AvailPhys                = free physical memory bytes 
+TotalPageFile            = bytes of paging file 
+AvailPageFile            = free bytes of paging file 
+TotalVirtual             = user bytes of address space 
+AvailVirtual             = free user bytes 
+</pre>
+</blockquote>
+
+
+<h4>object_stats</h4>
+
+<blockquote>
+<p>This module may be added to any network and does not require any connections. It surveys all modules at the same level as its peers and generates a status report of object names with object counts.  It counts the number of objects with new definitions inside the scope of the current application as well as total object count. The report is created and written to the specified log file whenever the user-interface button is pushed. No input or output ports are provided, all control is through the use of the filename box and write file button on the user interface panel. The format of the data written to the log file is as follows.  The two header lines are initially written.  The first reports the name of the instrumentation module and the path of the macro being reported. The second header line defines column headings. The body of the report has one line per module that is at level of the path specified. A final closing line reports the total sum of all object counts. The 2nd header line and the body are in comma separated format so that they can be easily exported into a spreadsheet or similar.</p>
+
+<p>The following shows the report generated for the InstrumentationEg1 example
+application.</p>
+
+<pre>
+obj stats noui: Object Count Report for: Root.Applications.InstrumentationEg1
+Item ,    Name     ,  UI  ,  AG   , Methods   , New , AllObjects
+0   , UI   , 594 ,  0 ,  307 ,  873 ,  3314
+1   , Uviewer3D   , 12656 ,  36 ,  4360 ,  1344 ,  118682
+2   , time_activity   , 88 ,  0 ,  50 ,  159 ,  483
+3   , object_stats   , 88 ,  0 ,  40 ,  125 ,  443
+4   , gated_verbose   , 48 ,  0 ,  32 ,  104 ,  276
+5   , gated_trace   , 48 ,  0 ,  34 ,  107 ,  279
+6   , Read_Field   , 266 ,  0 ,  181 ,  634 ,  2952
+7   , bounds   , 201 ,  0 ,  95 ,  161 ,  2209
+8   , obj_stats_noui   , 0 ,  0 ,  2 ,  11 ,  11
+    , Total-Count ,  13989 ,   36 ,   5101 ,  3518 ,  128649
+</pre>
+</blockquote>
+
+
+<h4>gated_verbose</h4>
+
+<blockquote>
+This module may be added to any network and connected to an event trigger source. When the module is enabled and the trigger source event fires, this module temporarily turns on "Verbose Functions" reporting.  This reports in the VCP command prompt window which functions execute and why they where triggered. As soon as all events currently in the queue to fire are processed and the Express OM returns to the "idle" state, verbose function reporting is switched off. This way you can get reports from the sub-chain of modules fired by the single event. The reporting system is internal to Express so it is not possible to write these reports to a log file, unless the whole of the VCP output is redirected to a log file for the session. Begin and End messages bracket the gated verbose output so that a single trigger event trail can be identified.
+</blockquote>
+
+<h4>gated_trace</h4>
+
+<blockquote>
+This module may be added to any network and connected to an event trigger source. When the module is enabled and the trigger source event fires, this module temporarily turns on "ARR Trace Enable" reporting.  This reports in the VCP command prompt window which arrays are accessed, read or written to. As soon as all events currently in the queue to fire are processed and the Express OM returns to the "idle" state, ARR trace reporting is switched off.  This way you only get reports from the sub-chain of modules fired by the single event. The reporting system is internal to Express so it is not possible to write these reports to a log file, unless the whole of the VCP output is redirected to a log file for the session.  Begin and End messages bracket the gated trace output so that a single trigger event trail can be identified.
+</blockquote>
+
+
+</blockquote>
+
+
+
+<h3>Inputs</h3>
+
+<blockquote><b><i>Trigger</i></b></blockquote>
+
+<blockquote>
+A primitive type input trigger which may be connected to any primitive data source.  Whenever the data source changes the reporting of data is started.  This reporting continues until the application returns to an idle state.  This trigger is used by the time_activity, gated_verbose and gated_trace modules.
+</blockquote>
+
+<blockquote><b><i>Trigger_On Trigger_Off</i></b></blockquote>
+
+<blockquote>
+These two primitive type input triggers may be connected to any two primitive data sources.  Whenever the data source connected to Trigger_On changes the reporting of data is started.  This reporting continues until the data source connected to Trigger_Off changes.  This trigger is used by the time_on_off module.
+</blockquote>
+
+
+<h3>Parameters</h3>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>
+A string parameter that specifies which file the log output should be written to.  By default the log is written to a file called <code>avs.log</code> in the current project directory.  If the file already exists the new log entries will be appended to the file.  The standard AVS/Express environment variables and separators can be used in this filename.  This parameter is used by the time_activity, time_on_off and obj_stats modules.
+</blockquote>
+
+<blockquote><b><i>active</i></b></blockquote>
+
+<blockquote>
+This integer parameter specifies whether reporting should take place.  If it is false(0) then no reports will be made to a log file or to the VCP window.  If it is true(1) then reports will be made as normal.  By default reporting if off.  This parameter is used by the time_activity, time_on_off, gated_verbose and gated_trace modules.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+All output is written to either the specified log file or the VCP window.  No output ports, parameters or UI updates are available.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>A user interface macro and a functional macro are provided for each of these modules.  The user interface macro is called module_name_ui and the functional macro is called module_name_noui.  Each user macro combines the respective user interface and functional macros together and uses the instr_params parameter block to communicate between each component.</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Two example applications are provided with this project.  The InstrumentationEg1 application reads the lobster data-set and generates an isosurface.  The gated_trace and gated_verbose modules are both connected to the isosurface level parameter.  This means that execution can be traced from when the isosurface level is changed until the data is displayed on screen.  An obj_stats module is also provided to demonstrate how it can report the number of objects used.</p>
+
+<p>The InstrumentationEg2 application creates the same isosurface.  However in this case time_activity and time_on_off modules are provided.  The time_activity module is connected to the isosurface level parameter while the time_on_off module is connected to both the isosurface level and the number of nodes output by the isosurface module.  This application is intended to demonstrate the difference between the two timing modules.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/instment/imods.v</i> contains the V definitions of the usage, gtrace, prvcp and obj_stats modules, and the instr_params parameter block.</p>
+
+<p><i>xp_comm_proj/instment/imacs.v</i> includes the time_act.v, time_oo.v, objstats.v, gverbose.v and gtrace.v files.  These file contain the actual definitions of the user interface, functional and user macros.</p>
+
+<p><i>xp_comm_proj/instment/iapps.v</i> contains the V definitions of the InstrumentationEg1 and InstrumentationEg2 example applications.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+<p>Due to the requirement to access memory usage and OM information this project must be compiled into the express process.  By default all the modules in the InstrumentationMods library are compiled into this process.</p>
+</blockquote>
+
+<h3>Revisions</h3>
+
+<blockquote>
+<ul>
+<li>Prototyped, awaiting help on ARR reporting. IC 28th Aug 2000</li>
+</ul>
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ian Curington <a href="mailto:ianc@avs.com">ianc@avs.com</a>,
+Advanced Visual Systems Inc.
+
+Based on original timer modules by Margaret Wood.
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote>
+<pre>
+Anja Bindrich, <a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>,
+International AVS Centre.
+</pre>
+</blockquote>
+
+</body>
+</html>
+

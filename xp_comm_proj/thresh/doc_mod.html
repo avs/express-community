@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>ThresholdNodeData</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>ThresholdNodeData</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Remove data above and below min/max threshold levels, by setting to NULL.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module ThresholdNodeData &lt;src_file=&quot;thresh.c&quot;&gt; {
+    Node_Data &amp;in &lt;NEportLevels={2,0}&gt;;
+    ThresholdParams &amp;ThresholdParams &lt;NEportLevels={2,0}&gt;;
+    double minimum =&gt; ThresholdParams.min;
+    double maximum =&gt; ThresholdParams.max;
+    Node_Data out &lt;NEportLevels={0,2}&gt; {
+      nnode_data+nres =&gt; &lt;-.in.nnode_data;
+      nnodes+nres =&gt; &lt;-.in.nnodes;
+    };
+    omethod+notify_inst+req update (
+      in+read+notify+req,
+      minimum+read+notify+req,
+      maximum+read+notify+req,
+      out+write )
+      = &quot;ThresholdNodeData&quot;;
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+ThresholdNodeData removes all values in the Node_Data of a field above a maximum value, and below a minimum value, by setting those values to NULL. The module operates on any type of Node_Data of a field, and the output must be recombined with the Mesh to get a Field data structure.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&in</b></i>
+</blockquote>
+
+<blockquote>
+Reference to a field with Node_Data of any type.
+</blockquote>
+
+<blockquote>
+<i><b>&ThresholdParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instance of the minimum and maximum threshold values. 
+</blockquote>
+
+<blockquote>
+<i><b>minimum</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the minimum value of type double, via the parameter block, which is referenced by the &ThresholdParams input.
+</blockquote>
+
+<blockquote>
+<i><b>maximum</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the maximum value of type double, via the parameter block, which is referenced by the &ThresholdParams input.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+The output field containing only Node_Data. Some elements of the original Node_Data are copied through.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level ThresholdNodeModule is used in the Functional Macro Threshold and the User Macro threshold. Additionally, these macros also use the ThresholdParams parameter block group object, as does the ThresholdUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ThresholdEg is provided, which uses the AVS/Express sample data file hydrogen.fld, to display a thresholded orthoslice.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/thresh/thr_mods.v</I> contains the ThresholdParams group and the ThresholdNodeData module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+By default the low-level library ThresholdMods, which needs to be compiled, has the process set to <tt>user</tt>. Use the following command in the VCP to compile this project:
+<blockquote>
+<pre>
+$compile XP_COMM_PROJ.Threshold.ThresholdMods
+</pre>
+</blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Nick Trout
+Ian Curington
+Paul G. Lever
+
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ThresholdParams, Threshold, ThresholdUI and threshold.
+</blockquote>
+
+<blockquote>
+DVthreshold, DVthreshold_cell, DVthresh_null.
+</blockquote>
+
+</body>
+</html>

@@ -1,0 +1,268 @@
+<html>
+<head>
+<title>StringArrayConcatenate</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>StringArrayConcatenate</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module concatenates strings of an array separated with a given string. The final
+string is introduced with a leader string and concluded with a trailer string.
+The leader, separator and trailer strings are given by the user.
+</blockquote>
+
+
+<blockquote>
+<h4>Inputs</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_strings</i></td>
+<td width="75">string []</td>
+<td width="300">The String array to be processed</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Leader</i></td>
+<td width="75">string</td>
+<td width="300">Text that is placed before the first element of the array.</td>
+<td width="125">TextField</td>
+</tr>
+
+<tr>
+<td width="100"><i>Separator</i></td>
+<td width="75">string</td>
+<td width="300">Text that is placed between two elements of the array.</td>
+<td width="125">TextField</td>
+</tr>
+
+<tr>
+<td width="100"><i>Trailer</i></td>
+<td width="75">string</td>
+<td width="300">Text that is placed behind the last element of the array.</td>
+<td width="125">TextField</td>
+</tr>
+
+<tr>
+<td width="100"><i>Trigger</i></td>
+<td width="75">int</td>
+<td width="300">Triggers the execution of the Module.</td>
+<td width="125">UIbutton</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_string</i></td>
+<td width="75">string</td>
+<td width="425">Output string of the module.</td>
+</tr>
+
+<tr>
+<td width="100"><i>done</i></td>
+<td width="75">int</td>
+<td width="425">Trigger that is updated when the execution of the module is completed.</td>
+</tr>
+
+<tr>
+<td colspan="3"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>
+This module concatenates strings of an array separated with a given string. The final
+string is introduced with a leader string and concluded with a trailer string.
+The leader, separator and trailer strings are given by the user.
+<p>
+This can be useful to generate SQL queries.
+<p>
+Example:
+<pre>
+  input_strings = {&quot;VA&quot;,&quot;PA&quot;,&quot;CA&quot;}
+  leader_string = &quot; where STATE =' &quot;
+  separator_string = &quot; ' and STATE=' &quot;
+  trailer_string = &quot; ' &quot;
+  =&gt; output_str = &quot;where STATE='VA' and STATE='PA' and STATE='CA'&quot;
+</pre>
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>input_strings[]</b></i>
+</blockquote>
+
+<blockquote>
+String array to be converted into a single string.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>Leader</b></i>
+</blockquote>
+
+<blockquote>
+String that is placed before the first array element in the ouput string.
+</blockquote>
+
+<blockquote>
+<i><b>Separator</b></i>
+</blockquote>
+
+<blockquote>
+String that separates two array elements.
+</blockquote>
+
+<blockquote>
+<i><b>Trailer</b></i>
+</blockquote>
+
+<blockquote>
+String that is placed behind the last array element.
+</blockquote>
+
+<blockquote>
+<i><b>Trigger</b></i>
+</blockquote>
+
+<blockquote>
+Integer value that is used to execute the module.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>output_string</b></i>
+</blockquote>
+
+<blockquote>
+The complete output string.
+</blockquote>
+
+<blockquote>
+<i><b>done</b></i>
+</blockquote>
+
+<blockquote>
+Integer value that is set when the module has completed its execution.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro StringArrayConcatenate makes use of the Functional Macro StringArrayConcatenateFunc and the UI Macro StringArrayConcatenateUI.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application StringArrayConcatenateEg is provided, which shows a
+simple application of the StringArrayConcatenate macro.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p>
+<I>xp_comm_proj/strarrct/sactmods.v</I> Creates the StringArrayConcatenateMods library 
+containing the low-level module StringArrayConcatenateCore and the parameter block
+StringArrayConcatenateParams.  
+<p>
+<I>xp_comm_proj/strarrct/sactmacs.v</I>Creates the StringArrayConcatenateMacs library 
+containing the definition of the functional macro StringArrayConcatenateFunc the 
+user interface macro StringArrayConcatenateUI and the user Macro StringArrayConcatenate.
+<p>
+<I>xp_comm_proj/strarrct/sactapps.v</I> Creates the StringArrayConcatenateApps library
+containing the example application StringArrayConcatenateEg.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level StringArrayConcatenateMods library containing the module
+StringArrayConcatenateCore does not specify a process. By default the 
+<tt>express</tt> process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane, Ian Curington
+Advanced Visual Systems Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Paul G. Lever
+Manchester Visualization Centre
+
+Tobias Schiebeck
+International AVS Centre
+</pre></blockquote>
+
+</body>
+</html>

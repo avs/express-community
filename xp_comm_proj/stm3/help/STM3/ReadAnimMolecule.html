@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en-us"><head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Organization" content="Swiss Center for Scientific Computing, Switzerland">
+  <meta http-equiv="Content-Language" content="en-us">
+  <meta name="author" content="Mario Valle">
+  <meta name="description" content="STM3 module ReadAnimMolecule documentation">
+  <meta name="keywords" content="AVS,AVS/Express,STM3,PDB">
+  <meta name="copyright" content="Copyright 1999-2003 by CSCS-ETHZ">
+  
+  <title>Read Animated Molecule</title>
+  
+  <link rel="stylesheet" href="../help.css" type="text/css">
+
+</head><body>
+
+<h1>Read Anim Molecule</h1>
+
+<h2>Description</h2>
+<p>Read a molecule traiectory composed by molecular structures evolving along a set of time steps.</p>
+
+<h2>Input Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">None</td>
+</tr>
+</table>
+
+<h2>Parameters</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">file format</td>
+	<td class="c2">list</td>
+	<td class="c3">Select the format of the sequence to be read. The available formats are:
+	<dl>
+		<dt>Kino</dt>
+			<dd>Format used by the prof. Parrinello group.</dd>
+		<dt>Multi PDB</dt>
+			<dd>Every step is in the same file. Each step starts with a <b>HEADER</b> line and
+			ends with an <b>END</b> line.</dd>
+		<dt>DCD</dt>
+			<dd>The binary format produced by FMD. A traiectory is composed by two files: a
+			pdb file and a dcd file. The DCD format is common to CHARMm, XPlor, and NAMD.
+		<dt>MultiFile PDB</dt>
+			<dd>Every step is a separate PDB file. The filename contains a sequential number.</dd>
+	</dl>
+	</td>
+</tr>
+<tr>
+	<td class="c1">Units</td>
+	<td class="c2">list</td>
+	<td class="c3">Measurement units used in the files. Currently the only format that uses
+	Bohrs is the Gaussian Cube, not yet available for trayectories.</td>
+</tr>
+<tr>
+	<td class="c1">File name</td>
+	<td class="c2">file browser</td>
+	<td class="c3">The file name to be read or, for the <b>MultiFile PDB</b> format,
+	the first file in the sequence.</td>
+</tr>
+<tr>
+	<td class="c1">DCD file name</td>
+	<td class="c2">file browser</td>
+	<td class="c3">The CDC file name to be read for the <b>DCD</b> format. This file 
+	browser appears only if DCD format has been selected.</td>
+</tr>
+<tr>
+	<td class="c1">Hydrogens</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Enable Hydrogen atoms reading.</td>
+</tr>
+<tr>
+	<td class="c1">H bonds</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Enable computation of H bonds.</td>
+</tr>
+<tr>
+	<td class="c1">Force Bonds Recomputation</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Force bonds recomputation even if bonds definitions are already
+	present in the file</td>
+</tr>
+<tr>
+	<td class="c1">Freeze bonds</td>
+	<td class="c2">toggle</td>
+	<td class="c3">Don't recompute bonds for every time step.</td>
+</tr>
+<tr>
+	<td class="c1">Bonding Range Adjustment</td>
+	<td class="c2">slider</td>
+	<td class="c3">Percentage of variation of the maximum distance between atoms to form a
+	bond.</td>
+</tr>
+<tr>
+	<td class="c1">H Bonding Range Adjustment</td>
+	<td class="c2">slider</td>
+	<td class="c3">Percentage of variation of the maximum distance between H and an
+	atom to form a bond.</td>
+</tr>
+<tr>
+	<td class="c1">H Bond Max Distance</td>
+	<td class="c2">slider</td>
+	<td class="c3">Maximum lenght of an H bond.</td>
+</tr>
+<tr>
+	<td class="c1">H Bond Max Angle</td>
+	<td class="c2">slider</td>
+	<td class="c3">Maximum angle HXY (in X__H..Y where .. is the H bond) to form an H bond.</td>
+</tr>
+<tr>
+	<td class="c1">Loop</td>
+	<td class="c2">Loop module panel</td>
+	<td class="c3">Cycle between the various steps. The first step is numbered 1 and the
+	total number of steps is automatically computed from the input file.</td>
+</tr>
+</table>
+
+<h2>Output Ports</h2>
+<table cellpadding="2" cellspacing="2">
+<tr>
+	<td class="c1">molecule</td>
+	<td class="c2"><a href="MolecularDataType.html">MolecularDataType</a></td>
+	<td class="c3">Molecular data for each step.</td>
+</tr>
+<tr>
+	<td class="c1">step</td>
+	<td class="c2">int</td>
+	<td class="c3">Current step in the sequence. The steps are numbered starting from 1.</td>
+</tr>
+</table>
+
+<h2>See also</h2>
+<ul>
+	<li><a href="AnimDisplayApp.html">AnimDisplayApp</a> full application.</li>
+	<li><a href="http://www.rcsb.org/pdb/docs/format/pdbguide2.2/guide2.2_frame.html">PDB</a> format.</li>
+	<li><a href="https://xwww.asc.hpc.mil/software/info/fmd/fmd_ug.php#SEC9">DCD</a> file format.</li>
+</ul>
+<p>An example of Kino format. First line: number of atoms, then a comment line, then atoms (symbol, x, y, z in
+Angstrom). Optionally another columnn is read as "charge" in the molecule output.</p>
+
+<pre style="padding-left: 20px;">
+44
+STEP: 0
+AL  1.92648116963753 -3.28208460620044 -3.60914931585881
+AL  0.46901642270632  1.20043438700265 -3.36518301597449
+AL -0.41131779011742 -1.27093946611922  0.70223033040549
+AL -2.00469211869004  3.34392169190793  0.62787176356185
+AL -1.75618491401707  3.21296231482075  3.44552804599287
+...
+44
+STEP: 1
+AL  1.93413723593870 -3.27702099330197 -3.61617557823214
+AL  0.45987711812727  1.20287643600264 -3.37015677594191
+AL -0.40944987280746 -1.28086488373440  0.70110898401427
+AL -2.00831506199881  3.33244408025349  0.61925422726264
+AL -1.73425155583238  3.20873945312198  3.43392304489781
+...
+</pre>
+</body></html>

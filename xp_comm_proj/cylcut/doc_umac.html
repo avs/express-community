@@ -1,0 +1,281 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   <meta name="GENERATOR" content="Mozilla/4.5 [en] (Win98; I) [Netscape]">
+   <title>cylinder_cut</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>cylinder_cut</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+A mapper module that cuts a 3D model with a cylinder, returning
+the model remaining either inside or outside of the cylinder.
+</blockquote>
+
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input Ports of cylinder_cut macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>in_field</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">input field that should be cut using cylinder</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table summary="Parameters used by cylinder_cut macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>component</i></td>
+<td width="75">int array</td>
+<td width="300">list of node data components</td>
+<td width="125">Option Box</td>
+</tr>
+
+<tr>
+<td width="100"><i>dist</i></td>
+<td width="75">float</td>
+<td width="300">distance to move cylinder cutting surface</td>
+<td width="125">Slider</td>
+</tr>
+
+<tr>
+<td width="100"><i>above</i></td>
+<td width="75">int</td>
+<td width="300">Cut inside or outside cylinder</td>
+<td width="125">Toggle</td>
+</tr>
+
+<tr>
+<td width="100"><i>cell_data</i></td>
+<td width="75">int</td>
+<td width="300">list of cell data components</td>
+<td width="125">Option Box</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table summary="Ouput Ports of cylinder_cut macro">
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output field after cutting</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">directly renderable output object</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+The cut_cylinder macro crops or sections a 3D model using a cylinder shape object.  It is variation on the cut_plane module.  It works in essentially the same way except that it uses a cylindrical cutting tool instead of a simple plane tool.  The cut_cylinder macro returns a whole new 3D model.  It does not remove value by setting their node data value to NULL and it does not just return the values at the cylinder surface.
+</blockquote>
+
+<blockquote>
+The macro includes a user interface.  The cylinder radius and transformation can be controlled from the user interface panel.  The node data and cell data components to be retained and whether the inside or outside of the cylinder should be removed can also be specified through the user interface.  It should be noted that as the high level macros require the use of a number of low level AVS/Express modules these macros will only work with the AVS/Express developer edition.
+</blockquote>
+
+
+<h4>Inputs</h4>
+
+<blockquote>
+<i><b>in_field</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the field input that is to be cropped.  The field should contain at least a Mesh component.  If Node data or Cell data components are present then the user interface can be used to specify which of these should be copied across to the output.
+</blockquote>
+
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>component</b></i>
+</blockquote>
+
+<blockquote>
+A member of the DV_Param_cut parameter block group, this array of integers is used to specify which of the node data components should be copied across to the output.
+</blockquote>
+
+<blockquote>
+<i><b>dist</b></i>
+</blockquote>
+
+<blockquote>
+A member of the DV_Param_cut parameter block group, this float value is used to specify the radius of the cylindrical cutting tool.  The radius can also be specified through the Transformation Editor.  However in general using this control will be easier than directly adjusting the object transformation.
+</blockquote>
+
+<blockquote>
+<i><b>above</b></i>
+</blockquote>
+
+<blockquote>
+A member of the DV_Param_cut parameter block group, this integer value is used to specify whether the output data should contain those values inside or outside of the cylinder.  Setting this parameter to zero will cause the output data to contain only those values inside of the cylindrical cutting tool.
+</blockquote>
+
+<blockquote>
+<i><b>cell_data</b></i>
+</blockquote>
+
+<blockquote>
+A member of the DV_Param_cut parameter block group, this array of integers is used to specify which of the cell data components should be copied across to the output.
+</blockquote>
+
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+The most primitive output field of the cylinder_cut macro. This contains the new 3D model generated from the model present on the input, cropped using the specified cylinder and combined with the specified data components.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the cylinder_cut macro. This contains a DataObject object that can be rendered by the standard data viewers. The Data Object is generated directly from the field data created from the input model.
+</blockquote>
+
+
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro cylinder_cut makes use of the Functional Macro cylinderCut and the UI Macro CylinderCutUI.  The Functional macro cylinderCut also makes use of the the module CylinderCutDist.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application CylinderCutEg is provided, which loads a UCD data file and cuts a cylindrical section out of it.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/cylcut/cylcmacs.v</i> contains the V definitions of the cylinderCut Functional Macro, the cylinder_cut User Macro, the CylinderCutUI UI Macro, and the example application CylinderCutEg.
+</blockquote>
+
+
+<h3>Prerequisites</h3>
+
+<blockquote>
+This project requires the following components to be installed correctly.
+Without these components the user level macros will not work correctly.
+</blockquote>
+
+<ul>
+<li>AVS/Express Developer's Edition</li>
+</ul>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The CylinderCutMacs library inherits its process. As this library contains
+no procedural code, the process is not important.
+</blockquote>
+
+<blockquote>
+For more details on the operation of this module please refer to the standard cut_plane module.  This module is based on the same underlying system as cut_plane, but substitutes the cut plane object with a cylinder object and uses that as the cutting shape.
+</blockquote>
+
+<blockquote>
+The high level macros use many DV low level objects, and hence these macros require a license for the AVS/Express Developer Edition. The low level module is completely user code. However it is
+designed to work with the high level macros and hence is unlikely to be usable in itself.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+Ian Curington
+Advanced Visual Systems, Ltd.
+Hanworth Lane, Chertsey Surrey, UK
+KT16 9JX
+</pre>
+
+<pre><a HREF="mailto:ianc@avs.com">ianc@avs.com</a></pre>
+</blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+CylinderCutDist, CylinderCut, CylinderCutUI, CylinderCutEg, cut_plane
+</blockquote>
+
+</body>
+</html>

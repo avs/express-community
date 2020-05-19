@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<title>ReadFluent - Reads Fluent Universal file format files.</title>
+</head>
+
+<body bgcolor="#92BFBF">
+<h1>ReadFluent</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>Reads the Fluent Universal file format as written by Fluent v4.5
+. This reader supports the ASCII output from Fluent. Binary files are not supported.
+</blockquote>
+
+<blockquote>
+<h4>Parameters</h4>
+
+<h5>ReadFluentParams</h5>
+
+<table summary="Parameters used by ReadFluent">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="300"><b><font size="-1">Description</font></b></td>
+<td width="125"><b><font size="-1">UI Control</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>filename</i></td>
+<td width="200">string</td>
+<td width="300">Name of Fluent file to read.</td>
+<td width="125">File Dialog</td>
+</tr>
+
+<tr>
+<td width="100"><i>load</i></td>
+<td width="200">int</td>
+<td width="300">Triggers loading of the Fluent file.</td>
+<td width="125">Button</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by ReadFluent">
+<tr>
+<td width="100"><b><font size="-1">Name</font></b></td>
+<td width="200"><b><font size="-1">Type</font></b></td>
+<td width="425"><b><font size="-1">Description</font></b></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_mesh</i></td>
+<td width="200">Mesh_Struct+Node_Data</td>
+<td width="425">Structured mesh read from Fluent file.</td>
+</tr>
+
+<tr>
+<td valign=top width="100"><i>out_obj</i></td>
+<td valign=top width="200">DefaultObject</td>
+<td valign=top  width="425">DataObject which can directly be rendered by the standard data viewers.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>This code segment reads the Fluent Universal format, output by Fluent v4.5
+   This code is the structured code of Fluent. It only handles single block
+   curvilinear grids. It is assumed here that the velocities are stored in
+   curvi-linear mode. See Fluent's USE CYLINDRICAL VELOCITIES flag. No
+   attempt is made here to convert from cartesian velocities. </p>
+
+
+<p>This reader olny supports the ASCII output from Fluent. Binary is not supported.</p>
+
+<p>Reading Fluent's document "Appendix A, pp 1-52, Description of the FLUENT
+   Universal File" May 10, 1997, is recommended.</p>
+
+</blockquote>
+
+<h3>Parameters</h3>
+
+<h4>ReadFluentParams</h4>
+
+<blockquote><b><i>filename</i></b></blockquote>
+
+<blockquote>String parameter that specifies which Fluent file should be read. The filename string should contain the full path name of the file and can contain any of the AVS/Express environment variables (e.g. $XP_PATH&lt;1&gt;)</blockquote>
+
+<blockquote><b><i>load</i></b></blockquote>
+
+<blockquote>Integer parameter that triggers the loading of the Fluent file. </blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote><b><i>out_mesh</i></b></blockquote>
+
+<blockquote>Structured mesh + Node data output that contains the geometry and attached data values read from the Fluent file. The output consists of the nodal coordinates, connectivity information and the data values per node. </blockquote>
+
+<blockquote><b><i>out_obj</i></b></blockquote>
+
+<blockquote>The directly renderable output of the ReadFluent macro. This output contains the geometry data read from the Fluent file in a form that can directly be rendered by the standard data viewers.</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+<p>The ReadFluentFunc functional macro uses the low-level read_fluent_core module. The macro takes as input the parameter blocks, ReadFluentParams. The macro outputs the data read from the Fluent file as structured mesh with node data.</p> 
+
+<p>The ReadFluentFunc functional macro and the ReadFluentUI user interface macro are both used by the ReadFluent user macro. All of these macros use the ReadFluentParams parameter block to communicate. Additional to the mesh the ReadFluent user macro has an output for a DefaultObjects which can directly be rendered by the standard data viewers.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>The project includes an example application that demonstrates the use of the ReadFluent macro. The ReadFluentEg application uses the ReadFluent macro to read an Fluent file (ascii) as it is produced by FLUENT version 4.5. The Example contains an isosurface and a bounds module to show the inner structure of the mesh which is read by the ReadFluentMacro. </p>
+
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rdfluent/rdflmods.v</i> contains the V definitions of the read_fluent_core module and the ReadFluentParams parameter block.</p> 
+
+<p><i>xp_comm_proj/rdfluent/rdflmacs.v</i> contains the V definitions of the ReadFluentUI UI macro, the ReadFluentFunc functional macro and the ReadFluent user macro.</p>
+
+<p><i>xp_comm_proj/rdfluent/rdflapps.v</i> contains the V definitions of the ReadFluentEg example application.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>The low-level ReadFluentMods library containing the low-level module read_fluent_core does not specify a process. By default the <tt>express</tt> process will be used.</blockquote>
+
+
+<h3>Author</h3>
+<blockquote><pre>
+<a style="text-decoration:none" 
+href="http://www.cscs.ch/people/Favre.html">Dr. Jean M. Favre, </a>
+CSCS, Swiss Center for Scientific Computing 
+Via Cantonale, 6928 Manno, Switzerland
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+<a style="text-decoration:none" href="mailto:Tobias.Schiebeck@man.ac.uk">Tobias Schiebeck</a>, International AVS Centre
+</pre></blockquote>
+
+
+<h3>See Also</h3>
+
+<ul>
+
+<li><a href="http://www.fluent.com">Fluent Inc.</a> home page.</li>
+<li>"Appendix A, pp 1-52, Description of the FLUENT Universal File" May 10, 1997 </li>
+</ul>
+</body>
+</html>
+

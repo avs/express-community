@@ -1,0 +1,91 @@
+Express Community Scalar2Texture2 Project
+https://github.com/avs/express-community
+---------------------------
+
+This directory ( xp_comm_proj/scl2tex2/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"Scalar2Texture2".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new Scalar2Texture2 project, and additions to one or more of files in the 
+xp_comm_lib/ directory, to link appropriate objects to the top-level Community library
+page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. Users of the Developer's Edition may select the
+library XP_COMM_PROJ.Scalar2Texture2.Scalar2Texture2Mods in the Templates library,
+and then perform a compile. Alternatively, you may type the following command
+into the VCP prompt; Visualization Edition users must type the following 
+command to compile the project, as there is no access to the Templates library
+through the Network Editor:
+
+$compile XP_COMM_PROJ.Scalar2Texture2.Scalar2Texture2Mods
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/scl2tex2/ directory.
+
+INSTALL 	Contains installation instructions for editing the xp_comm_proj.v
+		and xp_comm_lib/ filters.v files. This file should not be edited as the
+		future installation script will use this file.
+
+scl2tex.v	Creates the XP_COMM_PROJ.Scalar2Texture2 library.
+
+s2tx2mod.v	Creates the Scalar2Texture2Mods library containing the low-level
+		module Scalar2Texture2Core.
+		
+s2tx2mac.v	Creates the Scalar2Texture2Macs library containing the user macro
+		Scalar2Texture.
+
+s2tx2app.v	Creates the Scalar2Texture2Apps library containing the example
+		applications Scalar2TextureEg, s2tComparisonEg and Datamap2TextureEg.
+
+scl2tex2.cxx	The C++ source code for the Scalar2Texture2Core module.
+
+doc_umac.html	HTML documentation for the Scalar2Texture User Macro.
+
+scl2tex.html	Original macro documentation.
+
+README		This file.
+
+rainbow.jpg	Example texture map image.
+
+compare.jpg	Image showing comparison between colormaps and texture-maps.
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated. Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h	AVS/Express generated header file.
+
+gen.cxx	AVS/Express generated source code.
+
+scl2tex2.o	Intermediate object file.
+
+
+Prerequisites
+-------------
+
+The s2tComparisonEg example application relies on the successful installation
+of the following components.  Without them it will not function correctly.
+
+Common Project
+
+
+The Datamap2TextureEg example application relies on the successful installation
+of the following components.  Without them it will not function correctly.
+
+Dmap2Image Project
+
+
+All the other macros in this project do not have any prerequisites.

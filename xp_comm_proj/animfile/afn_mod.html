@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>AnimFilenameGen</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>AnimFilenameGen</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Outputs a filename string which includes a sequence number within user specifiable text, which may be looped according to the given parameters, by using the accompanying module AnimFilenameLoop.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+  module AnimFilenameGen {
+    AnimFilenameParams &AnimFilenameParams<NEportLevels={2,1}>;
+    string pre => AnimFilenameParams.pre;
+    string post => AnimFilenameParams.post;
+    int number<NEportLevels={2,1}>;
+    int precision => AnimFilenameParams.precision;
+    string format => str_format("%%s%%.%dd%%s",.precision);
+    string output<NEportLevels={0,2}> =>
+        str_format(.format,.pre,.number,.post);
+  };
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+AnimFilenameGen allows the user to pass a sequence of filenames to other modules and macros, allowing a set of files to be read from disk, that have a naming scheme that incorporates a simple sequence of numbers. AnimFilenameGen will generate a filename on its output, each time the module receives a new sequence number from the AnimFilenameLoop module, when it executes during its loop.
+</blockquote>
+<blockquote>
+The module parameters allow text to be included in the output filename string, that occurs both before and after the number. Additionally, the number may have a precision attached to it.
+</blockquote>
+<blockquote>
+The module works in conjunction with the AnimFilenameLoop module which is a variation of the AVS/Express loop module. The AnimFilenameLoop works as before, and requires the start and end values for the loop to be specified, along with an increment value. In addition to this the AnimFilenameLoop module has reset, run and cycle toggles, to respectively reset the output sequence number, start the loop, and allow the loop to repeatedly cycle, until the user stops it.
+<blockquote>
+</blockquote>
+The AnimFilenameUI UI Macro incorporates a user interface for both the AnimFilenameGen and AnimFilenameLoop modules, via the Functional Macro, AnimFilename.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>&AnimFilenameParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains references to the real instances of the pre- and post-text, and the precision.
+</blockquote>
+
+<blockquote>
+<i><b>pre</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the pre-text, which is placed before the sequence number in the output filename string, via the parameter block, i.e., &lt;pre&gt;000.tif.
+</blockquote>
+
+<blockquote>
+<i><b>post</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the post-text, which is placed after the sequence number in the output filename string, via the parameter block, i.e., myfile000&lt;post&gt;.
+</blockquote>
+
+<blockquote>
+<i><b>precision</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the sequence number precision to be used in the generation of the output filename string. This allows the number of digits used for the sequence number to be fixed to at least the precision given, e.g., precision=1, produces output of the form &lt;pre&gt;0&lt;post&gt;, whereas precision=3, forces it to &lt;pre&gt;000&lt;post&gt;. If the numer of digits exceeds the precision, then the required number of digits will be present, e.g., precision=3, and the sequence has reached 1234, then the output will be &lt;pre&gt;1234&lt;post&gt;.
+</blockquote>
+
+<blockquote>
+<i><b>number</b></i>
+</blockquote>
+
+<blockquote>
+The sequence number to be used in the generation of the output filename string. This number is normally provided by the AnimFilenameLoop module included with this project, which generates the number sequence.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>output</b></i>
+</blockquote>
+
+<blockquote>
+The output filename string, which contains the string based on the pre- and post-text, with the current input number inserted according to the specified precision.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level AnimFilenameGen module is used in conjunction with the AnimFilenameLoop module (which is a variation of the AVS/Express loop module), and used in the Functional Macro AnimFilename, and the User Macro animfilename. Additionally these macros also use the AnimFilenameParams and AnimLoopParams parameter block group objects, as does the AnimFilenameUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application is not provided, however the use is very simple. For example, typing "myfile" into pre-text, ".tif" into post-text, setting precision to 3, and using start and end values of 0 and 10 respectively, with an increment of 1, will produce the sequence "myfile000.tif", "myfile001.tif", and so on upto "myfile010.tif".
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/animfile/afn_mods.v</I> contains the AnimFilenameParams and AnimLoopParams groups, the AnimFilenameGen module, and the modified AVS/Express module loop (as AnimFilenameLoop) module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The AnimFilenameGen and AnimFilenameLoop modules do not require any compilation.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Paul G. Lever
+
+International AVS Centre
+Manchester Visualization Centre
+Manchester Computing
+University of Manchester
+Oxford Road
+Manchester
+UK
+M13 9PL
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+AnimFilenameParams, AnimLoopParams, AnimFilenameLoop, AnimFilename, AnimFilenameUI and animfilename.
+</blockquote>
+
+<blockquote>
+Loop, loop
+</blockquote>
+
+</body>
+</html>

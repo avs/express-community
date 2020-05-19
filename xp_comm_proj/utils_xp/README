@@ -1,0 +1,44 @@
+utils_xp source files
+https://github.com/avs/express-community
+---------------------
+
+This directory ( xp_comm_proj/utils_xp/ ) contains the source code and 
+documentation for a set of utility functions for AVS/Express.
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+Installation is simply a matter of unpacking xp_comm_proj/utils_xp and its
+contents. Projects that use utils_xp will set properties cxx_src_files,
+hdr_dirs and cxx_hdr_dirs to make use of utils_xp.
+
+There is no need to compile any of the source files. They are automatically
+compiled when projects that use utils_xp are compiled.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/utils_xp/ directory.
+
+array_fn.cxx		Functions for AVS/Express arrays query and 
+			manipulation.
+
+array_fn.h		Corresponding header file that prototypes public fns.
+
+field_fn.cxx		Functions for AVS/Express fields query and
+			manipulation.
+
+field_fn.h		Corresponding header file that prototypes public fns.
+
+om_fn.h			Functions to perform general AVS/Express object 
+			query and manipulation.
+
+om_fn.h			Corresponding header file that prototypes public fns.
+
+README			This file.
+
+Generated Files
+---------------
+
+No generated files.

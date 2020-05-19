@@ -1,0 +1,68 @@
+
+Date built: 	April 15, 1999
+
+By:		Leigh Jennifer Grundy
+
+
+Will work with both Developer and Viz Edition
+
+This example shows how to transform an object, in this case a dxf model,
+using 6 Degrees of Freedom (6DOF) data from a flight simulator. Most of
+what is included in the Zip file is the DXF Reader. This needs to be
+compiled. The DXF reader included in this example is an old one built by
+Peter Stark. (The more recent one I found on the IAC site would not
+work with Viz Express)
+
+
+How to install:
+
+Create an empty express project. Extract the zip file into the project
+directory, saying yes to all overwrites. Highlight Workspace1 and choose
+project compile. Exit express and type nmake -f express.mk. Start the
+new executable and load the Good.v application. Run the Loop.
+
+
+What I did:
+
+Here is the explaination I sent to the Viz Express Customer. Where I
+tell the customer to drill down, a Developer user would be able to use
+the Network Editor.
+
+1) I took the DXF file and exported its transform. I then input this
+   into a GDxform_edit module.
+
+2) I created a module to read in the 6dof data using the add file import
+   module tool from the object menu (see online help). I had some trouble
+   reading in the sample data. Wordpad had commas and 2 spaces and in some
+   places commas and one space. I converted it to tabs instead and the file
+   read in correctly.
+
+3) Next, I used a loop to cycle through the data. This had start, end
+   and increment inputs and a count output. I used a built-in function to
+   make the end input a reference to the size of the x components array
+   dimensions. =>(array_size(Read_DOF.x_comp) -1) (The minus one gives me
+   an index into the array elements via the count of the loop)
+
+4) Because you are using the Visualization Edition of Express the next
+   step needs to be done in the VCP. From the VCP drill down into the
+   GDxform_edit:
+
+   SingleWindowApp.GDxform_edit{
+
+   Doing a $list gives you the subobjects. Notice that there are floats for
+   the x, y & z rotation and translation.. I made the x,y,z translations
+   references to the coordinates you gave me. $print obj_name gives you the
+   values. i.e. $print x_trans
+
+   float x_trans => Read_DOF.x_comp[count];
+
+   We consider the x,y,z rotation the Roll, Pitch, & Yaw so I set those
+   accordingly.
+
+5) When I ran the animation I found that the helicopter flew off the
+   screen. To correct this I needed to change the Field of View of the
+   camera. From the SingleWindowApp Editors menu choose camera. Instead of
+   General choose Lens and turn on Perspective. Then I changed the FOV
+   slider. This did make the image somewhat smaller but at least it does
+   not fly out of the camera view.
+

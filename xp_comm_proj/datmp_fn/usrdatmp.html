@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>user_defined_datamap</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>user_defined_datamap</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Uses a user defined C++ function to convert scalar node data into colour node data.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table summary="Input ports used by user_defined_datamap">
+
+<tr>
+<td width="125"><i>in</i></td>
+<td width="125">Mesh+Node_Data</td>
+<td width="300">Field data to be colour mapped.</td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output ports used by user_defined_datamap">
+
+<tr>
+<td width="125"><i>out_fld</i></td>
+<td width="125">Mesh+Node_Data</td>
+<td width="300">Output field with colour Node_Data.</td>
+</tr>
+
+<tr>
+<td width="125"><i>out_obj</i></td>
+<td width="125">DataObject</td>
+<td width="300">Directly renderable output object.</td>
+</tr>
+
+</table>
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The user_defined_datamap user macro takes a set of scalar Node data
+and converts it into colour node data. This colour node data can be
+included in a DataObject and input into a viewer. Since the AVS/Express
+renderer uses this colour node data to directly colour the output this
+effectively provides an alternative to using the standard AVS/Express
+datamapping system. Directly creating colour node data allows the user
+total control of how their data is colour mapping at the expense of
+forcing the user to perform the whole datamapping process themselves.
+The user_defined_datamap macro is setup so that it will always use the
+C++ function <code>UserDefinedFunc</code>.</p>
+
+<p>The user_defined_datamap macro is intended to be used when you are
+first developing your own datamapping functions. The macro is hard-wired
+so that it always uses the first datamapping function. This reduces the
+complexity of the resulting macro and removes the need to decide which
+function to modify.</p>
+</blockquote>
+
+<h3>Development</h3>
+
+<blockquote>
+<p>Developing new datamapping functions is reasonably straightforward
+but does require some knowledge of C or C++ programming. To help get you
+started we will look at a single datamapping function and see now it
+operates. If you look in the <code>datmp_fn.cxx</code> file you should
+be able to find the following piece of code:</p>
+
+<pre>
+/*=====================================================================*/
+/*             Place user defined function here                        */
+
+static inline void
+UserDefinedFunc(float val, float min, float width, float *rgb)
+{
+   float norm_val, temp;
+   float hsv[3];
+
+   norm_val = 0.6667 * NORMALIZE_VALUE;
+
+   hsv[0] = 0.3333 + norm_val;
+   hsv[1] = 1.0;
+   hsv[2] = 1.0;
+
+   convertHSVtoRGB(hsv, rgb);
+}
+
+/*             End of user defined function                            */
+/*=====================================================================*/
+</pre>
+
+<p>This function converts a <b>single scalar</b> value into a red, green and
+blue triplet. This conversion is done by mapping the input value to a
+hue and converting the HSV triplet into a RGB triplet. It returns this
+RGB triplet as an array of 3 floating point numbers. It does not return
+any other value. To summarise the UserDefinedFunc function has the
+following 3 input parameters and 1 output parameter:</p>
+
+<table summary="UserDefinedFunc parameters">
+<tr>
+<td><b>val</b></td>
+<td>Node data value to be converted.</td>
+</tr>
+<tr>
+<td><b>min</b></td>
+<td>Minimum value of data range.</td>
+</tr>
+<tr>
+<td><b>width</b></td>
+<td>Width of data range (i.e. <code>max-min</code>)</td>
+</tr>
+<tr>
+<td><b>rgb</b></td>
+<td>Output array that contains generated red, green and blue values.</td>
+</tr>
+</table>
+
+<p>This function is always used by the user_defined_datamap macro to
+perform the datamapping.  If you wish to modify the datamapping then
+you should begin by modifying this function. The main
+update loop expects that each datamapping function you write should have
+the parameters shown above. If the update loop is modified additional
+parameters can be added. However the parameters given here are really
+essential to the operation of the algorithm.</p>
+
+<p>The main update loop calls this function for each node data value it
+finds. The update loop deals with accessing the input and output field
+structure and interacting with AVS/Express. This saves the programmer
+from having to deal with this.  However it does mean that it is assumed that each
+datamapping function should only act on a single scalar value. The
+datamapping for one value must not depend upon other values.<p>
+
+<p>Several utility functions and macros are provided.  These are
+intended to ease the task of creating new datamapping functions.  The
+details of these functions are shown below:</p>
+
+<ul>
+
+<li>
+<p><code>convertHSVtoRGB(float *hsv, float *rgb)</code></p>
+<p>Converts a HSV triplet into a RGB triplet.  All values should be in the
+range 0 to 1.  In particular hue is represented as a value between 0 and 1,
+not 0 and 360 as is sometimes done.</p>
+</li>
+<li>
+<p><code>convertRGBtoHSV(float *rgb, float *hsv)</code></p>
+<p>Converts a RGB triplet into a HSV triplet.  All values should be in the
+range 0 to 1.  In particular hue is represented as a value between 0 and 1,
+not 0 and 360 as is sometimes done.  Normally this function will not need
+to be used.  It is simply presented as the partner to the
+<code>convertHSVtoRGB()</code> function.</p>
+</li>
+<li>
+<p><code>NORMALIZE_VALUE</code></p>
+<p>Macro that returns the normalized value of the <code>val</code> variable.
+The <code>min</code> and <code>width</code> variables are used to perform the
+normalization.</p>
+</li>
+<li>
+<p><code>MIN(a, b)</code></p>
+<p>Macro that returns the minimum of the two given parameters.</p>
+</li>
+<li>
+<p><code>MAX(a, b)</code></p>
+<p>Macro that returns the maximum of the two given parameters.</p>
+</li>
+
+</ul>
+</blockquote>
+
+
+<h3>Limitations</h3>
+
+<blockquote>
+<p>Generating colour node data in this way is a powerful technique
+however it does suffer from a number of limitations that should be
+pointed out. The most important is that creating or modifying datamap
+functions <b>requires</b> some degree of C or C++ experience. The
+project has been designed so that editing the source code is easy to do.
+However changing the datamap functions requires the user to edit the
+<code>datmp_fn.cxx</code> file.</p>
+
+<p>Another limitation is that this technique will normally increase the
+size of the input data. Colour data is represented by 3 floats for red,
+green and blue values. If we consider the worse case of the input data
+being bytes. This would result in the output data being 12 times as
+large as the input data. Whether this is important depends on the type
+and size of your data, and whether optimizations in the renderer mean
+that the colour node data is used directly.</p>
+
+<p>The final limitation is that the user_defined_datamap macro does not
+use the standard AVS/Express datamapping system in any way. This is an
+intrinsic result of how the project was designed. However it does mean
+that none of the AVS/Express components that operate on the Datamap
+object can be used. These include the standard datamap editor and the
+Legend modules. Instead of using the standard datamap editor it is
+expected that uses will create user interfaces that are suitable to
+their own applications. A future update to this project will include a
+set of specialized Legend modules that work with the
+user_defined_datamap macro.</p>
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in</b></i>
+</blockquote>
+
+<blockquote>
+The input Field data for the user_defined_datamap user macro. This data
+should contain a least a single set of scalar Node Data. Vector Node
+Data can be present but will be ignored. The lower-level module
+DatamapFunctionCore is used to colour the Node_Data of the input field. This
+colour Node_Data is then recombined with the original Mesh (if present).
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+The output field for the user_defined_datamap macro. This contains the
+coloured Node_Data combined with the original Mesh (if present). The
+coloured Node_Data is a vector of 3 float numbers which represents red,
+green and blue intensities. The Node_Data has an id number of 667 which
+indicates that the rendered should treat this node data as colour data.
+Normally the <code>out_obj</code> output will be used instead of this
+output. 
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output object of the user_defined_datamap macro.
+This contains the Field that contains the coloured Node_Data. This
+output can be directly connected to a viewer.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The User Macro user_defined_datamap uses the low-level module
+DatamapFunctionCore.  It does not use any other utility macros.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+<p>Two example applications are provided with the DatamapFunction
+project. The DatamapFunctionEg application reads the hydrogen data-set
+and calculates an isosurface and orthoslice from this data. These are
+then coloured by two datamap_function user macros. You should be able to
+select between the various different datamapping functions. You should
+also be able to notice some stepping between different colours. This is
+particularly apparent with the banded datamap functions and is caused by
+the way that the renderer interpolates between widely different colours.
+It is particularly apparent in this example because of the low
+resolution of the data-set. This effect also occurs with the standard
+AVS/Express datamapping system.</p>
+
+<p>The InterpolateDataEg example application shows one way of working around this problem. In this application the <code>intep_data</code> module is used to interpolate between node data values and hence great a much higher resolution grid. This is then colour mapped by the datamap_function macro. This produces good results but does greatly increase the number of triangles that have to be displayed. A better solution would be to use the <a
+href="http://www.iavsc.org/repository/express/misc.html#scl2tex">Scalar2Texture</a> IAC project to apply a texture map to the scalar data. This technique does not suffer from these interpolation problems.</p>
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/datmp_fn/dmfnmods.v</i> contains the V definitions of the
+low-level module DatamapFunctionCore and the parameter block
+DatamapFunctionParams.</p>
+
+<p><i>xp_comm_proj/datmp_fn/dmfnmacs.v</i> contains the V definitions of the
+Functional Macro DatamapFunctionFunc, the UI Macro DatamapFunctionUI and
+the User Macros datamap_function and user_defined_datamap.</p>
+
+<p><i>xp_comm_proj/datmp_fn/dmfnapps.v</i> contains the V definitions of the
+Example Applications DatamapFunctionEg and InterpolateDataEg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level DatamapFunctionMods library containing the low-level
+DatamapFunctionCore module does not specify a process. By default the
+<tt>express</tt> process will be used.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+<a href="mailto:andrew.dodd@man.ac.uk">Andrew Dodd</a>,
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="datmp_fn.html">datamap_function</a> macro.</li>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#scl2tex">Scalar2Texture</a> IAC project.</li>
+<li>AVS/Express datamap system.</li>
+</ul>
+
+</body>
+</html>
+

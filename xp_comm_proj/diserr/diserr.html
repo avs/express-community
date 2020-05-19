@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+<title>DisplayErrorDialog</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>DisplayErrorDialog Project (For AVS module developers only)</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+The DisplayErrorDialog project demonstrates one way of allowing a C or C++ module to display an Operating System standard warning or error dialog box.  This project is only intended to be used by AVS/Express module developers.
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The DisplayErrorDialog project shows one way of displaying a standard warning or error dialog box.  AVS/Express does already allow module code to display errors in the error console.  However errors displayed here can often be missed or ignored.  This project displays an operating system standard dialog box that has to be manually dismissed before the user can continue.  The project includes the C source file <code>error.c</code> which is linked into Express through the <code>DisplayErrorUtilityCode</code> module.  This module should not need to be edited and hence is not visible in the Network Editor.  The <code>error.c</code> file contains a single function, <code>DisplayErrorDialog</code>.  The full declaration of the function is shown below:</p>
+
+<pre>
+void DisplayErrorDialog(char *title, char *msg)
+</pre>
+
+<p>Whenever this function is called a pre-defined AVS/Express error group is found and the visible parameter set to true.  The error dialog will then appear with the specified title and message.  When the user dismisses the dialog box the visible parameter is set back to false.  The <code>DisplayErrorExampleMod</code> low-level module and its associated source code show how a call to this function could be made.  The main advantage of the approach shown in this project is that the <code>DisplayErrorDialog</code> function can be called from anywhere within a module's code and no extra references have to be managed.</p>
+
+<p>The obvious limitation of this approach is that it relies on a pre-defined error group existing and the location of that group must be statically compiled into Express.  To ensure that this happens correctly in your own projects you will have to alter the <code>ERROR_OBJ</code> define in the <code>error.c</code> file.  Currently this points to the Error group in the supplied example application.  The define will have to be altered to reflect and actual name and user interface structure of your application.  Because of this limitation the approach shown in this project will be of most use in a small number of situations.  These are where a compiled Express project will be produced and where the user interface modules can be hidden from the user.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application DisplayErrorDialogEg is provided.  This demonstrates how the DisplayErrorExampleMod and Error objects should be connected with the rest of the application network.  The Error object is defined in the DisplayErrorMods library and uses the <code>UIwarningDialog</code> Express module internally to actually display the error dialog.  To see how the DisplayErrorDialog function should be used the source code to the DisplayErrorExampleMod should be examined.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<p><I>xp_comm_proj/diserr/err_mods.v</I> contains the V definitions of the DisplayErrorUtilityCode and DisplayErrorExampleMod modules and the Error group.</p>
+
+<p><I>xp_comm_proj/diserr/err_apps.v</I> contains the V definition of the DisplayErrorDialogEg example application.</p>
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+This module is intended for AVS/Express module developers only.  The low-level DisplayErrorMods library containing the modules DisplayErrorUtilityCode and DisplayErrorExampleMod does not specify a process. By default the express process will be used.  For this project to work correctly both of these modules must be in the same process.
+</blockquote>
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Dr David Knight,
+AVS Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Ma YingLiang,
+Manchester Visualization Centre
+
+Andrew Dodd,
+International AVS Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<ul>
+<li><a href="http://www.iavsc.org/repository/express/misc.html#setcur">SetCursor</a> IAC project.</li>
+</ul>
+
+</body>
+</html>
+

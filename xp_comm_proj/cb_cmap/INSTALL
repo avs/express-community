@@ -1,0 +1,13 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/cb_cmap/cb_cmap.v" CB_ColorMap;
+# In the following xp_comm_lib file
+misc.v
+# insert the following line
+  XP_COMM_PROJ.CB_ColorMap.CB_ColorMapMacs.CB_ColorMap CB_ColorMap;
+  XP_COMM_PROJ.CB_ColorMap.CB_ColorMapMacs.DataObjectDmap DataObjectDmap;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.CB_ColorMap.CB_ColorMapApps.CB_ColorMapEg CB_ColorMapEg;

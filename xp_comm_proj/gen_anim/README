@@ -1,0 +1,49 @@
+Express Community AnimatedImageGenerator Project
+https://github.com/avs/express-community
+----------------------------------
+
+This directory ( xp_comm_proj/gen_anim/ ) contains all the V code, source code,
+HTML documentation, and installation information for the Community project
+"AnimatedImageGenerator".
+
+The directory should be placed into your existing project directory, which
+should already contain the Community Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new AnimatedImageGenerator project, and additions to two files in the 
+xp_comm_lib/ directory, to link appropriate objects to the top-level Community library 
+page.
+
+This module contains no code and therefore does not need to be compiled.
+It is implemented in V only.
+
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/gen_anim/ directory.
+
+INSTALL        Contains installation instructions for editing the xp_comm_proj.v
+               and xp_comm_lib/ files. This file should not be edited as the
+               future installation script will use this file.
+
+gen_anim.v     Creates the XP_COMM_PROJ.AnimatedImageGenerator template library.
+
+ganimmac.v     Creates the AnimatedImageGeneratorMacs library containing the 
+               high-level user macros AnimatedImageGenerator.
+
+ganimapp.v     Creates the AnimatedImageGeneratorApps library containing the 
+               example application AnimatedImageGeneratorEg.
+
+gen_anim.html  HTML documentation for the user macros.
+
+README		This file.
+
+
+Generated Files
+---------------
+
+As this project does not need to be compiled no files are generated.
+

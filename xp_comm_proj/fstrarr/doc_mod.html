@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>FindStringInArrayCore</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>FindStringInArrayCore</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Find a string in a given array and return the array position.
+</blockquote>
+
+<blockquote>
+<hr>
+
+<pre>
+module FindStringInArrayCore &lt;src_file=&quot;mod_fsa.cxx&quot;&gt;
+{
+	int active&lt;NEportLevels={2,0}&gt;;
+	int ignore_whitespace&lt;NEportLevels={2,0}&gt;;
+	string search_string&lt;NEportLevels={2,0}&gt;;
+	string strings&lt;NEportLevels={2,0}&gt;[];
+	int selectedItem&lt;NEportLevels={0,2}&gt;;
+	cxxmethod+notify_inst+req update
+	(
+		active+read+req,
+		ignore_whitespace+read+req,
+		search_string+read+write+notify+req,
+		strings+read+write+notify+req,
+		selectedItem+write
+	);
+};
+</pre>
+
+<hr>
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+FindStringInArrayCore references the given array of strings and iterates through it looking for a match to the search string.  If Ignore White Spaces is enabled, any padding at the start or end of either the Search string or Array string is ignored.
+</blockquote>
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>active</b></i>
+</blockquote>
+
+<blockquote>
+Allows the user of this module to disable its functionality.
+</blockquote>
+
+<blockquote>
+<i><b>ignore_whitespace</b></i>
+</blockquote>
+
+<blockquote>
+If this value is set thr module ignores any whitespaces at the beginning and end of the searchstring and array values.
+</blockquote>
+
+<blockquote>
+<i><b>search_string</b></i>
+</blockquote>
+
+<blockquote>
+References the search_string value of type string via the parameter block.
+</blockquote>
+
+<blockquote>
+<i><b>strings[]</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the external string array.
+</blockquote>
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>selectedItem</b></i>
+</blockquote>
+
+<blockquote>
+The output value selectedItem of type integer specifies the array index which matches the given search string.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/fstrarr/fsa_mods.v</I> contains the Params group and the modFindStringInArray module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level library FindStringInArrayMods containing the module FindStringInArrayCore does not specify a process. By default the express process will be used.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Brian Selle, Leon Thrane
+Advanced Visual Systems, Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Jon P. Davies
+Manchester Visualization Centre
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+FindStringInArray.
+</blockquote>
+
+</body>
+</html>

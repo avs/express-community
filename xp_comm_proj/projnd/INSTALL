@@ -1,0 +1,13 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/projnd/projnd.v" ProjectNodeData;
+# In the following xp_comm_lib file
+mappers.v
+# insert the following line
+  XP_COMM_PROJ.ProjectNodeData.ProjectNodeDataMacs.ProjectNodeData ProjectNodeData;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.ProjectNodeData.ProjectNodeDataApps.ProjectNodeData2DEg ProjectNodeData2DEg;
+  XP_COMM_PROJ.ProjectNodeData.ProjectNodeDataApps.ProjectNodeData3DEg ProjectNodeData3DEg;

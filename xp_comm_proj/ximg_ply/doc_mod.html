@@ -1,0 +1,340 @@
+<html>
+<head>
+<title>AVSImagePlayer</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>AVSImagePlayer</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Animates a number of AVS x format image files stored in memory or on
+disk.
+</blockquote>
+
+
+
+<blockquote>
+<hr>
+
+<pre>
+   module AVSImagePlayer < src_file="ximg_ply.cxx",
+                           build_dir="xp_comm_proj/ximg_ply",
+                           out_src_file="gen.cxx",
+                           out_hdr_file="gen.hxx",
+                           cxx_name="xImgPlay",
+                           cxx_members="private:
+                                        friend void AVSImagePlayer_LoopFuncTmp(char *arg);
+                                        void LoopFunc(void);
+                                        int  ReadImages(void);
+                                        int  ReadImage(int image_no, int data_array_index,
+                                                       char *module_name); ",
+                           cxx_hdr_files="fld/Xfld.h"> {
+
+      ImagePlayerParams+read+write+req &ImagePlayerParams<NEportLevels={2,0}>;
+
+      int trigger_run<NEportLevels={2,0}>;
+      int trigger_stop<NEportLevels={2,0}>;
+
+      int+read+req data_array_size = 1;
+
+      Data_Array+write+nonotify+nosave Data_Array[data_array_size] {
+         veclen = 4;
+         id = 669;
+         values+byte;
+         null_value+byte;
+         min+byte;
+         max+byte;
+         min_vec+byte;
+         max_vec+byte;
+      };
+
+      int node_data_index => switch((ImagePlayerParams.access_mode + 1),0,ImagePlayerParams.count);
+
+      Mesh_Unif+Node_Data+write+nonotify out<NEportLevels={0,2}> {
+         ndim = 2;
+         nspace = 2;
+         points => { {0,0}, {(dims[0] - 1),(dims[1] - 1)} };
+         nnode_data = 1;
+         &node_data => Data_Array[node_data_index];
+      };
+
+      GDM.DataObject DataObject {
+         in => out;
+         Obj<NEportLevels={0,3}>;
+      };
+
+      cxxmethod+req image_player_run( trigger_run+read+notify+req );
+      cxxmethod+req image_player_stop( trigger_stop+read+notify+req );
+   };
+</pre>
+
+<hr>
+</blockquote>
+
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+AVSImagePlayer is a low level module that is able to read in image files
+in the AVS x format and then animate them from either memory or by
+loading each image as it is required. The image filenames are specified
+by using a C-style format-string and a number of parameters. The module
+is also able to control the rate at which the images are animated,
+whether the animation runs forward or backwards and whether the
+animation cycles continously. The images are output as both a uniform
+mesh with colours represented by node data, and a renderable DataObject
+that is generated from the uniform mesh.
+</blockquote>
+
+
+
+
+<h3>Inputs</h3>
+
+<blockquote>
+<i><b>trigger_run</b></i>
+</blockquote>
+
+<blockquote>
+When updated this parameters triggers the start of the animation. The
+animation then runs until the trigger_stop parameter is updated, or
+until all images have been displayed if the animation is not cycling.
+When updated the parameter triggers the loading of image files into
+memory, should this be necessary.
+</blockquote>
+
+<blockquote>
+<i><b>trigger_stop</b></i>
+</blockquote>
+
+<blockquote>
+When updated this parameter halts the animation. The animation stops at
+the current frame. This parameter does not reset the animation to either
+the first or last frames.
+</blockquote>
+
+<blockquote>
+<i><b>&ImagePlayerParams</b></i>
+</blockquote>
+
+<blockquote>
+Reference to the parameter block, which contains real instances of the
+parameters for the AVSImagePlayer function.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.file_format</b></i>
+</blockquote>
+
+<blockquote>
+Filename formatting string that specifies the filenames of the image
+files that are to be loaded. The parameter is of type string. This
+parameter uses a C-style formatting expression to generate indexed
+filenames.
+</blockquote>
+<blockquote>
+Therefore setting <TT>file_format</TT> to <TT>"Imag%d.x"</TT> will
+generate filenames of the form <TT>"Image0.x"</TT> with no leading
+characters; whilst setting the parameter to <TT>"Image%04d.x"</TT> will
+generate filenames which are padded with zeros to be 8 characters long
+(i.e. <TT>"Imag0001.x"</TT>). More information can be found in any C
+reference book.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.nb_images</b></i>
+</blockquote>
+
+<blockquote>
+Total number of images that are to be animated. This parameter is of
+type int. The animation will stop or repeat as appropriate when this
+many frames have been displayed.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.first_image</b></i>
+</blockquote>
+
+<blockquote>
+Index number of first image to be animated. This parameter is of type int.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.step</b></i>
+</blockquote>
+
+<blockquote>
+Value that the index number should be incremented by during each
+iteration of the animation loop. This parameter is of type int.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.access_mode</b></i>
+</blockquote>
+
+<blockquote>
+Specifies whether images should be animated from memory or from disk.
+This parameter is of type int. Setting the parameter to 0 specifies that
+each image should be read from disk immediately before it is displayed.
+Setting the parameter to 1 specifies that all the images should be
+loaded into memory before the animation begins and displayed directly
+from memory.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.run_mode</b></i>
+</blockquote>
+
+<blockquote>
+Specifies how the animation should be performed. This parameter is of
+type int. There are four possible values for this parameter:-
+</blockquote>
+
+<dl compact>
+<dt>0	<dd>Play forwards until last frame is reached
+<dt>1	<dd>Play forwards continously, cycling to start when last frame is reached
+<dt>2	<dd>Play backwards until first frame is reached
+<dt>3	<dd>Play backwards continously, cycling to end when first frame is reached
+</dl>
+
+<blockquote>
+<i><b>ImagePlayerParams.fps</b></i>
+</blockquote>
+
+<blockquote>
+Number of frames per second that the images should be animated at. This
+parameter is of type float. This is the ideal number of frames per
+second, if the system is unable to achieve this value then the animation
+will run at a lower rate.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.nsec_before</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the number of seconds that the animation should wait at the
+starting frame before the animation is restarted. This parameter only
+applies when the animation is cycling. The parameter is of type int.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.nsec_after</b></i>
+</blockquote>
+
+<blockquote>
+Specifies the number of seconds that the animation should wait at the
+ending frame before the animation returns to the starting frame. This
+parameter only applies when the animation is cycling. The parameter is
+of type int.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.count</b></i>
+</blockquote>
+
+<blockquote>
+The index number of the currently displayed image. This parameter is of
+type int. Setting this parameter will cause the currently displayed
+image to change immediately.
+</blockquote>
+
+<blockquote>
+<i><b>ImagePlayerParams.real_fps</b></i>
+</blockquote>
+
+<blockquote>
+Number of frames per second that the animation is actually running at. This
+parameter is of type string. The parameter is intended for display only
+and to ease display the number of frames per second is included along with an
+appropriate message by the module.
+</blockquote>
+
+
+<h3>Outputs</h3>
+
+<blockquote>
+<i><b>out</b></i>
+</blockquote>
+
+<blockquote>
+Field data containing the currently displayed image. The image is
+represented by a uniform mesh. The colour of each pixel is represented
+by a vector of length 4 (i.e. alpha, red, green, blue) at each node data
+point.
+</blockquote>
+
+<blockquote>
+<i><b>obj</b></i>
+</blockquote>
+
+<blockquote>
+The directly renderable output field of the AVSImagePlayer module. This
+contains a DataObject object that can be rendered by the standard data
+viewers. The DataObject is generated directly from the field data
+created from the currently displayed image.
+</blockquote>
+
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The low-level AVSImagePlayer module is used in the User Macro
+imagePlayer. Additionally, this macro also uses the ImagePlayerParams
+parameter block group object, as does the ImagePlayerUI UI Macro.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application AVSImagePlayerEg is provided, which uses the
+animation module to display a sequence of images generated for a
+Meteorological Office presentation on global warming.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<I>xp_comm_proj/ximg_ply/iplymods.v</I> contains the ImagePlayerParams group
+and the AVSImagePlayer module V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The low-level AVSImagePlayerMods library containing the module AVSImagePlayer does not
+specify a process. By default the <tt>express</tt> process will be used.
+</blockquote>
+
+<blockquote>
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Fernand Alcatrao
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+ImagePlayerParams, ImagePlayerUI, imagePlayer
+</blockquote>
+
+<blockquote>
+
+</blockquote>
+
+</body>
+</html>

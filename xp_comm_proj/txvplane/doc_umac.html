@@ -1,0 +1,269 @@
+<html>
+<head>
+<title>texture_vplane</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>texture_vplane</h1>
+<h3>Synopsis</h3>
+
+<blockquote>
+The user macro texture_vplane is used to generate a "vertical" plane and apply an image (or texture map) to the plane.
+</blockquote>
+
+<blockquote>
+<h4>Input Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+<tr>
+<td width="100"><i>&in_texture</i></td>
+<td width="75">link</td>
+<td width="425">input texture</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+<h4>Parameters</h4>
+<p>
+The following lists all of the parameters found in the parameter block TextureVPlaneParams, which are accessed by the user macro and the UI Macro TextureVPlaneUI.
+</p>
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</font>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>start_x</i></td>
+<td width="75">float</td>
+<td width="300">lower-left Coordinate</td>
+<td width="125">Lower Left corner of image: X</td>
+</tr>
+
+<tr>
+<td width="100"><i>start_y</i></td>
+<td width="75">float</td>
+<td width="300">lower-left Coordinate</td>
+<td width="125">Lower Left corner of image: Y</td>
+</tr>
+
+<tr>
+<td width="100"><i>start_z</i></td>
+<td width="75">float</td>
+<td width="300">lower-left Coordinate</td>
+<td width="125">Lower Left corner of image: Z</td>
+</tr>
+
+<tr>
+<td width="100"><i>end_x</i></td>
+<td width="75">float</td>
+<td width="300">upper-right Coordinate</td>
+<td width="125">Upper Right corner of image: X</td>
+</tr>
+
+<tr>
+<td width="100"><i>end_y</i></td>
+<td width="75">float</td>
+<td width="300">upper-right Coordinate</td>
+<td width="125">Upper Right corner of image: Y</td>
+</tr>
+
+<tr>
+<td width="100"><i>end_z</i></td>
+<td width="75">float</td>
+<td width="300">upper-right Coordinate</td>
+<td width="125">Upper Right corner of image: Z</td>
+</tr>
+
+<tr>
+<td width="100"><i>flip</i></td>
+<td width="75">int</td>
+<td width="300">flip the coordinates</td>
+<td width="125">Flip Upper Left and Lower right</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>out_fld</i></td>
+<td width="75">Mesh_Unif+Node_Data</td>
+<td width="425">output field with texture map data</td>
+</tr>
+
+<tr>
+<td width="100"><i>out_obj</i></td>
+<td width="75">DataObject</td>
+<td width="425">output plane object with texture map</td>
+</tr>
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The user macro texture_vplane is used to generate a "vertical" plane and apply an image (or texture map) to the plane.</p>
+<p>It works in a similar fashion to the module supplied with Express called texture_mesh. This module add uv (texture map) data to a field according to the x and y coordinates of the field. Thus if you have an object (most commonly a plane) that is vertical, that is it has its normal perpendicular to the z direction, then the module texture_map doesn't work as expected.
+</blockquote>
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>&in_texture</b></i>
+</blockquote>
+
+<blockquote>
+The input texture to be mapped onto the plane.
+</blockquote>
+
+<h3>Parameters</h3>
+
+<blockquote>
+<i><b>start_x</b></i>
+</blockquote>
+
+<blockquote>
+Lower-left X coordinate of the image.
+</blockquote>
+
+<blockquote>
+<i><b>start_y</b></i>
+</blockquote>
+
+<blockquote>
+Lower-left Y coordinate of the image.
+</blockquote>
+
+<blockquote>
+<i><b>start_z</b></i>
+</blockquote>
+
+<blockquote>
+Lower-left Z coordinate of the image.
+</blockquote>
+
+<blockquote>
+<i><b>end_x</b></i>
+</blockquote>
+
+<blockquote>
+Upper-right X coordinate of the image.
+</blockquote>
+
+<blockquote>
+<i><b>end_y</b></i>
+</blockquote>
+
+<blockquote>
+Upper-right Y coordinate of the image.
+</blockquote>
+
+<blockquote>
+<i><b>end_z</b></i>
+</blockquote>
+
+<blockquote>
+Upper-right Z coordinate of the image.
+</blockquote>
+
+<blockquote>
+<i><b>flip</b></i>
+</blockquote>
+
+<blockquote>
+Flip the Upper Left and Lower Right coordinates in the output.
+</blockquote>
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_fld</b></i>
+</blockquote>
+
+<blockquote>
+Output field with the texture mapped onto a uniform mesh.
+</blockquote>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+Output as a renderable data object.
+</blockquote>
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+The functional macro TextureVPlane is used in this User Macro texture_vplane.
+</blockquote>
+
+<h3>Example</h3>
+
+<blockquote>
+An example application, TextureVPlaneEg is provided, which shows the AVS/Express madrill.x image used as a texture map.
+</blockquote>
+
+<h3>Files</h3>
+
+<blockquote>
+<i>xp_comm_proj/txvplane/txvpmacs.v</i> contains the texture_vplane User Macro, the TextureVPlane Functional Macro, the TextureVPlaneUI UI Macro, and the example application TextureVPlaneEg V definitions.
+</blockquote>
+
+<h3>Other Notes</h3>
+
+<blockquote>
+The TextureVPlaneMacs library inherits its process. As this library contains no procedural code, the process is not important. The TextureVPlaneMods library does not contain any procedural code either.
+</blockquote>
+
+<h3>Authors</h3>
+
+<blockquote><pre>
+Erik Thorvaldson
+Visualisation Systems Pty Ltd. Australia
+</pre></blockquote>
+
+<h3>See Also</h3>
+
+<blockquote>
+TextureVPlaneParams, TextureVPlaneUI and TextureVPlane.
+</blockquote>
+
+</body>
+</html>

@@ -1,0 +1,217 @@
+<html>
+<head>
+<title>ReadStations</title>
+</head>
+<body bgcolor="#92BFBF">
+
+<h1>ReadStations</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+This module returns the exact GPS locations of weather stations within a 
+given area specified by two latitudes and two longitudes. It is designed to 
+read the file of Meteorological Station Location Information and display the 
+stations on the world map. The station location information is a part of the 
+METARS (a representation of the current weather situation provided by the 
+National Weather Service for Aviation in USA.)
+</blockquote>
+
+
+<blockquote>
+<h4>Parameters</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+<td width="125"><font size="-1"><b>UI Control</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>Filename</i></td>
+<td width="75">string</td>
+<td width="300">The filename of the station location file.</td>
+<td width="125">FileDialog</td>
+</tr>
+
+
+<tr>
+<td width="100"><i>StartLatitude</i></td>
+<td width="75">double</td>
+<td width="300">The start latitude of the station location.</td>
+<td width="125">UIdial</td>
+</tr>
+
+<tr>
+<td width="100"><i>StartLongitude</i></td>
+<td width="75">double</td>
+<td width="300">The start longitude of the station location.</td>
+<td width="125">UIdial</td>
+</tr>
+
+<tr>
+<td width="100"><i>EndLatitude</i></td>
+<td width="75">double</td>
+<td width="300">The end latitude of the station location.</td>
+<td width="125">UIdial</td>
+</tr>
+
+<tr>
+<td width="100"><i>EndLongitude</i></td>
+<td width="75">double</td>
+<td width="300">The end longitude of the station location.</td>
+<td width="125">UIdial</td>
+</tr>
+
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+<blockquote>
+<h4>Output Ports</h4>
+
+<table>
+<tr>
+<td width="100"><font size="-1"><b>Name</b></font></td>
+<td width="75"><font size="-1"><b>Type</b></font></td>
+<td width="425"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="100"><i>StationLocation</i></td>
+<td width="75">Mesh+Data</td>
+<td width="425">output mesh data of the location of stations.</td>
+</tr>
+
+<tr>
+<td width="100"><i>StationID</i></td>
+<td width="75">string</td>
+<td width="425">output string array of the ID(Name) of stations.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+</table>
+
+</blockquote>
+
+
+
+<h3>Description</h3>
+
+<blockquote>
+ReadStations is used to read station location information from the ASCII data file. The data file can be downloaded from
+<a href="http://205.156.54.206/oso/site.shtml">Station location information page in National Weather Service Website(USA)</a>.
+After the user specifies a area in the world map defined by the longitude and latitude, the module outputs a mesh data for
+the coordinates of the stations within this area, station ID and the number of stations. With the assistance of two GIS modules: 
+GISWorldDataBank and GISMapTransform, all the station ID strings display on the world map.
+</blockquote>
+
+<blockquote>
+The macro includes a user interface.  The specified area can be controlled from the four UIDials in the user interface panel.
+</blockquote>
+
+
+<h4>Parameters</h4>
+
+<blockquote>
+<i><b>StartLatitude; StartLongitude</b></i>
+</blockquote>
+
+<blockquote>
+The upper left corner of the specified rectangle area.
+</blockquote>
+
+<blockquote>
+<i><b>EndLatitude; EndLongitude</b></i>
+</blockquote>
+
+<blockquote>
+The down right corner of the specified rectangle area.
+</blockquote>
+
+<h4>Outputs</h4>
+
+<blockquote>
+<i><b>StationLocation</b></i>
+</blockquote>
+
+<blockquote>
+The coordinates of the stations. It contains only the mesh data and it does not contains any node data.
+</blockquote>
+
+<blockquote>
+<i><b>StationID</b></i>
+</blockquote>
+
+<blockquote>
+The string array of the station ID. Each ID contain four letters.
+</blockquote>
+
+<h3>Utility Modules</h3>
+
+<blockquote>
+The User Macro ReadStations makes use of the Functional Macro ReadStatFunc and the UI Macro ReadStatUI.
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>
+An example application ReadStat_Eg is provided, which uses an ASCII data file, to display all selected stations on the world sphere map.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/rd_stat/rdst_mods.v</i> contains the V definitions of the ReadStatParams parameter block and the read_Stations module.</p>
+
+<p><i>xp_comm_proj/rd_stat/rdst_macs.v</i> contains the V definitions of the ReadStatFunc Functional Macro, the ReadStatUI User Interface Macro, and the ReadStations User Macro. </p>
+
+<p><i>xp_comm_proj/rd_stat/rdst_apps.v</i> contains the V definition of the example application ReadStat_Eg.</p>
+</blockquote>
+
+
+<h3>Other Notes</h3>
+<blockquote>
+This project include the ASCII data file for station location information. However, the lastest version can be downloaded from <a href="http://205.156.54.206/oso/site.shtml">Station location information page in National Weather Service Website(USA)</a>.
+The format of this data file can be also checked in the download page.
+</blockquote>
+
+
+
+<h3>Author</h3>
+
+<blockquote>
+<pre>
+anonymous
+</pre>
+</blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+MA YingLiang
+Manchester Visualization Centre
+</pre></blockquote>
+
+
+</body>
+</html>

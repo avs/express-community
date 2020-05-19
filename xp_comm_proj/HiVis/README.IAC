@@ -1,0 +1,63 @@
+IAC HiVis Project
+-----------------
+
+This directory ( xp_comm_proj/HiVis/ ) contains all the V code, source code,
+HTML documentation, and installation information for the IAC project "HiVis".
+
+This project is classified as a special project by the IAC Therefore we cannot
+offer the same level of support for this project as we do for other projects.
+
+The directory should be placed into your existing project directory, which
+should already contain the IAC Project File structure, i.e., the xp_comm_proj/,
+xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing IAC
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new project, and two additions to the xp_comm_lib/ files (in this instance
+misc.v) to add links to the User Macro and Example applications from the 
+top-level IAC library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+        base -comp_proc express -exit
+or
+        make -f express.mk
+
+Using the 'make' command, requires that the express.mk file already exists,
+and has been updated accordingly.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/HiVis/ directory.
+
+BUGS
+
+HiVis.html
+
+INSTALL
+
+LICENSE
+
+Makefile
+
+README
+
+README.IAC
+
+TODO
+
+VisAPI.kdoc
+
+VisApi/
+
+data/
+
+examples/
+
+util/
+

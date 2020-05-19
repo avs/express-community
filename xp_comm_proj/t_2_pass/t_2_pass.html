@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Transparency2Pass</title>
+</head>
+<body bgcolor="#92bfbf">
+
+<h1>Transparency2Pass</h1>
+
+<h3>Synopsis</h3>
+
+<blockquote>
+Three macros that demonstrate the effects of transparency within AVS/Express and how acceptable image quality and performance can be achieved. 
+</blockquote>
+
+<blockquote>
+
+<h4>Input Ports</h4>
+
+<table summary="Input Ports used by Transparency macros">
+
+<tr>
+<td width="125"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>in_fld</i></td>
+<td width="125">Field</td>
+<td width="300">Data that should be displayed.</td>
+</tr>
+
+<tr>
+<td width="125"><i>transparency</i></td>
+<td width="125">float</td>
+<td width="300">Amount of transparency to use.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+
+<h4>Output Ports</h4>
+
+<table summary="Output Ports used by Transparency macros">
+
+<tr>
+<td width="125"><font size="-1"><b>Name</b></font></td>
+<td width="125"><font size="-1"><b>Type</b></font></td>
+<td width="300"><font size="-1"><b>Description</b></font></td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+<tr>
+<td width="125"><i>out_obj</i></td>
+<td width="125">GDobject</td>
+<td width="300">Directly renderable object output.</td>
+</tr>
+
+<tr>
+<td colspan="4"><hr></td>
+</tr>
+
+</table>
+
+</blockquote>
+
+
+<h3>Description</h3>
+
+<blockquote>
+<p>The rendering of transparent objects can be useful in a number of visualization situations.  For instance within a medical visualization it can be very useful to have the surface of the body visible as a transparent object.  This can help give context to the rest of the visualization.  However due to the way that AVS/Express currently deals with transparent polygons the use of this technique is limited to very simple situations.  This project provides a simple technique for rendering transparent objects which overcomes this limitation.</p>
+
+<p>The underlying 3D graphics system that Express uses represents the results of a visualization as a large number of triangles.  To generate the image that is seen on screen these triangles are rendered in the order that they were generated.  Rendering a triangle involves transforming it from the 3D space of the visualization to the 2D space of the computer screen and then determining if it overlaps any existing triangles.  If it does then the graphics system determines if the triangle is in front of or behind the existing triangle.  If the triangle does not overlap or if it is in front the triangle is rendered, overwriting what was behind it.  If it is behind then it is discarded.</p>
+
+<p>The important things to take from this discussion is that triangles can be rendered in any arbitrary order and that depth sorting is done as the image is rendered.  If we consider the case of transparent triangles the situation becomes rather more complex.  When a transparent triangle is rendered the colour of the triangle is blended with whatever is behind it to give the illusion that the triangle is partially transparent.  This works correctly if the background has already been rendered.  However it is possible for the background to be rendered after the foreground.  In this case the depth sorting discards the background triangle and does not change the image.  This can lead to artifacts in the image where it is possible to see through some triangles but not through others.  By default Express suffers from this problem.  This can be seen in the Transparency1Pass macro.</p>
+
+<p>To solve this problem we would ideally like to sort the triangles by how far they are from the viewer/camera and then render the most distant triangles first.  This is the method normally used when the quality of transparency is vital to the application.  Unfortunately implementing this would require changing the core of Express, which is not possible.  The Transparency2Pass macro provides an alternative to full depth sorting which does not require internal alterations to Express.</p>
+
+<p>If we consider a simple convex object such as a sphere or a cube we can see that all the nearest surfaces face towards the viewer and all the farthest surfaces face away from the viewer.  Express does provide a way to render only those surfaces facing towards or away from the viewer.  Originally this was intended as a simple way of reducing the number or triangles that had to be processed.  However it can be used as a simple form of depth sorting by making two passes over the object.  For a convex object if we first render all the triangles facing away from the viewer and then render all the triangles facing towards the viewer we can be sure that all the background triangles have been drawn first.  This is what the Transparency2Pass macro does.</p>
+
+<p>This technique does have 2 major limitations.  For more complex concave objects the quality of the results obtained are variable.  In a concave object there can be several obscuring surfaces.  Hence we cannot state that all surfaces that face towards the viewer are nearer than all surfaces that away from the viewer.  Therefore this simple form of depth sorting will not work.  However in practical situations we find that many concave objects do appear correct when rendered using this technique.  The image quality is certainly much higher then it is when no depth sorting is performed.  The TransparencyEg application illustrates this by rendering a transparent teapot object.</p>
+
+<p>The second major limitation is that this technique does not deal with multiple transparent objects.  AVS/Express does always render non-transparent objects before transparent objects.  Hence non-transparent objects will always be visible through transparent objects.  However the order in which transparent objects are rendered is important.  In some situations it is possible to know which order objects should be rendered in.  For instance if one object is completely enclosed by another the inner object should be rendered first.  This is shown in the TransparencyOrderingEg example application.  However in general it does not appear to be possible to sort transparent objects with making changes to the core of AVS/Express.</p>
+</blockquote>
+
+
+<h3>User Macros</h3>
+
+<blockquote>
+<p>Three user macros are provided with this project:</p>
+
+<ul>
+<li>
+<p><i><b>Tranparency1Pass</b></i><br>
+Performs standard 1 pass transparency rendering.  This is provided to illustrate how AVS/Express performs normally.</p>
+</li>
+
+<li>
+<p><i><b>Tranparency2Pass</b></i><br>
+Performs 2 pass transparency rendering.  This renders backwards facing polygons before forwards facing polygons.  In normal situations this user macro should be used.</p>
+</li>
+
+<li>
+<p><i><b>ReverseTranparency2Pass</b></i><br>
+Performs reversed 2 pass transparency rendering.  This renders forwards facing polygons before backwards facing polygons.  This user macro can be used if the face normals not facing outwards.</p>
+</li>
+</ul>
+
+</blockquote>
+
+
+<h3>Input Ports</h3>
+
+<blockquote>
+<i><b>in_fld</b></i>
+</blockquote>
+
+<blockquote>
+Field data that should be be rendered as a transparent object.  The input data can be any standard field data.
+</blockquote>
+
+<blockquote>
+<i><b>transparency</b></i>
+</blockquote>
+
+<blockquote>
+Amount of transparency that should be applied to the object.  A value of 0 implies that the object should be completely transparent and a value of 1 implies that the object should be completely opaque.
+</blockquote>
+
+
+<h3>Output Ports</h3>
+
+<blockquote>
+<i><b>out_obj</b></i>
+</blockquote>
+
+<blockquote>
+Directly renderable output object that can be displayed in a 3D viewer.  In the Transparency1Pass macro this output is a link to a single DataObject.  In the other 2 pass macros this output is a link to a GroupObject that contains a back DataObject and a front DataObject.
+</blockquote>
+
+
+<h3>Utility Macros</h3>
+
+<blockquote>
+Two utility macros are provided that generate user interfaces for the TransparencyEg and TransparencyOrderingEg example applications.
+</blockquote>
+
+
+<h3>Files</h3>
+
+<blockquote>
+<p><i>xp_comm_proj/t_2_pass/t_2pmacs.v</i> contains the V definitions of the TransparencyEgUI and TransparencyOrderingEgUI user interface macros, and the Transparency1Pass, Transparency2Pass and ReverseTransparency2Pass user macros.</p>
+
+<p><i>xp_comm_proj/t_2_pass/t_2papps.v</i> contains the V definitions of the TransparencyEg and TransparencyOrderingEg example applications.</p>
+</blockquote>
+
+
+<h3>Example</h3>
+
+<blockquote>Two example applications are provided with this project.  The TransparencyEg application demonstrates the use of the 3 user macros and the difference between each rendering technique.  It does this by loading and rendering a transparent teapot.  The TransparencyOrderingEg demonstrates the effect of changing the order of 2 transparent objects.</blockquote>
+
+
+<h3>Other Notes</h3>
+
+<blockquote>
+This project does not contain any procedural code and hence does not require compiling.
+</blockquote>
+
+
+<h3>Author</h3>
+
+<blockquote><pre>
+Ian Curington, AVS Inc.
+</pre></blockquote>
+
+<h3>Modifications</h3>
+
+<blockquote><pre>
+Andrew Dodd, IAC
+</pre></blockquote>
+
+
+</body>
+</html>
+

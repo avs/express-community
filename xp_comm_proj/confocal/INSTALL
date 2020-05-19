@@ -1,0 +1,8 @@
+# Express Community Project Installation Information - DO NOT EDIT!
+#
+# Insert the following line into the xp_comm_proj/xp_comm_proj.v file
+  "../xp_comm_proj/confocal/confocal.v" Confocal;
+# In the following xp_comm_lib file
+examples.v
+# insert the following line
+  XP_COMM_PROJ.Confocal.ConfocalApps.Confocal_Microscopy_Demo Confocal_Microscopy_Demo;

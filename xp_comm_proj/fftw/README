@@ -1,0 +1,103 @@
+Express Community FFTw Project
+https://github.com/avs/express-community
+----------------
+
+This directory ( xp_comm_proj/fftw/ ) contains all the V code, source
+code, HTML documentation, and installation information for the Community
+FFTw project "FFTw".
+
+The directory should be placed into your existing project directory,
+which should already contain the Community Project File structure, i.e., the
+xp_comm_proj/, xp_comm_lib/ and v/ directories.
+
+The file INSTALL contains information on how to edit the existing Community
+files: a single line addition to the xp_comm_proj/xp_comm_proj.v file, to add the
+new FFTw project, and additions to one or more of files in the xp_comm_lib/
+directory, to link appropriate objects to the top-level Community library page.
+
+Once the files have been correctly installed, the low-level module of the new
+project may be compiled. If you opt to leave the process unspecified, it will
+by default use the "express" process. Doing so means the module may be
+compiled by using one of the following commands in the top-level directory of
+your project (whilst AVS/Express is not running):
+
+	base -comp_proc express -exit
+
+or	make -f express.mk
+
+	Using the 'make' command, requires that the express.mk file already
+exists, and has been updated accordingly.
+
+	If you modify the FFTw project, and elect to specify the process
+as "user" or another user-defined process, then the module may be compiled
+without having to exit the AVS/Express application. Use the following command
+in the VCP to compile the module:
+
+	$compile XP_COMM_PROJ.FFTw.FFTwMods
+
+	Users of the Developer's Edition may select the module in the 
+relevant Templates library, and choose 'compile' from the Project menu.
+
+This module uses functions in the cp_utils library (available from
+Community). It must be installed before compiling this project.
+
+Also, before compiling this project you must build the FFTW library
+(available from http://www.fftw.org). Once FFTW is built it will contain
+a directory called src that contains header files and a library file
+(libfftw.a) that are needed to build the FFTw project. Create a link
+called fftw in the project directory xp_comm_proj/fftw/. This link should
+point to the FFTW directory that contains src. Once the link is created
+you can compile the FFTw project using the VCP command given above.
+
+Files
+-----
+
+The following files can be found in the xp_comm_proj/fftw directory.
+
+INSTALL         Contains installation instructions for editing the
+		xp_comm_proj.v and xp_comm_lib/ filters.v and examples.v
+		files.  This file should not be edited as the future
+		installation script will use this file.
+
+FFTw.v		Creates the XP_COMM_PROJ.FFTw library.
+
+FFTw_mods.v 	Creates the FFTwMods library containing the low-level
+		module FFTw_raw and the parameter group FFTw_params.
+
+FFTw_macs.v	Creates the FFTwMacs library containing the high-level
+		macros FFTw_UI, FFTw, FFT and the example application
+		FFTwEg.
+
+FFTw_vxp.c	The C source code for the FFTw_raw module.
+
+doc_mod.html	HTML documentation for the FFTw_raw module.
+
+doc_umac.html	HTML documentation for the FFTw User Macro.
+
+README		This file.
+
+
+Prerequisites
+-------------
+
+This project relies on the successful installation of the following components.
+Without them it will not function correctly.
+
+FFTW library
+
+cp_utils project
+
+
+Generated Files
+---------------
+
+When the project is compiled, the following files will be generated.  Once
+completed, you may safely remove these files; any future recompilations
+will regenerate these files.
+
+gen.h		AVS/Express generated header file.
+
+gen.cxx		AVS/Express generated source code.
+
+fftn_vxp.o	Intermediate object file.
+
