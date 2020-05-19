@@ -1,9 +1,9 @@
 # express-community
-AVS/Express Module Repository Developed by the Community
+Formerly hosted at the IAC in Manchester, UK, we have published this previously archived repository for the community. It's quite possible this code isn't the latest version from the repository, so any updates would be welcomed.
 
 ## Requirements
 
-AVS/Express Visualization, Developer, Multipipe or Parallel Edition
+AVS/Express Visualization, Developer, Multipipe, or Parallel Edition
 
 ## Installation
 
